@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
+import { UserService } from '../user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,20 +17,24 @@ export class AuthService {
 
   constructor(
     private apiService: ApiService,
+    private userService: UserService,
     private snackBar: MatSnackBar,
+    private router: Router,
   ) { }
 
-  signUpUser(currentUser: IUserRegister) {
+  signUpUser(user: IUserRegister) {
 
   }
 
-  loginUser(currentUser: IUserLogin) {
-    return this.apiService.login(currentUser).subscribe((res) => {
+  loginUser(user: IUserLogin) {
+    return this.apiService.login(user).subscribe((res) => {
       if (res.body) {
         localStorage.setItem('uniq_token', res.body.token);
         this.snackBar.open('Login Success', '', snackBarGreenConfig)
-          .afterDismissed().subscribe(() => {
-
+          .afterDismissed()
+          .subscribe(() => {
+            this.router.navigate(['main']);
+            this.userService.saveCurrentUser(user.login);
           });
       }
     });
