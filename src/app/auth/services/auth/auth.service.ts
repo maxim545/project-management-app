@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUserLogin } from 'src/app/core/models/user.model';
+import { IUserLogin, IUserRegister } from 'src/app/core/models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +10,9 @@ export class AuthService {
   constructor() { }
 
   loginUser(currentUser: IUserLogin) {
+  }
+
+  signUpUser(user: IUserRegister) {
 
   }
 }
