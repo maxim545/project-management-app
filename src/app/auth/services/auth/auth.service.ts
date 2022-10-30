@@ -23,7 +23,14 @@ export class AuthService {
   ) { }
 
   signUpUser(user: IUserRegister) {
-
+    return this.apiService.signUp(user)
+      .subscribe(() => {
+        this.snackBar.open('Register success', '', snackBarGreenConfig)
+          .afterDismissed()
+          .subscribe(() => {
+            this.router.navigate(['/auth/login']);
+          });
+      });
   }
 
   loginUser(user: IUserLogin) {
