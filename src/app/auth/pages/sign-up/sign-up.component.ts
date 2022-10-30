@@ -4,6 +4,7 @@ import {
 } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { AuthValidators } from 'src/app/core/validators/auth.validators';
 
 @Component({
   selector: 'app-sign-up',
@@ -37,6 +38,8 @@ export class SignUpComponent implements OnInit {
       confirmPassword: ['',
         Validators.required,
       ],
+    }, {
+      validator: AuthValidators.checkPasswords('password', 'confirmPassword'),
     });
   }
 
