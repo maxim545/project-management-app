@@ -6,16 +6,15 @@ import { LoginComponent } from './pages/login/login.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 
-
 @NgModule({
   declarations: [
     LoginComponent,
     SignUpComponent,
-    EditProfileComponent
+    EditProfileComponent,
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
-  ]
+    AuthRoutingModule,
+  ],
 })
 export class AuthModule { }
