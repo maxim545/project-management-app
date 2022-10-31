@@ -27,4 +27,8 @@ export class ApiService {
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>('users');
   }
+
+  getUserById(id: string) {
+    return this.http.get<IUser>(`users/${id}`);
+  }
 }

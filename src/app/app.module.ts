@@ -15,6 +15,8 @@ import { SharedModule } from './shared/shared.module';
 import { ApiInterceptor } from './core/interceptors/api.interceptor';
 import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { UserEffects } from './core/store/effects/user.effects';
+import { userReducer } from './core/store/reducers/user.reducer';
 
 @NgModule({
   declarations: [
@@ -26,8 +28,10 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
     SharedModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot({
+      user: userReducer,
+    }, {}),
+    EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,
