@@ -5,6 +5,9 @@ import {
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthValidators } from 'src/app/core/validators/auth.validators';
+import { Store } from '@ngrx/store';
+import { signUpUserSuccess } from 'src/app/core/store/actions/user.actions';
+import { ApiService } from 'src/app/core/services/api/api.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -18,6 +21,8 @@ export class SignUpComponent implements OnInit {
     public authService: AuthService,
     private http: HttpClient,
     private formBuilder: FormBuilder,
+    private store: Store,
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
@@ -47,6 +52,6 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     delete this.registerForm.value.confirmPassword;
-    this.authService.signUpUser(this.registerForm.value);
+    this.store.dispatch(signUpUserSuccess({ user: this.registerForm.value }));
   }
 }

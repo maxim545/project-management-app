@@ -20,8 +20,8 @@ export class ApiService {
     return this.http.post<IUserToken>('signin', user, { observe: 'response' });
   }
 
-  signUp(user: IUserRegister): Observable<HttpResponse<IUserRegister>> {
-    return this.http.post<IUserRegister>('signup', user, { observe: 'response' });
+  signUp(user: IUserRegister): Observable<HttpResponse<IUser>> {
+    return this.http.post<IUser>('signup', user, { observe: 'response' });
   }
 
   getUsers(): Observable<IUser[]> {

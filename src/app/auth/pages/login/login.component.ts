@@ -7,6 +7,8 @@ import { Router } from '@angular/router';
 import {
   Observable, BehaviorSubject, map, Subject, filter,
 } from 'rxjs';
+import { loginUser, loginUserSuccess } from 'src/app/core/store/actions/user.actions';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
+    private store: Store,
   ) { }
 
   ngOnInit(): void {
@@ -38,6 +41,6 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.authService.loginUser(this.loginForm.value);
+    this.store.dispatch(loginUserSuccess({ user: this.loginForm.value }));
   }
 }
