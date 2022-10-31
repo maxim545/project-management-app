@@ -14,6 +14,11 @@ import { AuthValidators } from 'src/app/core/validators/auth.validators';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { updateUser } from 'src/app/core/store/actions/user.actions';
+import {
+  MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig,
+} from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
+import { dialogProfileConfig } from 'src/app/core/configs/matDialog.configs';
 import { getUserStore } from '../../../core/store/selectors/user.selectors';
 
 @Component({
@@ -32,6 +37,8 @@ export class EditProfileComponent implements OnInit {
     private authService: AuthService,
     private snackBar: MatSnackBar,
     private apiService: ApiService,
+    private dialog: MatDialog,
+
   ) { }
 
   ngOnInit(): void {
@@ -65,11 +72,6 @@ export class EditProfileComponent implements OnInit {
 
   updateProfile() {
     if (this.user) {
-      /* delete this.editProfileForm.value.confirmPassword;
-      this.apiService.updateUser(this.user.id, this.editProfileForm.value).subscribe((res) => {
-        this.store.dispatch(updateUserSuccess({ user: res }));
-        this.snackBar.open('Your user data has been updated', '', snackBarGreenConfig);
-      }); */
       delete this.editProfileForm.value.confirmPassword;
       this.store.dispatch(updateUser({
         user: {
@@ -78,5 +80,10 @@ export class EditProfileComponent implements OnInit {
         },
       }));
     }
+  }
+
+  deleteProfile() {
+    this.dialog.open(ConfirmModalComponent, dialogProfileConfig)
+      .afterClosed().subscribe((isConfirmed: boolean) => { });
   }
 }
