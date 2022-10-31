@@ -28,6 +28,11 @@ export const signUpUserSuccess = createAction(
   props<{ user: IUserRegister }>(),
 );
 
+export const saveUser = createAction(
+  '[User] save User Success',
+  props<{ user: IUserLogin }>(),
+);
+
 export const updateUserSuccess = createAction(
   '[User] Update User Success',
   props<{ user: IUser }>(),

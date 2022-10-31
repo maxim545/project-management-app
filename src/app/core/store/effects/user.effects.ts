@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUserStore, saveToken, signUpUserSuccess,
+  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUserStore, saveToken, saveUser, signUpUserSuccess,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -35,7 +35,7 @@ export class UserEffects {
       ofType(loginUserSuccess),
       switchMap(({ user }) => this.apiService.login(user).pipe(
         map((res) => {
-          this.authService.loginUser((res.body) as IUserToken);
+          this.authService.loginUser((res.body) as IUserToken, user);
           return saveToken();
         }),
         catchError(() => EMPTY),
@@ -48,9 +48,23 @@ export class UserEffects {
       ofType(signUpUserSuccess),
       switchMap(({ user }) => this.apiService.signUp(user).pipe(
         map((res) => {
-          const user = res.body as IUser;
-          this.authService.signUpUser();
-          return loadUserSuccess({ user });
+          const currentUser = res.body as IUser;
+          this.authService.signUpUser(user, currentUser.id);
+          return loadUserSuccess({ user: currentUser });
+        }),
+        catchError(() => EMPTY),
+      )),
+    ),
+  );
+
+  saveUser$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(saveUser),
+      switchMap(({ user }) => this.apiService.getUsers().pipe(
+        map((res) => {
+          const [responseUser] = res.filter((resUser) => resUser.login === user.login);
+          localStorage.setItem('uniq_userId', responseUser.id);
+          return loadUserSuccess({ user: responseUser });
         }),
         catchError(() => EMPTY),
       )),
