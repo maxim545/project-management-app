@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { IUser, IUserLogin, IUserRegister } from '../../models/user.model';
+import {
+  IUser, IUserData, IUserLogin, IUserRegister,
+} from '../../models/user.model';
 
 export const loadUser = createAction(
   '[User] Load User',
@@ -33,9 +35,9 @@ export const saveUser = createAction(
   props<{ user: IUserLogin }>(),
 );
 
-export const updateUserSuccess = createAction(
+export const updateUser = createAction(
   '[User] Update User Success',
-  props<{ user: IUser }>(),
+  props<{ user: IUserData }>(),
 );
 
 export const removeUserStore = createAction(

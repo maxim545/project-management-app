@@ -16,6 +16,7 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
+  /* ********  USERS ******** */
   login(user: IUserLogin): Observable<HttpResponse<IUserToken>> {
     return this.http.post<IUserToken>('signin', user, { observe: 'response' });
   }
@@ -26,6 +27,10 @@ export class ApiService {
 
   getUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>('users');
+  }
+
+  updateUser(id: string, user: IUserRegister): Observable<HttpResponse<IUser>> {
+    return this.http.put<IUser>(`users/${id}`, user, { observe: 'response' });
   }
 
   getUserById(id: string) {

@@ -7,7 +7,7 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUserStore, saveToken, saveUser, signUpUserSuccess,
+  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUserStore, saveToken, saveUser, signUpUserSuccess, updateUser,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -66,6 +66,20 @@ export class UserEffects {
           localStorage.setItem('uniq_userId', responseUser.id);
           return loadUserSuccess({ user: responseUser });
         }),
+        catchError(() => EMPTY),
+      )),
+    ),
+  );
+
+  updateUser$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(updateUser),
+      switchMap(({ user }) => this.apiService.updateUser(user.id, {
+        name: user.name,
+        login: user.login,
+        password: user.password,
+      }).pipe(
+        map((res) => loadUserSuccess({ user: (res.body as IUser) })),
         catchError(() => EMPTY),
       )),
     ),
