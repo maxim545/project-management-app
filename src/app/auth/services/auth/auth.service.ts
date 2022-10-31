@@ -10,20 +10,28 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { tap, map } from 'rxjs/operators';
-import { loginUserSuccess, saveUser } from 'src/app/core/store/actions/user.actions';
+import {
+  loadUser, loginUserSuccess, removeUserStore, saveUser,
+} from 'src/app/core/store/actions/user.actions';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  isLoggedIn: boolean = false;
+  isLoggedIn$: Observable<boolean>;
 
   constructor(
     private apiService: ApiService,
     private snackBar: MatSnackBar,
     private router: Router,
     private store: Store,
-  ) { }
+  ) {
+    this.isLoggedIn$ = this.getCurrentUser().pipe(
+      map((user) => !!user),
+    );
+  }
 
   loginUser(response: IUserToken, user: IUserLogin) {
     localStorage.setItem('uniq_token', response.token);
@@ -46,5 +54,18 @@ export class AuthService {
           },
         }));
       });
+  }
+
+  logoutUser() {
+    localStorage.removeItem('uniq_token');
+    localStorage.removeItem('uniq_userId');
+    this.store.dispatch(removeUserStore());
+    this.router.navigate(['welcome']);
+  }
+
+  getCurrentUser() {
+    return this.store.select(getUserStore).pipe(
+      map(({ user }) => user),
+    );
   }
 }
