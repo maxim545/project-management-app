@@ -7,6 +7,7 @@ import { retry, catchError } from 'rxjs/operators';
 import {
   IUser, IUserLogin, IUserRegister, IUserToken,
 } from '../../models/user.model';
+import { IBoard, IBoardForm } from '../../models/board.model';
 
 @Injectable({
   providedIn: 'root',
@@ -40,5 +41,18 @@ export class ApiService {
 
   deleteUser(id: string) {
     return this.http.delete<IUser>(`users/${id}`);
+  }
+
+  /* ********  BOARDS ******** */
+  getAllBoards(): Observable<IBoard[]> {
+    return this.http.get<IBoard[]>('boards');
+  }
+
+  createBoard(board: IBoardForm) {
+    return this.http.post<IBoard>('boards', board, { observe: 'response' });
+  }
+
+  deleteBoard(id: string) {
+    return this.http.delete<IBoard>(`boards/${id}`);
   }
 }
