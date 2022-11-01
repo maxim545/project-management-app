@@ -41,7 +41,7 @@ export class UserEffects {
           this.authService.loginUser(user);
           return saveUser({ user });
         }),
-        catchError(async (err) => loginUserFailed(err)),
+        catchError((error) => of(loginUserFailed({ error }))),
       )),
     ),
   );
@@ -59,7 +59,7 @@ export class UserEffects {
             },
           });
         }),
-        catchError(async (err) => signUpUserFailed(err)),
+        catchError((error) => of(signUpUserFailed({ error }))),
       )),
     ),
   );
