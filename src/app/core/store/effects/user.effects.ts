@@ -7,7 +7,8 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUserStore, saveToken, saveUser, signUpUserSuccess, updateUser,
+  cleanUserStore,
+  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUser, removeUserFailed, saveToken, saveUser, signUpUserSuccess, updateUser,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -25,7 +26,7 @@ export class UserEffects {
       ofType(loadUser),
       switchMap(() => this.apiService.getUserById(this.currentUserId).pipe(
         map((user) => loadUserSuccess({ user })),
-        catchError(() => of(removeUserStore())),
+        catchError(() => EMPTY),
       )),
     ),
   );
@@ -38,7 +39,7 @@ export class UserEffects {
           this.authService.loginUser((res.body) as IUserToken, user);
           return saveToken();
         }),
-        catchError(() => EMPTY),
+        catchError(async (err) => err),
       )),
     ),
   );
@@ -52,7 +53,7 @@ export class UserEffects {
           this.authService.signUpUser(user, currentUser.id);
           return loadUserSuccess({ user: currentUser });
         }),
-        catchError(() => EMPTY),
+        catchError(async (err) => err),
       )),
     ),
   );
@@ -66,7 +67,7 @@ export class UserEffects {
           localStorage.setItem('uniq_userId', responseUser.id);
           return loadUserSuccess({ user: responseUser });
         }),
-        catchError(() => EMPTY),
+        catchError(async (err) => err),
       )),
     ),
   );
@@ -80,14 +81,24 @@ export class UserEffects {
         password: user.password,
       }).pipe(
         map((res) => loadUserSuccess({ user: (res.body as IUser) })),
-        catchError(() => EMPTY),
+        catchError(async (err) => err),
       )),
     ),
   );
 
-  removeUserStore$ = createEffect(
+  removeUser$ = createEffect(
     () => this.actions$.pipe(
-      ofType(removeUserStore),
+      ofType(removeUser),
+      switchMap(({ id }) => this.apiService.deleteUser(id).pipe(
+        map(() => cleanUserStore()),
+        catchError(async (err) => err),
+      )),
+    ),
+  );
+
+  cleanUserStore$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(cleanUserStore),
     ),
     { dispatch: false },
   );

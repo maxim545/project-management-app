@@ -30,10 +30,16 @@ export class ApiService {
   }
 
   updateUser(id: string, user: IUserRegister): Observable<HttpResponse<IUser>> {
+    console.log(42);
     return this.http.put<IUser>(`users/${id}`, user, { observe: 'response' });
   }
 
   getUserById(id: string) {
     return this.http.get<IUser>(`users/${id}`);
+  }
+
+  deleteUser(id: string) {
+    console.log(33);
+    return this.http.delete<IUser>(`users/${id}`);
   }
 }

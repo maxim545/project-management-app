@@ -13,7 +13,7 @@ import { IUser } from 'src/app/core/models/user.model';
 import { AuthValidators } from 'src/app/core/validators/auth.validators';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
-import { updateUser } from 'src/app/core/store/actions/user.actions';
+import { removeUser, updateUser } from 'src/app/core/store/actions/user.actions';
 import {
   MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogConfig,
 } from '@angular/material/dialog';
@@ -84,6 +84,13 @@ export class EditProfileComponent implements OnInit {
 
   deleteProfile() {
     this.dialog.open(ConfirmModalComponent, dialogProfileConfig)
-      .afterClosed().subscribe((isConfirmed: boolean) => { });
+      .afterClosed()
+      .subscribe((isConfirmed: boolean) => {
+        if (isConfirmed && this.user) {
+          delete this.editProfileForm.value.confirmPassword;
+          this.store.dispatch(removeUser({ id: this.user.id }));
+          this.authService.logoutUser();
+        }
+      });
   }
 }

@@ -11,7 +11,8 @@ import { ApiService } from 'src/app/core/services/api/api.service';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { tap, map } from 'rxjs/operators';
 import {
-  loadUser, loginUserSuccess, removeUserStore, saveUser,
+  cleanUserStore,
+  loadUser, loginUserSuccess, removeUser, saveUser,
 } from 'src/app/core/store/actions/user.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
@@ -57,9 +58,7 @@ export class AuthService {
   }
 
   logoutUser() {
-    localStorage.removeItem('uniq_token');
-    localStorage.removeItem('uniq_userId');
-    this.store.dispatch(removeUserStore());
+    localStorage.clear();
     this.router.navigate(['welcome']);
   }
 

@@ -2,7 +2,7 @@ import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
 import {
-  loadUser, loadUserSuccess, removeUserStore, saveToken,
+  loadUser, loadUserSuccess, cleanUserStore, saveToken,
 } from '../actions/user.actions';
 import { initialState, UserState } from '../user.state';
 
@@ -15,7 +15,7 @@ export const userReducer = createReducer(
     ...state,
     user,
   })),
-  on(removeUserStore, (state) => ({
+  on(cleanUserStore, (state) => ({
     ...state,
     user: null,
   })),

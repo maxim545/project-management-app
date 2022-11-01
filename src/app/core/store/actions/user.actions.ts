@@ -40,10 +40,20 @@ export const updateUser = createAction(
   props<{ user: IUserData }>(),
 );
 
-export const removeUserStore = createAction(
-  '[User] Clear Data',
-);
-
 export const saveToken = createAction(
   '[Token] Success',
+);
+
+export const removeUser = createAction(
+  '[User] remove Data',
+  props<{ id: string }>(),
+);
+
+export const removeUserFailed = createAction(
+  '[User]  Delete Failed',
+  props<{ error: Error }>(),
+);
+
+export const cleanUserStore = createAction(
+  '[User] Clear Data',
 );
