@@ -19,7 +19,7 @@
         </div>
         <nav class="menu__nav">
           <a routerLink="/auth/edit-profile" class="menu__link">Edit profile</a>
-          <button class="menu__link">Create todo</button>
+          <button (click)="openBoardCreater()" class="menu__link">Create todo</button>
           <button class="menu__link" (click)="logout()">Log out</button>
         </nav>
       </div>
