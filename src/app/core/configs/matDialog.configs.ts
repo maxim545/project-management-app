@@ -10,3 +10,12 @@ dialogProfileConfig.data = {
     cancel: 'No',
   },
 };
+
+export const dialogBoardConfig = new MatDialogConfig();
+dialogBoardConfig.data = {
+  message: 're you sure want to delete?',
+  buttonText: {
+    confirm: 'Delete',
+    cancel: 'No',
+  },
+};
