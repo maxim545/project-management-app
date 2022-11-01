@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginGuard } from '../core/guards/login/login.guard';
 import { NotLoginGuard } from '../core/guards/not-login/not-login.guard';
 import { EditProfileComponent } from './pages/edit-profile/edit-profile.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -19,7 +20,7 @@ const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfileComponent,
-    canActivate: [NotLoginGuard],
+    canActivate: [LoginGuard],
   },
 ];
 
