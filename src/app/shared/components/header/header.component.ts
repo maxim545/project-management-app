@@ -18,7 +18,9 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.store.dispatch(loadUser());
+    if (localStorage.getItem('uniq_userId')) {
+      this.store.dispatch(loadUser());
+    }
   }
 
   logout() {

@@ -22,31 +22,36 @@ export const loginUserSuccess = createAction(
 );
 
 export const loginUserFailed = createAction(
-  '[User] Login User Success',
-  props<{ user: IUserLogin }>(),
+  '[User] Login User Filed',
+  props<{ error: Error }>(),
 );
 
 export const signUpUser = createAction(
-  '[User] signUp User',
+  '[User] Sign Up User',
 );
 
 export const signUpUserSuccess = createAction(
-  '[User] signUp User Success',
+  '[User] Sign Up User Success',
   props<{ user: IUserRegister }>(),
 );
 
+export const signUpUserFailed = createAction(
+  '[User] Sign Up User Filed',
+  props<{ error: Error }>(),
+);
+
 export const saveUser = createAction(
-  '[User] save User Success',
+  '[User] Save User',
   props<{ user: IUserLogin }>(),
 );
 
 export const updateUser = createAction(
-  '[User] Update User Success',
+  '[User] Update User',
   props<{ user: IUserData }>(),
 );
 
 export const removeUser = createAction(
-  '[User] remove Data',
+  '[User] Remove Data',
   props<{ id: string }>(),
 );
 

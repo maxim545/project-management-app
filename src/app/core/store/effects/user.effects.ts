@@ -8,7 +8,7 @@ import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
   cleanUserStore,
-  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUser, saveUser, signUpUserSuccess, updateUser,
+  loadUser, loadUserSuccess, loginUser, loginUserFailed, loginUserSuccess, removeUser, saveUser, signUpUserFailed, signUpUserSuccess, updateUser,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -41,7 +41,7 @@ export class UserEffects {
           this.authService.loginUser(user);
           return saveUser({ user });
         }),
-        catchError(async (err) => err),
+        catchError(async (err) => loginUserFailed(err)),
       )),
     ),
   );
@@ -59,7 +59,7 @@ export class UserEffects {
             },
           });
         }),
-        catchError(async (err) => err),
+        catchError(async (err) => signUpUserFailed(err)),
       )),
     ),
   );
