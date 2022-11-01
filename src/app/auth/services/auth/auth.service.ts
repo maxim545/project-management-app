@@ -34,31 +34,18 @@ export class AuthService {
     );
   }
 
-  loginUser(response: IUserToken, user: IUserLogin) {
-    localStorage.setItem('uniq_token', response.token);
-    if (!localStorage.getItem('uniq_userId')) {
-      this.store.dispatch(saveUser({ user }));
-    }
+  loginUser(user: IUserLogin) {
     this.snackBar.open('Login Success', '', snackBarGreenConfig);
     this.router.navigate(['main']);
   }
 
-  signUpUser(user: IUserRegister, userId: string) {
-    this.snackBar.open('Register success', '', snackBarGreenConfig)
-      .afterDismissed()
-      .subscribe(() => {
-        localStorage.setItem('uniq_userId', userId);
-        this.store.dispatch(loginUserSuccess({
-          user: {
-            login: user.login,
-            password: user.password,
-          },
-        }));
-      });
+  signUpUser(user: IUserRegister) {
+    this.snackBar.open('Register success', '', snackBarGreenConfig);
   }
 
   logoutUser() {
     localStorage.clear();
+    this.store.dispatch(cleanUserStore());
     this.router.navigate(['welcome']);
   }
 

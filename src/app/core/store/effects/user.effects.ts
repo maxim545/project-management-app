@@ -8,7 +8,7 @@ import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
   cleanUserStore,
-  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUser, removeUserFailed, saveToken, saveUser, signUpUserSuccess, updateUser,
+  loadUser, loadUserSuccess, loginUser, loginUserSuccess, removeUser, saveUser, signUpUserSuccess, updateUser,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -36,8 +36,10 @@ export class UserEffects {
       ofType(loginUserSuccess),
       switchMap(({ user }) => this.apiService.login(user).pipe(
         map((res) => {
-          this.authService.loginUser((res.body) as IUserToken, user);
-          return saveToken();
+          const response = res.body as IUserToken;
+          localStorage.setItem('uniq_token', response.token);
+          this.authService.loginUser(user);
+          return saveUser({ user });
         }),
         catchError(async (err) => err),
       )),
@@ -48,10 +50,14 @@ export class UserEffects {
     () => this.actions$.pipe(
       ofType(signUpUserSuccess),
       switchMap(({ user }) => this.apiService.signUp(user).pipe(
-        map((res) => {
-          const currentUser = res.body as IUser;
-          this.authService.signUpUser(user, currentUser.id);
-          return loadUserSuccess({ user: currentUser });
+        map(() => {
+          this.authService.signUpUser(user);
+          return loginUserSuccess({
+            user: {
+              login: user.login,
+              password: user.password,
+            },
+          });
         }),
         catchError(async (err) => err),
       )),
@@ -90,7 +96,10 @@ export class UserEffects {
     () => this.actions$.pipe(
       ofType(removeUser),
       switchMap(({ id }) => this.apiService.deleteUser(id).pipe(
-        map(() => cleanUserStore()),
+        map(() => {
+          this.authService.logoutUser();
+          return cleanUserStore();
+        }),
         catchError(async (err) => err),
       )),
     ),

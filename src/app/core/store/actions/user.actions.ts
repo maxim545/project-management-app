@@ -21,6 +21,11 @@ export const loginUserSuccess = createAction(
   props<{ user: IUserLogin }>(),
 );
 
+export const loginUserFailed = createAction(
+  '[User] Login User Success',
+  props<{ user: IUserLogin }>(),
+);
+
 export const signUpUser = createAction(
   '[User] signUp User',
 );
@@ -40,18 +45,9 @@ export const updateUser = createAction(
   props<{ user: IUserData }>(),
 );
 
-export const saveToken = createAction(
-  '[Token] Success',
-);
-
 export const removeUser = createAction(
   '[User] remove Data',
   props<{ id: string }>(),
-);
-
-export const removeUserFailed = createAction(
-  '[User]  Delete Failed',
-  props<{ error: Error }>(),
 );
 
 export const cleanUserStore = createAction(

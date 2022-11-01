@@ -39,7 +39,6 @@ export class ApiService {
   }
 
   deleteUser(id: string) {
-    console.log(33);
     return this.http.delete<IUser>(`users/${id}`);
   }
 }

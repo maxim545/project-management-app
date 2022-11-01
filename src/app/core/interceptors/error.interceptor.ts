@@ -20,6 +20,7 @@ export class ErrorInterceptor implements HttpInterceptor {
     return next.handle(request)
       .pipe(
         catchError((err: HttpErrorResponse) => {
+          this.errorHndler.handler(err);
           const errorMessage = `status: ${err.status}\n  ERROR message: ${err.message}`;
           return throwError(() => errorMessage);
         }),

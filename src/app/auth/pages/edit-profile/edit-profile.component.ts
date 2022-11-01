@@ -89,7 +89,6 @@ export class EditProfileComponent implements OnInit {
         if (isConfirmed && this.user) {
           delete this.editProfileForm.value.confirmPassword;
           this.store.dispatch(removeUser({ id: this.user.id }));
-          this.authService.logoutUser();
         }
       });
   }

@@ -2,7 +2,7 @@ import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
 import {
-  loadUser, loadUserSuccess, cleanUserStore, saveToken,
+  loadUser, loadUserSuccess, cleanUserStore,
 } from '../actions/user.actions';
 import { initialState, UserState } from '../user.state';
 
