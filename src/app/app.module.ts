@@ -18,6 +18,7 @@ import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { UserEffects } from './core/store/effects/user.effects';
 import { userReducer } from './core/store/reducers/user.reducer';
 import { boardReducer } from './core/store/reducers/boards.reducer';
+import { BoardsEffects } from './core/store/effects/boards.effect';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { boardReducer } from './core/store/reducers/boards.reducer';
       user: userReducer,
       boards: boardReducer,
     }, {}),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, BoardsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,

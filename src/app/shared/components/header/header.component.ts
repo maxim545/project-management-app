@@ -4,6 +4,7 @@ import { map } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUser } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
+import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { CreateBoardComponent } from '../modals/create-board/create-board.component';
 
 @Component({
@@ -23,6 +24,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     if (localStorage.getItem('uniq_userId')) {
       this.store.dispatch(loadUser());
+      this.store.dispatch(loadBoards());
     }
   }
 

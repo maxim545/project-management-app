@@ -1,1 +1,10 @@
-<p>main works!</p>
+<div class="container">
+  <div class="board">
+    <div class="board__list" *ngFor="let board of boards$ | async">
+      <div class="board__item">
+        <a routerLink="/board/{{board.id}}" class="board__title">{{board.title}}</a>
+        <button class="board__btn">del</button>
+      </div>
+    </div>
+  </div>
+</div>
