@@ -5,6 +5,7 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUser } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
+import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { CreateBoardComponent } from '../modals/create-board/create-board.component';
 
 @Component({
@@ -29,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openBoardCreater() {
-    this.dialog.open(CreateBoardComponent, {});
+    this.dialog.open(CreateBoardComponent, createBoardDialogConfig);
   }
 
   logout() {

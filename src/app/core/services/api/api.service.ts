@@ -31,7 +31,6 @@ export class ApiService {
   }
 
   updateUser(id: string, user: IUserRegister): Observable<HttpResponse<IUser>> {
-    console.log(42);
     return this.http.put<IUser>(`users/${id}`, user, { observe: 'response' });
   }
 
@@ -54,5 +53,9 @@ export class ApiService {
 
   deleteBoard(id: string) {
     return this.http.delete<IBoard>(`boards/${id}`);
+  }
+
+  editBoard(id: string, board: IBoardForm) {
+    return this.http.put<IBoard>(`boards/${id}`, board, { observe: 'response' });
   }
 }

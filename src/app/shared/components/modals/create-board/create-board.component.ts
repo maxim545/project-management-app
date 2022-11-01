@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
 import { IBoard } from 'src/app/core/models/board.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
 
 @Component({
   selector: 'app-create-board',
@@ -14,23 +15,46 @@ import { BoardsService } from 'src/app/main/services/boards/boards.service';
   styleUrls: ['./create-board.component.scss'],
 })
 export class CreateBoardComponent implements OnInit {
+  public message: string = '';
+
+  public confirmButtonText = '';
+
+  public cancelButtonText = '';
+
   public boardForm!: FormGroup;
 
+  public boardId: string = '';
+
+  public boardTitle: string = '';
+
+  public boardDescr: string = '';
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) private data: IBoardDialog,
+    private dialogRef: MatDialogRef<CreateBoardComponent>,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private boardService: BoardsService,
-  ) { }
+  ) {
+    if (data && data.buttonText) {
+      this.message = data.message;
+      this.confirmButtonText = data.buttonText.confirm;
+      this.cancelButtonText = data.buttonText.cancel;
+      this.boardId = data.boardId;
+      this.boardTitle = data.boardTitle;
+      this.boardDescr = data.boardDescr;
+    }
+  }
 
   ngOnInit(): void {
     this.boardForm = this.formBuilder.group({
-      title: ['', [
+      title: [this.boardTitle, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(18),
       ]],
-      description: ['', [
+      description: [this.boardDescr, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(18),
@@ -45,7 +69,11 @@ export class CreateBoardComponent implements OnInit {
   }
 
   onSubmit() {
-    this.boardService.addBoard(this.boardForm.value);
-    this.boardForm.reset();
+    if (!this.boardId) {
+      this.boardService.addBoard(this.boardForm.value);
+    } else {
+      this.boardService.editBoard(this.boardId, this.boardForm.value);
+    }
+    this.dialog.closeAll();
   }
 }

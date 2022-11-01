@@ -5,7 +5,8 @@ import { IBoard } from 'src/app/core/models/board.model';
 import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
-import { dialogBoardConfig } from 'src/app/core/configs/matDialog.configs';
+import { deleteBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { CreateBoardComponent } from 'src/app/shared/components/modals/create-board/create-board.component';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -27,12 +28,27 @@ export class MainComponent implements OnInit {
   }
 
   deleteBoard(board: IBoard) {
-    this.dialog.open(ConfirmModalComponent, dialogBoardConfig)
+    this.dialog.open(ConfirmModalComponent, deleteBoardDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed) {
           this.boardService.deleteBoard(board.id);
         }
       });
+  }
+
+  editBoard(board: IBoard) {
+    this.dialog.open(CreateBoardComponent, {
+      data: {
+        message: 'Edit new board',
+        buttonText: {
+          confirm: 'Edit',
+          cancel: 'Close',
+        },
+        boardId: board.id,
+        boardTitle: board.title,
+        boardDescr: board.description,
+      },
+    });
   }
 }

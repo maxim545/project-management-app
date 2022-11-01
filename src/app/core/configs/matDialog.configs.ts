@@ -11,11 +11,29 @@ dialogProfileConfig.data = {
   },
 };
 
-export const dialogBoardConfig = new MatDialogConfig();
-dialogBoardConfig.data = {
+export const deleteBoardDialogConfig = new MatDialogConfig();
+deleteBoardDialogConfig.data = {
   message: 're you sure want to delete?',
   buttonText: {
     confirm: 'Delete',
     cancel: 'No',
   },
 };
+
+export const createBoardDialogConfig = new MatDialogConfig();
+createBoardDialogConfig.data = {
+  message: 'Create new board',
+  buttonText: {
+    confirm: 'Create',
+    cancel: 'Close',
+  },
+};
+
+/* export const editBoardDialogConfig = new MatDialogConfig();
+editBoardDialogConfig.data = {
+  message: 'Edit new board',
+  buttonText: {
+    confirm: 'Edit',
+    cancel: 'Close',
+  },
+}; */

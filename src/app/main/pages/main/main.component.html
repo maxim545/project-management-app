@@ -3,7 +3,8 @@
     <div class="board__list" *ngFor="let board of boards$ | async">
       <div class="board__item">
         <a routerLink="/board/{{board.id}}" class="board__title">{{board.title}}</a>
-        <button class="board__btn" mat-raised-button (click)="deleteBoard(board)">del</button>
+        <button class="board__btn" (click)="deleteBoard(board)">del</button>
+        <button class="board__btn" (click)="editBoard(board)">edit</button>
       </div>
     </div>
   </div>

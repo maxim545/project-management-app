@@ -30,6 +30,16 @@ export const deleteBoardSuccess = createAction(
   props<{ id: string }>(),
 );
 
+export const editBoard = createAction(
+  '[Board] Edit Board',
+  props<{ board: IBoard }>(),
+);
+
+export const editBoardSuccess = createAction(
+  '[Board] Edit Board Success',
+  props<{ board: IBoard }>(),
+);
+
 export const boardFailed = createAction(
   '[Board] Board Failed',
   props<{ error: string }>(),
