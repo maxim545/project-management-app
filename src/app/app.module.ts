@@ -17,6 +17,7 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { UserEffects } from './core/store/effects/user.effects';
 import { userReducer } from './core/store/reducers/user.reducer';
+import { boardReducer } from './core/store/reducers/boards.reducer';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { userReducer } from './core/store/reducers/user.reducer';
     HttpClientModule,
     StoreModule.forRoot({
       user: userReducer,
+      boards: boardReducer,
     }, {}),
     EffectsModule.forRoot([UserEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),

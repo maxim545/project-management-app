@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { IBoard } from 'src/app/core/models/board.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
+import { BoardsService } from 'src/app/main/services/boards/boards.service';
 
 @Component({
   selector: 'app-create-board',
@@ -19,6 +20,7 @@ export class CreateBoardComponent implements OnInit {
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
+    private boardService: BoardsService,
   ) { }
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class CreateBoardComponent implements OnInit {
   }
 
   onSubmit() {
+    this.boardService.addBoard(this.boardForm.value);
     this.boardForm.reset();
-    this.snackBar.open('New board successfully added', '', snackBarGreenConfig);
   }
 }
