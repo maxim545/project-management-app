@@ -6,7 +6,7 @@ import {
 import { IBoard } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -35,6 +35,18 @@ export class BoardsEffects {
         .createBoard(board)
         .pipe(
           map((board) => addBoardSuccess({ board: (board.body) as IBoard })),
+          catchError(() => EMPTY),
+        )),
+    ),
+  );
+
+  getCurrentBoard$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(getCurrentBoard),
+      switchMap(({ id }) => this.apiService
+        .getBoardById(id)
+        .pipe(
+          map((board) => getCurrentBoardSuccess({ board })),
           catchError(() => EMPTY),
         )),
     ),

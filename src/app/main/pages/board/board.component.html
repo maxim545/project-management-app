@@ -1,1 +1,6 @@
 <p *ngIf="board">{{board.title}}</p>
+<div class="columns" *ngIf="board">
+  <app-columns *ngIf="board.columns" [columns]="board.columns"></app-columns>
+  <div class="columns__not-found" *ngIf="!board.columns">Not created</div>
+  <button>create column</button>
+</div>

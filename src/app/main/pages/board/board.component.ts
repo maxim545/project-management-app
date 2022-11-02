@@ -1,10 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component, OnInit, OnDestroy, AfterViewInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { IBoard } from 'src/app/core/models/board.model';
+import { IBoard, IBoardBybId } from 'src/app/core/models/board.model';
 import { Subscription } from 'rxjs';
+import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
   selector: 'app-board',
@@ -12,23 +15,25 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  public boards$: Subscription;
+  public boards$!: Subscription;
 
-  public boardId = this.router.snapshot.paramMap.get('id');
+  public boardId: string | null = this.router.snapshot.paramMap.get('id');
 
-  public board: IBoard | null = null;
+  public board: IBoardBybId | null = null;
 
   constructor(
     private router: ActivatedRoute,
     private store: Store,
+    private boardsService: BoardsService,
   ) {
-    this.boards$ = this.store.select(getCurrentBoards).subscribe((boards) => {
-      this.board = boards.find((item) => item.id === this.boardId) || null;
-    });
+
   }
 
   ngOnInit(): void {
-
+    this.boards$ = this.store.select(getCurrentBoards).subscribe((boards) => {
+      this.board = boards.find((item) => item.id === this.boardId) || null;
+    });
+    this.boardsService.getCurrentBoard(this.boardId);
   }
 
   ngOnDestroy(): void {

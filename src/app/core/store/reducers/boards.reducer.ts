@@ -2,7 +2,7 @@ import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
 import {
-  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoardSuccess, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 import { initialState } from '../boards.state';
 
@@ -21,6 +21,16 @@ export const boardReducer = createReducer(
   })),
 
   on(editBoardSuccess, (state, { board }) => {
+    const boardIndex = state.boards.findIndex((item) => item.id === board.id);
+    const updatedItems = [...state.boards];
+    updatedItems[boardIndex] = board;
+    return ({
+      ...state,
+      boards: updatedItems,
+    });
+  }),
+
+  on(getCurrentBoardSuccess, (state, { board }) => {
     const boardIndex = state.boards.findIndex((item) => item.id === board.id);
     const updatedItems = [...state.boards];
     updatedItems[boardIndex] = board;

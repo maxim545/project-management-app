@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IBoardForm } from 'src/app/core/models/board.model';
-import { addBoard, deleteBoard, editBoard } from 'src/app/core/store/actions/boards.actions';
+import {
+  addBoard, deleteBoard, editBoard, getCurrentBoard,
+} from 'src/app/core/store/actions/boards.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +20,12 @@ export class BoardsService {
   editBoard(id: string, data: IBoardForm) {
     const board = { id, ...data };
     this.store.dispatch(editBoard({ board }));
+  }
+
+  getCurrentBoard(id: string | null) {
+    if (id) {
+      this.store.dispatch(getCurrentBoard({ id }));
+    }
   }
 
   deleteBoard(id: string) {

@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { IBoard, IBoardForm } from '../../models/board.model';
+import { IBoard, IBoardBybId, IBoardForm } from '../../models/board.model';
 
 export const loadBoards = createAction(
   '[Board] Load Boards',
@@ -38,6 +38,16 @@ export const editBoard = createAction(
 export const editBoardSuccess = createAction(
   '[Board] Edit Board Success',
   props<{ board: IBoard }>(),
+);
+
+export const getCurrentBoard = createAction(
+  '[Board] Get Current Board',
+  props<{ id: string }>(),
+);
+
+export const getCurrentBoardSuccess = createAction(
+  '[Board] Get Current Board Success',
+  props<{ board: IBoardBybId }>(),
 );
 
 export const boardFailed = createAction(
