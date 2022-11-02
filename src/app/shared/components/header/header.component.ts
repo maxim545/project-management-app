@@ -6,7 +6,7 @@ import { loadUser } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { CreateBoardComponent } from '../modals/create-board/create-board.component';
+import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   openBoardCreater() {
-    this.dialog.open(CreateBoardComponent, createBoardDialogConfig);
+    this.dialog.open(BoardModalComponent, createBoardDialogConfig);
   }
 
   logout() {

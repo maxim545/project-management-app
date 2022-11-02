@@ -6,7 +6,7 @@ import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors'
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { CreateBoardComponent } from 'src/app/shared/components/modals/create-board/create-board.component';
+import { BoardModalComponent } from 'src/app/shared/components/modals/board-modal/board-modal.component';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
   }
 
   editBoard(board: IBoard) {
-    this.dialog.open(CreateBoardComponent, {
+    this.dialog.open(BoardModalComponent, {
       data: {
         message: 'Edit new board',
         buttonText: {

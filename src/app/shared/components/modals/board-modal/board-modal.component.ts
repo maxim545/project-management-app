@@ -10,18 +10,18 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dial
 import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
 
 @Component({
-  selector: 'app-create-board',
-  templateUrl: './create-board.component.html',
-  styleUrls: ['./create-board.component.scss'],
+  selector: 'app-board-modal',
+  templateUrl: './board-modal.component.html',
+  styleUrls: ['./board-modal.component.scss'],
 })
-export class CreateBoardComponent implements OnInit {
+export class BoardModalComponent implements OnInit {
+  public boardForm!: FormGroup;
+
   public message: string = '';
 
   public confirmButtonText = '';
 
   public cancelButtonText = '';
-
-  public boardForm!: FormGroup;
 
   public boardId: string = '';
 
@@ -31,7 +31,7 @@ export class CreateBoardComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: IBoardDialog,
-    private dialogRef: MatDialogRef<CreateBoardComponent>,
+    private dialogRef: MatDialogRef<BoardModalComponent>,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
