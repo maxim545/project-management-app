@@ -1,1 +1,13 @@
-<p>footer works!</p>
+<footer class="footer">
+  <ul class="author-list">
+    <li *ngFor="let author of team" class="author-item">
+      <a href="{{author.gitHub}}" target="_blank" class="author-link">{{author.name}}</a>
+    </li>
+  </ul>
+  <div class="year">
+    2022
+  </div>
+  <div class="logo-rs">
+    <a href="https://rs.school/angular/" target="_blank"><img src="https://rs.school/images/rs_school_js.svg" alt="Rss"></a>
+  </div>
+</footer>

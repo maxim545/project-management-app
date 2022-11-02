@@ -1,0 +1,47 @@
+.form__container{
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #E5E5E5;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form__title{
+  margin: 0;
+}
+.form-reg{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.form__item{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.red-message{
+  color: red;
+}
+.wrapper-btn{
+  width: 100px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-submit{
+  border: none;
+  width: 100px;
+  height: 25px;
+  background-color: gray;
+  border-radius: 5px;
+
+}
+.btn-submit:active{
+  width: 90px;
+  height: 20px;
+  color: yellow;
+}

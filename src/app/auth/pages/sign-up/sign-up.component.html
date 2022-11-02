@@ -1,14 +1,14 @@
 <div class="form">
   <div class="form__container">
     <h1 class="form__title">Sign Up</h1>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-reg">
       <div class="form__item">
         <label>Name</label>
         <input type="text" formControlName="name" class=""
           [ngClass]="{ 'is-invalid': (f['name'].dirty || f['name'].touched) && f['name'].errors }" />
         <div *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors" class="invalid-feedback">
-          <span *ngIf="f['name'].errors['required']">Name is required</span>
-          <span *ngIf="f['name'].errors['minlength']">Name must be at least 6 characters</span>
+          <span *ngIf="f['name'].errors['required']" class="red-message">Name is required</span>
+          <span *ngIf="f['name'].errors['minlength']" class="red-message">Name must be at least 6 characters</span>
         </div>
       </div>
       <div class="form__item">
@@ -16,8 +16,8 @@
         <input type="text" formControlName="login" class=""
           [ngClass]="{ 'is-invalid': (f['login'].dirty || f['login'].touched) && f['login'].errors }" />
         <div *ngIf="(f['login'].dirty || f['login'].touched) && f['login'].errors" class="invalid-feedback">
-          <span *ngIf="f['login'].errors['required']">Login is required</span>
-          <span *ngIf="f['login'].errors['minlength']">Name must be at least 6 characters</span>
+          <span *ngIf="f['login'].errors['required']" class="red-message">Login is required</span>
+          <span *ngIf="f['login'].errors['minlength']" class="red-message">Name must be at least 6 characters</span>
         </div>
       </div>
       <div class="form__item">
@@ -25,9 +25,9 @@
         <input type="password" formControlName="password" class=""
           [ngClass]="{ 'is-invalid': (f['password'].dirty || f['password'].touched) && f['password'].errors }" />
         <div *ngIf="(f['password'].dirty || f['password'].touched) && f['password'].errors" class="invalid-feedback">
-          <div *ngIf="f['password'].errors['required']">Password is required</div>
-          <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
-          <span *ngIf="f['password'].errors['maxlength']">Password must be at least 18 characters</span>
+          <span *ngIf="f['password'].errors['required']" class="red-message">Password is required</span>
+          <span *ngIf="f['password'].errors['minlength']" class="red-message">Password must be at least 6 characters</span>
+          <span *ngIf="f['password'].errors['maxlength']" class="red-message">Password must be at least 18 characters</span>
         </div>
       </div>
       <div class="form__item">
@@ -36,12 +36,12 @@
           [ngClass]="{ 'is-invalid': (f['confirmPassword'].dirty || f['confirmPassword'].touched) && f['confirmPassword'].errors }" />
         <div *ngIf="(f['confirmPassword'].dirty || f['confirmPassword'].touched) && f['confirmPassword'].errors"
           class="invalid-feedback">
-          <span *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</span>
-          <span *ngIf="f['confirmPassword'].errors['passIsMatch']">Passwords must match</span>
+          <span *ngIf="f['confirmPassword'].errors['required']" class="red-message">Confirm Password is required</span>
+          <span *ngIf="f['confirmPassword'].errors['passIsMatch']" class="red-message">Passwords must match</span>
         </div>
       </div>
-      <div class="">
-        <button class="" [disabled]="!registerForm.valid">Register</button>
+      <div class="wrapper-btn">
+        <button class="btn-submit" [disabled]="!registerForm.valid">Register</button>
       </div>
     </form>
   </div>
