@@ -9,10 +9,33 @@ export interface IBoard {
   description: string;
 }
 
+export interface IBoardBybId {
+  id: string;
+  title: string;
+  description: string;
+  columns?: IColumn[]
+}
+
+export interface IColumnResponse {
+  id: string;
+  title: string;
+  order: number;
+}
+
+export interface IColumnPostRequest {
+  title: string;
+}
+
+export interface IColumnPutRequest {
+  title: string;
+  order: number;
+}
+
 export interface IColumn {
   id: string;
   title: string;
   order: number;
+  tasks?: ITask[]
 }
 
 export interface ITask {
@@ -23,7 +46,7 @@ export interface ITask {
   userId: string,
   boardId: string,
   columnId: string,
-  files: IFiles[]
+  files?: IFiles[]
 }
 
 export interface IFiles {
