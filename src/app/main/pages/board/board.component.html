@@ -1,5 +1,5 @@
 <p *ngIf="board">{{board.title}}</p>
 <div class="columns" *ngIf="board">
-  <app-columns [columns]="columns$ | async"></app-columns>
+  <app-columns class="columns" [columns]="columns$ | async"></app-columns>
   <button (click)="openColumnCreater()">create column</button>
 </div>

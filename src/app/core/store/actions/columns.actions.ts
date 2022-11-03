@@ -23,6 +23,16 @@ export const addColumnSuccess = createAction(
   props<{ column: IColumnResponse }>(),
 );
 
+export const editColumn = createAction(
+  '[Columns] Edit Column',
+  props<{ boardId: string, columnId: string, column: IColumn }>(),
+);
+
+export const editColumnSuccess = createAction(
+  '[Columns] Edit Column Success',
+  props<{ columnId: string, column: IColumn }>(),
+);
+
 export const deleteColumn = createAction(
   '[Columns] Delete Column',
   props<{ boardId: string, columnId: string }>(),

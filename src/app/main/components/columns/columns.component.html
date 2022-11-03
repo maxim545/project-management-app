@@ -1,5 +1,5 @@
 <div *ngFor="let column of columns">
-  <div>{{column.title}}</div>
-  <button>edit column</button>
-  <button (click)="deleteColumn(column)">del column</button>
+  <div class="column__item">
+    <app-single-column [column]="column"></app-single-column>
+  </div>
 </div>

@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { IColumn, IColumnPostRequest, IColumnResponse } from 'src/app/core/models/board.model';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { Store } from '@ngrx/store';
-import { addColumn, deleteColumn } from 'src/app/core/store/actions/columns.actions';
+import { addColumn, deleteColumn, editColumn } from 'src/app/core/store/actions/columns.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +20,10 @@ export class ColumnsService {
 
   addColumn(id: string, column: IColumnPostRequest) {
     this.store.dispatch(addColumn({ id, column }));
+  }
+
+  editColumn(boardId: string, columnId: string, column: IColumn) {
+    this.store.dispatch(editColumn({ boardId, columnId, column }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

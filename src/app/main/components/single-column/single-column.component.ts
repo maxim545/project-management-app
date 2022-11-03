@@ -10,39 +10,45 @@ import {
 import { ColumnsService } from '../../services/columns/columns.service';
 
 @Component({
-  selector: 'app-columns',
-  templateUrl: './columns.component.html',
-  styleUrls: ['./columns.component.scss'],
+  selector: 'app-single-column',
+  templateUrl: './single-column.component.html',
+  styleUrls: ['./single-column.component.scss'],
 })
-export class ColumnsComponent implements OnInit {
+export class SingleColumnComponent implements OnInit {
+  @Input() public column: IColumn | null = null;
+
   public editTitleForm!: FormGroup;
-
-  @Input() public columns: IColumn[] | null = null;
-
-  public boardId: string | null = this.router.snapshot.paramMap.get('id');
 
   public isEditMode: boolean = false;
 
+  public boardId: string | null = this.router.snapshot.paramMap.get('id');
+
   constructor(
-    private router: ActivatedRoute,
     public dialog: MatDialog,
     private columnsService: ColumnsService,
+    private router: ActivatedRoute,
+
   ) { }
 
   ngOnInit(): void {
-    /* this.editTitleForm = new FormGroup({
-      title: new FormControl('', [
+    this.editTitleForm = new FormGroup({
+      title: new FormControl(this.column?.title, [
         Validators.required,
       ]),
-    }); */
+    });
   }
 
-  /*  get f() {
+  get f() {
     return this.editTitleForm.controls;
   }
 
-  editTitle() {
-
+  editTitle(column: IColumn) {
+    if (column.title !== this.editTitleForm.value.title) {
+      this.columnsService.editColumn(this.boardId!, column.id, {
+        ...this.editTitleForm.value,
+        order: column.order,
+      });
+    }
   }
 
   deleteColumn(column: IColumn) {
@@ -53,5 +59,5 @@ export class ColumnsComponent implements OnInit {
           this.columnsService.deleteColumn(this.boardId, column.id);
         }
       });
-  } */
+  }
 }
