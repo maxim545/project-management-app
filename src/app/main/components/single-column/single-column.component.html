@@ -1,4 +1,4 @@
-<div *ngIf="column">
+<div *ngIf="column" class="column">
   <div *ngIf="!isEditMode" (click)="this.isEditMode = true">{{column.title}}</div>
   <form [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
     <mat-form-field>

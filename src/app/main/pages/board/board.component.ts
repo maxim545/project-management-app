@@ -56,19 +56,4 @@ export class BoardComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.boards$.unsubscribe();
   }
-
-  openColumnCreater() {
-    if (this.board) {
-      this.dialog.open(ColumnModalComponent, {
-        data: {
-          message: 'Create new column',
-          buttonText: {
-            confirm: 'Create',
-            cancel: 'Close',
-          },
-          boardId: this.board.id,
-        },
-      });
-    }
-  }
 }

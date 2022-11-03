@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
+import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
 import { ColumnsService } from '../../services/columns/columns.service';
 
 @Component({
@@ -35,6 +36,19 @@ export class ColumnsComponent implements OnInit {
         Validators.required,
       ]),
     }); */
+  }
+
+  openColumnCreater() {
+    this.dialog.open(ColumnModalComponent, {
+      data: {
+        message: 'Create new column',
+        buttonText: {
+          confirm: 'Create',
+          cancel: 'Close',
+        },
+        boardId: this.boardId,
+      },
+    });
   }
 
   /*  get f() {

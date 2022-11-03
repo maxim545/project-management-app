@@ -11,6 +11,7 @@ import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { BoardComponent } from './pages/board/board.component';
 import { ColumnsComponent } from './components/columns/columns.component';
 import { SingleColumnComponent } from './components/single-column/single-column.component';
+import { TasksComponent } from './components/tasks/tasks.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { SingleColumnComponent } from './components/single-column/single-column.
     BoardComponent,
     ColumnsComponent,
     SingleColumnComponent,
+    TasksComponent,
   ],
   imports: [
     CommonModule,
