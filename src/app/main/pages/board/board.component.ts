@@ -5,11 +5,12 @@ import { ActivatedRoute } from '@angular/router';
 import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
-import { IBoard, IBoardBybId } from 'src/app/core/models/board.model';
-import { Subscription } from 'rxjs';
+import { IBoard, IBoardBybId, IColumn } from 'src/app/core/models/board.model';
+import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
 import { createColumnDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { getCurrentColumns } from 'src/app/core/store/selectors/columns.selectors';
 import { loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
 
@@ -24,6 +25,8 @@ export class BoardComponent implements OnInit, OnDestroy {
   public boardId: string | null = this.router.snapshot.paramMap.get('id');
 
   public board: IBoardBybId | null = null;
+
+  public columns$!: Observable<IColumn[]>;
 
   constructor(
     private router: ActivatedRoute,
@@ -42,6 +45,7 @@ export class BoardComponent implements OnInit, OnDestroy {
       const id = this.boardId;
       this.store.dispatch(loadColumns({ id }));
     }
+    this.columns$ = this.store.select(getCurrentColumns);
     /* this.boardsService.getCurrentBoard(this.boardId); */
   }
 
@@ -53,9 +57,9 @@ export class BoardComponent implements OnInit, OnDestroy {
     if (this.board) {
       this.dialog.open(ColumnModalComponent, {
         data: {
-          message: 'Edit new board',
+          message: 'Create new column',
           buttonText: {
-            confirm: 'Edit',
+            confirm: 'Create',
             cancel: 'Close',
           },
           boardId: this.board.id,

@@ -4,7 +4,9 @@ import {
   catchError, map, of, switchMap, tap, from, EMPTY, pluck,
 } from 'rxjs';
 import { ApiService } from '../../services/api/api.service';
-import { loadColumns, loadColumnsSuccess } from '../actions/columns.actions';
+import {
+  addColumn, addColumnSuccess, loadColumns, loadColumnsSuccess,
+} from '../actions/columns.actions';
 
 @Injectable()
 export class ColumnsEffects {
@@ -20,6 +22,18 @@ export class ColumnsEffects {
         .getAllColumns(id)
         .pipe(
           map((columns) => loadColumnsSuccess({ columns })),
+          catchError(() => EMPTY),
+        )),
+    ),
+  );
+
+  addColumn$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(addColumn),
+      switchMap(({ id, column }) => this.apiService
+        .createColumn(id, column)
+        .pipe(
+          map((column) => addColumnSuccess({ column })),
           catchError(() => EMPTY),
         )),
     ),

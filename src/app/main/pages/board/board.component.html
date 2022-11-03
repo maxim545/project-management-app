@@ -1,8 +1,5 @@
 <p *ngIf="board">{{board.title}}</p>
 <div class="columns" *ngIf="board">
-  <!-- <app-columns [columns]="columns$ | async"></app-columns> -->
-  <div class="columns__not-found" *ngIf="!board.columns">Not created</div>
-  <button>edit column</button>
-  <button>del column</button>
+  <app-columns [columns]="columns$ | async"></app-columns>
   <button (click)="openColumnCreater()">create column</button>
 </div>

@@ -1,7 +1,7 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
-import { loadColumns, loadColumnsSuccess } from '../actions/columns.actions';
+import { addColumnSuccess, loadColumns, loadColumnsSuccess } from '../actions/columns.actions';
 import { initialState } from '../columns.state';
 
 export const columnReducer = createReducer(
@@ -11,6 +11,11 @@ export const columnReducer = createReducer(
   on(loadColumnsSuccess, (state, { columns }) => ({
     ...state,
     columns,
+  })),
+
+  on(addColumnSuccess, (state, { column }) => ({
+    ...state,
+    columns: [...state.columns, { ...column }],
   })),
 
 );
