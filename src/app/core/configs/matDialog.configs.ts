@@ -38,6 +38,15 @@ createColumnDialogConfig.data = {
   },
 };
 
+export const deleteColumnDialogConfig = new MatDialogConfig();
+deleteColumnDialogConfig.data = {
+  message: 'Are you sure want to delete column?',
+  buttonText: {
+    confirm: 'Delete',
+    cancel: 'No',
+  },
+};
+
 /* export const editBoardDialogConfig = new MatDialogConfig();
 editBoardDialogConfig.data = {
   message: 'Edit new board',

@@ -5,7 +5,7 @@ import {
 } from 'rxjs';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addColumn, addColumnSuccess, loadColumns, loadColumnsSuccess,
+  addColumn, addColumnSuccess, deleteColumn, deleteColumnSuccess, loadColumns, loadColumnsSuccess,
 } from '../actions/columns.actions';
 
 @Injectable()
@@ -35,6 +35,18 @@ export class ColumnsEffects {
         .pipe(
           map((column) => addColumnSuccess({ column })),
           catchError(() => EMPTY),
+        )),
+    ),
+  );
+
+  deleteColumn$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(deleteColumn),
+      switchMap(({ boardId, columnId }) => this.apiService
+        .deleteColumn(boardId, columnId)
+        .pipe(
+          map(() => deleteColumnSuccess({ columnId })),
+          catchError(async (err) => err),
         )),
     ),
   );
