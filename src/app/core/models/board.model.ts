@@ -49,7 +49,39 @@ export interface ITask {
   files?: IFiles[]
 }
 
-export interface IFiles {
+export interface ITaskRequest {
+  title: string,
+  description: string,
+  userId: string,
+}
+
+export interface ITaskResponse {
+  id: string,
+  title: string,
+  description: string,
+  userId: string,
+}
+
+export interface ITaskPutRequest {
+  title: string,
+  order: string,
+  description: string,
+  userId: string,
+  boardId: string,
+  columnId: string,
+}
+
+export interface ITaskPutResponse {
+  id: string,
+  title: string,
+  order: string,
+  description: string,
+  userId: string,
+  boardId: string,
+  columnId: string,
+}
+
+interface IFiles {
   filename: string,
   fileSize: number
 }
