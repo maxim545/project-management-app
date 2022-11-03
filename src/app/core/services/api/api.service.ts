@@ -73,8 +73,8 @@ export class ApiService {
     return this.http.get<IColumnResponse[]>(`boards/${boardId}/columns`);
   }
 
-  createColumn(id: string, column: IColumnPostRequest): Observable<IColumnResponse> {
-    return this.http.post<IColumnResponse>(`boards/${id}/columns`, column);
+  createColumn(boardId: string, column: IColumnPostRequest): Observable<IColumnResponse> {
+    return this.http.post<IColumnResponse>(`boards/${boardId}/columns`, column);
   }
 
   getColumnById(boardId: string, columnId: string): Observable<IColumn> {

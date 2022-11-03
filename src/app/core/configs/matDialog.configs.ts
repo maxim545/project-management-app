@@ -29,6 +29,15 @@ createBoardDialogConfig.data = {
   },
 };
 
+export const createColumnDialogConfig = new MatDialogConfig();
+createColumnDialogConfig.data = {
+  message: 'Create new column',
+  buttonText: {
+    confirm: 'Create',
+    cancel: 'Close',
+  },
+};
+
 /* export const editBoardDialogConfig = new MatDialogConfig();
 editBoardDialogConfig.data = {
   message: 'Edit new board',
