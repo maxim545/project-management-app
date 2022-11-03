@@ -1,7 +1,7 @@
-import { IBoard } from '../models/board.model';
+import { IBoard, IBoardBybId } from '../models/board.model';
 
 export interface BoardState {
-  boards: IBoard[],
+  boards: IBoardBybId[],
   error: string | null
 }
 

@@ -1,4 +1,4 @@
-<p *ngIf="board">{{board.title}}</p>
-<div class="columns" *ngIf="board">
-  <app-columns class="columns" [columns]="columns$ | async"></app-columns>
+<div>
+  <app-board-header [board]="board$ | async"></app-board-header>
+  <app-columns [columns]="columns$ | async" class="columns"></app-columns>
 </div>

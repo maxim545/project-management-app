@@ -22,10 +22,9 @@ export class BoardsService {
     this.store.dispatch(editBoard({ board }));
   }
 
-  getCurrentBoard(id: string | null) {
-    if (id) {
-      this.store.dispatch(getCurrentBoard({ id }));
-    }
+  getCurrentBoard(id: string) {
+    console.log(1);
+    this.store.dispatch(getCurrentBoard({ id }));
   }
 
   deleteBoard(id: string) {

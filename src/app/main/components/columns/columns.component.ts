@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IColumn } from 'src/app/core/models/board.model';
+import { IBoardBybId, IColumn, ITask } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteColumnDialogConfig } from 'src/app/core/configs/matDialog.configs';
@@ -8,6 +8,9 @@ import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { ColumnsService } from '../../services/columns/columns.service';
 
 @Component({
@@ -16,26 +19,26 @@ import { ColumnsService } from '../../services/columns/columns.service';
   styleUrls: ['./columns.component.scss'],
 })
 export class ColumnsComponent implements OnInit {
-  public editTitleForm!: FormGroup;
-
   @Input() public columns: IColumn[] | null = null;
+
+  public editTitleForm!: FormGroup;
 
   public boardId: string | null = this.router.snapshot.paramMap.get('id');
 
   public isEditMode: boolean = false;
 
+  /*   public tasks$!: Observable<ITask[]>; */
+
   constructor(
     private router: ActivatedRoute,
     public dialog: MatDialog,
+    private store: Store,
     private columnsService: ColumnsService,
   ) { }
 
   ngOnInit(): void {
-    /* this.editTitleForm = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-      ]),
-    }); */
+    /* this.store.dispatch(loadColumns({ id: this.boardId }));
+    this.tasks$ = this.store.select(getCurrentColumns); */
   }
 
   openColumnCreater() {
@@ -50,22 +53,4 @@ export class ColumnsComponent implements OnInit {
       },
     });
   }
-
-  /*  get f() {
-    return this.editTitleForm.controls;
-  }
-
-  editTitle() {
-
-  }
-
-  deleteColumn(column: IColumn) {
-    this.dialog.open(ConfirmModalComponent, deleteColumnDialogConfig)
-      .afterClosed()
-      .subscribe((isConfirmed: boolean) => {
-        if (isConfirmed && this.boardId) {
-          this.columnsService.deleteColumn(this.boardId, column.id);
-        }
-      });
-  } */
 }

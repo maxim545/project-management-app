@@ -21,12 +21,10 @@ import { ColumnsService } from '../../services/columns/columns.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit, OnDestroy {
-  public boards$!: Subscription;
-
+export class BoardComponent implements OnInit {
   public boardId: string | null = this.router.snapshot.paramMap.get('id');
 
-  public board: IBoardBybId | null = null;
+  public board$: Observable<IBoardBybId | null> | null = null;
 
   public columns$!: Observable<IColumn[]>;
 
@@ -41,19 +39,20 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.boards$ = this.store.select(getCurrentBoards).subscribe((boards) => {
-      this.board = boards.find((item) => item.id === this.boardId) || null;
-    });
-    if (this.boardId && this.board) {
+    if (this.boardId) {
+      this.board$ = this.store.select(getCurrentBoards)
+        .pipe(
+          map((boards) => {
+            const currentBoard = boards.find((board) => board.id === this.boardId) || null;
+            /* if (!currentBoard) { navigate to 404 } */
+            return currentBoard;
+          }),
+        );
+      /* this.boardsService.getCurrentBoard((this.boardId) as string); */
       this.store.dispatch(loadColumns({ id: this.boardId }));
       this.columns$ = this.store.select(getCurrentColumns);
     } else {
       // navigate to 404
     }
-    /* this.boardsService.getCurrentBoard(this.boardId); */
-  }
-
-  ngOnDestroy(): void {
-    this.boards$.unsubscribe();
   }
 }

@@ -1,7 +1,6 @@
 <div *ngFor="let column of columns">
   <div class="column__item">
     <app-single-column [column]="column"></app-single-column>
-    <app-tasks></app-tasks>
   </div>
 </div>
 <button (click)="openColumnCreater()">create column</button>

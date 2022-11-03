@@ -12,6 +12,7 @@ import { BoardComponent } from './pages/board/board.component';
 import { ColumnsComponent } from './components/columns/columns.component';
 import { SingleColumnComponent } from './components/single-column/single-column.component';
 import { TasksComponent } from './components/tasks/tasks.component';
+import { BoardHeaderComponent } from './components/board-header/board-header.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
     ColumnsComponent,
     SingleColumnComponent,
     TasksComponent,
+    BoardHeaderComponent,
   ],
   imports: [
     CommonModule,
