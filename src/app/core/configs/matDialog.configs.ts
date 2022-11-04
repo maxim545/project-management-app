@@ -47,6 +47,15 @@ deleteColumnDialogConfig.data = {
   },
 };
 
+export const deleteTaskDialogConfig = new MatDialogConfig();
+deleteTaskDialogConfig.data = {
+  message: 'Are you sure want to delete this task?',
+  buttonText: {
+    confirm: 'Delete',
+    cancel: 'No',
+  },
+};
+
 /* export const editBoardDialogConfig = new MatDialogConfig();
 editBoardDialogConfig.data = {
   message: 'Edit new board',

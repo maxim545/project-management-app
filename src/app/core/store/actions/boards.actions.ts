@@ -59,6 +59,16 @@ export const boardFailed = createAction(
 
 // COLUMNS
 
+export const addColumn = createAction(
+  '[Column] Add Column',
+  props<{ boardId: string, column: IColumnPostRequest }>(),
+);
+
+export const editColumn = createAction(
+  '[Column] Edit Column',
+  props<{ boardId: string, columnId: string, column: IColumn }>(),
+);
+
 export const deleteColumn = createAction(
   '[Column] Delete Column',
   props<{ boardId: string, columnId: string }>(),
@@ -69,12 +79,9 @@ export const deleteColumn = createAction(
   props<{ boardId: string, columnId: string }>(),
 ); */
 
-export const addColumn = createAction(
-  '[Column] Add Column',
-  props<{ boardId: string, column: IColumnPostRequest }>(),
-);
+// TASKS
 
-export const editColumn = createAction(
-  '[Column] Edit Column',
-  props<{ boardId: string, columnId: string, column: IColumn }>(),
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ boardId: string, columnId: string, taskId: string }>(),
 );

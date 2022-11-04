@@ -4,6 +4,10 @@ import { map, Observable } from 'rxjs';
 import { IColumn, ITask } from 'src/app/core/models/board.model';
 import { getCurrentColumn, loadTasks } from 'src/app/core/store/actions/columns.actions';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
+import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -22,6 +26,8 @@ export class TasksComponent implements OnInit {
   constructor(
     private store: Store,
     private router: ActivatedRoute,
+    public dialog: MatDialog,
+    private tasksService: TasksService,
   ) { }
 
   ngOnInit(): void {
@@ -34,5 +40,15 @@ export class TasksComponent implements OnInit {
         return undefined;
       }),
     );
+  }
+
+  deleteTask(taskId: string) {
+    this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
+      .afterClosed()
+      .subscribe((isConfirmed: boolean) => {
+        if (isConfirmed && this.boardId) {
+          this.tasksService.deleteTask(this.boardId, this.columnId, taskId);
+        }
+      });
   }
 }
