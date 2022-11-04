@@ -44,11 +44,7 @@ export class ColumnsComponent implements OnInit {
   openColumnCreater() {
     this.dialog.open(ColumnModalComponent, {
       data: {
-        message: 'Create new column',
-        buttonText: {
-          confirm: 'Create',
-          cancel: 'Close',
-        },
+        dialogTitle: 'Create new column',
         boardId: this.boardId,
       },
     });

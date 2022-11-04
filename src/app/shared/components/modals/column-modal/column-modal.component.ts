@@ -18,26 +18,21 @@ import { ColumnsService } from '../../../../main/services/columns/columns.servic
 export class ColumnModalComponent implements OnInit {
   public columnForm!: FormGroup;
 
-  public message: string = '';
-
-  public confirmButtonText = '';
-
-  public cancelButtonText = '';
+  public dialogTitle: string = '';
 
   public boardId: string | null = null;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: IBoardDialog,
+    @Inject(MAT_DIALOG_DATA)
+    private data: IBoardDialog,
     private dialogRef: MatDialogRef<ColumnModalComponent>,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private columnsService: ColumnsService,
   ) {
-    if (data && data.buttonText) {
-      this.message = data.message;
-      this.confirmButtonText = data.buttonText.confirm;
-      this.cancelButtonText = data.buttonText.cancel;
+    if (data) {
+      this.dialogTitle = data.dialogTitle;
       this.boardId = data.boardId;
     }
   }

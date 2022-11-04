@@ -4,7 +4,7 @@ import {
 
 export const dialogProfileConfig = new MatDialogConfig();
 dialogProfileConfig.data = {
-  message: 'Are you sure want to delete your profile?',
+  dialogTitle: 'Are you sure want to delete your profile?',
   buttonText: {
     confirm: 'Yes',
     cancel: 'No',
@@ -13,7 +13,7 @@ dialogProfileConfig.data = {
 
 export const deleteBoardDialogConfig = new MatDialogConfig();
 deleteBoardDialogConfig.data = {
-  message: 're you sure want to delete?',
+  dialogTitle: 're you sure want to delete?',
   buttonText: {
     confirm: 'Delete',
     cancel: 'No',
@@ -22,7 +22,7 @@ deleteBoardDialogConfig.data = {
 
 export const createBoardDialogConfig = new MatDialogConfig();
 createBoardDialogConfig.data = {
-  message: 'Create new board',
+  dialogTitle: 'Create new board',
   buttonText: {
     confirm: 'Create',
     cancel: 'Close',
@@ -31,7 +31,7 @@ createBoardDialogConfig.data = {
 
 export const createColumnDialogConfig = new MatDialogConfig();
 createColumnDialogConfig.data = {
-  message: 'Create new column',
+  dialogTitle: 'Create new column',
   buttonText: {
     confirm: 'Create',
     cancel: 'Close',
@@ -40,7 +40,7 @@ createColumnDialogConfig.data = {
 
 export const deleteColumnDialogConfig = new MatDialogConfig();
 deleteColumnDialogConfig.data = {
-  message: 'Are you sure want to delete column?',
+  dialogTitle: 'Are you sure want to delete column?',
   buttonText: {
     confirm: 'Delete',
     cancel: 'No',
@@ -49,7 +49,7 @@ deleteColumnDialogConfig.data = {
 
 export const deleteTaskDialogConfig = new MatDialogConfig();
 deleteTaskDialogConfig.data = {
-  message: 'Are you sure want to delete this task?',
+  dialogTitle: 'Are you sure want to delete this task?',
   buttonText: {
     confirm: 'Delete',
     cancel: 'No',
@@ -58,7 +58,7 @@ deleteTaskDialogConfig.data = {
 
 /* export const createTaskDialogConfig = new MatDialogConfig();
 createTaskDialogConfig.data = {
-  message: 'Create new task',
+  dialogTitle: 'Create new task',
   buttonText: {
     confirm: 'Create',
     cancel: 'Close',
@@ -67,7 +67,7 @@ createTaskDialogConfig.data = {
 
 /* export const editBoardDialogConfig = new MatDialogConfig();
 editBoardDialogConfig.data = {
-  message: 'Edit new board',
+  dialogTitle: 'Edit new board',
   buttonText: {
     confirm: 'Edit',
     cancel: 'Close',

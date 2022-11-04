@@ -17,11 +17,7 @@ import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
 export class BoardModalComponent implements OnInit {
   public boardForm!: FormGroup;
 
-  public message: string = '';
-
-  public confirmButtonText = '';
-
-  public cancelButtonText = '';
+  public dialogTitle: string = 'Create new board';
 
   public boardId: string = '';
 
@@ -30,17 +26,16 @@ export class BoardModalComponent implements OnInit {
   public boardDescr: string = '';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: IBoardDialog,
+    @Inject(MAT_DIALOG_DATA)
+    private data: IBoardDialog,
     private dialogRef: MatDialogRef<BoardModalComponent>,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
     private snackBar: MatSnackBar,
     private boardService: BoardsService,
   ) {
-    if (data && data.buttonText) {
-      this.message = data.message;
-      this.confirmButtonText = data.buttonText.confirm;
-      this.cancelButtonText = data.buttonText.cancel;
+    if (data) {
+      this.dialogTitle = data.dialogTitle;
       this.boardId = data.boardId;
       this.boardTitle = data.boardTitle;
       this.boardDescr = data.boardDescr;

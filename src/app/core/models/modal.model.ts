@@ -1,5 +1,5 @@
 export interface IConfirmDialog {
-  message: string,
+  dialogTitle: string,
   buttonText: {
     confirm: string,
     cancel: string,
@@ -7,7 +7,7 @@ export interface IConfirmDialog {
 }
 
 export interface IBoardDialog {
-  message: string,
+  dialogTitle: string,
   buttonText: {
     confirm: string,
     cancel: string,

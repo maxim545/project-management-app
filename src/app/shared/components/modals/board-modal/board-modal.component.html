@@ -1,6 +1,6 @@
 <div class="form">
   <div class="form__container">
-    <h1 class="form__title">{{message}}</h1>
+    <h1 class="form__title">{{dialogTitle}}</h1>
     <form [formGroup]="boardForm" (ngSubmit)="onSubmit()">
       <div class="form__item">
         <label>title</label>
@@ -24,8 +24,8 @@
         </div>
       </div>
       <div class="">
-        <button class="" [disabled]="!boardForm.valid">{{confirmButtonText}}</button>
-        <button type="button" (click)="closeDiadlog()">{{cancelButtonText}}</button>
+        <button class="" [disabled]="!boardForm.valid">Accept</button>
+        <button type="button" (click)="closeDiadlog()">Cancel</button>
       </div>
     </form>
   </div>
