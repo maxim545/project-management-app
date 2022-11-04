@@ -19,7 +19,7 @@ import { ColumnsService } from '../../services/columns/columns.service';
   styleUrls: ['./columns.component.scss'],
 })
 export class ColumnsComponent implements OnInit {
-  @Input() public columns: IColumn[] | null = null;
+  @Input() public columns$!: Observable<IColumn[]>;
 
   public editTitleForm!: FormGroup;
 

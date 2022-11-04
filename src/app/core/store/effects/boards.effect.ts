@@ -6,7 +6,7 @@ import {
 import { IBoard } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, addColumn, deleteBoard, deleteBoardSuccess, deleteColumn, editBoard, editBoardSuccess, editColumn, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -75,6 +75,53 @@ export class BoardsEffects {
         .pipe(
           map(() => deleteBoardSuccess({ id })),
           catchError(async (err) => err),
+        )),
+    ),
+  );
+
+  // COLUMNS
+
+  deleteColumn$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(deleteColumn),
+      switchMap(({ boardId, columnId }) => this.apiService
+        .deleteColumn(boardId, columnId)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId).pipe(
+              map((board) => getCurrentBoardSuccess({ board })),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
+
+  addColumn$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(addColumn),
+      switchMap(({ boardId, column }) => this.apiService
+        .createColumn(boardId, column)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId).pipe(
+              map((board) => getCurrentBoardSuccess({ board })),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
+
+  editColumn$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(editColumn),
+      switchMap(({ boardId, columnId, column }) => this.apiService
+        .editColumn(boardId, columnId, column)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId).pipe(
+              map((board) => getCurrentBoardSuccess({ board })),
+              catchError(() => EMPTY),
+            )),
         )),
     ),
   );

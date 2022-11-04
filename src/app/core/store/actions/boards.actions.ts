@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
-import { IBoard, IBoardBybId, IBoardForm } from '../../models/board.model';
+import {
+  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest,
+} from '../../models/board.model';
 
 export const loadBoards = createAction(
   '[Board] Load Boards',
@@ -53,4 +55,26 @@ export const getCurrentBoardSuccess = createAction(
 export const boardFailed = createAction(
   '[Board] Board Failed',
   props<{ error: string }>(),
+);
+
+// COLUMNS
+
+export const deleteColumn = createAction(
+  '[Column] Delete Column',
+  props<{ boardId: string, columnId: string }>(),
+);
+
+/* export const deleteColumnSuccess = createAction(
+  '[Column] Delete Column Success',
+  props<{ boardId: string, columnId: string }>(),
+); */
+
+export const addColumn = createAction(
+  '[Column] Add Column',
+  props<{ boardId: string, column: IColumnPostRequest }>(),
+);
+
+export const editColumn = createAction(
+  '[Column] Edit Column',
+  props<{ boardId: string, columnId: string, column: IColumn }>(),
 );

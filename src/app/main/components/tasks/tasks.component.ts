@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { IColumn, ITask } from 'src/app/core/models/board.model';
 import { getCurrentColumn, loadTasks } from 'src/app/core/store/actions/columns.actions';
 import { ActivatedRoute } from '@angular/router';
@@ -11,11 +11,13 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
-  @Input() public column!: IColumn;
+  @Input() public columns$!: Observable<IColumn[]>;
+
+  @Input() public columnId!: string;
 
   public boardId = this.router.snapshot.paramMap.get('id') as string;
 
-  public tasks$!: Observable<ITask[]>;
+  public tasks$!: Observable<ITask[] | undefined>;
 
   constructor(
     private store: Store,
@@ -23,8 +25,14 @@ export class TasksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    /* this.store.dispatch(getCurrentColumn({ boardId: this.boardId, columnId: this.column.id })); */
-    /* this.tasks$ = this.store.select(getCurrentColumns); */
-    /* this.store.dispatch(loadTasks({ boardId: this.boardId, columnId: this.column.id })); */
+    this.tasks$ = this.columns$.pipe(
+      map((columns) => {
+        const currentBoard = columns.find((column) => column.id === this.columnId) || null;
+        if (currentBoard) {
+          return currentBoard.tasks;
+        }
+        return undefined;
+      }),
+    );
   }
 }

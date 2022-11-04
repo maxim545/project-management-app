@@ -1,6 +1,7 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
+import { IBoard, IBoardBybId } from '../../models/board.model';
 import {
   addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoardSuccess, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
@@ -44,4 +45,14 @@ export const boardReducer = createReducer(
     ...state,
     boards: state.boards.filter((boards) => boards.id !== id),
   })),
+
+  /*  on(deleteColumnSuccess, (state, { boardId, columnId }) => {
+    const board = state.boards.find((item) => item.id === boardId) as IBoardBybId;
+    const columns = board?.columns?.filter((boards) => boards.id !== columnId);
+    const updatedItems = [...state.boards];
+    return ({
+      ...state,
+      boards: updatedItems,
+    });
+  }), */
 );

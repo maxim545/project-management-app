@@ -23,7 +23,6 @@ export class BoardsService {
   }
 
   getCurrentBoard(id: string) {
-    console.log(1);
     this.store.dispatch(getCurrentBoard({ id }));
   }
 
