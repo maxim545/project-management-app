@@ -16,3 +16,13 @@ export interface IBoardDialog {
   boardTitle: string,
   boardDescr: string,
 }
+
+export interface ITaskDialog {
+  dialogTitle: string,
+  boardId: string,
+  columnId: string,
+  taskTitle: string,
+  taskDescr: string,
+  taskId: string,
+  order: number,
+}

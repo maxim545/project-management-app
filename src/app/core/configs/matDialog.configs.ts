@@ -56,6 +56,15 @@ deleteTaskDialogConfig.data = {
   },
 };
 
+/* export const createTaskDialogConfig = new MatDialogConfig();
+createTaskDialogConfig.data = {
+  message: 'Create new task',
+  buttonText: {
+    confirm: 'Create',
+    cancel: 'Close',
+  },
+}; */
+
 /* export const editBoardDialogConfig = new MatDialogConfig();
 editBoardDialogConfig.data = {
   message: 'Edit new board',

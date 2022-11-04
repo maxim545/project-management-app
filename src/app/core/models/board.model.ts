@@ -64,7 +64,7 @@ export interface ITaskResponse {
 
 export interface ITaskPutRequest {
   title: string,
-  order: string,
+  order: number,
   description: string,
   userId: string,
   boardId: string,

@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
@@ -50,5 +51,29 @@ export class TasksComponent implements OnInit {
           this.tasksService.deleteTask(this.boardId, this.columnId, taskId);
         }
       });
+  }
+
+  openTaskCreater() {
+    this.dialog.open(TaskModalComponent, {
+      data: {
+        dialogTitle: 'Create new task',
+        boardId: this.boardId,
+        columnId: this.columnId,
+      },
+    });
+  }
+
+  openTaskEditor(taskTitle: string, taskDescr: string, taskId: string, order: number): void {
+    this.dialog.open(TaskModalComponent, {
+      data: {
+        dialogTitle: `Edit ${taskTitle}`,
+        boardId: this.boardId,
+        columnId: this.columnId,
+        taskTitle,
+        taskDescr,
+        taskId,
+        order,
+      },
+    });
   }
 }

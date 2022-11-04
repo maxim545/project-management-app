@@ -7,6 +7,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
 import { BoardModalComponent } from './components/modals/board-modal/board-modal.component';
 import { ColumnModalComponent } from './components/modals/column-modal/column-modal.component';
+import { TaskModalComponent } from './components/modals/task-modal/task-modal.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ColumnModalComponent } from './components/modals/column-modal/column-mo
     ConfirmModalComponent,
     BoardModalComponent,
     ColumnModalComponent,
+    TaskModalComponent,
   ],
   imports: [
     CommonModule,

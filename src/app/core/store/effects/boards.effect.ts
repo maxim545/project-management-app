@@ -6,7 +6,7 @@ import {
 import { IBoard } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addBoard, addBoardSuccess, addColumn, deleteBoard, deleteBoardSuccess, deleteColumn, deleteTask, editBoard, editBoardSuccess, editColumn, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, addColumn, addTask, deleteBoard, deleteBoardSuccess, deleteColumn, deleteTask, editBoard, editBoardSuccess, editColumn, editTask, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -127,6 +127,38 @@ export class BoardsEffects {
   );
 
   // TASKS
+
+  addTask$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(addTask),
+      switchMap(({ boardId, columnId, task }) => this.apiService
+        .createTask(boardId, columnId, task)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId).pipe(
+              map((board) => getCurrentBoardSuccess({ board })),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
+
+  editTask$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(editTask),
+      switchMap(({
+        boardId, columnId, taskId, task,
+      }) => this.apiService
+        .editTask(boardId, columnId, taskId, task)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId).pipe(
+              map((board) => getCurrentBoardSuccess({ board })),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
 
   deleteTask$ = createEffect(
     () => this.actions$.pipe(
