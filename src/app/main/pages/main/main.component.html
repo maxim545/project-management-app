@@ -1,11 +1,9 @@
 <div class="container">
-  <div class="board">
-    <div class="board__list" *ngFor="let board of boards$ | async">
-      <div class="board__item">
-        <a routerLink="/board/{{board.id}}" class="board__title">{{board.title}}</a>
-        <button class="board__btn" (click)="deleteBoard(board)">del</button>
-        <button class="board__btn" (click)="editBoard(board)">edit</button>
-      </div>
+  <div class="boards">
+    <div class="boards__item" *ngFor="let board of boards$ | async">
+      <a class="boards__title" routerLink="/board/{{board.id}}">{{board.title}}</a>
+      <button class="boards__btn" (click)="deleteBoard(board)">del</button>
+      <button class="boards__btn" (click)="editBoard(board)">edit</button>
     </div>
   </div>
 </div>

@@ -1,7 +1,25 @@
-.column__item {
+
+.columns {
+  position: relative;
   display: flex;
-  align-items: center;
-  background-color: rgb(207, 207, 207);
+  gap: 10px;
+  overflow-y: hidden;
+  height: 100%;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+  }
+
+  &__tasks {
+    margin-top: 10px;
+  }
 }
+
+
 
 
