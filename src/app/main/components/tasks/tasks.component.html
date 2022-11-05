@@ -1,5 +1,7 @@
-<div class="task" *ngFor="let task of tasks$ | async">
-  <div (click)="openTaskEditor(task.title, task.description, task.id, task.order)">{{task.title}}</div>
-  <button (click)="deleteTask(task.id)">del task</button>
+<div>
+  <div class="task" *ngFor="let task of tasks$ | async">
+    <div (click)="openTaskEditor(task.title, task.description, task.id, task.order)">{{task.title}}</div>
+    <button (click)="deleteTask(task.id)">del task</button>
+  </div>
+  <button class="task__btn task__btn_add" (click)="openTaskCreater()">+ New task</button>
 </div>
-<button class="task__btn task__btn_add" (click)="openTaskCreater()">+ New task</button>

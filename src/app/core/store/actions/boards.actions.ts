@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest, ITaskPutRequest, ITaskRequest,
+  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest, IColumnPutRequest, ITaskPutRequest, ITaskRequest,
 } from '../../models/board.model';
 
 export const loadBoards = createAction(
@@ -66,7 +66,7 @@ export const addColumn = createAction(
 
 export const editColumn = createAction(
   '[Column] Edit Column',
-  props<{ boardId: string, columnId: string, column: IColumn }>(),
+  props<{ boardId: string, columnId: string, column: IColumnPutRequest }>(),
 );
 
 export const deleteColumn = createAction(

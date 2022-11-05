@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
@@ -31,6 +32,7 @@ import { BoardHeaderComponent } from './components/board-header/board-header.com
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    DragDropModule,
   ],
 })
 export class MainModule { }

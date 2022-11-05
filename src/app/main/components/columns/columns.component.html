@@ -1,6 +1,7 @@
-<div class="columns">
-  <div class="columns__item" *ngFor="let column of columns$ | async">
-    <app-single-column [column]="column"></app-single-column>
+<div class="columns" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, columns)">
+  <div class="columns__item" *ngFor="let column of columns$ | async" cdkDrag>
+    <app-single-column [column]="column">
+    </app-single-column>
     <app-tasks class="columns__tasks" [columns$]="columns$" [columnId]=column.id></app-tasks>
   </div>
   <button (click)="openColumnCreater()">create column</button>
