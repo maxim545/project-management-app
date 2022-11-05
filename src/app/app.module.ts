@@ -17,6 +17,10 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { UserEffects } from './core/store/effects/user.effects';
 import { userReducer } from './core/store/reducers/user.reducer';
+import { boardReducer } from './core/store/reducers/boards.reducer';
+import { BoardsEffects } from './core/store/effects/boards.effect';
+import { ColumnsEffects } from './core/store/effects/columns.effects';
+import { columnReducer } from './core/store/reducers/columns.reducers';
 
 @NgModule({
   declarations: [
@@ -30,8 +34,10 @@ import { userReducer } from './core/store/reducers/user.reducer';
     HttpClientModule,
     StoreModule.forRoot({
       user: userReducer,
+      boards: boardReducer,
+      columns: columnReducer,
     }, {}),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,

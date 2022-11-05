@@ -23,7 +23,7 @@ export const loginUserSuccess = createAction(
 
 export const loginUserFailed = createAction(
   '[User] Login User Filed',
-  props<{ error: Error }>(),
+  props<{ error: string }>(),
 );
 
 export const signUpUser = createAction(
@@ -37,7 +37,7 @@ export const signUpUserSuccess = createAction(
 
 export const signUpUserFailed = createAction(
   '[User] Sign Up User Filed',
-  props<{ error: Error }>(),
+  props<{ error: string }>(),
 );
 
 export const saveUser = createAction(

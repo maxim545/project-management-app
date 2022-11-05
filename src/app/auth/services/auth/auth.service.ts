@@ -35,8 +35,11 @@ export class AuthService {
   }
 
   loginUser(user: IUserLogin) {
-    this.snackBar.open('Login Success', '', snackBarGreenConfig);
-    this.router.navigate(['main']);
+    this.snackBar.open('Login Success', '', snackBarGreenConfig)
+      .afterDismissed()
+      .subscribe(() => {
+        this.router.navigate(['main']);
+      });
   }
 
   signUpUser(user: IUserRegister) {
