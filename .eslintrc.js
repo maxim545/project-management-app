@@ -51,7 +51,7 @@ module.exports = {
         "no-param-reassign": "off",
         "no-console": "off",
         "no-alert": "off",
-        'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
+        /* 'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'], */
       }
     },
     {

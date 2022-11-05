@@ -1,6 +1,15 @@
-.tasks {
+.task {
   display: flex;
-  gap: 5px;
+  justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgb(114, 114, 114);
+  padding: 15px 10px;
+  margin: 8px 0;
+  background-color: rgb(247, 247, 247);
+  border: 1px dashed rgb(204, 204, 204);
+  border-style: dashed solid;
+  border-radius: 5px;
+  &__btn_add {
+    width: 100%;
+    min-height: 30px;
+  }
 }
