@@ -29,6 +29,8 @@ export class BoardComponent implements OnInit {
 
   public columns$!: Observable<IColumn[]>;
 
+  public columns!: IColumn[];
+
   constructor(
     private router: ActivatedRoute,
     private store: Store,
@@ -55,6 +57,12 @@ export class BoardComponent implements OnInit {
       this.columns$ = this.board$.pipe(
         map((boards) => boards?.columns as IColumn[]),
       );
+      this.columns$.subscribe((data) => {
+        if (data) {
+          const copyColumns = JSON.parse(JSON.stringify(data));
+          this.columns = copyColumns;
+        }
+      });
     } else {
       // navigate to 404
     }

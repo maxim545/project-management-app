@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IBoardBybId, IColumn, ITask } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
-import { deleteColumnDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { deleteColumnDialogConfig, deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { MatDialog } from '@angular/material/dialog';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
@@ -13,8 +13,12 @@ import {
   map, switchMap, Observable, finalize,
 } from 'rxjs';
 import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
-import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule,
+} from '@angular/cdk/drag-drop';
+import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
 import { ColumnsService } from '../../services/columns/columns.service';
+import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
   selector: 'app-columns',
@@ -41,9 +45,11 @@ export class ColumnsComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store,
     private columnsService: ColumnsService,
+    private tasksService: TasksService,
   ) { }
 
   ngOnInit(): void {
+
     /* this.columns$ = this.store
       .select(getCurrentBoards)
       .pipe(
@@ -76,6 +82,81 @@ export class ColumnsComponent implements OnInit {
         },
       ); */
     }
+  }
+
+  drop2(event: CdkDragDrop<ITask[] | undefined>, columns: IColumn[] | null, newColumnId: string) {
+    if (event.previousContainer.data && event.container.data && columns) {
+      const currentTask = event.previousContainer.data[event.previousIndex];
+      let previousColumnId = '';
+      columns?.forEach((column, i) => {
+        const taskIsExist = column.tasks?.includes(currentTask);
+        if (taskIsExist) {
+          previousColumnId = columns[i].id;
+        }
+      });
+      if (event.previousContainer === event.container) {
+        if (event.previousIndex !== event.currentIndex) {
+          /* moveItemInArray(event.container.data, event.previousIndex, event.currentIndex); */
+          this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+            title: currentTask.title,
+            order: columns[event.currentIndex].order,
+            description: currentTask.description,
+            userId: currentTask.userId,
+            boardId: this.boardId,
+            columnId: previousColumnId,
+          });
+        }
+      } else {
+        /* transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        ); */
+        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+          title: currentTask.title,
+          order: columns[event.currentIndex].order,
+          description: currentTask.description,
+          userId: currentTask.userId,
+          boardId: this.boardId,
+          columnId: newColumnId,
+        });
+      }
+    }
+  }
+
+  deleteTask(taskId: string, columnId: string) {
+    this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
+      .afterClosed()
+      .subscribe((isConfirmed: boolean) => {
+        if (isConfirmed && this.boardId) {
+          this.tasksService.deleteTask(this.boardId, columnId, taskId);
+        }
+      });
+  }
+
+  /* openTaskCreater() {
+    this.dialog.open(TaskModalComponent, {
+      data: {
+        dialogTitle: 'Create new task',
+        boardId: this.boardId,
+        columnId: this.columnId,
+      },
+    });
+  } */
+
+  openTaskEditor(taskTitle: string, taskDescr: string, taskId: string, order: number, columnId: string): void {
+    this.dialog.open(TaskModalComponent, {
+      data: {
+        dialogTitle: `Edit ${taskTitle}`,
+        boardId: this.boardId,
+        columnId,
+        taskTitle,
+        taskDescr,
+        taskId,
+        order,
+      },
+    });
   }
 
   openColumnCreater() {

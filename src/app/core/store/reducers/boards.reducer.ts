@@ -36,6 +36,7 @@ export const boardReducer = createReducer(
     const updatedItems = [...state.boards];
     const clone = JSON.parse(JSON.stringify(board)) as IBoardBybId;
     clone.columns?.sort((a, b) => a.order - b.order);
+    clone.columns?.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
     updatedItems[boardIndex] = clone;
     return ({
       ...state,

@@ -1,8 +1,20 @@
-<div class="columns" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, columns)">
-  <div class="columns__item" *ngFor="let column of columns$ | async" cdkDrag>
-    <app-single-column [column]="column">
-    </app-single-column>
-    <app-tasks class="columns__tasks" [columns$]="columns$" [columnId]=column.id></app-tasks>
+<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event, columns)">
+  <div class="columns" cdkDropListGroup>
+    <div class="columns__item" *ngFor="let column of columns" cdkDrag>
+      <app-single-column [column]="column">
+      </app-single-column>
+      <div class="columns__inner" cdkDropList [cdkDropListData]="column.tasks"
+        (cdkDropListDropped)="drop2($event, columns, column.id)">
+        <div class="columns__tasks" *ngFor="let task of column.tasks" cdkDrag>
+          <div class="task">
+            <div (click)="openTaskEditor(task.title, task.description, task.id, task.order, column.id)">{{task.title}}
+            </div>
+            <button (click)="deleteTask(task.id, column.id)">del task</button>
+          </div>
+        </div>
+      </div>
+      <button class="task__btn task__btn_add">+ New task</button>
+    </div>
   </div>
   <button (click)="openColumnCreater()">create column</button>
 </div>

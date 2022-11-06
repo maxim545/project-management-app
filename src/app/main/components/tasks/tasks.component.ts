@@ -21,6 +21,8 @@ export class TasksComponent implements OnInit {
 
   @Input() public columnId!: string;
 
+  @Input() public task!: ITask;
+
   public boardId = this.router.snapshot.paramMap.get('id') as string;
 
   public tasks$!: Observable<ITask[] | undefined>;
@@ -33,7 +35,7 @@ export class TasksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.tasks$ = this.columns$.pipe(
+    /* this.tasks$ = this.columns$.pipe(
       map((columns) => {
         const currentBoard = columns.find((column) => column.id === this.columnId) || null;
         if (currentBoard) {
@@ -41,7 +43,7 @@ export class TasksComponent implements OnInit {
         }
         return undefined;
       }),
-    );
+    ); */
   }
 
   drop(event: CdkDragDrop<string[]>) {

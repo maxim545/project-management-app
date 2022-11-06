@@ -18,6 +18,10 @@
   &__tasks {
     margin-top: 10px;
   }
+
+  &__inner {
+    min-height: 10px;
+  }
 }
 
 .cdk-drag-preview {
