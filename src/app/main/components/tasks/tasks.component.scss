@@ -3,11 +3,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 10px;
-  margin: 8px 0;
+  margin-bottom: 15px;
   background-color: rgb(247, 247, 247);
   border: 1px dashed rgb(204, 204, 204);
   border-style: dashed solid;
   border-radius: 5px;
+
   &__btn_add {
     width: 100%;
     min-height: 30px;

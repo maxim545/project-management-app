@@ -17,15 +17,11 @@ import { TasksService } from '../../services/tasks/tasks.service';
   styleUrls: ['./tasks.component.scss'],
 })
 export class TasksComponent implements OnInit {
-  @Input() public columns$!: Observable<IColumn[]>;
-
-  @Input() public columnId!: string;
-
-  @Input() public task!: ITask;
+  @Input() public column!: IColumn;
 
   public boardId = this.router.snapshot.paramMap.get('id') as string;
 
-  public tasks$!: Observable<ITask[] | undefined>;
+  @Input() public task!: ITask;
 
   constructor(
     private store: Store,
@@ -35,19 +31,7 @@ export class TasksComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    /* this.tasks$ = this.columns$.pipe(
-      map((columns) => {
-        const currentBoard = columns.find((column) => column.id === this.columnId) || null;
-        if (currentBoard) {
-          return currentBoard.tasks;
-        }
-        return undefined;
-      }),
-    ); */
-  }
 
-  drop(event: CdkDragDrop<string[]>) {
-    console.log(event.previousIndex, event.currentIndex);
   }
 
   deleteTask(taskId: string) {
@@ -55,19 +39,9 @@ export class TasksComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.tasksService.deleteTask(this.boardId, this.columnId, taskId);
+          this.tasksService.deleteTask(this.boardId, this.column.id, taskId);
         }
       });
-  }
-
-  openTaskCreater() {
-    this.dialog.open(TaskModalComponent, {
-      data: {
-        dialogTitle: 'Create new task',
-        boardId: this.boardId,
-        columnId: this.columnId,
-      },
-    });
   }
 
   openTaskEditor(taskTitle: string, taskDescr: string, taskId: string, order: number): void {
@@ -75,7 +49,7 @@ export class TasksComponent implements OnInit {
       data: {
         dialogTitle: `Edit ${taskTitle}`,
         boardId: this.boardId,
-        columnId: this.columnId,
+        columnId: this.column.id,
         taskTitle,
         taskDescr,
         taskId,
