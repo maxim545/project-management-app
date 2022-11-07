@@ -34,7 +34,7 @@ export class BoardsEffects {
       switchMap(({ board }) => this.apiService
         .createBoard(board)
         .pipe(
-          map((board) => addBoardSuccess({ board: (board.body) as IBoard })),
+          map((board) => addBoardSuccess({ board })),
           catchError(() => EMPTY),
         )),
     ),
@@ -61,7 +61,7 @@ export class BoardsEffects {
           description: board.description,
         })
         .pipe(
-          map((board) => editBoardSuccess({ board: (board.body) as IBoard })),
+          map((resBoard) => editBoardSuccess({ id: board.id, board: resBoard })),
           catchError(() => EMPTY),
         )),
     ),

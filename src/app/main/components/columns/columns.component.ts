@@ -12,7 +12,6 @@ import { Store } from '@ngrx/store';
 import {
   map, switchMap, Observable, finalize,
 } from 'rxjs';
-import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import {
   CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule,
 } from '@angular/cdk/drag-drop';

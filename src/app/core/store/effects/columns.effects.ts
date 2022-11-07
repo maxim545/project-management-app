@@ -86,12 +86,11 @@ export class ColumnsEffects {
         .createTask(boardId, columnId, task)
         .pipe(
           switchMap(() => this.apiService
-            .getBoardById(boardId)
+            .getColumnById(boardId, columnId)
             .pipe(
-              map((board) => {
-                const columns = board.columns as IColumn[];
-                columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
-                return loadColumnsSuccess({ columns });
+              map((column) => {
+                column.tasks?.sort((a, b) => a.order - b.order);
+                return editColumnSuccess({ columnId, column });
               }),
               catchError(() => EMPTY),
             )),
@@ -108,12 +107,11 @@ export class ColumnsEffects {
         .deleteTask(boardId, columnId, taskId)
         .pipe(
           switchMap(() => this.apiService
-            .getBoardById(boardId)
+            .getColumnById(boardId, columnId)
             .pipe(
-              map((board) => {
-                const columns = board.columns as IColumn[];
-                columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
-                return loadColumnsSuccess({ columns });
+              map((column) => {
+                column.tasks?.sort((a, b) => a.order - b.order);
+                return editColumnSuccess({ columnId, column });
               }),
               catchError(() => EMPTY),
             )),

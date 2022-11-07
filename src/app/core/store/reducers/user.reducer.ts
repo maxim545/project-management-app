@@ -1,10 +1,20 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
+import { IUser } from '../../models/user.model';
 import {
   loadUser, loadUserSuccess, cleanUserStore, loginUserFailed, signUpUserFailed,
 } from '../actions/user.actions';
-import { initialState, UserState } from '../user.state';
+
+export interface UserState {
+  user: IUser | null,
+  error: string | null;
+}
+
+export const initialState: UserState = {
+  user: null,
+  error: null,
+};
 
 export const userReducer = createReducer(
   initialState,

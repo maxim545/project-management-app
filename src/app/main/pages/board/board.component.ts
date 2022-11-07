@@ -2,7 +2,6 @@ import {
   Component, OnInit, OnDestroy, AfterViewInit,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { select, Store } from '@ngrx/store';
 import { map } from 'rxjs/operators';
 import { IBoard, IBoardResponse, IColumn } from 'src/app/core/models/board.model';
@@ -13,6 +12,8 @@ import { createColumnDialogConfig, deleteColumnDialogConfig } from 'src/app/core
 import { getCurrentBoard } from 'src/app/core/store/actions/boards.actions';
 import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
 import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
+import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
+import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 import { ConfirmModalComponent } from '../../../shared/components/modals/confirm-modal/confirm-modal.component';
 import { loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -24,9 +25,11 @@ import { ColumnsService } from '../../services/columns/columns.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
-  public boardId: string | null = this.router.snapshot.paramMap.get('id');
+  public boardId = this.router.snapshot.paramMap.get('id');
 
   public board$!: Observable<IBoardResponse>;
+
+  public test$!: Observable<IBoardResponse>;
 
   public columns$!: Observable<IColumn[]>;
 
@@ -37,30 +40,28 @@ export class BoardComponent implements OnInit {
     public dialog: MatDialog,
     private columnsService: ColumnsService,
     private columnStore: Store<ColumnState>,
+    private boardStore: Store<BoardState>,
   ) {
 
   }
 
   ngOnInit(): void {
-    this.board$ = this.store.select(getCurrentBoards)
-      .pipe(
-        map((boards) => {
-          const currentBoard = boards.find((board) => board.id === this.boardId) as IBoardResponse;
-          if (!currentBoard) {
-            // navigate to 404
-            throw new Error('Board id is not valid');
-          } else if (this.boardId) {
-            this.store.dispatch(loadColumns({ id: this.boardId }));
-          }
-          return currentBoard;
-        }),
-      );
+    this.board$ = this.boardStore.pipe(
+      select(getAllBoards),
+      map((boards) => {
+        const currentBoard = boards.find((board) => board.id === this.boardId) as IBoardResponse;
+        if (!currentBoard) {
+          // navigate to 404
+          throw new Error('Board id is not valid');
+        } else if (this.boardId) {
+          this.store.dispatch(loadColumns({ id: this.boardId }));
+        }
+        return currentBoard;
+      }),
+    );
     this.columns$ = this.columnStore.pipe(
       select(getAllColumns),
-      map((columns) => {
-        const copyColumns = JSON.parse(JSON.stringify(columns));
-        return copyColumns;
-      }),
+      map((columns) => JSON.parse(JSON.stringify(columns))),
     );
   }
 }

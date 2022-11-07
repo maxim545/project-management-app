@@ -22,7 +22,6 @@ export const initialState: ColumnState = adapter.getInitialState({
 
 export const columnReducer = createReducer(
   initialState,
-  on(loadColumns, (state) => ({ ...state })),
 
   on(loadColumnsSuccess, (state, actions) => adapter.setAll(actions.columns, state)),
 

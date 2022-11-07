@@ -51,8 +51,8 @@ export class ApiService {
     return this.http.get<IBoard[]>('boards');
   }
 
-  createBoard(board: IBoardRequest): Observable<HttpResponse<IBoard>> {
-    return this.http.post<IBoard>('boards', board, { observe: 'response' });
+  createBoard(board: IBoardRequest): Observable<IBoard> {
+    return this.http.post<IBoard>('boards', board);
   }
 
   getBoardById(id: string): Observable<IBoardResponse> {
@@ -63,8 +63,8 @@ export class ApiService {
     return this.http.delete<IBoard>(`boards/${id}`);
   }
 
-  editBoard(id: string, board: IBoardRequest): Observable<HttpResponse<IBoard>> {
-    return this.http.put<IBoard>(`boards/${id}`, board, { observe: 'response' });
+  editBoard(id: string, board: IBoardRequest): Observable<IBoard> {
+    return this.http.put<IBoard>(`boards/${id}`, board);
   }
 
   /* ********  COLUMNS ******** */

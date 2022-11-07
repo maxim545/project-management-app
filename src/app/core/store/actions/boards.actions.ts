@@ -39,7 +39,12 @@ export const editBoard = createAction(
 
 export const editBoardSuccess = createAction(
   '[Board] Edit Board Success',
-  props<{ board: IBoard }>(),
+  props<{ id: string, board: IBoard }>(),
+);
+
+export const boardFailed = createAction(
+  '[Board] Board Failed',
+  props<{ error: string }>(),
 );
 
 export const getCurrentBoard = createAction(
@@ -50,9 +55,4 @@ export const getCurrentBoard = createAction(
 export const getCurrentBoardSuccess = createAction(
   '[Board] Get Current Board Success',
   props<{ board: IBoardResponse }>(),
-);
-
-export const boardFailed = createAction(
-  '[Board] Board Failed',
-  props<{ error: string }>(),
 );
