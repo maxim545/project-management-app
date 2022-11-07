@@ -1,10 +1,15 @@
 import {
   createFeatureSelector, createSelector,
 } from '@ngrx/store';
-import { BoardState } from '../boards.state';
+import { boardStateSelector, selectAll, selectEntities } from '../reducers/boards.reducer';
 
-export const getBoardStore = createFeatureSelector<BoardState>('boards');
-export const getCurrentBoards = createSelector(
-  getBoardStore,
-  (state: BoardState) => state.boards,
+export const getAllBoards = createSelector(
+  boardStateSelector,
+  selectAll,
 );
+
+/* export const selectEntity = (id: string) => createSelector(
+  selectEntities,
+  (entities) => prsnlsState.entities[id]
+);
+ */

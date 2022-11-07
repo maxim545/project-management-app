@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBoardBybId } from 'src/app/core/models/board.model';
+import { IBoardResponse } from 'src/app/core/models/board.model';
 
 @Component({
   selector: 'app-board-header',
@@ -7,7 +7,7 @@ import { IBoardBybId } from 'src/app/core/models/board.model';
   styleUrls: ['./board-header.component.scss'],
 })
 export class BoardHeaderComponent implements OnInit {
-  @Input() public board: IBoardBybId | null = null;
+  @Input() public board: IBoardResponse | null = null;
 
   constructor() { }
 

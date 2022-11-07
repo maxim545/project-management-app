@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IBoard } from 'src/app/core/models/board.model';
-import { getCurrentBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { BoardModalComponent } from 'src/app/shared/components/modals/board-modal/board-modal.component';
+import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
+import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -21,10 +22,11 @@ export class MainComponent implements OnInit {
     private store: Store,
     private dialog: MatDialog,
     private boardService: BoardsService,
+    private boardStore: Store<BoardState>,
   ) { }
 
   ngOnInit(): void {
-    this.boards$ = this.store.select(getCurrentBoards);
+    this.boards$ = this.boardStore.pipe(select(getAllBoards));
   }
 
   deleteBoard(board: IBoard) {

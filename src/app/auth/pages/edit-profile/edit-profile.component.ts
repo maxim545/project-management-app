@@ -7,7 +7,6 @@ import {
   filter, map, Observable, Subscription,
 } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { UserState } from 'src/app/core/store/user.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from 'src/app/core/models/user.model';
 import { AuthValidators } from 'src/app/core/validators/auth.validators';
