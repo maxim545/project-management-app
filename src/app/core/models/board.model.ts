@@ -1,4 +1,4 @@
-export interface IBoardForm {
+export interface IBoardRequest {
   title: string;
   description: string;
 }
@@ -9,7 +9,7 @@ export interface IBoard {
   description: string;
 }
 
-export interface IBoardBybId {
+export interface IBoardResponse {
   id: string;
   title: string;
   description: string;

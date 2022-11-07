@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import { IColumn, ITask } from 'src/app/core/models/board.model';
-import { getCurrentColumn, loadTasks } from 'src/app/core/store/actions/columns.actions';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';

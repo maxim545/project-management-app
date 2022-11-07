@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBoardBybId, IColumn, ITask } from 'src/app/core/models/board.model';
+import { IBoardResponse, IColumn, ITask } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteColumnDialogConfig, deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
@@ -45,58 +45,6 @@ export class ColumnsComponent implements OnInit {
 
   }
 
-  dropColumn(event: CdkDragDrop<IColumn[]>, columns: IColumn[] | null): void {
-    if (columns && event.previousIndex !== event.currentIndex) {
-      this.columnsService.editColumn(
-        this.boardId,
-        columns[event.previousIndex].id,
-        {
-          title: columns[event.previousIndex].title,
-          order: columns[event.currentIndex].order,
-        },
-      );
-      moveItemInArray(columns, event.previousIndex, event.currentIndex);
-    }
-  }
-
-  dropTask(event: CdkDragDrop<ITask[] | undefined>, columns: IColumn[] | null, newColumnId: string) {
-    if (event.previousContainer.data && event.container.data && columns) { // Here we define column id in which the current task was
-      const currentTask = event.previousContainer.data[event.previousIndex];
-      let previousColumnId = '';
-      columns?.forEach((column, i) => {
-        const taskIsExist = column.tasks?.includes(currentTask);
-        if (taskIsExist) { previousColumnId = columns[i].id; }
-      });
-      if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) { // If we swap tasks in the same column
-        console.log(event.previousIndex, event.currentIndex);
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
-          title: currentTask.title,
-          order: columns[event.currentIndex].order,
-          description: currentTask.description,
-          userId: currentTask.userId,
-          boardId: this.boardId,
-          columnId: previousColumnId,
-        });
-      } else if (event.previousContainer !== event.container) { // Else we swap tasks from one column to another
-        transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex,
-        );
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
-          title: currentTask.title,
-          order: columns[event.currentIndex].order,
-          description: currentTask.description,
-          userId: currentTask.userId,
-          boardId: this.boardId,
-          columnId: newColumnId,
-        });
-      }
-    }
-  }
-
   openColumnCreater() {
     this.dialog.open(ColumnModalComponent, {
       data: {
@@ -114,5 +62,58 @@ export class ColumnsComponent implements OnInit {
         columnId,
       },
     });
+  }
+
+  dropColumn(event: CdkDragDrop<IColumn[]>, columns: IColumn[] | null): void {
+    if (columns && event.previousIndex !== event.currentIndex) {
+      const currentColumn = columns[event.previousIndex];
+      this.columnsService.editColumn(
+        this.boardId,
+        currentColumn.id,
+        {
+          ...currentColumn,
+          order: columns[event.currentIndex].order,
+        },
+      );
+      moveItemInArray(columns, event.previousIndex, event.currentIndex);
+    }
+  }
+
+  dropTask(event: CdkDragDrop<ITask[] | undefined>, columns: IColumn[] | null, newColumnId: string) {
+    if (event.previousContainer.data && event.container.data && columns) { // Here we define column id in which the current task was
+      const currentTask = event.previousContainer.data[event.previousIndex];
+      const newTask = {
+        title: currentTask.title,
+        order: event.currentIndex + 1,
+        description: currentTask.description,
+        userId: currentTask.userId,
+        boardId: this.boardId,
+      };
+      let previousColumnId = '';
+      columns?.forEach((column, i) => {
+        const taskIsExist = column.tasks?.includes(currentTask);
+        if (taskIsExist) { previousColumnId = columns[i].id; }
+      });
+      if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) { // If we swap tasks in the same column
+        console.log(event.previousIndex + 1, event.currentIndex + 1, event.currentIndex + 1);
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+          ...newTask,
+          columnId: previousColumnId,
+        });
+      } else if (event.previousContainer !== event.container) { // Else we swap tasks from one column to another
+        console.log(event.previousIndex, event.currentIndex);
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+          ...newTask,
+          columnId: newColumnId,
+        });
+      }
+    }
   }
 }

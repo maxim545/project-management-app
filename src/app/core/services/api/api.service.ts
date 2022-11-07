@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRegister, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
+  IBoard, IBoardResponse, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
 } from '../../models/board.model';
 
 @Injectable({
@@ -51,19 +51,19 @@ export class ApiService {
     return this.http.get<IBoard[]>('boards');
   }
 
-  createBoard(board: IBoardForm): Observable<HttpResponse<IBoard>> {
+  createBoard(board: IBoardRequest): Observable<HttpResponse<IBoard>> {
     return this.http.post<IBoard>('boards', board, { observe: 'response' });
   }
 
-  getBoardById(id: string): Observable<IBoardBybId> {
-    return this.http.get<IBoardBybId>(`boards/${id}`);
+  getBoardById(id: string): Observable<IBoardResponse> {
+    return this.http.get<IBoardResponse>(`boards/${id}`);
   }
 
   deleteBoard(id: string) {
     return this.http.delete<IBoard>(`boards/${id}`);
   }
 
-  editBoard(id: string, board: IBoardForm): Observable<HttpResponse<IBoard>> {
+  editBoard(id: string, board: IBoardRequest): Observable<HttpResponse<IBoard>> {
     return this.http.put<IBoard>(`boards/${id}`, board, { observe: 'response' });
   }
 

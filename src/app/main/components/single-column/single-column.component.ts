@@ -45,8 +45,8 @@ export class SingleColumnComponent implements OnInit {
   editTitle(column: IColumn) {
     if (column.title !== this.editTitleForm.value.title) {
       this.columnsService.editColumn(this.boardId!, column.id, {
-        ...this.editTitleForm.value,
-        order: column.order,
+        ...column,
+        title: this.editTitleForm.value.title,
       });
     }
   }

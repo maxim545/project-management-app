@@ -1,10 +1,9 @@
 import {
   createFeatureSelector, createSelector,
 } from '@ngrx/store';
-import { ColumnState } from '../columns.state';
+import { ColumnState, columnStateSelector, selectAll } from '../reducers/columns.reducers';
 
-export const getColumntore = createFeatureSelector<ColumnState>('columns');
-export const getCurrentColumns = createSelector(
-  getColumntore,
-  (state: ColumnState) => state.columns,
+export const getAllColumns = createSelector(
+  columnStateSelector,
+  selectAll,
 );

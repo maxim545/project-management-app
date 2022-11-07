@@ -6,7 +6,7 @@ import {
 import { IBoard } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addBoard, addBoardSuccess, addColumn, addTask, deleteBoard, deleteBoardSuccess, deleteColumn, deleteTask, editBoard, editBoardSuccess, editColumn, editTask, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -78,100 +78,80 @@ export class BoardsEffects {
         )),
     ),
   );
+  /*
 
-  // COLUMNS
+    deleteColumn$ = createEffect(
+      () => this.actions$.pipe(
+        ofType(deleteColumn),
+        switchMap(({ boardId, columnId }) => this.apiService
+          .deleteColumn(boardId, columnId)
+          .pipe(
+            switchMap(() => this.apiService
+              .getBoardById(boardId).pipe(
+                map((board) => getCurrentBoardSuccess({ board })),
+                catchError(() => EMPTY),
+              )),
+          )),
+      ),
+    );
 
-  deleteColumn$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(deleteColumn),
-      switchMap(({ boardId, columnId }) => this.apiService
-        .deleteColumn(boardId, columnId)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
+    addColumn$ = createEffect(
+      () => this.actions$.pipe(
+        ofType(addColumn),
+        switchMap(({ boardId, column }) => this.apiService
+          .createColumn(boardId, column)
+          .pipe(
+            switchMap(() => this.apiService
+              .getBoardById(boardId).pipe(
+                map((board) => getCurrentBoardSuccess({ board })),
+                catchError(() => EMPTY),
+              )),
+          )),
+      ),
+    );
 
-  addColumn$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(addColumn),
-      switchMap(({ boardId, column }) => this.apiService
-        .createColumn(boardId, column)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
+    editColumn$ = createEffect(
+      () => this.actions$.pipe(
+        ofType(editColumn),
+        switchMap(({ boardId, columnId, column }) => this.apiService
+          .editColumn(boardId, columnId, column)
+          .pipe(
+            switchMap(() => this.apiService
+              .getBoardById(boardId).pipe(
+                map((board) => getCurrentBoardSuccess({ board })),
+                catchError(() => EMPTY),
+              )),
+          )),
+      ),
+    );
 
-  editColumn$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(editColumn),
-      switchMap(({ boardId, columnId, column }) => this.apiService
-        .editColumn(boardId, columnId, column)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
+    addTask$ = createEffect(
+      () => this.actions$.pipe(
+        ofType(addTask),
+        switchMap(({ boardId, columnId, task }) => this.apiService
+          .createTask(boardId, columnId, task)
+          .pipe(
+            switchMap(() => this.apiService
+              .getBoardById(boardId).pipe(
+                map((board) => getCurrentBoardSuccess({ board })),
+                catchError(() => EMPTY),
+              )),
+          )),
+      ),
+    );
 
-  // TASKS
-
-  addTask$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(addTask),
-      switchMap(({ boardId, columnId, task }) => this.apiService
-        .createTask(boardId, columnId, task)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
-
-  editTask$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(editTask),
-      switchMap(({
-        boardId, columnId, taskId, task,
-      }) => this.apiService
-        .editTask(boardId, columnId, taskId, task)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
-
-  deleteTask$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(deleteTask),
-      switchMap(({ boardId, columnId, taskId }) => this.apiService
-        .deleteTask(boardId, columnId, taskId)
-        .pipe(
-          switchMap(() => this.apiService
-            .getBoardById(boardId).pipe(
-              map((board) => getCurrentBoardSuccess({ board })),
-              catchError(() => EMPTY),
-            )),
-        )),
-    ),
-  );
+    deleteTask$ = createEffect(
+      () => this.actions$.pipe(
+        ofType(deleteTask),
+        switchMap(({ boardId, columnId, taskId }) => this.apiService
+          .deleteTask(boardId, columnId, taskId)
+          .pipe(
+            switchMap(() => this.apiService
+              .getBoardById(boardId).pipe(
+                map((board) => getCurrentBoardSuccess({ board })),
+                catchError(() => EMPTY),
+              )),
+          )),
+      ),
+    ); */
 }

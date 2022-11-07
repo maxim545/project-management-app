@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ITaskPutRequest, ITaskRequest } from 'src/app/core/models/board.model';
-import { addTask, deleteTask, editTask } from 'src/app/core/store/actions/boards.actions';
+import { addTask, deleteTask, editTask } from 'src/app/core/store/actions/columns.actions';
 
 @Injectable({
   providedIn: 'root',

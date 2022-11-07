@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  catchError, map, of, switchMap, tap, from, EMPTY, pluck, take,
+  catchError, map, of, switchMap, tap, from, EMPTY, pluck, take, debounceTime,
 } from 'rxjs';
+import { IColumn } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addColumn, addColumnSuccess, deleteColumn, deleteColumnSuccess, editColumn, editColumnSuccess, getCurrentColumn, getCurrentColumnSuccess, loadColumns, loadColumnsSuccess, loadTasks, loadTasksSuccess,
+  addColumn, addColumnSuccess, addTask, deleteColumn, deleteColumnSuccess, deleteTask, editColumn, editColumnSuccess, editTask, loadColumns, loadColumnsSuccess,
 } from '../actions/columns.actions';
 
 @Injectable()
@@ -19,9 +20,13 @@ export class ColumnsEffects {
     () => this.actions$.pipe(
       ofType(loadColumns),
       switchMap(({ id }) => this.apiService
-        .getAllColumns(id)
+        .getBoardById(id)
         .pipe(
-          map((columns) => loadColumnsSuccess({ columns })),
+          map((board) => {
+            const columns = board.columns as IColumn[];
+            columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
+            return loadColumnsSuccess({ columns });
+          }),
           catchError(() => EMPTY),
         )),
     ),
@@ -39,18 +44,6 @@ export class ColumnsEffects {
     ),
   );
 
-  editColumn$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(editColumn),
-      switchMap(({ boardId, columnId, column }) => this.apiService
-        .editColumn(boardId, columnId, column)
-        .pipe(
-          map((column) => editColumnSuccess({ columnId, column })),
-          catchError(async (err) => err),
-        )),
-    ),
-  );
-
   deleteColumn$ = createEffect(
     () => this.actions$.pipe(
       ofType(deleteColumn),
@@ -63,26 +56,89 @@ export class ColumnsEffects {
     ),
   );
 
-  getCurrentColumn$ = createEffect(
+  editColumn$ = createEffect(
     () => this.actions$.pipe(
-      ofType(getCurrentColumn),
-      switchMap(({ boardId, columnId }) => this.apiService
-        .getColumnById(boardId, columnId)
+      ofType(editColumn),
+      switchMap(({ boardId, columnId, column }) => this.apiService
+        .editColumn(boardId, columnId, {
+          title: column.title,
+          order: column.order,
+        })
         .pipe(
-          map((column) => getCurrentColumnSuccess({ column })),
-          catchError(() => EMPTY),
+          map((resColumn) => editColumnSuccess({
+            columnId,
+            column: {
+              ...resColumn,
+              tasks: column.tasks,
+            },
+          })),
+          catchError(async (err) => err),
         )),
     ),
   );
 
-  loadTasks$ = createEffect(
+  addTask$ = createEffect(
     () => this.actions$.pipe(
-      ofType(loadTasks),
-      switchMap(({ boardId, columnId }) => this.apiService
-        .getAllTasks(boardId, columnId)
+      ofType(addTask),
+      switchMap(({
+        boardId, columnId, task,
+      }) => this.apiService
+        .createTask(boardId, columnId, task)
         .pipe(
-          map((tasks) => loadTasksSuccess({ columnId, tasks })),
-          catchError(() => EMPTY),
+          switchMap(() => this.apiService
+            .getBoardById(boardId)
+            .pipe(
+              map((board) => {
+                const columns = board.columns as IColumn[];
+                columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
+                return loadColumnsSuccess({ columns });
+              }),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
+
+  deleteTask$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(deleteTask),
+      switchMap(({
+        boardId, columnId, taskId,
+      }) => this.apiService
+        .deleteTask(boardId, columnId, taskId)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId)
+            .pipe(
+              map((board) => {
+                const columns = board.columns as IColumn[];
+                columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
+                return loadColumnsSuccess({ columns });
+              }),
+              catchError(() => EMPTY),
+            )),
+        )),
+    ),
+  );
+
+  editTask$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(editTask),
+      switchMap(({
+        boardId, columnId, taskId, task,
+      }) => this.apiService
+        .editTask(boardId, columnId, taskId, task)
+        .pipe(
+          switchMap(() => this.apiService
+            .getBoardById(boardId)
+            .pipe(
+              map((board) => {
+                const columns = board.columns as IColumn[];
+                columns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
+                return loadColumnsSuccess({ columns });
+              }),
+              catchError(() => EMPTY),
+            )),
         )),
     ),
   );

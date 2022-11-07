@@ -1,61 +1,43 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IColumn } from '../../models/board.model';
 import {
-  addColumnSuccess, deleteColumnSuccess, editColumnSuccess, getCurrentColumnSuccess, loadColumns, loadColumnsSuccess, loadTasksSuccess,
+  addColumnSuccess, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess,
 } from '../actions/columns.actions';
-import { initialState } from '../columns.state';
+
+export interface ColumnState extends EntityState<IColumn> {
+  error: string | null;
+}
+
+export const adapter: EntityAdapter<IColumn> = createEntityAdapter<IColumn>({
+  selectId: (column) => column.id,
+  sortComparer: (a, b) => a.order - b.order,
+});
+
+export const initialState: ColumnState = adapter.getInitialState({
+  error: null,
+});
 
 export const columnReducer = createReducer(
   initialState,
   on(loadColumns, (state) => ({ ...state })),
 
-  on(loadColumnsSuccess, (state, { columns }) => ({
-    ...state,
-    columns,
-  })),
+  on(loadColumnsSuccess, (state, actions) => adapter.setAll(actions.columns, state)),
 
-  on(addColumnSuccess, (state, { column }) => ({
-    ...state,
-    columns: [...state.columns, { ...column }],
-  })),
+  on(addColumnSuccess, (state, action) => adapter.addOne(action.column, state)),
 
-  on(deleteColumnSuccess, (state, { columnId }) => ({
-    ...state,
-    columns: state.columns.filter((columns) => columns.id !== columnId),
-  })),
+  on(deleteColumnSuccess, (state, action) => adapter.removeOne(action.columnId, state)),
 
-  on(editColumnSuccess, (state, { columnId, column }) => {
-    const columnIndex = state.columns.findIndex((item) => item.id === columnId);
-    const updatedItems = [...state.columns];
-    updatedItems[columnIndex] = column;
-    return ({
-      ...state,
-      columns: updatedItems,
-    });
-  }),
-
-  on(getCurrentColumnSuccess, (state, { column }) => {
-    const columnIndex = state.columns.findIndex((item) => item.id === column.id);
-    const updatedItems = [...state.columns];
-    updatedItems[columnIndex] = column;
-    return ({
-      ...state,
-      columns: updatedItems,
-    });
-  }),
-
-  /* on(loadTasksSuccess, (state, { columnId, tasks }) => {
-    const column = state.columns.find((item) => item.id === columnId) as IColumn;
-    const newColumn = {
-      ...column,
-      tasks,
-    };
-    return ({
-      ...state,
-      columns: [...state.columns, newColumn],
-    });
-  }), */
+  on(editColumnSuccess, (state, action) => adapter.updateOne({ id: action.columnId, changes: action.column }, state)),
 
 );
+
+export const columnStateSelector = createFeatureSelector<ColumnState>('columns');
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = adapter.getSelectors();

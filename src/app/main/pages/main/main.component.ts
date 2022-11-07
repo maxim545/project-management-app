@@ -24,7 +24,7 @@ export class MainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.boards$ = this.store.select(getCurrentBoards);
+    this.boards$ = this.store.select(getCurrentBoards) as Observable<IBoard[]>;
   }
 
   deleteBoard(board: IBoard) {

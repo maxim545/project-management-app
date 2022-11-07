@@ -1,7 +1,7 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
-import { IBoard, IBoardBybId } from '../../models/board.model';
+import { IBoard, IBoardResponse } from '../../models/board.model';
 import {
   addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoardSuccess, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
@@ -31,18 +31,18 @@ export const boardReducer = createReducer(
     });
   }),
 
-  on(getCurrentBoardSuccess, (state, { board }) => {
+  /*  on(getCurrentBoardSuccess, (state, { board }) => {
     const boardIndex = state.boards.findIndex((item) => item.id === board.id);
     const updatedItems = [...state.boards];
-    const clone = JSON.parse(JSON.stringify(board)) as IBoardBybId;
-    board.columns?.sort((a, b) => a.order - b.order);
-    board.columns?.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
+    const clone = JSON.parse(JSON.stringify(board)) as IBoardResponse;
+    clone.columns?.sort((a, b) => a.order - b.order);
+    clone.columns?.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
     updatedItems[boardIndex] = clone;
     return ({
       ...state,
       boards: updatedItems,
     });
-  }),
+  }), */
 
   on(deleteBoardSuccess, (state, { id }) => ({
     ...state,
@@ -50,7 +50,7 @@ export const boardReducer = createReducer(
   })),
 
   /*  on(deleteColumnSuccess, (state, { boardId, columnId }) => {
-    const board = state.boards.find((item) => item.id === boardId) as IBoardBybId;
+    const board = state.boards.find((item) => item.id === boardId) as IBoardResponse;
     const columns = board?.columns?.filter((boards) => boards.id !== columnId);
     const updatedItems = [...state.boards];
     return ({

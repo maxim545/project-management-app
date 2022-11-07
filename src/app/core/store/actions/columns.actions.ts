@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IColumn, IColumnPostRequest, IColumnResponse, ITask,
+  IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskRequest,
 } from '../../models/board.model';
 
 export const loadColumns = createAction(
@@ -30,7 +30,7 @@ export const editColumn = createAction(
 
 export const editColumnSuccess = createAction(
   '[Columns] Edit Column Success',
-  props<{ columnId: string, column: IColumnResponse }>(),
+  props<{ columnId: string, column: IColumn }>(),
 );
 
 export const deleteColumn = createAction(
@@ -48,22 +48,19 @@ export const columnFailed = createAction(
   props<{ error: string }>(),
 );
 
-export const getCurrentColumn = createAction(
-  '[Columns] Get Current Columns',
-  props<{ boardId: string, columnId: string }>(),
+/* -----------TASKS----------- */
+
+export const addTask = createAction(
+  '[Task] Add Task',
+  props<{ boardId: string, columnId: string, task: ITaskRequest }>(),
 );
 
-export const getCurrentColumnSuccess = createAction(
-  '[Columns] Get Current Columns Success',
-  props<{ column: IColumn }>(),
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ boardId: string, columnId: string, taskId: string }>(),
 );
 
-export const loadTasks = createAction(
-  '[Task] Load Tasks Columns',
-  props<{ boardId: string, columnId: string }>(),
-);
-
-export const loadTasksSuccess = createAction(
-  '[Task] Load Tasks Success',
-  props<{ columnId: string, tasks: ITask[] }>(),
+export const editTask = createAction(
+  '[Task] Edit Task',
+  props<{ boardId: string, columnId: string, taskId: string, task: ITaskPutRequest }>(),
 );
