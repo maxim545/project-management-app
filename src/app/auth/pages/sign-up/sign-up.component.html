@@ -43,7 +43,8 @@
         </div>
       </div>
       <div class="wrapper-btn">
-        <button class="btn-submit" [disabled]="!registerForm.valid || (isLoading$ | async) !== false">Register</button>
+        <button class="btn-submit"
+          [disabled]="!registerForm.valid || (isLoadingUser$ | async) !== false">Register</button>
       </div>
     </form>
   </div>

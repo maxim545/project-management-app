@@ -19,7 +19,7 @@ import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 export class SignUpComponent implements OnInit {
   registerForm!: FormGroup;
 
-  isLoading$: Observable<boolean> = this.authService.isLoading$;
+  isLoadingUser$: Observable<boolean> = this.authService.isLoadingUser$;
 
   constructor(
     public authService: AuthService,

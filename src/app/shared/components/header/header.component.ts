@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
+import { ColumnsService } from 'src/app/main/services/columns/columns.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -17,11 +18,14 @@ import { BoardModalComponent } from '../modals/board-modal/board-modal.component
 export class HeaderComponent implements OnInit {
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
-  isLoading$: Observable<boolean> = this.authService.isLoading$;
+  isLoadingUser$: Observable<boolean> = this.authService.isLoadingUser$;
+
+  isLoadingColumns$: Observable<boolean> = this.columnsService.isLoadingColums$;
 
   constructor(
     private store: Store,
     private authService: AuthService,
+    private columnsService: ColumnsService,
     public dialog: MatDialog,
   ) {
   }

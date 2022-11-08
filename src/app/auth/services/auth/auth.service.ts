@@ -23,7 +23,7 @@ import { Observable } from 'rxjs';
 export class AuthService {
   isLoggedIn$: Observable<boolean>;
 
-  isLoading$: Observable<boolean>;
+  isLoadingUser$: Observable<boolean>;
 
   constructor(
     private apiService: ApiService,
@@ -35,7 +35,7 @@ export class AuthService {
       .select(getUserStore)
       .pipe(map((data) => data.isLoggedIn));
 
-    this.isLoading$ = this.store
+    this.isLoadingUser$ = this.store
       .select(getUserStore)
       .pipe(map((data) => data.isLoading));
   }
