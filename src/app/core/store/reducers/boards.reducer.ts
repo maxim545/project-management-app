@@ -9,6 +9,7 @@ import {
 
 export interface BoardState extends EntityState<IBoard> {
   error: string | null;
+  isLoading: boolean;
 }
 
 export const adapter: EntityAdapter<IBoard> = createEntityAdapter<IBoard>({
@@ -18,12 +19,21 @@ export const adapter: EntityAdapter<IBoard> = createEntityAdapter<IBoard>({
 
 export const initialState: BoardState = adapter.getInitialState({
   error: null,
+  isLoading: false,
 });
 
 export const boardReducer = createReducer(
   initialState,
 
-  on(loadBoardsSuccess, (state, actions) => adapter.setAll(actions.boards, state)),
+  on(loadBoards, (state) => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(loadBoardsSuccess, (state, actions) => adapter.setAll(actions.boards, {
+    ...state,
+    isLoading: false,
+  })),
 
   on(addBoardSuccess, (state, action) => adapter.addOne(action.board, state)),
 

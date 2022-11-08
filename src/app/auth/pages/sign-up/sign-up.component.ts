@@ -8,6 +8,8 @@ import { AuthValidators } from 'src/app/core/validators/auth.validators';
 import { Store } from '@ngrx/store';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { signUpUser } from 'src/app/core/store/actions/user.actions';
+import { map, Observable } from 'rxjs';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,13 +19,16 @@ import { signUpUser } from 'src/app/core/store/actions/user.actions';
 export class SignUpComponent implements OnInit {
   registerForm!: FormGroup;
 
+  isLoading$: Observable<boolean> = this.authService.isLoading$;
+
   constructor(
     public authService: AuthService,
     private http: HttpClient,
     private formBuilder: FormBuilder,
     private store: Store,
     private apiService: ApiService,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.registerForm = this.formBuilder.group({

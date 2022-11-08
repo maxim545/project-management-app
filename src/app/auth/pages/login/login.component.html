@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="wrapper-btn">
-        <button class="btn-submit" [disabled]="!loginForm.valid">Login</button>
+        <button class="btn-submit" [disabled]="!loginForm.valid || (isLoading$ | async) !== false">Login</button>
       </div>
     </form>
   </div>

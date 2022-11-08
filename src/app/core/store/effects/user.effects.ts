@@ -29,7 +29,7 @@ export class UserEffects {
         .getUserById(userId)
         .pipe(
           map((user) => loadUserSuccess({ user })),
-          catchError(() => EMPTY),
+          catchError((error) => of(userRequestFailed({ error }))),
         )),
     ),
   );
@@ -78,8 +78,11 @@ export class UserEffects {
           login: user.login,
           password: user.password,
         }).pipe(
-          map((resUser) => loadUserSuccess({ user: resUser })),
-          catchError(async (err) => err),
+          map((resUser) => {
+            this.authService.updateUser();
+            return loadUserSuccess({ user: resUser });
+          }),
+          catchError((error) => of(userRequestFailed({ error }))),
         )),
     ),
   );
@@ -91,7 +94,7 @@ export class UserEffects {
         .deleteUser(id)
         .pipe(
           map(() => cleanUserStore()),
-          catchError(async (err) => err),
+          catchError((error) => of(userRequestFailed({ error }))),
         )),
     ),
   );

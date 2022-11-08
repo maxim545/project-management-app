@@ -23,6 +23,8 @@ import { Observable } from 'rxjs';
 export class AuthService {
   isLoggedIn$: Observable<boolean>;
 
+  isLoading$: Observable<boolean>;
+
   constructor(
     private apiService: ApiService,
     private snackBar: MatSnackBar,
@@ -31,18 +33,24 @@ export class AuthService {
   ) {
     this.isLoggedIn$ = this.store
       .select(getUserStore)
-      .pipe(map(({ user }) => !!user));
+      .pipe(map((data) => data.isLoggedIn));
+
+    this.isLoading$ = this.store
+      .select(getUserStore)
+      .pipe(map((data) => data.isLoading));
   }
 
   loginUser(user: ILoginRequest) {
-    this.snackBar.open('Success', '', snackBarGreenConfig)
-      .afterDismissed()
-      .subscribe(() => {
-        this.router.navigate(['main']);
-      });
+    this.router.navigate(['main']);
+    this.snackBar.open('Success', '', snackBarGreenConfig);
   }
 
   logoutUser() {
     this.store.dispatch(cleanUserStore());
+    this.snackBar.open('Logout success', '', snackBarGreenConfig);
+  }
+
+  updateUser() {
+    this.snackBar.open('Your data has been updated', '', snackBarGreenConfig);
   }
 }

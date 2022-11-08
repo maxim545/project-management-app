@@ -26,7 +26,6 @@ export class MainComponent implements OnInit {
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {
-    this.store.dispatch(loadBoards());
   }
 
   ngOnInit(): void {

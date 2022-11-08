@@ -15,19 +15,23 @@ import { BoardModalComponent } from '../modals/board-modal/board-modal.component
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn$ = this.authService.isLoggedIn$;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
+
+  isLoading$: Observable<boolean> = this.authService.isLoading$;
 
   constructor(
     private store: Store,
     private authService: AuthService,
     public dialog: MatDialog,
   ) {
-
   }
 
   ngOnInit(): void {
     const userId = localStorage.getItem('uniq_userId');
-    if (userId) { this.store.dispatch(loadUser({ userId })); }
+    if (userId) {
+      this.store.dispatch(loadUser({ userId }));
+      this.store.dispatch(loadBoards());
+    }
   }
 
   openBoardCreater() {

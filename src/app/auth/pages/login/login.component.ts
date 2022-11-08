@@ -19,14 +19,13 @@ import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
-  public isLoading$: Observable<boolean>;
+  isLoading$: Observable<boolean> = this.authService.isLoading$;
 
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store,
   ) {
-    this.isLoading$ = this.store.select(getUserStore).pipe(map((data) => data.isLoading));
   }
 
   ngOnInit(): void {
