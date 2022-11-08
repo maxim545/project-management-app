@@ -7,8 +7,9 @@ import { Router } from '@angular/router';
 import {
   Observable, BehaviorSubject, map, Subject, filter,
 } from 'rxjs';
-import { loginUser, loginUserSuccess } from 'src/app/core/store/actions/user.actions';
+import { loginUser } from 'src/app/core/store/actions/user.actions';
 import { Store } from '@ngrx/store';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-login',
@@ -18,11 +19,15 @@ import { Store } from '@ngrx/store';
 export class LoginComponent implements OnInit {
   public loginForm!: FormGroup;
 
+  public isLoading$: Observable<boolean>;
+
   constructor(
     public authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store,
-  ) { }
+  ) {
+    this.isLoading$ = this.store.select(getUserStore).pipe(map((data) => data.isLoading));
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -41,6 +46,6 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
 
   onSubmit() {
-    this.store.dispatch(loginUserSuccess({ user: this.loginForm.value }));
+    this.store.dispatch(loginUser({ user: this.loginForm.value }));
   }
 }

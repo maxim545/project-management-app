@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUser } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -20,13 +21,13 @@ export class HeaderComponent implements OnInit {
     private store: Store,
     private authService: AuthService,
     public dialog: MatDialog,
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
-    if (localStorage.getItem('uniq_userId')) {
-      this.store.dispatch(loadUser());
-      this.store.dispatch(loadBoards());
-    }
+    const userId = localStorage.getItem('uniq_userId');
+    if (userId) { this.store.dispatch(loadUser({ userId })); }
   }
 
   openBoardCreater() {

@@ -5,7 +5,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {
-  IUser, IUserLogin, IUserRegister, IUserToken,
+  IUser, ILoginRequest, ISignUpRequest, IUserToken,
 } from '../../models/user.model';
 import {
   IBoard, IBoardResponse, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
@@ -21,12 +21,12 @@ export class ApiService {
 
   /* ********  USERS ******** */
 
-  login(user: IUserLogin): Observable<HttpResponse<IUserToken>> {
-    return this.http.post<IUserToken>('signin', user, { observe: 'response' });
+  login(user: ILoginRequest): Observable<IUserToken> {
+    return this.http.post<IUserToken>('signin', user);
   }
 
-  signUp(user: IUserRegister): Observable<HttpResponse<IUser>> {
-    return this.http.post<IUser>('signup', user, { observe: 'response' });
+  signUp(user: ISignUpRequest): Observable<IUser> {
+    return this.http.post<IUser>('signup', user);
   }
 
   getUsers(): Observable<IUser[]> {
@@ -41,8 +41,8 @@ export class ApiService {
     return this.http.delete<IUser>(`users/${id}`);
   }
 
-  updateUser(id: string, user: IUserRegister): Observable<HttpResponse<IUser>> {
-    return this.http.put<IUser>(`users/${id}`, user, { observe: 'response' });
+  updateUser(id: string, user: ISignUpRequest): Observable<IUser> {
+    return this.http.put<IUser>(`users/${id}`, user);
   }
 
   /* ********  BOARDS ******** */

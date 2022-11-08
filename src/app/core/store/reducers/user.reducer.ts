@@ -3,36 +3,37 @@ import {
 } from '@ngrx/store';
 import { IUser } from '../../models/user.model';
 import {
-  loadUser, loadUserSuccess, cleanUserStore, loginUserFailed, signUpUserFailed,
+  loadUser, loadUserSuccess, cleanUserStore, userRequestFailed,
 } from '../actions/user.actions';
 
 export interface UserState {
   user: IUser | null,
   error: string | null;
+  isLoading: boolean
 }
 
 export const initialState: UserState = {
   user: null,
   error: null,
+  isLoading: false,
 };
 
 export const userReducer = createReducer(
   initialState,
   on(loadUser, (state) => ({
     ...state,
+    isLoading: true,
   })),
   on(loadUserSuccess, (state, { user }) => ({
     ...state,
     user,
     error: null,
+    isLoading: false,
   })),
-  on(loginUserFailed, (state, { error }) => ({
+  on(userRequestFailed, (state, { error }) => ({
     ...state,
     error,
-  })),
-  on(signUpUserFailed, (state, { error }) => ({
-    ...state,
-    error,
+    isLoading: false,
   })),
   on(cleanUserStore, (state) => ({
     ...state,

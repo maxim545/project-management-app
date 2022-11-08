@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:4000',
-  /* apiUrl: 'https://safe-river-96991.herokuapp.com', */
+  /* apiUrl: 'http://localhost:4000', */
+  apiUrl: 'https://safe-river-96991.herokuapp.com',
 };
 
 /*
