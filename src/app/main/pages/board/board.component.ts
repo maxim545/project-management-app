@@ -59,7 +59,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           return boards.entities[this.boardId] as IBoardResponse;
         }
         this.snackBar.open('This board do not exist in app', '', snackBarRedConfig);
-        this.router.navigate(['main']);
+        this.router.navigate(['**']);
         throw new Error('Board id is not valid');
       }),
     );
