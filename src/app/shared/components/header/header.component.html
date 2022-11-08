@@ -25,3 +25,5 @@
     </div>
   </div>
 </header>
+<mat-progress-bar mode="buffer" *ngIf="(isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false">
+</mat-progress-bar>

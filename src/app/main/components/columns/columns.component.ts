@@ -94,14 +94,12 @@ export class ColumnsComponent implements OnInit {
         if (taskIsExist) { previousColumnId = columns[i].id; }
       });
       if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) { // If we swap tasks in the same column
-        console.log(event.previousIndex + 1, event.currentIndex + 1, event.currentIndex + 1);
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
           ...newTask,
           columnId: previousColumnId,
         });
       } else if (event.previousContainer !== event.container) { // Else we swap tasks from one column to another
-        console.log(event.previousIndex, event.currentIndex);
         transferArrayItem(
           event.previousContainer.data,
           event.container.data,

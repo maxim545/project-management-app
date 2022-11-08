@@ -1,9 +1,9 @@
 import {
   Component, OnInit, OnDestroy, AfterViewInit,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map } from 'rxjs/operators';
+import { map, skipWhile } from 'rxjs/operators';
 import { IBoard, IBoardResponse, IColumn } from 'src/app/core/models/board.model';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,9 +13,11 @@ import { getCurrentBoard } from 'src/app/core/store/actions/boards.actions';
 import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
 import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
 import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
-import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
+import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
 import { ConfirmModalComponent } from '../../../shared/components/modals/confirm-modal/confirm-modal.component';
-import { loadColumns } from '../../../core/store/actions/columns.actions';
+import { clearColumns, loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
 import { ColumnsService } from '../../services/columns/columns.service';
 
@@ -24,8 +26,8 @@ import { ColumnsService } from '../../services/columns/columns.service';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.scss'],
 })
-export class BoardComponent implements OnInit {
-  public boardId = this.router.snapshot.paramMap.get('id');
+export class BoardComponent implements OnInit, OnDestroy {
+  public boardId: string | null = this.actRouter.snapshot.paramMap.get('id');
 
   public board$!: Observable<IBoardResponse>;
 
@@ -34,34 +36,40 @@ export class BoardComponent implements OnInit {
   public columns$!: Observable<IColumn[]>;
 
   constructor(
-    private router: ActivatedRoute,
+    private actRouter: ActivatedRoute,
     private store: Store,
     private boardsService: BoardsService,
     public dialog: MatDialog,
     private columnsService: ColumnsService,
     private columnStore: Store<ColumnState>,
     private boardStore: Store<BoardState>,
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {
 
   }
 
   ngOnInit(): void {
     this.board$ = this.boardStore.pipe(
-      select(getAllBoards),
+      select(boardStateSelector),
+      skipWhile((flag) => flag.isLoading),
       map((boards) => {
-        const currentBoard = boards.find((board) => board.id === this.boardId) as IBoardResponse;
-        if (!currentBoard) {
-          // navigate to 404
-          throw new Error('Board id is not valid');
-        } else if (this.boardId) {
+        if (this.boardId && boards.entities[this.boardId]) {
           this.store.dispatch(loadColumns({ id: this.boardId }));
+          return boards.entities[this.boardId] as IBoardResponse;
         }
-        return currentBoard;
+        this.snackBar.open('This board do not exist in app', '', snackBarRedConfig);
+        this.router.navigate(['main']);
+        throw new Error('Board id is not valid');
       }),
     );
     this.columns$ = this.columnStore.pipe(
       select(getAllColumns),
       map((columns) => JSON.parse(JSON.stringify(columns))),
     );
+  }
+
+  ngOnDestroy() {
+    this.store.dispatch(clearColumns());
   }
 }

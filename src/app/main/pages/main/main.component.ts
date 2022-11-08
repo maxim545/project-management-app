@@ -8,6 +8,8 @@ import { deleteBoardDialogConfig } from 'src/app/core/configs/matDialog.configs'
 import { BoardModalComponent } from 'src/app/shared/components/modals/board-modal/board-modal.component';
 import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
+import { loadBoards } from 'src/app/core/store/actions/boards.actions';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -23,7 +25,8 @@ export class MainComponent implements OnInit {
     private dialog: MatDialog,
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
     this.boards$ = this.boardStore.pipe(select(getAllBoards));

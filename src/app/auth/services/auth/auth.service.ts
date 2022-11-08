@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  IUserLogin, IUserRegister, IUserToken, IUser,
+  ILoginRequest, ISignUpRequest, IUserToken, IUser,
 } from 'src/app/core/models/user.model';
 import {
   Router,
@@ -12,7 +12,7 @@ import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { tap, map } from 'rxjs/operators';
 import {
   cleanUserStore,
-  loadUser, loginUserSuccess, removeUser, saveUser,
+  loadUser, removeUser,
 } from 'src/app/core/store/actions/user.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
@@ -23,38 +23,34 @@ import { Observable } from 'rxjs';
 export class AuthService {
   isLoggedIn$: Observable<boolean>;
 
+  isLoadingUser$: Observable<boolean>;
+
   constructor(
     private apiService: ApiService,
     private snackBar: MatSnackBar,
     private router: Router,
     private store: Store,
   ) {
-    this.isLoggedIn$ = this.getCurrentUser().pipe(
-      map((user) => !!user),
-    );
+    this.isLoggedIn$ = this.store
+      .select(getUserStore)
+      .pipe(map((data) => data.isLoggedIn));
+
+    this.isLoadingUser$ = this.store
+      .select(getUserStore)
+      .pipe(map((data) => data.isLoading));
   }
 
-  loginUser(user: IUserLogin) {
-    this.snackBar.open('Login Success', '', snackBarGreenConfig)
-      .afterDismissed()
-      .subscribe(() => {
-        this.router.navigate(['main']);
-      });
-  }
-
-  signUpUser(user: IUserRegister) {
-    this.snackBar.open('Register success', '', snackBarGreenConfig);
+  loginUser(user: ILoginRequest) {
+    this.router.navigate(['main']);
+    this.snackBar.open('Success', '', snackBarGreenConfig);
   }
 
   logoutUser() {
-    localStorage.clear();
     this.store.dispatch(cleanUserStore());
-    this.router.navigate(['welcome']);
+    this.snackBar.open('Logout success', '', snackBarGreenConfig);
   }
 
-  getCurrentUser() {
-    return this.store.select(getUserStore).pipe(
-      map(({ user }) => user),
-    );
+  updateUser() {
+    this.snackBar.open('Your data has been updated', '', snackBarGreenConfig);
   }
 }

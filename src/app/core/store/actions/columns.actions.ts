@@ -48,6 +48,10 @@ export const columnFailed = createAction(
   props<{ error: string }>(),
 );
 
+export const clearColumns = createAction(
+  '[Columns] Columns Failed',
+);
+
 /* -----------TASKS----------- */
 
 export const addTask = createAction(
