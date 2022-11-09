@@ -8,6 +8,8 @@ import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { ColumnsService } from 'src/app/main/services/columns/columns.service';
+import { TranslateService } from '@ngx-translate/core';
+import { LangService } from 'src/app/core/services/lang/lang.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -22,12 +24,17 @@ export class HeaderComponent implements OnInit {
 
   isLoadingColumns$: Observable<boolean> = this.columnsService.isLoadingColums$;
 
+  isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
+
   constructor(
     private store: Store,
     private authService: AuthService,
     private columnsService: ColumnsService,
     public dialog: MatDialog,
+    public translate: TranslateService,
+    public langService: LangService,
   ) {
+
   }
 
   ngOnInit(): void {
@@ -44,5 +51,10 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.authService.logoutUser();
+  }
+
+  changeLang() {
+    this.langService.changeLanguage(this.isChecked);
+    this.isChecked = !this.isChecked;
   }
 }

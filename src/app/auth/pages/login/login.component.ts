@@ -10,6 +10,7 @@ import {
 import { loginUser } from 'src/app/core/store/actions/user.actions';
 import { Store } from '@ngrx/store';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',

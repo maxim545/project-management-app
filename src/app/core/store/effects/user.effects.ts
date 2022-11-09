@@ -102,7 +102,8 @@ export class UserEffects {
   cleanUserStore$ = createEffect(() => this.actions$.pipe(
     ofType(cleanUserStore),
     tap(() => {
-      localStorage.clear();
+      localStorage.removeItem('uniq_token');
+      localStorage.removeItem('uniq_userId');
       this.router.navigate(['welcome']);
     }),
   ), { dispatch: false });

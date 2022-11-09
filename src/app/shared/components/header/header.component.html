@@ -2,6 +2,12 @@
   <div class="container">
     <div class="header__wrapper">
       <div class="header__title"><a routerLink="/main">Main</a></div>
+
+      <div class="header__lang">
+        <span>en</span>
+        <mat-slide-toggle [checked]="isChecked" (change)="changeLang()">ru</mat-slide-toggle>
+      </div>
+
       <div class="header__user-menu user-menu" *ngIf="(isLoggedIn$ | async) === false">
         <div class="menu__info">
           Some info
