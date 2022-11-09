@@ -7,8 +7,12 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import {
+  HttpClientModule, HTTP_INTERCEPTORS, HttpClient, HttpBackend,
+} from '@angular/common/http';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { TranslateLoader, TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
@@ -22,6 +26,11 @@ import { boardReducer } from './core/store/reducers/boards.reducer';
 import { BoardsEffects } from './core/store/effects/boards.effect';
 import { ColumnsEffects } from './core/store/effects/columns.effects';
 import { columnReducer } from './core/store/reducers/columns.reducers';
+import { currentLang } from './core/configs/lang';
+
+export function httpTranslateLoader(httpBackend: HttpBackend) {
+  return new TranslateHttpLoader(new HttpClient(httpBackend));
+}
 
 @NgModule({
   declarations: [
@@ -42,6 +51,14 @@ import { columnReducer } from './core/store/reducers/columns.reducers';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,
+    TranslateModule.forRoot({
+      defaultLanguage: currentLang,
+      loader: {
+        provide: TranslateLoader,
+        useFactory: httpTranslateLoader,
+        deps: [HttpBackend],
+      },
+    }),
   ],
   providers: [
     {

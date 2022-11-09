@@ -16,6 +16,8 @@ import {
 } from 'src/app/core/store/actions/user.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
+import { trnsttValues } from 'src/app/core/configs/lang';
+import { LangService } from 'src/app/core/services/lang/lang.service';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +32,7 @@ export class AuthService {
     private snackBar: MatSnackBar,
     private router: Router,
     private store: Store,
+    public langService: LangService,
   ) {
     this.isLoggedIn$ = this.store
       .select(getUserStore)
@@ -42,7 +45,8 @@ export class AuthService {
 
   loginUser(user: ILoginRequest) {
     this.router.navigate(['main']);
-    this.snackBar.open('Success', '', snackBarGreenConfig);
+    const curLng = this.langService.getCurrentLanguage();
+    this.snackBar.open(trnsttValues[curLng as keyof typeof trnsttValues].user.login, '', snackBarGreenConfig);
   }
 
   logoutUser() {
