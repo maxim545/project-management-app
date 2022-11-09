@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IUser, IUserData, IUserLogin, IUserRegister,
+  IUser, IUserData, ILoginRequest, ISignUpRequest,
 } from '../../models/user.model';
 
 export const loadUser = createAction(
   '[User] Load User',
+  props<{ userId: string }>(),
 );
 
 export const loadUserSuccess = createAction(
@@ -14,35 +15,12 @@ export const loadUserSuccess = createAction(
 
 export const loginUser = createAction(
   '[User] Login User',
-);
-
-export const loginUserSuccess = createAction(
-  '[User] Login User Success',
-  props<{ user: IUserLogin }>(),
-);
-
-export const loginUserFailed = createAction(
-  '[User] Login User Filed',
-  props<{ error: Error }>(),
+  props<{ user: ILoginRequest }>(),
 );
 
 export const signUpUser = createAction(
   '[User] Sign Up User',
-);
-
-export const signUpUserSuccess = createAction(
-  '[User] Sign Up User Success',
-  props<{ user: IUserRegister }>(),
-);
-
-export const signUpUserFailed = createAction(
-  '[User] Sign Up User Filed',
-  props<{ error: Error }>(),
-);
-
-export const saveUser = createAction(
-  '[User] Save User',
-  props<{ user: IUserLogin }>(),
+  props<{ user: ISignUpRequest }>(),
 );
 
 export const updateUser = createAction(
@@ -57,4 +35,8 @@ export const removeUser = createAction(
 
 export const cleanUserStore = createAction(
   '[User] Clear Data',
+);
+export const userRequestFailed = createAction(
+  '[User] User Filed',
+  props<{ error: string }>(),
 );

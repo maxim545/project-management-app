@@ -1,0 +1,21 @@
+<div class="form">
+  <div class="form__container">
+    <h1 class="form__title">{{dialogTitle}}</h1>
+    <form [formGroup]="columnForm" (ngSubmit)="onSubmit()">
+      <div class="form__item">
+        <label>title</label>
+        <input type="text" formControlName="title" class=""
+          [ngClass]="{'is-invalid': (f['title'].dirty || f['title'].touched) && f['title'].errors }" />
+        <div *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors" class="invalid-feedback">
+          <span *ngIf="f['title'].errors['required']">title is required</span>
+          <span *ngIf="f['title'].errors['minlength']">title must be at least 6 characters</span>
+          <span *ngIf="f['title'].errors['maxlength']">title must be at least 18 characters</span>
+        </div>
+      </div>
+      <div class="">
+        <button class="" [disabled]="!columnForm.valid">Accept</button>
+        <button type="button" (click)="closeDiadlog()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

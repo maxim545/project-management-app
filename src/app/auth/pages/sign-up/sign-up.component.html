@@ -26,8 +26,10 @@
           [ngClass]="{ 'is-invalid': (f['password'].dirty || f['password'].touched) && f['password'].errors }" />
         <div *ngIf="(f['password'].dirty || f['password'].touched) && f['password'].errors" class="invalid-feedback">
           <span *ngIf="f['password'].errors['required']" class="red-message">Password is required</span>
-          <span *ngIf="f['password'].errors['minlength']" class="red-message">Password must be at least 6 characters</span>
-          <span *ngIf="f['password'].errors['maxlength']" class="red-message">Password must be at least 18 characters</span>
+          <span *ngIf="f['password'].errors['minlength']" class="red-message">Password must be at least 6
+            characters</span>
+          <span *ngIf="f['password'].errors['maxlength']" class="red-message">Password must be at least 18
+            characters</span>
         </div>
       </div>
       <div class="form__item">
@@ -41,7 +43,8 @@
         </div>
       </div>
       <div class="wrapper-btn">
-        <button class="btn-submit" [disabled]="!registerForm.valid">Register</button>
+        <button class="btn-submit"
+          [disabled]="!registerForm.valid || (isLoadingUser$ | async) !== false">Register</button>
       </div>
     </form>
   </div>

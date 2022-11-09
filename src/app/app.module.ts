@@ -8,6 +8,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
@@ -17,6 +18,10 @@ import { ErrorInterceptor } from './core/interceptors/error.interceptor';
 import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { UserEffects } from './core/store/effects/user.effects';
 import { userReducer } from './core/store/reducers/user.reducer';
+import { boardReducer } from './core/store/reducers/boards.reducer';
+import { BoardsEffects } from './core/store/effects/boards.effect';
+import { ColumnsEffects } from './core/store/effects/columns.effects';
+import { columnReducer } from './core/store/reducers/columns.reducers';
 
 @NgModule({
   declarations: [
@@ -30,8 +35,10 @@ import { userReducer } from './core/store/reducers/user.reducer';
     HttpClientModule,
     StoreModule.forRoot({
       user: userReducer,
+      boards: boardReducer,
+      columns: columnReducer,
     }, {}),
-    EffectsModule.forRoot([UserEffects]),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,

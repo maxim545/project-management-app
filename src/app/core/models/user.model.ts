@@ -1,18 +1,18 @@
-export interface IUserRegister {
-  name: string;
-  login: string;
-  password: string;
-}
-
-export interface IUserLogin {
-  login: string;
-  password: string;
-}
-
 export interface IUser {
   id: string;
   name: string;
   login: string;
+}
+
+export interface ILoginRequest {
+  login: string;
+  password: string;
+}
+
+export interface ISignUpRequest {
+  name: string;
+  login: string;
+  password: string;
 }
 
 export interface IUserData {

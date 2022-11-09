@@ -1,0 +1,15 @@
+<div class="column" *ngIf="column">
+  <h2 class="column__title" *ngIf="!isEditMode" (click)="this.isEditMode = true">{{column.title}}</h2>
+  <button class="column__btn" *ngIf="!isEditMode" (click)="deleteColumn(column)">del</button>
+  <form [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
+    <mat-form-field>
+      <mat-label>edit title</mat-label>
+      <input formControlName="title" matInput>
+      <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+        <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+      </mat-error>
+    </mat-form-field>
+    <button [disabled]="!editTitleForm.valid" type="submit">edit</button>
+    <button (click)="this.isEditMode = false">close</button>
+  </form>
+</div>

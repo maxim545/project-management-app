@@ -1,0 +1,15 @@
+<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event, columns)">
+  <div class="columns" cdkDropListGroup>
+    <div class="columns__item" *ngFor="let column of columns" cdkDrag>
+      <app-single-column class="columns__header" [column]="column"></app-single-column>
+      <div class="columns__inner" cdkDropList [cdkDropListData]="column.tasks"
+        (cdkDropListDropped)="dropTask($event, columns, column.id)">
+        <div *ngFor="let task of column.tasks" cdkDrag>
+          <app-tasks [task]="task" [column]="column"></app-tasks>
+        </div>
+      </div>
+      <button class="task__btn task__btn_add" (click)="openTaskCreater(column.id)">+ New task</button>
+    </div>
+    <button (click)="openColumnCreater()">+ New column</button>
+  </div>
+</div>

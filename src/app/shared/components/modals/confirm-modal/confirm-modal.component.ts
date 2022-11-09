@@ -8,18 +8,19 @@ import { IConfirmDialog } from 'src/app/core/models/modal.model';
   styleUrls: ['./confirm-modal.component.scss'],
 })
 export class ConfirmModalComponent {
-  message: string = 'Are you sure?';
+  dialogTitle: string = 'Are you sure?';
 
   confirmButtonText = 'Yes';
 
   cancelButtonText = 'Cancel';
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) private data: IConfirmDialog,
+    @Inject(MAT_DIALOG_DATA)
+    private data: IConfirmDialog,
     private dialogRef: MatDialogRef<ConfirmModalComponent>,
   ) {
-    if (data && data.buttonText) {
-      this.message = data.message;
+    if (data) {
+      this.dialogTitle = data.dialogTitle;
       this.confirmButtonText = data.buttonText.confirm;
       this.cancelButtonText = data.buttonText.cancel;
     }
