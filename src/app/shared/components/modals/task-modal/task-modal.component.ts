@@ -59,7 +59,7 @@ export class TaskModalComponent implements OnInit {
       title: [this.taskTitle, [
         Validators.required,
         Validators.minLength(6),
-        Validators.maxLength(18),
+        Validators.maxLength(28),
       ]],
       description: [this.taskDescr, [
         Validators.required,

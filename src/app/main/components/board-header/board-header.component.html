@@ -1,5 +1,9 @@
-<div class="board__header" *ngIf="board">
-  <button routerLink="/main">Back to main</button>
-  <b>Board:</b>
-  <h1 class="board__title">{{board.title}}</h1>
+<div class="header-board" *ngIf="board">
+  <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
+    <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+  </button>
+  <h1 class="header-board__title">{{board.title}}</h1>
+  <button class="btn header-board__btn header-board__btn_right" (click)="openColumnCreater()">
+    <mat-icon class="icon icon_add">note_add</mat-icon>New column
+  </button>
 </div>

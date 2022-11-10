@@ -1,8 +1,12 @@
-.board {
-  &__header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
+
+.icon_back {
+  padding-right: 4px;
+  transform: scale(0.8);
 }
+
+.icon_add {
+  padding-right: 7px;
+  transform: scale(0.8);
+}
+
+
