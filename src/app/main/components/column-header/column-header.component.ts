@@ -10,11 +10,11 @@ import {
 import { ColumnsService } from '../../services/columns/columns.service';
 
 @Component({
-  selector: 'app-single-column',
-  templateUrl: './single-column.component.html',
-  styleUrls: ['./single-column.component.scss'],
+  selector: 'app-column-header',
+  templateUrl: './column-header.component.html',
+  styleUrls: ['./column-header.component.scss'],
 })
-export class SingleColumnComponent implements OnInit {
+export class ColumnHeaderComponent implements OnInit {
   @Input() public column: IColumn | null = null;
 
   public editTitleForm!: FormGroup;

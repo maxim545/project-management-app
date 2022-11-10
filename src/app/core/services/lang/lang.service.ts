@@ -20,6 +20,7 @@ export class LangService {
   }
 
   getCurrentLanguage() {
-    return this.translate.currentLang;
+    const currentLang = localStorage.getItem('uniq_lang') === 'ru' ? 'ru' : 'en';
+    return currentLang;
   }
 }

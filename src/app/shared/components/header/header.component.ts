@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import {
+  finalize,
+  map, Observable, skipWhile, tap,
+} from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUser } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
@@ -10,6 +13,8 @@ import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { ColumnsService } from 'src/app/main/services/columns/columns.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'src/app/core/services/lang/lang.service';
+import { IUser } from 'src/app/core/models/user.model';
+import { UserState } from 'src/app/core/store/reducers/user.reducer';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -33,16 +38,13 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     public translate: TranslateService,
     public langService: LangService,
+    private userStore: Store<UserState>,
   ) {
-
   }
 
   ngOnInit(): void {
     const userId = localStorage.getItem('uniq_userId');
-    if (userId) {
-      this.store.dispatch(loadUser({ userId }));
-      this.store.dispatch(loadBoards());
-    }
+    if (userId) { this.store.dispatch(loadUser({ userId })); }
   }
 
   openBoardCreater() {

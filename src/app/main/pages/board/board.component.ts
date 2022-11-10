@@ -9,7 +9,7 @@ import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
 import { createColumnDialogConfig, deleteColumnDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { getCurrentBoard } from 'src/app/core/store/actions/boards.actions';
+import { getCurrentBoard, loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
 import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
 import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
@@ -46,7 +46,7 @@ export class BoardComponent implements OnInit, OnDestroy {
     private router: Router,
     private snackBar: MatSnackBar,
   ) {
-
+    this.store.dispatch(loadBoards());
   }
 
   ngOnInit(): void {
