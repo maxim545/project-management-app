@@ -14,12 +14,12 @@ export class FooterComponent implements OnInit {
 
   Ihar: Author = {
     name: 'Ihar Novikau',
-    gitHub: 'https://github.com/maxim545',
+    gitHub: 'https://github.com/IhorNovikow',
   };
 
   Viktoryia: Author = {
     name: 'Viktoryia Novikava',
-    gitHub: 'https://github.com/maxim545',
+    gitHub: 'https://github.com/vikuli',
   };
 
   team: Author[] = [this.Maksim, this.Ihar, this.Viktoryia];
