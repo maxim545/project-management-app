@@ -12,10 +12,23 @@
 
   &__inner {
     min-height: 10px;
+    flex: 1;
   }
 
   &__header {
     margin-bottom: 20px;
+  }
+
+  &__btn {
+    display: block;
+    flex: none;
+    position: relative;
+    font-weight: 600;
+    padding: 15px 10px 5px 10px;
+    font-size: 14px;
+    color: #6C5DD3;
+    border-top: 2px solid #EFEFEF;
+    transition: all 0.7s;
   }
 
   &::-webkit-scrollbar {
@@ -76,21 +89,6 @@
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
 
-.task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 10px;
-  margin-bottom: 15px;
-  background-color: rgb(247, 247, 247);
-  border: 1px dashed rgb(204, 204, 204);
-  border-style: dashed solid;
-  border-radius: 5px;
-  &__btn_add {
-    width: 100%;
-    min-height: 30px;
-  }
-}
 
 .not-found {
   background: #FFFFFF;

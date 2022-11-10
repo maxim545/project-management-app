@@ -104,18 +104,18 @@
   }
 
   &__icon {
-   border-radius: 6px;
-   background-color: #6C5DD3;
-   color: #fff;
-   padding: 2px;
-   transition: all 0.7s;
-   box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
-   transform: scale(0.8);
+    border-radius: 6px;
+    background-color: #6C5DD3;
+    color: #fff;
+    padding: 2px;
+    transition: all 0.7s;
+    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    transform: scale(0.8);
   }
 
   &__icon:hover {
     background-color: #e7e7e7;
-   box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
    }
 
   &__icon_check:hover {
