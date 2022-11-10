@@ -27,7 +27,7 @@ ol, ul {
 a{
   text-decoration: none;
 }
-button {
+button, select {
   color: inherit;
   font-size: inherit;
   font-family: inherit;
@@ -100,7 +100,7 @@ app-footer {
 .container {
   margin: 0 auto;
   padding: 0 15px;
-  max-width: 1240px;
+  max-width: 1280px;
   height: 100%
 }
 
