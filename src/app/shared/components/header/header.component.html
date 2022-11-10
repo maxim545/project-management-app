@@ -6,10 +6,6 @@
           ><img src="./assets/icons/logo.svg" alt="app-logo"
         /></a>
       </div>
-      <div
-        class="header__user-menu user-menu"
-        *ngIf="(isLoggedIn$ | async) === false"
-      >
       <div class="header__lang">
         <span>en</span>
         <mat-slide-toggle [checked]="isChecked" (change)="changeLang()">ru</mat-slide-toggle>
@@ -47,8 +43,6 @@
 </header>
 <mat-progress-bar
   mode="buffer"
-  *ngIf="
-    (isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false
-  "
+  *ngIf="(isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false"
 >
 </mat-progress-bar>
