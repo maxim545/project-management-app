@@ -1,35 +1,54 @@
 <header class="header" id="header">
   <div class="container">
     <div class="header__wrapper">
-      <div class="header__title"><a routerLink="/main">Main</a></div>
-
+      <div class="header__title">
+        <a routerLink="/main"
+          ><img src="./assets/icons/logo.svg" alt="app-logo"
+        /></a>
+      </div>
+      <div
+        class="header__user-menu user-menu"
+        *ngIf="(isLoggedIn$ | async) === false"
+      >
       <div class="header__lang">
         <span>en</span>
         <mat-slide-toggle [checked]="isChecked" (change)="changeLang()">ru</mat-slide-toggle>
       </div>
 
       <div class="header__user-menu user-menu" *ngIf="(isLoggedIn$ | async) === false">
-        <div class="menu__info">
-          Some info
-        </div>
         <nav class="menu__nav">
-          <a routerLink="/auth/login" class="menu__link">Login</a>
-          <a routerLink="/auth/signup" class="menu__link">Sign up</a>
+          <a routerLink="/auth/login" class="menu__link menu__link-login"
+            >Log in</a
+          >
+          <a routerLink="/auth/signup" class="menu__link menu__link-signup"
+            >Sign up</a
+          >
         </nav>
       </div>
 
       <div class="header__menu menu" *ngIf="isLoggedIn$ | async">
-        <div class="menu__info">
-        </div>
         <nav class="menu__nav">
-          <a routerLink="/auth/edit-profile" class="menu__link">Edit profile</a>
-          <button (click)="openBoardCreater()" class="menu__link">Create todo</button>
-          <button class="menu__link" (click)="logout()">Log out</button>
+          <button
+            (click)="openBoardCreater()"
+            class="menu__link menu__link-create"
+          >
+            + Create todo
+          </button>
+          <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit"
+            >Profile</a
+          >
+          <button class="menu__link menu__link-logout" (click)="logout()">
+            Log out
+          </button>
         </nav>
       </div>
-
     </div>
   </div>
 </header>
-<mat-progress-bar mode="buffer" *ngIf="(isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false">
+<mat-progress-bar
+  mode="buffer"
+  *ngIf="
+    (isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false
+  "
+>
 </mat-progress-bar>
