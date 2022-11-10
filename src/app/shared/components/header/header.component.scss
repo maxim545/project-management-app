@@ -25,18 +25,15 @@
   }
 
   .menu {
-    &__info {
-      color: #0b0205;
-    }
-
     &__nav {
       display: flex;
       gap: 10px;
     }
 
     &__link {
-      width: 70px;
+      width: auto;
       height: 32px;
+      padding: 0 10px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -44,15 +41,17 @@
       border-radius: 8px;
       transition: 0.3s ease-in-out;
 
-      &-login {
+      &-login,
+      &-edit {
         border: 2px solid #9356a0;
 
         &:hover {
-          background-color: #ba74ca40;
+          background-color: #ba74ca30;
         }
       }
 
-      &-signup {
+      &-signup,
+      &-create {
         background-color: #9356a0;
         color: #ffffff;
 
@@ -61,8 +60,17 @@
         }
       }
 
-      &-edit {
-        width: 100px;
+      &-logout {
+        border: 2px solid #ed413e;
+
+        &:hover {
+          background-color: #ed413e30;
+        }
+      }
+
+      &-create {
+        margin-right: 10px;
+        padding: 0 15px;
       }
     }
   }

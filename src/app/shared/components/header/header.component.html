@@ -10,21 +10,30 @@
         class="header__user-menu user-menu"
         *ngIf="(isLoggedIn$ | async) === false"
       >
-        <div class="menu__info">Some info</div>
         <nav class="menu__nav">
-          <a routerLink="/auth/login" class="menu__link menu__link-login">Log in</a>
-          <a routerLink="/auth/signup" class="menu__link menu__link-signup">Sign up</a>
+          <a routerLink="/auth/login" class="menu__link menu__link-login"
+            >Log in</a
+          >
+          <a routerLink="/auth/signup" class="menu__link menu__link-signup"
+            >Sign up</a
+          >
         </nav>
       </div>
 
       <div class="header__menu menu" *ngIf="isLoggedIn$ | async">
-        <div class="menu__info"></div>
         <nav class="menu__nav">
-          <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit">Edit profile</a>
-          <button (click)="openBoardCreater()" class="menu__link menu__link-create">
-            Create todo
+          <button
+            (click)="openBoardCreater()"
+            class="menu__link menu__link-create"
+          >
+            + Create todo
           </button>
-          <button class="menu__link menu__link-logout" (click)="logout()">Log out</button>
+          <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit"
+            >Profile</a
+          >
+          <button class="menu__link menu__link-logout" (click)="logout()">
+            Log out
+          </button>
         </nav>
       </div>
     </div>
