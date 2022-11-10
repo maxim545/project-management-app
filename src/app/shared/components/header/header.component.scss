@@ -1,5 +1,7 @@
 .header {
   background-color: #fff;
+  font-size: 1rem;
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
@@ -7,24 +9,61 @@
     padding: 20px 20px;
   }
 
+  &__title {
+    width: 80px;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
+  }
+
   &__user-menu {
     display: flex;
+    align-items: center;
     gap: 30px;
   }
 
-  &__nav {
-    display: flex;
-    gap: 10px;
-  }
+  .menu {
+    &__info {
+      color: #0b0205;
+    }
 
-  &__link {
-    background-color: rgb(151, 151, 255);
-    width: 65px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
+    &__nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    &__link {
+      width: 70px;
+      height: 32px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0b0205;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &-login {
+        border: 2px solid #9356a0;
+
+        &:hover {
+          background-color: #ba74ca40;
+        }
+      }
+
+      &-signup {
+        background-color: #9356a0;
+        color: #ffffff;
+
+        &:hover {
+          background-color: #ba74ca;
+        }
+      }
+
+      &-edit {
+        width: 100px;
+      }
+    }
   }
 }
-
