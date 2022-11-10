@@ -6,6 +6,8 @@ import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
@@ -35,6 +37,8 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     MatFormFieldModule,
     MatInputModule,
     DragDropModule,
+    MatIconModule,
+    MatSelectModule,
   ],
 })
 export class MainModule { }

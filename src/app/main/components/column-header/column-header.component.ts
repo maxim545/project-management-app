@@ -60,4 +60,12 @@ export class ColumnHeaderComponent implements OnInit {
         }
       });
   }
+
+  test1() {
+    console.log(1);
+  }
+
+  test2() {
+    console.log(2);
+  }
 }

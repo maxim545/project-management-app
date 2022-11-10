@@ -103,3 +103,14 @@ app-footer {
   max-width: 1240px;
   height: 100%
 }
+
+.btn {
+  background: none;
+	padding: 0;
+  cursor: pointer;
+  border: none;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #6C5DD3;
+}

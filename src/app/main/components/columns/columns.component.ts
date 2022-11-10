@@ -44,14 +44,14 @@ export class ColumnsComponent implements OnInit {
 
   }
 
-  openColumnCreater() {
+  /* openColumnCreater() {
     this.dialog.open(ColumnModalComponent, {
       data: {
         dialogTitle: 'Create new column',
         boardId: this.boardId,
       },
     });
-  }
+  } */
 
   openTaskCreater(columnId: string) {
     this.dialog.open(TaskModalComponent, {

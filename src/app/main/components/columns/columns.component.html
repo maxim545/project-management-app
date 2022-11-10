@@ -1,6 +1,7 @@
-<div cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event, columns)">
-  <div class="columns" cdkDropListGroup>
-    <div class="columns__item" *ngFor="let column of columns" cdkDrag>
+<div class="columns" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event, columns)"
+  *ngIf="columns">
+  <div class="columns__list" cdkDropListGroup>
+    <div class="column" *ngFor="let column of columns" cdkDrag>
       <app-column-header class="columns__header" [column]="column"></app-column-header>
       <div class="columns__inner" cdkDropList [cdkDropListData]="column.tasks"
         (cdkDropListDropped)="dropTask($event, columns, column.id)">
@@ -10,6 +11,9 @@
       </div>
       <button class="task__btn task__btn_add" (click)="openTaskCreater(column.id)">+ New task</button>
     </div>
-    <button (click)="openColumnCreater()">+ New column</button>
+    <!-- <button (click)="openColumnCreater()">+ New column</button> -->
+  </div>
+  <div class="columns__not-found not-found" *ngIf="!columns.length">
+    <p class="not-found__text">Not created columns for this board!</p>
   </div>
 </div>
