@@ -8,10 +8,11 @@
         <div *ngFor="let task of column.tasks" cdkDrag>
           <app-tasks [task]="task" [column]="column"></app-tasks>
         </div>
+        <p class="not-found__text not-found__text_small" *ngIf="!column.tasks?.length">Not created tasks for this board!
+        </p>
       </div>
       <button class="btn columns__btn" (click)="openTaskCreater(column.id)">+ New task</button>
     </div>
-    <!-- <button (click)="openColumnCreater()">+ New column</button> -->
   </div>
   <div class="columns__not-found not-found" *ngIf="!columns.length">
     <p class="not-found__text">Not created columns for this board!</p>

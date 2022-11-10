@@ -10,6 +10,8 @@
   box-shadow: 2px 3px 5px 1px rgb(108, 93, 211, 0.2);
 
   &__title {
+    max-width: 210px;
+    overflow: hidden;
     color: #383838;
     font-weight: normal;
     letter-spacing: 2px

@@ -1,9 +1,26 @@
 <div class="container">
   <div class="boards">
-    <div class="boards__item" *ngFor="let board of boards$ | async">
-      <a class="boards__title" routerLink="/board/{{board.id}}">{{board.title}}</a>
-      <button class="boards__btn" (click)="deleteBoard(board)">del</button>
-      <button class="boards__btn" (click)="editBoard(board)">edit</button>
+    <div class="boards__header header-board">
+      <!-- <button class="btn board__btn board__btn_left" routerLink="/main">
+        <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+      </button> -->
+      <h1 class="header-board__title">Boards</h1>
+      <!-- <button class="btn board__btn board__btn_right" (click)="openColumnCreater()">
+        <mat-icon class="icon icon_add">note_add</mat-icon>New column
+      </button> -->
+    </div>
+    <div class="boards__list">
+      <div class="boards__item" *ngFor="let board of boards$ | async">
+        <a class="boards__title" routerLink="/board/{{board.id}}">{{board.title}}</a>
+        <mat-select class="edit_menu edit_menu_boards">
+          <mat-option class="edit_menu__item" (click)="editBoard(board)">
+            <mat-icon>edit</mat-icon>Rename
+          </mat-option>
+          <mat-option class="edit_menu__item" (click)="deleteBoard(board)">
+            <mat-icon>delete</mat-icon>Delete
+          </mat-option>
+        </mat-select>
+      </div>
     </div>
   </div>
 </div>
