@@ -5,7 +5,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {
-  IUser, ILoginRequest, ISignUpRequest, IUserToken,
+  IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
   IBoard, IBoardResponse, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
@@ -19,17 +19,19 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
+  /* ********  AUTH ******** */
+
+  login(user: IUserLogin): Observable<IUserToken> {
+    return this.http.post<IUserToken>('auth/signin', user);
+  }
+
+  signUp(user: IUserRequest): Observable<IUser> {
+    return this.http.post<IUser>('auth/signup', user);
+  }
+
   /* ********  USERS ******** */
 
-  login(user: ILoginRequest): Observable<IUserToken> {
-    return this.http.post<IUserToken>('signin', user);
-  }
-
-  signUp(user: ISignUpRequest): Observable<IUser> {
-    return this.http.post<IUser>('signup', user);
-  }
-
-  getUsers(): Observable<IUser[]> {
+  getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>('users');
   }
 
@@ -41,7 +43,7 @@ export class ApiService {
     return this.http.delete<IUser>(`users/${id}`);
   }
 
-  updateUser(id: string, user: ISignUpRequest): Observable<IUser> {
+  updateUser(id: string, user: IUserRequest): Observable<IUser> {
     return this.http.put<IUser>(`users/${id}`, user);
   }
 
@@ -93,6 +95,10 @@ export class ApiService {
 
   getAllTasks(boardId: string, columnId: string): Observable<ITask[]> {
     return this.http.get<ITask[]>(`boards/${boardId}/columns/${columnId}/tasks`);
+  }
+
+  getTasksSet(boardId: string): Observable<ITask[]> {
+    return this.http.get<ITask[]>(`tasksSet/${boardId}`);
   }
 
   createTask(boardId: string, columnId: string, task: ITaskRequest): Observable<ITaskResponse> {

@@ -1,29 +1,32 @@
 export interface IBoardRequest {
   title: string;
-  description: string;
+  owner: string;
+  users: string[];
 }
 
 export interface IBoard {
-  id: string;
+  _id: string;
   title: string;
   description: string;
 }
 
 export interface IBoardResponse {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   columns?: IColumn[]
 }
 
 export interface IColumnResponse {
-  id: string;
+  _id: string;
   title: string;
   order: number;
+  boardId: string;
 }
 
 export interface IColumnPostRequest {
   title: string;
+  order: number;
 }
 
 export interface IColumnPutRequest {
@@ -32,34 +35,41 @@ export interface IColumnPutRequest {
 }
 
 export interface IColumn {
-  id: string;
+  _id: string;
   title: string;
   order: number;
+  boardId: string;
   tasks?: ITask[]
 }
 
 export interface ITask {
-  id: string,
+  _id: string,
   title: string,
   order: number,
-  description: string,
-  userId: string,
   boardId: string,
   columnId: string,
-  files?: IFiles[]
+  description: string,
+  userId: string,
+  users: string[],
 }
 
 export interface ITaskRequest {
   title: string,
+  order: number,
   description: string,
   userId: string,
+  users: string[],
 }
 
 export interface ITaskResponse {
-  id: string,
+  _id: string,
   title: string,
+  order: number,
+  boardId: string,
+  columnId: string,
   description: string,
   userId: string,
+  users: string[],
 }
 
 export interface ITaskPutRequest {
@@ -67,18 +77,19 @@ export interface ITaskPutRequest {
   order: number,
   description: string,
   userId: string,
-  boardId: string,
   columnId: string,
+  users: string[]
 }
 
 export interface ITaskPutResponse {
-  id: string,
+  _id: string,
   title: string,
   order: string,
-  description: string,
-  userId: string,
   boardId: string,
   columnId: string,
+  description: string,
+  userId: string,
+  users: string[],
 }
 
 interface IFiles {

@@ -13,7 +13,7 @@ export interface BoardState extends EntityState<IBoard> {
 }
 
 export const adapter: EntityAdapter<IBoard> = createEntityAdapter<IBoard>({
-  selectId: (board) => board.id,
+  selectId: (board) => board._id,
   sortComparer: false,
 });
 

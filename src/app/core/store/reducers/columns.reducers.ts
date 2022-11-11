@@ -13,7 +13,7 @@ export interface ColumnState extends EntityState<IColumn> {
 }
 
 export const adapter: EntityAdapter<IColumn> = createEntityAdapter<IColumn>({
-  selectId: (column) => column.id,
+  selectId: (column) => column._id,
   sortComparer: (a, b) => a.order - b.order,
 });
 
@@ -37,14 +37,25 @@ export const columnReducer = createReducer(
 
   on(addColumnSuccess, (state, action) => adapter.addOne(action.column, state)),
 
+  on(editColumnSuccess, (state, action) => adapter.updateOne(
+    {
+      id: action.columnId,
+      changes: action.column,
+    },
+    state,
+  )),
+
   on(deleteColumnSuccess, (state, action) => adapter.removeOne(action.columnId, state)),
 
-  on(editColumnSuccess, (state, action) => adapter.updateOne({ id: action.columnId, changes: action.column }, state)),
+  on(clearColumns, (state) => adapter.removeAll(state)),
 
-  on(clearColumns, (state, action) => adapter.removeAll(state)),
-
-  on(columnFailed, (state, action) => ({ ...state, error: action.error, isLoading: false })),
-
+  on(columnFailed, (state, action) => (
+    {
+      ...state,
+      error: action.error,
+      isLoading: false,
+    }
+  )),
 );
 
 export const columnStateSelector = createFeatureSelector<ColumnState>('columns');

@@ -18,8 +18,8 @@ export class BoardsService {
   }
 
   editBoard(id: string, data: IBoardRequest) {
-    const board = { id, ...data };
-    this.store.dispatch(editBoard({ board }));
+    /* const board = { id, ...data };
+    this.store.dispatch(editBoard({ board })); */
   }
 
   getCurrentBoard(id: string) {

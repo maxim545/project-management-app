@@ -15,6 +15,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'src/app/core/services/lang/lang.service';
 import { IUser } from 'src/app/core/models/user.model';
 import { UserState } from 'src/app/core/store/reducers/user.reducer';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -43,8 +44,11 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('uniq_userId');
-    if (userId) { this.store.dispatch(loadUser({ userId })); }
+    console.log(33);
+    const userId = parseJwt(localStorage.getItem('uniq_token'));
+    if (userId) {
+      this.store.dispatch(loadUser({ userId }));
+    }
   }
 
   openBoardCreater() {

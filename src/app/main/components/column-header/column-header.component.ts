@@ -44,7 +44,7 @@ export class ColumnHeaderComponent implements OnInit {
 
   editTitle(column: IColumn) {
     if (column.title !== this.editTitleForm.value.title) {
-      this.columnsService.editColumn(this.boardId!, column.id, {
+      this.columnsService.editColumn(this.boardId!, column._id, {
         ...column,
         title: this.editTitleForm.value.title,
       });
@@ -56,7 +56,7 @@ export class ColumnHeaderComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.columnsService.deleteColumn(this.boardId, column.id);
+          this.columnsService.deleteColumn(this.boardId, column._id);
         }
       });
   }

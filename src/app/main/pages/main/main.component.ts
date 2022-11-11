@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed) {
-          this.boardService.deleteBoard(board.id);
+          this.boardService.deleteBoard(board._id);
         }
       });
   }
@@ -47,7 +47,7 @@ export class MainComponent implements OnInit {
     this.dialog.open(BoardModalComponent, {
       data: {
         dialogTitle: 'Edit new board',
-        boardId: board.id,
+        boardId: board._id,
         boardTitle: board.title,
         boardDescr: board.description,
       },

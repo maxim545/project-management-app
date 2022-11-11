@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IUser, IUserData, ILoginRequest, ISignUpRequest,
+  IUser, IUserLogin, IUserRequest,
 } from '../../models/user.model';
 
 export const loadUser = createAction(
@@ -15,17 +15,17 @@ export const loadUserSuccess = createAction(
 
 export const loginUser = createAction(
   '[User] Login User',
-  props<{ user: ILoginRequest }>(),
+  props<{ user: IUserLogin }>(),
 );
 
 export const signUpUser = createAction(
   '[User] Sign Up User',
-  props<{ user: ISignUpRequest }>(),
+  props<{ user: IUserRequest }>(),
 );
 
 export const updateUser = createAction(
   '[User] Update User',
-  props<{ user: IUserData }>(),
+  props<{ userId: string, user: IUserRequest }>(),
 );
 
 export const removeUser = createAction(

@@ -11,7 +11,7 @@
     </div>
     <div class="boards__list">
       <div class="boards__item" *ngFor="let board of boards$ | async">
-        <a class="boards__title" routerLink="/board/{{board.id}}">{{board.title}}</a>
+        <a class="boards__title" routerLink="/board/{{board._id}}">{{board.title}}</a>
         <mat-select class="edit_menu edit_menu_boards">
           <mat-option class="edit_menu__item" (click)="editBoard(board)">
             <mat-icon>edit</mat-icon>Rename

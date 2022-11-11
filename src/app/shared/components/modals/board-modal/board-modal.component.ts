@@ -8,6 +8,7 @@ import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
 
 @Component({
   selector: 'app-board-modal',
@@ -16,6 +17,8 @@ import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
 })
 export class BoardModalComponent implements OnInit {
   public boardForm!: FormGroup;
+
+  public userId = parseJwt(localStorage.getItem('uniq_token') as string);
 
   public dialogTitle: string = 'Create new board';
 
@@ -49,11 +52,11 @@ export class BoardModalComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(18),
       ]],
-      description: [this.boardDescr, [
+      /*       description: [this.boardDescr, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(18),
-      ]],
+      ]], */
     });
   }
 
@@ -65,7 +68,11 @@ export class BoardModalComponent implements OnInit {
 
   onSubmit() {
     if (!this.boardId) {
-      this.boardService.addBoard(this.boardForm.value);
+      this.boardService.addBoard({
+        ...this.boardForm.value,
+        owner: this.userId,
+        users: [],
+      });
     } else {
       this.boardService.editBoard(this.boardId, this.boardForm.value);
     }

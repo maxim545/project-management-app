@@ -9,6 +9,7 @@ import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IBoardDialog, IConfirmDialog, ITaskDialog } from 'src/app/core/models/modal.model';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
 
 @Component({
   selector: 'app-task-modal',
@@ -18,7 +19,7 @@ import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 export class TaskModalComponent implements OnInit {
   public taskForm!: FormGroup;
 
-  public currentUserId: string = localStorage.getItem('uniq_userId') || '';
+  public currentUserId: string = parseJwt(localStorage.getItem('uniq_token') as string);
 
   public dialogTitle: string = '';
 
@@ -80,6 +81,8 @@ export class TaskModalComponent implements OnInit {
       this.taskService.addTask(this.boardId, this.columnId, {
         ...this.taskForm.value,
         userId: this.currentUserId,
+        order: 0,
+        users: [],
       });
     } else {
       this.taskService.editTask(this.boardId, this.columnId, this.taskId, {

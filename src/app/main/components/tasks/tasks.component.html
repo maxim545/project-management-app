@@ -1,12 +1,12 @@
 <div class="task">
-  <div class="task__title" (click)="openTaskEditor(task.title, task.description, task.id, task.order)">
+  <div class="task__title" (click)="openTaskEditor(task.title, task.description, task._id, task.order)">
     {{task.title}}
   </div>
   <mat-select class="column__edit_menu edit_menu">
-    <mat-option class="edit_menu__item" (click)="openTaskEditor(task.title, task.description, task.id, task.order)">
+    <mat-option class="edit_menu__item" (click)="openTaskEditor(task.title, task.description, task._id, task.order)">
       <mat-icon>edit</mat-icon>Rename
     </mat-option>
-    <mat-option class="edit_menu__item" (click)="deleteTask(task.id)">
+    <mat-option class="edit_menu__item" (click)="deleteTask(task._id)">
       <mat-icon>delete</mat-icon>Delete
     </mat-option>
   </mat-select>

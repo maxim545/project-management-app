@@ -1,7 +1,7 @@
 <div class="column__header" *ngIf="column">
   <div class="column__title-block" *ngIf="!isEditMode">
     <h2 class="column__title" (click)="this.isEditMode = true">{{column.title}}</h2>
-    <span class="column__quantity">{{column.tasks?.length}}</span>
+    <!--  <span class="column__quantity">{{column.tasks?.length}}</span> -->
   </div>
   <mat-select class="column__edit_menu edit_menu" *ngIf="!isEditMode">
     <mat-option class="edit_menu__item" (click)="this.isEditMode = true">

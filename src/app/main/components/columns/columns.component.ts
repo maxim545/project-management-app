@@ -68,7 +68,7 @@ export class ColumnsComponent implements OnInit {
       const currentColumn = columns[event.previousIndex];
       this.columnsService.editColumn(
         this.boardId,
-        currentColumn.id,
+        currentColumn._id,
         {
           ...currentColumn,
           order: columns[event.currentIndex].order,
@@ -79,36 +79,37 @@ export class ColumnsComponent implements OnInit {
   }
 
   dropTask(event: CdkDragDrop<ITask[] | undefined>, columns: IColumn[] | null, newColumnId: string) {
-    if (event.previousContainer.data && event.container.data && columns) { // Here we define column id in which the current task was
+    if (event.previousContainer.data && event.container.data && columns) {
       const currentTask = event.previousContainer.data[event.previousIndex];
       const newTask = {
         title: currentTask.title,
         order: event.currentIndex + 1,
         description: currentTask.description,
         userId: currentTask.userId,
-        boardId: this.boardId,
       };
       let previousColumnId = '';
       columns?.forEach((column, i) => {
         const taskIsExist = column.tasks?.includes(currentTask);
-        if (taskIsExist) { previousColumnId = columns[i].id; }
+        if (taskIsExist) { previousColumnId = columns[i]._id; }
       });
-      if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) { // If we swap tasks in the same column
+      if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+        this.tasksService.editTask(this.boardId, previousColumnId, currentTask._id, {
           ...newTask,
           columnId: previousColumnId,
+          users: [],
         });
-      } else if (event.previousContainer !== event.container) { // Else we swap tasks from one column to another
+      } else if (event.previousContainer !== event.container) {
         transferArrayItem(
           event.previousContainer.data,
           event.container.data,
           event.previousIndex,
           event.currentIndex,
         );
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask.id, {
+        this.tasksService.editTask(this.boardId, previousColumnId, currentTask._id, {
           ...newTask,
           columnId: newColumnId,
+          users: [],
         });
       }
     }

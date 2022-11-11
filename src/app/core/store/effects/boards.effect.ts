@@ -52,7 +52,7 @@ export class BoardsEffects {
     ),
   );
 
-  editBoard$ = createEffect(
+  /*   editBoard$ = createEffect(
     () => this.actions$.pipe(
       ofType(editBoard),
       switchMap(({ board }) => this.apiService
@@ -65,7 +65,7 @@ export class BoardsEffects {
           catchError(() => EMPTY),
         )),
     ),
-  );
+  ); */
 
   deleteBoard$ = createEffect(
     () => this.actions$.pipe(

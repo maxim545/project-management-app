@@ -38,7 +38,7 @@ export class TasksComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.tasksService.deleteTask(this.boardId, this.column.id, taskId);
+          this.tasksService.deleteTask(this.boardId, this.column._id, taskId);
         }
       });
   }
@@ -48,7 +48,7 @@ export class TasksComponent implements OnInit {
       data: {
         dialogTitle: `Edit ${taskTitle}`,
         boardId: this.boardId,
-        columnId: this.column.id,
+        columnId: this.column._id,
         taskTitle,
         taskDescr,
         taskId,

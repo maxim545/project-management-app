@@ -22,7 +22,7 @@ export class BoardHeaderComponent implements OnInit {
     this.dialog.open(ColumnModalComponent, {
       data: {
         dialogTitle: 'Create new column',
-        boardId: this.board?.id,
+        boardId: this.board?._id,
       },
     });
   }

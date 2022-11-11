@@ -55,7 +55,10 @@ export class ColumnModalComponent implements OnInit {
 
   onSubmit() {
     if (this.boardId) {
-      this.columnsService.addColumn(this.boardId, this.columnForm.value);
+      this.columnsService.addColumn(this.boardId, {
+        ...this.columnForm.value,
+        order: 1,
+      });
       this.dialog.closeAll();
     }
   }
