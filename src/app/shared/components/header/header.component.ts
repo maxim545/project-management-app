@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
+  catchError,
+  EMPTY,
   finalize,
   map, Observable, skipWhile, tap,
 } from 'rxjs';
@@ -16,6 +18,10 @@ import { LangService } from 'src/app/core/services/lang/lang.service';
 import { IUser } from 'src/app/core/models/user.model';
 import { UserState } from 'src/app/core/store/reducers/user.reducer';
 import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
+import { IBoard } from 'src/app/core/models/board.model';
+import { Dictionary } from '@ngrx/entity';
+import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -32,6 +38,10 @@ export class HeaderComponent implements OnInit {
 
   isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
+  public user$!: Observable<IUser | null>;
+
+  public boardId: string | null = '636e28a9dbf736ec9767126a';
+
   constructor(
     private store: Store,
     private authService: AuthService,
@@ -40,15 +50,43 @@ export class HeaderComponent implements OnInit {
     public translate: TranslateService,
     public langService: LangService,
     private userStore: Store<UserState>,
+    private boardStore: Store<BoardState>,
   ) {
   }
 
   ngOnInit(): void {
-    console.log(33);
     const userId = parseJwt(localStorage.getItem('uniq_token'));
     if (userId) {
       this.store.dispatch(loadUser({ userId }));
     }
+    this.user$ = this.store
+      .select(getUserStore)
+      .pipe(
+        skipWhile((flag) => flag.isLoggedIn),
+        map(({ user }) => {
+          if (user) {
+            this.store.dispatch(loadBoards({ userId }));
+            return user;
+          }
+          return null;
+        }),
+      );
+    /* this.board$ =  *//* this.store
+      .select(getUserStore).subscribe((data) => {
+        console.log(data);
+      }); */
+    /* .pipe(
+      select(boardStateSelector),
+      skipWhile((flag) => flag.isLoading),
+      map((boards) => {
+        if (this.boardId && boards.entities[this.boardId]) {
+          localStorage.setItem('user', '1');
+          this.store.dispatch(loadColumns({ id: this.boardId }));
+          return boards.entities[this.boardId] as IBoardResponse;
+        }
+        throw new Error('Board id is not valid');
+      }),
+    ); */
   }
 
   openBoardCreater() {

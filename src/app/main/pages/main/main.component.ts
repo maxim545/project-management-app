@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {
-    this.store.dispatch(loadBoards());
+    /* this.store.dispatch(loadBoards()); */
   }
 
   ngOnInit(): void {
@@ -47,9 +47,7 @@ export class MainComponent implements OnInit {
     this.dialog.open(BoardModalComponent, {
       data: {
         dialogTitle: 'Edit new board',
-        boardId: board._id,
-        boardTitle: board.title,
-        boardDescr: board.description,
+        board,
       },
     });
   }

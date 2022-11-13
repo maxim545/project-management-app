@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { IBoardRequest } from 'src/app/core/models/board.model';
 import {
-  addBoard, deleteBoard, editBoard, getCurrentBoard,
+  addBoard, deleteBoard, editBoard,
 } from 'src/app/core/store/actions/boards.actions';
 
 @Injectable({
@@ -17,14 +17,13 @@ export class BoardsService {
     this.store.dispatch(addBoard({ board }));
   }
 
-  editBoard(id: string, data: IBoardRequest) {
-    /* const board = { id, ...data };
-    this.store.dispatch(editBoard({ board })); */
+  editBoard(id: string, board: IBoardRequest) {
+    this.store.dispatch(editBoard({ id, board }));
   }
 
-  getCurrentBoard(id: string) {
+  /*   getCurrentBoard(id: string) {
     this.store.dispatch(getCurrentBoard({ id }));
-  }
+  } */
 
   deleteBoard(id: string) {
     this.store.dispatch(deleteBoard({ id }));

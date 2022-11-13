@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardResponse, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
+  IBoard, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
 } from '../../models/board.model';
 
 @Injectable({
@@ -57,8 +57,8 @@ export class ApiService {
     return this.http.post<IBoard>('boards', board);
   }
 
-  getBoardById(id: string): Observable<IBoardResponse> {
-    return this.http.get<IBoardResponse>(`boards/${id}`);
+  getBoardById(id: string): Observable<IBoard> {
+    return this.http.get<IBoard>(`boards/${id}`);
   }
 
   deleteBoard(id: string) {

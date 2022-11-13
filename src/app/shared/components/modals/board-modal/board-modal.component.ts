@@ -22,11 +22,7 @@ export class BoardModalComponent implements OnInit {
 
   public dialogTitle: string = 'Create new board';
 
-  public boardId: string = '';
-
-  public boardTitle: string = '';
-
-  public boardDescr: string = '';
+  public board: IBoard | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -39,15 +35,13 @@ export class BoardModalComponent implements OnInit {
   ) {
     if (data) {
       this.dialogTitle = data.dialogTitle;
-      this.boardId = data.boardId;
-      this.boardTitle = data.boardTitle;
-      this.boardDescr = data.boardDescr;
+      this.board = { ...data.board };
     }
   }
 
   ngOnInit(): void {
     this.boardForm = this.formBuilder.group({
-      title: [this.boardTitle, [
+      title: [this.board?.title, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(18),
@@ -67,14 +61,19 @@ export class BoardModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.boardId) {
+    if (!this.board?._id) {
+      console.log(42);
       this.boardService.addBoard({
         ...this.boardForm.value,
         owner: this.userId,
         users: [],
       });
     } else {
-      this.boardService.editBoard(this.boardId, this.boardForm.value);
+      this.boardService.editBoard(this.board._id, {
+        title: this.boardForm.value.title,
+        owner: this.board.owner,
+        users: this.board.users,
+      });
     }
     this.dialog.closeAll();
   }

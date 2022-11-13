@@ -1,21 +1,22 @@
+export interface IBoard {
+  _id: string;
+  title: string;
+  owner: string;
+  users: string[];
+}
+
 export interface IBoardRequest {
   title: string;
   owner: string;
   users: string[];
 }
 
-export interface IBoard {
-  _id: string;
-  title: string;
-  description: string;
-}
-
-export interface IBoardResponse {
+/* export interface IBoardResponse {
   _id: string;
   title: string;
   description: string;
   columns?: IColumn[]
-}
+} */
 
 export interface IColumnResponse {
   _id: string;

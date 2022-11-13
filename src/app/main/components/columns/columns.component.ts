@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IBoardResponse, IColumn, ITask } from 'src/app/core/models/board.model';
+import { IColumn, ITask } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteColumnDialogConfig, deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';

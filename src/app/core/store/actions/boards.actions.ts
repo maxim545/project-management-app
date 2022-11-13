@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IBoard, IBoardResponse, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, ITaskPutRequest, ITaskRequest,
+  IBoard, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, ITaskPutRequest, ITaskRequest,
 } from '../../models/board.model';
 
 export const loadBoards = createAction(
   '[Board] Load Boards',
+  props<{ userId: string }>(),
 );
 
 export const loadBoardsSuccess = createAction(
@@ -34,7 +35,7 @@ export const deleteBoardSuccess = createAction(
 
 export const editBoard = createAction(
   '[Board] Edit Board',
-  props<{ board: IBoard }>(),
+  props<{ id: string, board: IBoardRequest }>(),
 );
 
 export const editBoardSuccess = createAction(
@@ -47,12 +48,12 @@ export const boardFailed = createAction(
   props<{ error: string }>(),
 );
 
-export const getCurrentBoard = createAction(
+/* export const getCurrentBoard = createAction(
   '[Board] Get Current Board',
   props<{ id: string }>(),
 );
 
 export const getCurrentBoardSuccess = createAction(
   '[Board] Get Current Board Success',
-  props<{ board: IBoardResponse }>(),
-);
+  props<{ board: IBoard }>(),
+); */

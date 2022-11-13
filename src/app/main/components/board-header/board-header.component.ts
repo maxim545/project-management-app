@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IBoardResponse } from 'src/app/core/models/board.model';
+import { IBoard } from 'src/app/core/models/board.model';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { ColumnModalComponent } from 'src/app/shared/components/modals/column-mo
   styleUrls: ['./board-header.component.scss'],
 })
 export class BoardHeaderComponent implements OnInit {
-  @Input() public board: IBoardResponse | null = null;
+  @Input() public board: IBoard | null = null;
 
   constructor(
     public dialog: MatDialog,

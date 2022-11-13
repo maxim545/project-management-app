@@ -1,3 +1,5 @@
+import { IBoard } from './board.model';
+
 export interface IConfirmDialog {
   dialogTitle: string,
   buttonText: {
@@ -8,13 +10,7 @@ export interface IConfirmDialog {
 
 export interface IBoardDialog {
   dialogTitle: string,
-  buttonText: {
-    confirm: string,
-    cancel: string,
-  },
-  boardId: string,
-  boardTitle: string,
-  boardDescr: string,
+  board: IBoard
 }
 
 export interface ITaskDialog {

@@ -6,7 +6,7 @@ import {
 import { IBoard } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, getCurrentBoard, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, boardFailed, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 @Injectable()
@@ -19,11 +19,14 @@ export class BoardsEffects {
   loadBoards$ = createEffect(
     () => this.actions$.pipe(
       ofType(loadBoards),
-      switchMap(() => this.apiService
+      switchMap(({ userId }) => this.apiService
         .getAllBoards()
         .pipe(
-          map((boards) => loadBoardsSuccess({ boards })),
-          catchError(() => EMPTY),
+          map((boards) => {
+            const filteredBoards = boards.filter((board) => board.owner === userId);
+            return loadBoardsSuccess({ boards: filteredBoards });
+          }),
+          catchError((error) => of(boardFailed({ error }))),
         )),
     ),
   );
@@ -35,37 +38,10 @@ export class BoardsEffects {
         .createBoard(board)
         .pipe(
           map((board) => addBoardSuccess({ board })),
-          catchError(() => EMPTY),
+          catchError(async (err) => err),
         )),
     ),
   );
-
-  getCurrentBoard$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(getCurrentBoard),
-      switchMap(({ id }) => this.apiService
-        .getBoardById(id)
-        .pipe(
-          map((board) => getCurrentBoardSuccess({ board })),
-          catchError(() => EMPTY),
-        )),
-    ),
-  );
-
-  /*   editBoard$ = createEffect(
-    () => this.actions$.pipe(
-      ofType(editBoard),
-      switchMap(({ board }) => this.apiService
-        .editBoard(board.id, {
-          title: board.title,
-          description: board.description,
-        })
-        .pipe(
-          map((resBoard) => editBoardSuccess({ id: board.id, board: resBoard })),
-          catchError(() => EMPTY),
-        )),
-    ),
-  ); */
 
   deleteBoard$ = createEffect(
     () => this.actions$.pipe(
@@ -78,6 +54,34 @@ export class BoardsEffects {
         )),
     ),
   );
+
+  editBoard$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(editBoard),
+      switchMap(({ id, board }) => this.apiService
+        .editBoard(id, board)
+        .pipe(
+          map((resBoard) => editBoardSuccess({
+            id: resBoard._id,
+            board: resBoard,
+          })),
+          catchError(async (err) => err),
+        )),
+    ),
+  );
+
+  /* getCurrentBoard$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(getCurrentBoard),
+      switchMap(({ id }) => this.apiService
+        .getBoardById(id)
+        .pipe(
+          map((board) => getCurrentBoardSuccess({ board })),
+          catchError(() => EMPTY),
+        )),
+    ),
+  ); */
+
   /*
 
     deleteColumn$ = createEffect(

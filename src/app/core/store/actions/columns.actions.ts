@@ -49,7 +49,7 @@ export const columnFailed = createAction(
 );
 
 export const clearColumns = createAction(
-  '[Columns] Columns Failed',
+  '[Columns] Columns Clear',
 );
 
 /* -----------TASKS----------- */

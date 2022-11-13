@@ -31,10 +31,10 @@ export class ColumnModalComponent implements OnInit {
     private snackBar: MatSnackBar,
     private columnsService: ColumnsService,
   ) {
-    if (data) {
+    /* if (data) {
       this.dialogTitle = data.dialogTitle;
       this.boardId = data.boardId;
-    }
+    } */
   }
 
   ngOnInit(): void {
