@@ -13,6 +13,12 @@ export interface IBoardDialog {
   board: IBoard
 }
 
+export interface IColumnDialog {
+  dialogTitle: string,
+  boardId: string
+  columnsQuantity: number
+}
+
 export interface ITaskDialog {
   dialogTitle: string,
   boardId: string,

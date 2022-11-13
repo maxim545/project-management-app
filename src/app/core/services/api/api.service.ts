@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
 } from '../../models/board.model';
 
 @Injectable({
@@ -75,7 +75,7 @@ export class ApiService {
     return this.http.get<IColumnResponse[]>(`boards/${boardId}/columns`);
   }
 
-  createColumn(boardId: string, column: IColumnPostRequest): Observable<IColumnResponse> {
+  createColumn(boardId: string, column: IColumnRequest): Observable<IColumnResponse> {
     return this.http.post<IColumnResponse>(`boards/${boardId}/columns`, column);
   }
 
@@ -87,8 +87,12 @@ export class ApiService {
     return this.http.delete<IColumn>(`boards/${boardId}/columns/${columnId}`);
   }
 
-  editColumn(boardId: string, columnId: string, column: IColumnPutRequest): Observable<IColumnResponse> {
+  editColumn(boardId: string, columnId: string, column: IColumnRequest): Observable<IColumnResponse> {
     return this.http.put<IColumnResponse>(`boards/${boardId}/columns/${columnId}`, column);
+  }
+
+  updateSetColumns(columns: IColumnSet[]): Observable<IColumnResponse[]> {
+    return this.http.patch<IColumnResponse[]>('columnsSet', columns);
   }
 
   /* ********  TASKS ******** */

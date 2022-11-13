@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import {
-  IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse,
+  IColumn, IColumnRequest, IColumnResponse, IColumnSet,
 } from 'src/app/core/models/board.model';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { select, Store } from '@ngrx/store';
-import { addColumn, deleteColumn, editColumn } from 'src/app/core/store/actions/columns.actions';
+import {
+  addColumn, deleteColumn, editColumn, updateColumnsSet,
+} from 'src/app/core/store/actions/columns.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { ColumnState, columnStateSelector } from 'src/app/core/store/reducers/columns.reducers';
 import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
@@ -27,12 +29,16 @@ export class ColumnsService {
     );
   }
 
-  addColumn(id: string, column: IColumnPostRequest) {
+  addColumn(id: string, column: IColumnRequest) {
     this.store.dispatch(addColumn({ id, column }));
   }
 
-  editColumn(boardId: string, columnId: string, column: IColumn) {
+  editColumn(boardId: string, columnId: string, column: IColumnRequest) {
     this.store.dispatch(editColumn({ boardId, columnId, column }));
+  }
+
+  editSetColumns(columns: IColumnSet[]) {
+    this.store.dispatch(updateColumnsSet({ columns }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

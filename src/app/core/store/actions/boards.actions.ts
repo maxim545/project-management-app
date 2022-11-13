@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnPostRequest, IColumnPutRequest, ITaskPutRequest, ITaskRequest,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, ITaskPutRequest, ITaskRequest,
 } from '../../models/board.model';
 
 export const loadBoards = createAction(

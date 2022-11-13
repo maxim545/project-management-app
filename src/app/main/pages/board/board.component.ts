@@ -31,8 +31,6 @@ export class BoardComponent implements OnInit, OnDestroy {
 
   public board$!: Observable<IBoard>;
 
-  public test$!: Observable<IBoard>;
-
   public columns$!: Observable<IColumn[]>;
 
   constructor(

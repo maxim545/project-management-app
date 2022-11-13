@@ -4,7 +4,7 @@ import {
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IColumn } from '../../models/board.model';
 import {
-  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess,
+  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess, updateColumnsSetSuccess,
 } from '../actions/columns.actions';
 
 export interface ColumnState extends EntityState<IColumn> {
@@ -44,6 +44,8 @@ export const columnReducer = createReducer(
     },
     state,
   )),
+
+  on(updateColumnsSetSuccess, (state, action) => adapter.updateMany(action.columns.map((column) => ({ id: column._id, changes: column })), state)),
 
   on(deleteColumnSuccess, (state, action) => adapter.removeOne(action.columnId, state)),
 

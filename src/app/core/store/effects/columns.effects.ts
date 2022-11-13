@@ -6,7 +6,7 @@ import {
 import { IColumn, ITask } from '../../models/board.model';
 import { ApiService } from '../../services/api/api.service';
 import {
-  addColumn, addColumnSuccess, addTask, deleteColumn, deleteColumnSuccess, deleteTask, editColumn, editColumnSuccess, editTask, loadColumns, loadColumnsSuccess,
+  addColumn, addColumnSuccess, addTask, deleteColumn, deleteColumnSuccess, deleteTask, editColumn, editColumnSuccess, editTask, loadColumns, loadColumnsSuccess, updateColumnsSet, updateColumnsSetSuccess,
 } from '../actions/columns.actions';
 
 @Injectable()
@@ -42,21 +42,15 @@ export class ColumnsEffects {
             .getTasksSet(id)
             .pipe(
               map((tasks) => {
-                const newColumns = [] as IColumn[];
+                const newColumns: IColumn[] = [];
                 columns.forEach((column) => {
-                  const newTasks = [] as ITask[];
-                  const currentTasks = tasks.forEach((task) => {
-                    if (task.columnId === column._id) {
-                      newTasks.push(task);
-                    }
-                  });
-                  const newColumn = {
+                  const filteredTasks = tasks.filter((task) => task.columnId === column._id);
+                  filteredTasks.sort((a, b) => a.order - b.order);
+                  newColumns.push({
                     ...column,
-                    tasks: newTasks,
-                  };
-                  newColumns.push(newColumn);
+                    tasks: filteredTasks,
+                  });
                 });
-                newColumns.forEach((column) => column.tasks?.sort((a, b) => a.order - b.order));
                 return loadColumnsSuccess({ columns: newColumns });
               }),
               catchError(() => EMPTY),
@@ -72,7 +66,7 @@ export class ColumnsEffects {
         .createColumn(id, column)
         .pipe(
           map((column) => addColumnSuccess({ column })),
-          catchError(() => EMPTY),
+          catchError(async (err) => err),
         )),
     ),
   );
@@ -104,6 +98,18 @@ export class ColumnsEffects {
               ...resColumn,
             },
           })),
+          catchError(async (err) => err),
+        )),
+    ),
+  );
+
+  updateColumnsSet$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(updateColumnsSet),
+      switchMap(({ columns }) => this.apiService
+        .updateSetColumns(columns)
+        .pipe(
+          map((columns) => updateColumnsSetSuccess({ columns })),
           catchError(async (err) => err),
         )),
     ),

@@ -25,13 +25,13 @@ export interface IColumnResponse {
   boardId: string;
 }
 
-export interface IColumnPostRequest {
+export interface IColumnRequest {
   title: string;
   order: number;
 }
 
-export interface IColumnPutRequest {
-  title: string;
+export interface IColumnSet {
+  _id: string;
   order: number;
 }
 

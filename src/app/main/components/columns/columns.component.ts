@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IColumn, ITask } from 'src/app/core/models/board.model';
+import {
+  IColumn, IColumnRequest, IColumnSet, ITask,
+} from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteColumnDialogConfig, deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
@@ -16,6 +18,7 @@ import {
   CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule,
 } from '@angular/cdk/drag-drop';
 import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { ColumnsService } from '../../services/columns/columns.service';
 import { TasksService } from '../../services/tasks/tasks.service';
 
@@ -38,19 +41,22 @@ export class ColumnsComponent implements OnInit {
     private store: Store,
     private columnsService: ColumnsService,
     private tasksService: TasksService,
+    private apiService: ApiService,
   ) { }
 
   ngOnInit(): void {
 
   }
 
-  /* openColumnCreater() {
-    this.dialog.open(ColumnModalComponent, {
-      data: {
-        dialogTitle: 'Create new column',
-        boardId: this.boardId,
-      },
-    });
+  /*  openColumnCreater() {
+    if (this.columns) {
+      this.dialog.open(ColumnModalComponent, {
+        data: {
+          dialogTitle: 'Create new column',
+          boardId: this.boardId,
+        },
+      });
+    }
   } */
 
   openTaskCreater(columnId: string) {
@@ -65,16 +71,19 @@ export class ColumnsComponent implements OnInit {
 
   dropColumn(event: CdkDragDrop<IColumn[]>, columns: IColumn[] | null): void {
     if (columns && event.previousIndex !== event.currentIndex) {
-      const currentColumn = columns[event.previousIndex];
-      this.columnsService.editColumn(
-        this.boardId,
-        currentColumn._id,
-        {
-          ...currentColumn,
-          order: columns[event.currentIndex].order,
-        },
-      );
+      /* const previousColumn = columns[event.previousIndex];
+      const currentColumn = columns[event.currentIndex];
+      console.log(previousColumn.title, currentColumn.title);
+      console.log(event.previousIndex, event.currentIndex); */
       moveItemInArray(columns, event.previousIndex, event.currentIndex);
+      const updatedColumns: IColumnSet[] = [];
+      columns.forEach((column, i) => {
+        updatedColumns.push({
+          _id: column._id,
+          order: i,
+        });
+      });
+      this.columnsService.editSetColumns(updatedColumns);
     }
   }
 

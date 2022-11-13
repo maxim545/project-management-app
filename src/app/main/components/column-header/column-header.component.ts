@@ -45,8 +45,8 @@ export class ColumnHeaderComponent implements OnInit {
   editTitle(column: IColumn) {
     if (column.title !== this.editTitleForm.value.title) {
       this.columnsService.editColumn(this.boardId!, column._id, {
-        ...column,
         title: this.editTitleForm.value.title,
+        order: column.order,
       });
     }
   }
