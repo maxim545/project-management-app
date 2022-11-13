@@ -33,26 +33,22 @@ export class TasksComponent implements OnInit {
 
   }
 
-  deleteTask(taskId: string) {
+  deleteTask(task: ITask) {
     this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.tasksService.deleteTask(this.boardId, this.column._id, taskId);
+          this.tasksService.deleteTask(this.column, task);
         }
       });
   }
 
-  openTaskEditor(taskTitle: string, taskDescr: string, taskId: string, order: number): void {
+  openTaskEditor(task: ITask): void {
     this.dialog.open(TaskModalComponent, {
       data: {
-        dialogTitle: `Edit ${taskTitle}`,
-        boardId: this.boardId,
-        columnId: this.column._id,
-        taskTitle,
-        taskDescr,
-        taskId,
-        order,
+        dialogTitle: `Edit ${task.title}`,
+        task,
+        column: this.column,
       },
     });
   }

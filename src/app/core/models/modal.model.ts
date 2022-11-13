@@ -1,4 +1,4 @@
-import { IBoard } from './board.model';
+import { IBoard, IColumn, ITask } from './board.model';
 
 export interface IConfirmDialog {
   dialogTitle: string,
@@ -21,10 +21,6 @@ export interface IColumnDialog {
 
 export interface ITaskDialog {
   dialogTitle: string,
-  boardId: string,
-  columnId: string,
-  taskTitle: string,
-  taskDescr: string,
-  taskId: string,
-  order: number,
+  column: IColumn,
+  task: ITask
 }

@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse, ITaskSet,
 } from '../../models/board.model';
 
 @Injectable({
@@ -119,5 +119,9 @@ export class ApiService {
 
   editTask(boardId: string, columnId: string, taskId: string, task: ITaskPutRequest): Observable<ITaskPutResponse> {
     return this.http.put<ITaskPutResponse>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
+  }
+
+  updateSetTasks(tasks: ITaskSet[]): Observable<ITask[]> {
+    return this.http.patch<ITask[]>('tasksSet', tasks);
   }
 }

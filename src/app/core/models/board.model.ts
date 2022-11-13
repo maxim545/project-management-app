@@ -35,12 +35,18 @@ export interface IColumnSet {
   order: number;
 }
 
+export interface ITaskSet {
+  _id: string;
+  order: number;
+  columnId: string;
+}
+
 export interface IColumn {
   _id: string;
   title: string;
   order: number;
   boardId: string;
-  tasks?: ITask[]
+  tasks: ITask[]
 }
 
 export interface ITask {

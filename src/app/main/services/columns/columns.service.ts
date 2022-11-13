@@ -33,12 +33,19 @@ export class ColumnsService {
     this.store.dispatch(addColumn({ id, column }));
   }
 
-  editColumn(boardId: string, columnId: string, column: IColumnRequest) {
-    this.store.dispatch(editColumn({ boardId, columnId, column }));
+  editColumn(boardId: string, column: IColumn) {
+    this.store.dispatch(editColumn({ boardId, column }));
   }
 
-  editSetColumns(columns: IColumnSet[]) {
-    this.store.dispatch(updateColumnsSet({ columns }));
+  editSetColumns(columns: IColumn[]) {
+    const updatedColumns: IColumnSet[] = [];
+    columns.forEach((column, i) => {
+      updatedColumns.push({
+        _id: column._id,
+        order: i,
+      });
+    });
+    this.store.dispatch(updateColumnsSet({ columns: updatedColumns }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

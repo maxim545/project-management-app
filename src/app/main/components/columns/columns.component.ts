@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {
-  IColumn, IColumnRequest, IColumnSet, ITask,
+  IColumn, IColumnRequest, IColumnSet, ITask, ITaskSet,
 } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
@@ -59,12 +59,12 @@ export class ColumnsComponent implements OnInit {
     }
   } */
 
-  openTaskCreater(columnId: string) {
+  openTaskCreater(column: IColumn) {
     this.dialog.open(TaskModalComponent, {
       data: {
         dialogTitle: 'Create new task',
         boardId: this.boardId,
-        columnId,
+        column,
       },
     });
   }
@@ -76,38 +76,22 @@ export class ColumnsComponent implements OnInit {
       console.log(previousColumn.title, currentColumn.title);
       console.log(event.previousIndex, event.currentIndex); */
       moveItemInArray(columns, event.previousIndex, event.currentIndex);
-      const updatedColumns: IColumnSet[] = [];
-      columns.forEach((column, i) => {
-        updatedColumns.push({
-          _id: column._id,
-          order: i,
-        });
-      });
-      this.columnsService.editSetColumns(updatedColumns);
+      columns.forEach((column, i) => column.order = i);
+      this.columnsService.editSetColumns(columns);
     }
   }
 
-  dropTask(event: CdkDragDrop<ITask[] | undefined>, columns: IColumn[] | null, newColumnId: string) {
-    if (event.previousContainer.data && event.container.data && columns) {
-      const currentTask = event.previousContainer.data[event.previousIndex];
-      const newTask = {
-        title: currentTask.title,
-        order: event.currentIndex + 1,
-        description: currentTask.description,
-        userId: currentTask.userId,
-      };
-      let previousColumnId = '';
-      columns?.forEach((column, i) => {
-        const taskIsExist = column.tasks?.includes(currentTask);
-        if (taskIsExist) { previousColumnId = columns[i]._id; }
-      });
+  dropTask(event: CdkDragDrop<ITask[]>, columns: IColumn[], currentColumn: IColumn) {
+    const currentTask = event.previousContainer.data[event.previousIndex];
+    let prevColumnIndex: number | null = null;
+    columns.forEach((column, i) => {
+      const taskIsExist = column.tasks.includes(currentTask);
+      if (taskIsExist) { prevColumnIndex = i; }
+    });
+    if (typeof prevColumnIndex === 'number') {
       if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask._id, {
-          ...newTask,
-          columnId: previousColumnId,
-          users: [],
-        });
+        this.tasksService.editSetTasks(columns[prevColumnIndex], event.container.data);
       } else if (event.previousContainer !== event.container) {
         transferArrayItem(
           event.previousContainer.data,
@@ -115,11 +99,16 @@ export class ColumnsComponent implements OnInit {
           event.previousIndex,
           event.currentIndex,
         );
-        this.tasksService.editTask(this.boardId, previousColumnId, currentTask._id, {
-          ...newTask,
-          columnId: newColumnId,
-          users: [],
+        const previousColumn = columns[prevColumnIndex];
+        previousColumn.tasks.forEach((task, i) => {
+          task.order = i;
+          task.columnId = previousColumn._id;
         });
+        currentColumn.tasks.forEach((task, i) => {
+          task.order = i;
+          task.columnId = currentColumn._id;
+        });
+        this.tasksService.editTasksBetweenColumns([previousColumn, currentColumn], previousColumn.tasks, currentColumn.tasks);
       }
     }
   }
