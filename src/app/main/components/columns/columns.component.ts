@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component, Input, OnDestroy, OnInit,
+} from '@angular/core';
 import {
   IColumn, IColumnRequest, IColumnSet, ITask, ITaskSet,
 } from 'src/app/core/models/board.model';
@@ -27,7 +29,7 @@ import { TasksService } from '../../services/tasks/tasks.service';
   templateUrl: './columns.component.html',
   styleUrls: ['./columns.component.scss'],
 })
-export class ColumnsComponent implements OnInit {
+export class ColumnsComponent implements OnInit, OnDestroy {
   @Input() public columns!: IColumn[] | null;
 
   @Input() public boardId!: string;
@@ -35,6 +37,10 @@ export class ColumnsComponent implements OnInit {
   public editTitleForm!: FormGroup;
 
   public isEditMode: boolean = false;
+
+  /* public test1!: IColumn;
+
+  public test2!: ITask[]; */
 
   constructor(
     public dialog: MatDialog,
@@ -45,7 +51,13 @@ export class ColumnsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    /* window.addEventListener('beforeunload', () => {
+      this.tasksService.editSetTasks(this.test1, this.test2);
+    }); */
+  }
 
+  ngOnDestroy(): void {
+    /*  this.tasksService.editSetTasks(this.test1, this.test2); */
   }
 
   /*  openColumnCreater() {
@@ -91,6 +103,9 @@ export class ColumnsComponent implements OnInit {
     if (typeof prevColumnIndex === 'number') {
       if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) {
         moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+        /* this.test1 = columns[prevColumnIndex];
+        this.test2 = event.container.data; */
+
         this.tasksService.editSetTasks(columns[prevColumnIndex], event.container.data);
       } else if (event.previousContainer !== event.container) {
         transferArrayItem(

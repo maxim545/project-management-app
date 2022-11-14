@@ -4,7 +4,6 @@
       <div class="header__title">
         <a routerLink="/main"><img src="./assets/icons/logo.svg" alt="app-logo" /></a>
       </div>
-      <div>{{(user$ | async)?.name}}</div>
       <div class="header__custom-menu">
         <div class="header__menu menu" *ngIf="(isLoggedIn$ | async) === false">
           <nav class="menu__nav">
@@ -12,8 +11,7 @@
             <a routerLink="/auth/signup" class="menu__link menu__link-signup">Sign up</a>
           </nav>
         </div>
-
-        <div class="header__menu menu" *ngIf="isLoggedIn$ | async">
+        <div class="header__menu menu" *ngIf="(user$ | async)?.name">
           <nav class="menu__nav">
             <button (click)="openBoardCreater()" class="menu__link menu__link-create">
               + Create todo
@@ -35,8 +33,10 @@
       </div>
     </div>
   </div>
+  <div class="header__spinner" *ngIf="
+  (isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false || (isLoadingBoards$ | async) !== false
+">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
+  </div>
 </header>
-<mat-progress-bar mode="buffer" *ngIf="
-    (isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false
-  ">
-</mat-progress-bar>

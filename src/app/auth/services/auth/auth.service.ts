@@ -18,6 +18,7 @@ import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
 import { trnsttValues } from 'src/app/core/configs/lang';
 import { LangService } from 'src/app/core/services/lang/lang.service';
+import { clearBoards } from 'src/app/core/store/actions/boards.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -50,6 +51,7 @@ export class AuthService {
   }
 
   logoutUser() {
+    this.store.dispatch(clearBoards());
     this.store.dispatch(cleanUserStore());
   }
 

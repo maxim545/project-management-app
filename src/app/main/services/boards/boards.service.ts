@@ -1,17 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
 import { IBoardRequest } from 'src/app/core/models/board.model';
 import {
   addBoard, deleteBoard, editBoard,
 } from 'src/app/core/store/actions/boards.actions';
+import { boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
+  isLoadingBoards$: Observable<boolean>;
+
   constructor(
     private store: Store,
-  ) { }
+  ) {
+    this.isLoadingBoards$ = this.store.pipe(
+      select(boardStateSelector),
+      map((data) => data.isLoading),
+    );
+  }
 
   addBoard(board: IBoardRequest) {
     this.store.dispatch(addBoard({ board }));

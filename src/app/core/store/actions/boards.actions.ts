@@ -48,6 +48,10 @@ export const boardFailed = createAction(
   props<{ error: string }>(),
 );
 
+export const clearBoards = createAction(
+  '[Columns] Boards Clear',
+);
+
 /* export const getCurrentBoard = createAction(
   '[Board] Get Current Board',
   props<{ id: string }>(),

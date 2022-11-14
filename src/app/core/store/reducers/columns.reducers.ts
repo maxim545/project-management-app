@@ -4,7 +4,7 @@ import {
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IColumn } from '../../models/board.model';
 import {
-  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess, updateColumnsSetSuccess,
+  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess, updateColumnsSetSuccess, updateTasksSet, updTasksBetweenColumns,
 } from '../actions/columns.actions';
 
 export interface ColumnState extends EntityState<IColumn> {
@@ -37,15 +37,31 @@ export const columnReducer = createReducer(
 
   on(addColumnSuccess, (state, action) => adapter.addOne(action.column, state)),
 
+  on(updateTasksSet, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
+  on(updTasksBetweenColumns, (state) => ({
+    ...state,
+    loading: true,
+  })),
+
   on(editColumnSuccess, (state, action) => adapter.updateOne(
     {
       id: action.columnId,
       changes: action.column,
     },
-    state,
+    {
+      ...state,
+      loading: false,
+    },
   )),
 
-  on(updateColumnsSetSuccess, (state, action) => adapter.updateMany(action.columns.map((column) => ({ id: column._id, changes: column })), state)),
+  on(updateColumnsSetSuccess, (state, action) => adapter.updateMany(action.columns.map((column) => ({ id: column._id, changes: column })), {
+    ...state,
+    loading: false,
+  })),
 
   on(deleteColumnSuccess, (state, action) => adapter.removeOne(action.columnId, state)),
 

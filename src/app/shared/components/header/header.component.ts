@@ -22,6 +22,7 @@ import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boar
 import { IBoard } from 'src/app/core/models/board.model';
 import { Dictionary } from '@ngrx/entity';
 import { loadColumns } from 'src/app/core/store/actions/columns.actions';
+import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -34,6 +35,8 @@ export class HeaderComponent implements OnInit {
 
   isLoadingUser$: Observable<boolean> = this.authService.isLoadingUser$;
 
+  isLoadingBoards$: Observable<boolean> = this.boardService.isLoadingBoards$;
+
   isLoadingColumns$: Observable<boolean> = this.columnsService.isLoadingColums$;
 
   isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
@@ -45,6 +48,7 @@ export class HeaderComponent implements OnInit {
   constructor(
     private store: Store,
     private authService: AuthService,
+    private boardService: BoardsService,
     private columnsService: ColumnsService,
     public dialog: MatDialog,
     public translate: TranslateService,

@@ -2,6 +2,7 @@
   background-color: #fff;
   font-size: 1rem;
 
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
@@ -28,6 +29,15 @@
     display: flex;
     align-items: center;
     gap: 15px;
+  }
+
+  &__spinner {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    min-height:805px;
   }
 
   .menu {
@@ -107,3 +117,13 @@
     }
   }
 }
+
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #6C5DD3;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #E4E8EB;
+}
+
