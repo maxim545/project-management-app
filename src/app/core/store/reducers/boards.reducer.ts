@@ -2,24 +2,26 @@ import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { IBoard, IBoardResponse } from '../../models/board.model';
+import { IBoard } from '../../models/board.model';
 import {
-  addBoard, addBoardSuccess, boardFailed, deleteBoard, deleteBoardSuccess, editBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, boardFailed, clearBoards, deleteBoard, deleteBoardSuccess, editBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 export interface BoardState extends EntityState<IBoard> {
   error: string | null;
   isLoading: boolean;
+  isLoggedIn: boolean;
 }
 
 export const adapter: EntityAdapter<IBoard> = createEntityAdapter<IBoard>({
-  selectId: (board) => board.id,
+  selectId: (board) => board._id,
   sortComparer: false,
 });
 
 export const initialState: BoardState = adapter.getInitialState({
   error: null,
   isLoading: false,
+  isLoggedIn: false,
 });
 
 export const boardReducer = createReducer(
@@ -27,7 +29,7 @@ export const boardReducer = createReducer(
 
   on(loadBoards, (state) => ({ ...state, isLoading: true })),
 
-  on(loadBoardsSuccess, (state, actions) => adapter.setAll(actions.boards, { ...state, isLoading: false })),
+  on(loadBoardsSuccess, (state, actions) => adapter.setAll(actions.boards, { ...state, isLoading: false, isLoggedIn: true })),
 
   on(addBoardSuccess, (state, action) => adapter.addOne(action.board, state)),
 
@@ -36,6 +38,8 @@ export const boardReducer = createReducer(
   on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.id, changes: action.board }, state)),
 
   on(boardFailed, (state, action) => ({ ...state, error: action.error, isLoading: false })),
+
+  on(clearBoards, (state) => adapter.removeAll(state)),
 
 );
 

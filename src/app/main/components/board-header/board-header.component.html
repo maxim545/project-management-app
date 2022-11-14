@@ -3,7 +3,7 @@
     <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
   </button>
   <h1 class="header-board__title">{{board.title}}</h1>
-  <button class="btn header-board__btn header-board__btn_right" (click)="openColumnCreater()">
+  <button class="btn header-board__btn header-board__btn_right" (click)="openColumnCreater(columns?.length)">
     <mat-icon class="icon icon_add">note_add</mat-icon>New column
   </button>
 </div>

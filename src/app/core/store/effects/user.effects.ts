@@ -41,11 +41,9 @@ export class UserEffects {
         .login(user)
         .pipe(
           map((response) => {
-            const userId = parseJwt(response.token);
             localStorage.setItem('uniq_token', response.token);
-            localStorage.setItem('uniq_userId', userId);
             this.authService.loginUser(user);
-            return loadUser({ userId });
+            return loadUser({ userId: parseJwt(response.token) });
           }),
           catchError((error) => of(userRequestFailed({ error }))),
         )),
@@ -72,12 +70,9 @@ export class UserEffects {
   updateUser$ = createEffect(
     () => this.actions$.pipe(
       ofType(updateUser),
-      switchMap(({ user }) => this.apiService
-        .updateUser(user.id, {
-          name: user.name,
-          login: user.login,
-          password: user.password,
-        }).pipe(
+      switchMap(({ userId, user }) => this.apiService
+        .updateUser(userId, user)
+        .pipe(
           map((resUser) => {
             this.authService.updateUser();
             return loadUserSuccess({ user: resUser });
@@ -103,7 +98,6 @@ export class UserEffects {
     ofType(cleanUserStore),
     tap(() => {
       localStorage.removeItem('uniq_token');
-      localStorage.removeItem('uniq_userId');
       this.router.navigate(['welcome']);
     }),
   ), { dispatch: false });

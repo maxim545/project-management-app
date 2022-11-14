@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-  ILoginRequest, ISignUpRequest, IUserToken, IUser,
+  IUserLogin, IUserRequest, IUserToken, IUser,
 } from 'src/app/core/models/user.model';
 import {
   Router,
@@ -18,6 +18,7 @@ import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
 import { trnsttValues } from 'src/app/core/configs/lang';
 import { LangService } from 'src/app/core/services/lang/lang.service';
+import { clearBoards } from 'src/app/core/store/actions/boards.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -43,15 +44,15 @@ export class AuthService {
       .pipe(map((data) => data.isLoading));
   }
 
-  loginUser(user: ILoginRequest) {
+  loginUser(user: IUserLogin) {
     this.router.navigate(['main']);
     const curLng = this.langService.getCurrentLanguage();
     this.snackBar.open(trnsttValues[curLng as keyof typeof trnsttValues].user.login, '', snackBarGreenConfig);
   }
 
   logoutUser() {
+    this.store.dispatch(clearBoards());
     this.store.dispatch(cleanUserStore());
-    this.snackBar.open('Logout success', '', snackBarGreenConfig);
   }
 
   updateUser() {
