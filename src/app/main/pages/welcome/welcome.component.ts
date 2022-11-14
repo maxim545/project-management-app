@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { authors } from 'src/app/core/data/authors';
+import { Author } from 'src/app/core/models/autor.model';
 
 @Component({
   selector: 'app-welcome',
@@ -6,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./welcome.component.scss']
 })
 export class WelcomeComponent implements OnInit {
+  authors: Author[] = authors;
 
   constructor() { }
 
