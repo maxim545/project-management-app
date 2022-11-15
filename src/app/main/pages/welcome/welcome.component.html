@@ -1,1 +1,96 @@
-<p>welcome works!</p>
+<div class="container">
+  <div class="welcome__wrapper">
+    <div class="welcome__menu">
+      <nav class="menu__nav">
+        <ul class="menu__nav-list">
+          <li class="menu__nav-item">Welcome</li>
+          <li class="menu__nav-item">About RS School</li>
+          <li class="menu__nav-item">Our team</li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="info__app">
+      <div class="info__app-wrapper">
+        <h1 class="info__app-title">
+          <span>Get more down with</span><br />Project Management Application
+        </h1>
+        <p class="info__app-description">
+          Create, view, edit and manage tasks, break down your tasks to subtasks
+          on the go, from any device.
+        </p>
+        <button class="info__app-button">Get down</button>
+      </div>
+      <div class="info__app-logo">
+        <img src="./assets/images/welcom.png" alt="project-management" />
+      </div>
+    </div>
+
+    <div class="info__rsschool">
+      <h1 class="info__rsschool-title">What is RS School?</h1>
+      <p class="info__rsschool-description">
+        RS School is free-of-charge and community-based education program
+        conducted by The Rolling Scopes developer community since 2013. Everyone
+        can study at RS School, regardless of age, professional employment, or
+        place of residence. The mentors and trainers of school are front-end and
+        javascript developers from different companies and countries.
+      </p>
+      <div class="info__rsschool-principles">
+        <h3 class="principles__title">RS School principles</h3>
+        <ul class="principles__list">
+          <li class="principles__item">
+            <img
+              src="./assets/icons/pay-principle.svg"
+              alt="pay-it-forward"
+              class="principles__item-logo"
+            />
+            <div class="principles__item-description-wrapper">
+              <h5 class="principles__item-title">"Pay it forward"</h5>
+              <p class="principles__item-description">
+                The RS School is working by the principle of "Pay it forward".
+                Members of our community share their knowledge and check
+                student's tasks for free. And we hope that our students will
+                continue this work as our mentors in the future.
+              </p>
+            </div>
+          </li>
+          <li class="principles__item">
+            <img
+              src="./assets/icons/open-principle.svg"
+              alt="open-source"
+              class="principles__item-logo"
+            />
+            <div class="principles__item-description-wrapper">
+              <h4 class="principles__item-title">Open Source Philosophy</h4>
+              <p class="principles__item-description">
+                Everyone can study at RS School, regardless of age, professional
+                employment, or place of residence. Our platform and education
+                materials are publicly available on GitHub and YouTube.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <a class="info__rsschool-link" href="https://rs.school/" target="_blank"
+        >Learn more</a
+      >
+    </div>
+
+    <div class="info__team">
+      <h1 class="info__team-title">Our team</h1>
+      <div class="info__team-wrapper">
+        <ul class="info__team-list">
+          <li class="info__team-item" *ngFor="let author of authors">
+            <img
+              src="{{ author.photo }}"
+              alt="photo"
+              class="info__team-photo"
+            />
+            <h5 class="info__team-name">{{ author.name }}</h5>
+            <p class="info__team-about">{{ author.about }}</p>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
