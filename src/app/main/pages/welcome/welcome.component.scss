@@ -91,6 +91,97 @@
       }
     }
   }
+
+  &__rsschool {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    padding: 0 60px;
+
+    &-title {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      color: #784384;
+    }
+
+    &-description {
+      width: 90%;
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+      text-align: center;
+    }
+
+    &-principles {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .principles {
+        &__title {
+          font-size: 1.8rem;
+          line-height: 2.3rem;
+        }
+
+        &__list {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 20px;
+        }
+
+        &__item {
+          width: calc(50% - 20px);
+          height: 200px;
+          padding: 20px;
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          box-shadow: 0 0 10px #483948;
+          border-radius: 10px;
+
+          &-logo {
+            height: 30px;
+          }
+
+          &-description-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          &-title {
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+          }
+
+          &-description {
+            line-height: 1.3rem;
+          }
+        }
+      }
+    }
+
+    &-link {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: #ec9d28;
+      color: #ffffff;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #fcc557;
+        text-shadow: 1px 1px 3px #ec9d28;
+      }
+    }
+  }
 }
 
 .info__team-photo {

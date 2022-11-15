@@ -1,6 +1,5 @@
 <div class="container">
   <div class="welcome__wrapper">
-
     <div class="welcome__menu">
       <nav class="menu__nav">
         <ul class="menu__nav-list">
@@ -37,7 +36,7 @@
         javascript developers from different companies and countries.
       </p>
       <div class="info__rsschool-principles">
-        <p class="principles__title">RS School principles</p>
+        <h3 class="principles__title">RS School principles</h3>
         <ul class="principles__list">
           <li class="principles__item">
             <img
@@ -46,12 +45,12 @@
               class="principles__item-logo"
             />
             <div class="principles__item-description-wrapper">
-              <h4 class="principles__item-title">"Pay it forward"</h4>
+              <h5 class="principles__item-title">"Pay it forward"</h5>
               <p class="principles__item-description">
                 The RS School is working by the principle of "Pay it forward".
-                Members of our community share their knowledge and check student's
-                tasks for free. And we hope that our students will continue this
-                work as our mentors in the future.
+                Members of our community share their knowledge and check
+                student's tasks for free. And we hope that our students will
+                continue this work as our mentors in the future.
               </p>
             </div>
           </li>
@@ -72,7 +71,9 @@
           </li>
         </ul>
       </div>
-      <a class="info__rsschool-link">Learn more</a>
+      <a class="info__rsschool-link" href="https://rs.school/" target="_blank"
+        >Learn more</a
+      >
     </div>
 
     <div class="info__team">
@@ -80,9 +81,13 @@
       <div class="info__team-wrapper">
         <ul class="info__team-list">
           <li class="info__team-item" *ngFor="let author of authors">
-            <img src="{{author.photo}}" alt="photo" class="info__team-photo">
-            <h5 class="info__team-name">{{author.name}}</h5>
-            <p class="info__team-about">{{author.about}}</p>
+            <img
+              src="{{ author.photo }}"
+              alt="photo"
+              class="info__team-photo"
+            />
+            <h5 class="info__team-name">{{ author.name }}</h5>
+            <p class="info__team-about">{{ author.about }}</p>
           </li>
         </ul>
       </div>
