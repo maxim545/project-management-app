@@ -12,14 +12,14 @@ export const authors: Author[] = [
     name: 'Ihar Novikau',
     gitHub: 'https://github.com/IhorNovikow',
     about:
-      "I'm junior frontend developer and team leader ng team. I worked with NgRx functional and created a user functional. Helped with the other questions.",
+      "A year ago, I didn't know about the existence of HTML and CSS, and now we have completed work on a project using the Angular framework. In this project, I was responsible for creating the page structure and localization of the application.",
     photo: './assets/authors-photo/igor.jpg',
   },
   {
     name: 'Viktoryia Novikava',
     gitHub: 'https://github.com/vikuli',
     about:
-      "I'm junior frontend developer and team leader ng team. I worked with NgRx functional and created a user functional. Helped with the other questions.",
+      'I like to improve my skills in front-end development and create beauty, so in our team I worked on the design of the application.',
     photo: './assets/authors-photo/vika.jpg',
   },
 ];
