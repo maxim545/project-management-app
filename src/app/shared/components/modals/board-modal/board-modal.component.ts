@@ -46,11 +46,6 @@ export class BoardModalComponent implements OnInit {
         Validators.minLength(6),
         Validators.maxLength(18),
       ]],
-      /*       description: [this.boardDescr, [
-        Validators.required,
-        Validators.minLength(6),
-        Validators.maxLength(18),
-      ]], */
     });
   }
 

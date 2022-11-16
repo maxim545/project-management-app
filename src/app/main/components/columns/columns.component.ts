@@ -21,6 +21,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { IBoard } from '../../../core/models/board.model';
 import { ColumnsService } from '../../services/columns/columns.service';
 import { TasksService } from '../../services/tasks/tasks.service';
 
@@ -32,15 +33,11 @@ import { TasksService } from '../../services/tasks/tasks.service';
 export class ColumnsComponent implements OnInit, OnDestroy {
   @Input() public columns!: IColumn[] | null;
 
-  @Input() public boardId!: string;
+  @Input() public board!: IBoard | null;
 
   public editTitleForm!: FormGroup;
 
   public isEditMode: boolean = false;
-
-  /* public test1!: IColumn;
-
-  public test2!: ITask[]; */
 
   constructor(
     public dialog: MatDialog,
@@ -51,9 +48,12 @@ export class ColumnsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    /* window.addEventListener('beforeunload', () => {
-      this.tasksService.editSetTasks(this.test1, this.test2);
-    }); */
+    const dataForUpdate = localStorage.getItem('iniq_tasks');
+    if (dataForUpdate) {
+      const [column, tasksForUpdate] = JSON.parse(dataForUpdate);
+      this.tasksService.editSetTasks(column, tasksForUpdate);
+      localStorage.removeItem('iniq_tasks');
+    }
   }
 
   ngOnDestroy(): void {
@@ -75,7 +75,7 @@ export class ColumnsComponent implements OnInit, OnDestroy {
     this.dialog.open(TaskModalComponent, {
       data: {
         dialogTitle: 'Create new task',
-        boardId: this.boardId,
+        boardId: this.board?._id,
         column,
       },
     });
@@ -95,36 +95,30 @@ export class ColumnsComponent implements OnInit, OnDestroy {
 
   dropTask(event: CdkDragDrop<ITask[]>, columns: IColumn[], currentColumn: IColumn) {
     const currentTask = event.previousContainer.data[event.previousIndex];
-    let prevColumnIndex: number | null = null;
-    columns.forEach((column, i) => {
-      const taskIsExist = column.tasks.includes(currentTask);
-      if (taskIsExist) { prevColumnIndex = i; }
-    });
-    if (typeof prevColumnIndex === 'number') {
-      if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex) {
-        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-        /* this.test1 = columns[prevColumnIndex];
+    const previousColumn = columns.find((column) => column._id === currentTask.columnId);
+    if (event.previousContainer === event.container && event.previousIndex !== event.currentIndex && previousColumn) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      const savedData = [previousColumn, event.container.data];
+      localStorage.setItem('iniq_tasks', JSON.stringify(savedData));
+      /* this.test1 = columns[prevColumnIndex];
         this.test2 = event.container.data; */
-
-        this.tasksService.editSetTasks(columns[prevColumnIndex], event.container.data);
-      } else if (event.previousContainer !== event.container) {
-        transferArrayItem(
-          event.previousContainer.data,
-          event.container.data,
-          event.previousIndex,
-          event.currentIndex,
-        );
-        const previousColumn = columns[prevColumnIndex];
-        previousColumn.tasks.forEach((task, i) => {
-          task.order = i;
-          task.columnId = previousColumn._id;
-        });
-        currentColumn.tasks.forEach((task, i) => {
-          task.order = i;
-          task.columnId = currentColumn._id;
-        });
-        this.tasksService.editTasksBetweenColumns([previousColumn, currentColumn], previousColumn.tasks, currentColumn.tasks);
-      }
+      /* this.tasksService.editSetTasks(previousColumn, event.container.data); */
+    } else if (event.previousContainer !== event.container && previousColumn) {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+      previousColumn.tasks.forEach((task, i) => {
+        task.order = i;
+        task.columnId = previousColumn._id;
+      });
+      currentColumn.tasks.forEach((task, i) => {
+        task.order = i;
+        task.columnId = currentColumn._id;
+      });
+      this.tasksService.editTasksBetweenColumns([previousColumn, currentColumn], previousColumn.tasks, currentColumn.tasks);
     }
   }
 }
