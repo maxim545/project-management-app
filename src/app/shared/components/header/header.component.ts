@@ -4,10 +4,10 @@ import {
   catchError,
   EMPTY,
   finalize,
-  map, Observable, skipWhile, tap,
+  map, Observable, skipWhile, take, tap,
 } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { loadUser } from 'src/app/core/store/actions/user.actions';
+import { loadUsers } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { createBoardDialogConfig } from 'src/app/core/configs/matDialog.configs';
@@ -43,8 +43,6 @@ export class HeaderComponent implements OnInit {
 
   public user$!: Observable<IUser | null>;
 
-  public boardId: string | null = '636e28a9dbf736ec9767126a';
-
   constructor(
     private store: Store,
     private authService: AuthService,
@@ -59,38 +57,19 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const userId = parseJwt(localStorage.getItem('uniq_token'));
-    if (userId) {
-      this.store.dispatch(loadUser({ userId }));
+    if (localStorage.getItem('uniq_token')) {
+      this.store.dispatch(loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }));
     }
     this.user$ = this.store
       .select(getUserStore)
       .pipe(
-        skipWhile((flag) => flag.isLoggedIn),
+        skipWhile((flag) => !flag.isLoggedIn),
+        take(1),
         map(({ user }) => {
-          if (user) {
-            this.store.dispatch(loadBoards({ userId }));
-            return user;
-          }
-          return null;
+          this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
+          return user;
         }),
       );
-    /* this.board$ =  *//* this.store
-      .select(getUserStore).subscribe((data) => {
-        console.log(data);
-      }); */
-    /* .pipe(
-      select(boardStateSelector),
-      skipWhile((flag) => flag.isLoading),
-      map((boards) => {
-        if (this.boardId && boards.entities[this.boardId]) {
-          localStorage.setItem('user', '1');
-          this.store.dispatch(loadColumns({ id: this.boardId }));
-          return boards.entities[this.boardId] as IBoardResponse;
-        }
-        throw new Error('Board id is not valid');
-      }),
-    ); */
   }
 
   openBoardCreater() {

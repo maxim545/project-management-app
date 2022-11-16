@@ -12,7 +12,7 @@ import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { tap, map } from 'rxjs/operators';
 import {
   cleanUserStore,
-  loadUser, removeUser,
+  removeUser,
 } from 'src/app/core/store/actions/user.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';

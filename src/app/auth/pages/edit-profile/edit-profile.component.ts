@@ -18,7 +18,7 @@ import {
 } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { dialogProfileConfig } from 'src/app/core/configs/matDialog.configs';
-import { getUserStore } from '../../../core/store/selectors/user.selectors';
+import { getCurrentUser, getUserStore } from '../../../core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-edit-profile',
@@ -66,8 +66,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       validator: AuthValidators.checkPasswords('password', 'confirmPassword'),
     });
     this.user$ = this.store
-      .select(getUserStore)
-      .pipe(map(({ user }) => user))
+      .select(getCurrentUser)
       .subscribe((userData) => {
         this.user = userData;
         this.editProfileForm.controls['name'].setValue((userData?.name));

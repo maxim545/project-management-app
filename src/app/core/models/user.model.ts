@@ -4,6 +4,13 @@ export interface IUser {
   login: string;
 }
 
+export interface ISelectUser {
+  _id: string;
+  name: string;
+  login: string;
+  checked: boolean;
+}
+
 export interface IUserLogin {
   login: string;
   password: string;

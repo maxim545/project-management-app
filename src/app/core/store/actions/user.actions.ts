@@ -3,15 +3,25 @@ import {
   IUser, IUserLogin, IUserRequest,
 } from '../../models/user.model';
 
-export const loadUser = createAction(
+export const loadUsers = createAction(
   '[User] Load User',
-  props<{ userId: string }>(),
+  props<{ id: string }>(),
 );
 
-export const loadUserSuccess = createAction(
+export const loadUsersSuccess = createAction(
   '[User] Load User Success',
-  props<{ user: IUser }>(),
+  props<{ users: IUser[], user: IUser }>(),
 );
+
+/* export const loadAllUsers = createAction(
+  '[User] Load All User',
+  props<{ currentUserId: string }>(),
+);
+
+export const loadAllUsersSuccess = createAction(
+  '[User] Load All User Success',
+  props<{ users: IUser[] }>(),
+); */
 
 export const loginUser = createAction(
   '[User] Login User',
@@ -26,6 +36,11 @@ export const signUpUser = createAction(
 export const updateUser = createAction(
   '[User] Update User',
   props<{ userId: string, user: IUserRequest }>(),
+);
+
+export const updateUserSuccess = createAction(
+  '[User] update User Success',
+  props<{ user: IUser }>(),
 );
 
 export const removeUser = createAction(

@@ -3,7 +3,9 @@ import {
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { map, skipWhile } from 'rxjs/operators';
+import {
+  catchError, map, skipWhile, take,
+} from 'rxjs/operators';
 import { IBoard, IColumn } from 'src/app/core/models/board.model';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,10 +14,12 @@ import { createColumnDialogConfig, deleteColumnDialogConfig } from 'src/app/core
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
 import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
-import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
+import { getAllBoards, selectEntity } from 'src/app/core/store/selectors/boards.selectors';
 import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
+import { getUsers } from 'src/app/core/store/selectors/user.selectors';
+import { IUser } from 'src/app/core/models/user.model';
 import { ConfirmModalComponent } from '../../../shared/components/modals/confirm-modal/confirm-modal.component';
 import { clearColumns, loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -27,11 +31,13 @@ import { ColumnsService } from '../../services/columns/columns.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  public boardId: string | null = this.actRouter.snapshot.paramMap.get('id');
+  public boardId: string = this.actRouter.snapshot.paramMap.get('id') as string;
 
   public board$!: Observable<IBoard>;
 
   public columns$!: Observable<IColumn[]>;
+
+  public users$!: Observable<IUser[] | null>;
 
   constructor(
     private actRouter: ActivatedRoute,
@@ -48,15 +54,17 @@ export class BoardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.users$ = this.store.select(getUsers);
     this.board$ = this.boardStore.pipe(
       select(boardStateSelector),
       skipWhile((flag) => !flag.isLoggedIn),
-      map((boards) => {
-        if (this.boardId && boards.entities[this.boardId]) {
+      take(1),
+      select(selectEntity(this.boardId)),
+      map((board) => {
+        if (board) {
           this.store.dispatch(loadColumns({ id: this.boardId }));
-          return boards.entities[this.boardId] as IBoard;
+          return board;
         }
-        this.snackBar.open('This board do not exist in app', '', snackBarRedConfig);
         this.router.navigate(['**']);
         throw new Error('Board id is not valid');
       }),

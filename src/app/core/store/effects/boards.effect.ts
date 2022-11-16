@@ -23,7 +23,7 @@ export class BoardsEffects {
         .getAllBoards()
         .pipe(
           map((boards) => {
-            const filteredBoards = boards.filter((board) => board.owner === userId);
+            const filteredBoards = boards.filter((board) => board.owner === userId || board.users.includes(userId));
             return loadBoardsSuccess({ boards: filteredBoards });
           }),
           catchError((error) => of(boardFailed({ error }))),
