@@ -8,6 +8,7 @@ import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import { MenuItem } from 'primeng/api';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
@@ -18,9 +19,11 @@ import { TasksService } from '../../services/tasks/tasks.service';
 export class TasksComponent implements OnInit {
   @Input() public column!: IColumn;
 
+  @Input() public task!: ITask;
+
   public boardId = this.router.snapshot.paramMap.get('id') as string;
 
-  @Input() public task!: ITask;
+  public panelOpenState = false;
 
   constructor(
     private store: Store,

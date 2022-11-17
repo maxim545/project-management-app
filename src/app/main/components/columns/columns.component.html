@@ -6,7 +6,9 @@
       <div class="columns__inner" cdkDropList [cdkDropListData]="column.tasks"
         (cdkDropListDropped)="dropTask($event, columns, column)">
         <div *ngFor="let task of column.tasks" cdkDrag>
+          <!--  <p-accordion> -->
           <app-tasks [task]="task" [column]="column"></app-tasks>
+          <!-- </p-accordion> -->
         </div>
         <p class="not-found__text not-found__text_small" *ngIf="!column.tasks?.length">Not created tasks for this board!
         </p>

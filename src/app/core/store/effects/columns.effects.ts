@@ -16,6 +16,8 @@ export class ColumnsEffects {
     private apiService: ApiService,
   ) { }
 
+  /* -----------COLUMNS----------- */
+
   loadColumns$ = createEffect(
     () => this.actions$.pipe(
       ofType(loadColumns),
@@ -98,6 +100,8 @@ export class ColumnsEffects {
         )),
     ),
   );
+
+  /* -----------TASKS----------- */
 
   addTask$ = createEffect(
     () => this.actions$.pipe(
