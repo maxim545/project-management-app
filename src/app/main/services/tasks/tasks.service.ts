@@ -1,19 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
 import {
   IColumn, IColumnSet, ITask, ITaskPutRequest, ITaskRequest, ITaskSet,
 } from 'src/app/core/models/board.model';
 import {
-  addTask, deleteTask, editTask, updateTasksSet, updTasksBetweenColumns,
-} from 'src/app/core/store/actions/columns.actions';
+  addTask, deleteTask, editTask, updateTasksOrder,
+} from 'src/app/core/store/actions/tasks.actions';
+
+import { taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
+import { getTaskLoadingStatus } from 'src/app/core/store/selectors/tasks.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksService {
+  isLoadingTasks$: Observable<boolean>;
+
   constructor(
     private store: Store,
-  ) { }
+  ) {
+    this.isLoadingTasks$ = this.store.pipe(select(getTaskLoadingStatus));
+  }
 
   addTask(column: IColumn, task: ITaskRequest) {
     this.store.dispatch(addTask({ column, task }));
@@ -23,7 +31,7 @@ export class TasksService {
     this.store.dispatch(editTask({ column, task }));
   }
 
-  editSetTasks(column: IColumn, tasks: ITask[]) {
+  editSetTasks(tasks: ITask[]) {
     const updatedTasks: ITaskSet[] = [];
     tasks.forEach((task, i) => {
       updatedTasks.push({
@@ -32,16 +40,16 @@ export class TasksService {
         columnId: task.columnId,
       });
     });
-    this.store.dispatch(updateTasksSet({ column, tasks: updatedTasks }));
+    this.store.dispatch(updateTasksOrder({ tasks: updatedTasks }));
   }
 
-  editTasksBetweenColumns(columns: IColumn[], previousTasks: ITask[], currentTasks: ITask[]) {
+  editTasksBetweenColumns(previousTasks: ITask[], currentTasks: ITask[], previousColumnId: string, currentColumnId: string) {
     const updPreviousTasks: ITaskSet[] = [];
     previousTasks.forEach((task, i) => {
       updPreviousTasks.push({
         _id: task._id,
         order: i,
-        columnId: task.columnId,
+        columnId: previousColumnId,
       });
     });
     const updCurrentTasks: ITaskSet[] = [];
@@ -49,13 +57,13 @@ export class TasksService {
       updCurrentTasks.push({
         _id: task._id,
         order: i,
-        columnId: task.columnId,
+        columnId: currentColumnId,
       });
     });
-    this.store.dispatch(updTasksBetweenColumns({ columns, tasks: [...updPreviousTasks, ...updCurrentTasks] }));
+    this.store.dispatch(updateTasksOrder({ tasks: [...updPreviousTasks, ...updCurrentTasks] }));
   }
 
-  deleteTask(column: IColumn, task: ITask) {
-    this.store.dispatch(deleteTask({ column, task }));
+  deleteTask(task: ITask) {
+    this.store.dispatch(deleteTask({ task }));
   }
 }

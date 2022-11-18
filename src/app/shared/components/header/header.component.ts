@@ -23,6 +23,7 @@ import { IBoard } from 'src/app/core/models/board.model';
 import { Dictionary } from '@ngrx/entity';
 import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
+import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -39,6 +40,8 @@ export class HeaderComponent implements OnInit {
 
   isLoadingColumns$: Observable<boolean> = this.columnsService.isLoadingColums$;
 
+  isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
+
   isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
   public user$!: Observable<IUser | null>;
@@ -48,6 +51,7 @@ export class HeaderComponent implements OnInit {
     private authService: AuthService,
     private boardService: BoardsService,
     private columnsService: ColumnsService,
+    private taskService: TasksService,
     public dialog: MatDialog,
     public translate: TranslateService,
     public langService: LangService,

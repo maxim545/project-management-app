@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse, ITaskSet,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskRequest, ITaskSet,
 } from '../../models/board.model';
 
 @Injectable({
@@ -105,8 +105,12 @@ export class ApiService {
     return this.http.get<ITask[]>(`tasksSet/${boardId}`);
   }
 
-  createTask(boardId: string, columnId: string, task: ITaskRequest): Observable<ITaskResponse> {
-    return this.http.post<ITaskResponse>(`boards/${boardId}/columns/${columnId}/tasks`, task);
+  getTasksSetByUserId(userId: string): Observable<ITask[]> {
+    return this.http.get<ITask[]>(`tasksSet?userId=${userId}`);
+  }
+
+  createTask(boardId: string, columnId: string, task: ITaskRequest): Observable<ITask> {
+    return this.http.post<ITask>(`boards/${boardId}/columns/${columnId}/tasks`, task);
   }
 
   getTaskById(boardId: string, columnId: string, taskId: string): Observable<ITask> {
@@ -117,8 +121,8 @@ export class ApiService {
     return this.http.delete<IColumn>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`);
   }
 
-  editTask(boardId: string, columnId: string, taskId: string, task: ITaskPutRequest): Observable<ITaskPutResponse> {
-    return this.http.put<ITaskPutResponse>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
+  editTask(boardId: string, columnId: string, taskId: string, task: ITaskPutRequest): Observable<ITask> {
+    return this.http.put<ITask>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
   }
 
   updateSetTasks(tasks: ITaskSet[]): Observable<ITask[]> {

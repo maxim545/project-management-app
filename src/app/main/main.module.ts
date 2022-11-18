@@ -18,22 +18,20 @@ import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { BoardComponent } from './pages/board/board.component';
-import { ColumnsComponent } from './components/columns/columns.component';
-import { ColumnHeaderComponent } from './components/column-header/column-header.component';
-import { TasksComponent } from './components/tasks/tasks.component';
+import { TasksComponent } from './components/task/task.component';
 import { BoardHeaderComponent } from './components/board-header/board-header.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { ColumnComponent } from './components/column/column.component';
 
 @NgModule({
   declarations: [
     MainComponent,
     WelcomeComponent,
     BoardComponent,
-    ColumnsComponent,
-    ColumnHeaderComponent,
     TasksComponent,
     BoardHeaderComponent,
     NotFoundPageComponent,
+    ColumnComponent,
   ],
   imports: [
     CommonModule,

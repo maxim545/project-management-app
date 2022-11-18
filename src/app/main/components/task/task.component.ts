@@ -12,16 +12,16 @@ import { MenuItem } from 'primeng/api';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss'],
+  selector: 'app-task',
+  templateUrl: './task.component.html',
+  styleUrls: ['./task.component.scss'],
 })
 export class TasksComponent implements OnInit {
   @Input() public column!: IColumn;
 
   @Input() public task!: ITask;
 
-  public boardId = this.router.snapshot.paramMap.get('id') as string;
+  @Input() public boardId: string = '';
 
   public panelOpenState = false;
 
@@ -41,7 +41,7 @@ export class TasksComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.tasksService.deleteTask(this.column, task);
+          this.tasksService.deleteTask(task);
         }
       });
   }
@@ -49,6 +49,7 @@ export class TasksComponent implements OnInit {
   openTaskEditor(task: ITask): void {
     this.dialog.open(TaskModalComponent, {
       data: {
+        editorMode: 'editing',
         dialogTitle: `Edit ${task.title}`,
         task,
         column: this.column,

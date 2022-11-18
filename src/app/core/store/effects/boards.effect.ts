@@ -62,7 +62,6 @@ export class BoardsEffects {
         .editBoard(id, board)
         .pipe(
           map((resBoard) => editBoardSuccess({
-            id: resBoard._id,
             board: resBoard,
           })),
           catchError(async (err) => err),

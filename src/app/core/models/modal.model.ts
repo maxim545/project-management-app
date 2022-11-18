@@ -19,8 +19,10 @@ export interface IColumnDialog {
   columnsQuantity: number
 }
 
-export interface ITaskDialog {
+export interface ITaskDialogData {
+  editorMode: string,
   dialogTitle: string,
+  tasksQuantity: string,
   column: IColumn,
   task: ITask
 }

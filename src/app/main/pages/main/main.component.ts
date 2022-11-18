@@ -18,7 +18,7 @@ import { BoardsService } from '../../services/boards/boards.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  boards$!: Observable<IBoard[]>;
+  boards$: Observable<IBoard[]> = this.boardStore.pipe(select(getAllBoards));
 
   constructor(
     private store: Store,
@@ -26,11 +26,9 @@ export class MainComponent implements OnInit {
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {
-    /* this.store.dispatch(loadBoards()); */
   }
 
   ngOnInit(): void {
-    this.boards$ = this.boardStore.pipe(select(getAllBoards));
   }
 
   deleteBoard(board: IBoard) {

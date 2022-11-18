@@ -1,6 +1,6 @@
 <div class="form">
   <div class="form__container">
-    <h1 class="form__title">{{dialogTitle}}</h1>
+    <h1 class="form__title">{{dialogTaskData.dialogTitle}}</h1>
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
       <div class="form__item">
         <label>title</label>

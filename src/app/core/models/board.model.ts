@@ -46,7 +46,6 @@ export interface IColumn {
   title: string;
   order: number;
   boardId: string;
-  tasks: ITask[]
 }
 
 export interface ITask {
@@ -68,17 +67,6 @@ export interface ITaskRequest {
   users: string[],
 }
 
-export interface ITaskResponse {
-  _id: string,
-  title: string,
-  order: number,
-  boardId: string,
-  columnId: string,
-  description: string,
-  userId: string,
-  users: string[],
-}
-
 export interface ITaskPutRequest {
   title: string,
   order: number,
@@ -86,17 +74,6 @@ export interface ITaskPutRequest {
   userId: string,
   columnId: string,
   users: string[]
-}
-
-export interface ITaskPutResponse {
-  _id: string,
-  title: string,
-  order: string,
-  boardId: string,
-  columnId: string,
-  description: string,
-  userId: string,
-  users: string[],
 }
 
 interface IFiles {

@@ -6,6 +6,7 @@ import {
   addBoard, deleteBoard, editBoard,
 } from 'src/app/core/store/actions/boards.actions';
 import { boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
+import { getBoardLoadingStatus } from 'src/app/core/store/selectors/boards.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +17,7 @@ export class BoardsService {
   constructor(
     private store: Store,
   ) {
-    this.isLoadingBoards$ = this.store.pipe(
-      select(boardStateSelector),
-      map((data) => data.isLoading),
-    );
+    this.isLoadingBoards$ = this.store.pipe(select(getBoardLoadingStatus));
   }
 
   addBoard(board: IBoardRequest) {
@@ -29,10 +27,6 @@ export class BoardsService {
   editBoard(id: string, board: IBoardRequest) {
     this.store.dispatch(editBoard({ id, board }));
   }
-
-  /*   getCurrentBoard(id: string) {
-    this.store.dispatch(getCurrentBoard({ id }));
-  } */
 
   deleteBoard(id: string) {
     this.store.dispatch(deleteBoard({ id }));

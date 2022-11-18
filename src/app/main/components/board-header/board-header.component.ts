@@ -28,11 +28,9 @@ import { BoardsService } from '../../services/boards/boards.service';
   styleUrls: ['./board-header.component.scss'],
 })
 export class BoardHeaderComponent implements OnInit {
-  /*  @Input() public board: IBoard | null = null; */
-
   @Input() public columns: IColumn[] | null = null;
 
-  @Input() public boardId!: string;
+  @Input() public boardId: string = '';
 
   @Input() public users!: IUser[] | null;
 
@@ -68,7 +66,7 @@ export class BoardHeaderComponent implements OnInit {
   addUsers(board: IBoard) {
     const currentUserIds = this.selectedUsers?.map((user) => user._id).sort((a, b) => a.localeCompare(b)) as string[];
     const prevUserIds = [...board.users].sort((a, b) => a.localeCompare(b));
-    if (currentUserIds.length !== prevUserIds.length && !currentUserIds.every((val, i) => val === prevUserIds[i])) {
+    if (currentUserIds.length !== prevUserIds.length) {
       this.boardService.editBoard(board._id, {
         title: board.title,
         owner: board.owner,

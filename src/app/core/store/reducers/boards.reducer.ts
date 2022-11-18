@@ -37,7 +37,7 @@ export const boardReducer = createReducer(
 
   on(editBoard, (state) => ({ ...state, isLoading: true })),
 
-  on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.id, changes: action.board }, { ...state, isLoading: false })),
+  on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.board._id, changes: action.board }, { ...state, isLoading: false })),
 
   on(boardFailed, (state, action) => ({ ...state, error: action.error, isLoading: false })),
 
