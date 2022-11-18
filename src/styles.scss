@@ -35,6 +35,11 @@ button, select {
   border: none;
   cursor: pointer;
 }
+input {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
 blockquote, q {
 	quotes: none;
 }
