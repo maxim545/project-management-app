@@ -29,6 +29,8 @@ import { columnReducer } from './core/store/reducers/columns.reducers';
 import { currentLang } from './core/configs/lang';
 import { taskReducer } from './core/store/reducers/tasks.reducers';
 import { TasksEffects } from './core/store/effects/tasks.effects';
+import { pointReducer } from './core/store/reducers/points.reducers';
+import { PointsEffects } from './core/store/effects/points.effects';
 
 export function httpTranslateLoader(httpBackend: HttpBackend) {
   return new TranslateHttpLoader(new HttpClient(httpBackend));
@@ -49,8 +51,9 @@ export function httpTranslateLoader(httpBackend: HttpBackend) {
       boards: boardReducer,
       columns: columnReducer,
       tasks: taskReducer,
+      points: pointReducer,
     }, {}),
-    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects, TasksEffects]),
+    EffectsModule.forRoot([UserEffects, BoardsEffects, ColumnsEffects, TasksEffects, PointsEffects]),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     MatDialogModule,
     MatSnackBarModule,

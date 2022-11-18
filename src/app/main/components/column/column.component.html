@@ -5,6 +5,8 @@
       <h2 class="column__title" (click)="this.isEditMode = true">{{column.title}}</h2>
       <span class="column__quantity">{{tasks.length}}</span>
     </div>
+
+
     <mat-select class="column__edit_menu edit_menu" *ngIf="!isEditMode">
       <mat-option class="edit_menu__item" (click)="this.isEditMode = true">
         <mat-icon>edit</mat-icon>Rename
@@ -13,6 +15,7 @@
         <mat-icon>delete</mat-icon> Delete
       </mat-option>
     </mat-select>
+
     <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
       <div class="efit-form__field">
         <mat-form-field>
@@ -31,14 +34,14 @@
         </button>
       </div>
     </form>
+
+
   </div>
   <!--  ---------</COLUMN HEADER>------------------ -->
 
   <div class="columns__inner" cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="dropTask($event, column)">
-    <div *ngFor="let task of tasks" cdkDrag>
-      <!--  <p-accordion> -->
+    <div class="columns__task" *ngFor="let task of tasks" cdkDrag>
       <app-task [task]="task" [column]="column" [boardId]="boardId"></app-task>
-      <!-- </p-accordion> -->
     </div>
     <p class="not-found__text not-found__text_small" *ngIf="!tasks.length">Not created tasks for this column!
     </p>

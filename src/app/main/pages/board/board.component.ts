@@ -26,6 +26,7 @@ import {
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
 import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { loadPoints } from 'src/app/core/store/actions/points.actions';
 import { ConfirmModalComponent } from '../../../shared/components/modals/confirm-modal/confirm-modal.component';
 import { clearColumns, loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -67,6 +68,7 @@ export class BoardComponent implements OnInit, OnDestroy {
           const userId = parseJwt(localStorage.getItem('uniq_token'));
           this.store.dispatch(loadColumns({ id: this.boardId }));
           this.store.dispatch(loadTasks({ id: userId }));
+          this.store.dispatch(loadPoints({ userId }));
           return board;
         }
         this.router.navigate(['**']);

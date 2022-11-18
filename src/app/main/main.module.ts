@@ -14,6 +14,7 @@ import { ButtonModule } from 'primeng/button';
 import { AccordionModule } from 'primeng/accordion';
 import { ToastModule } from 'primeng/toast';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
@@ -22,6 +23,7 @@ import { TasksComponent } from './components/task/task.component';
 import { BoardHeaderComponent } from './components/board-header/board-header.component';
 import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
 import { ColumnComponent } from './components/column/column.component';
+import { PointComponent } from './components/point/point.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { ColumnComponent } from './components/column/column.component';
     BoardHeaderComponent,
     NotFoundPageComponent,
     ColumnComponent,
+    PointComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +52,7 @@ import { ColumnComponent } from './components/column/column.component';
     ButtonModule,
     ToastModule, */
     MatExpansionModule,
+    MatCheckboxModule,
   ],
 })
 export class MainModule { }

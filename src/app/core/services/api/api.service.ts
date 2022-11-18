@@ -139,7 +139,7 @@ export class ApiService {
     return this.http.post<IPoint>('points', point);
   }
 
-  updatePoint(pointId: string, point: IPointEditRequest): Observable<IPoint> {
+  editPoint(pointId: string, point: IPointEditRequest): Observable<IPoint> {
     return this.http.patch<IPoint>(`points/${pointId}`, point);
   }
 

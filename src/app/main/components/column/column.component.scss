@@ -12,6 +12,7 @@
 
   &__inner {
     min-height: 10px;
+    margin: 10px 0;
     flex: 1;
   }
 
@@ -29,6 +30,10 @@
     color: #6C5DD3;
     border-top: 2px solid #EFEFEF;
     transition: all 0.7s;
+  }
+
+  &__task {
+    margin: 10px 0;
   }
 
   &::-webkit-scrollbar {

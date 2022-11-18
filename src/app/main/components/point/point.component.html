@@ -1,0 +1,35 @@
+<div class="point">
+  <div class="point__info" *ngIf="!isEditMode">
+    <mat-checkbox [checked]="point.done" (click)="editPointDoneStatus(!point.done)">
+    </mat-checkbox>
+    <div>{{point.title}}</div>
+  </div>
+
+
+  <form class="edit-form" [formGroup]="editPointForm" name="form" (ngSubmit)="editPointTitle()" *ngIf="isEditMode">
+    <div class="efit-form__field">
+      <mat-form-field>
+        <input class="efit-form__input" formControlName="title" matInput>
+        <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+          <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="edit-form__btns">
+      <button class="btn" [disabled]="!editPointForm.valid" type="submit">
+        <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
+      </button>
+      <button class="btn" (click)="this.isEditMode = false">
+        <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
+      </button>
+    </div>
+  </form>
+
+
+  <button (click)="this.isEditMode = true" *ngIf="!isEditMode">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button (click)="deletePoint(point._id)" *ngIf="!isEditMode">
+    <mat-icon>delete</mat-icon>
+  </button>
+</div>
