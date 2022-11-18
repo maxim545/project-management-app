@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskRequest, ITaskSet,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, IPoint, IPointEditRequest, IPointCreateRequest, ITask, ITaskPutRequest, ITaskRequest, ITaskSet,
 } from '../../models/board.model';
 
 @Injectable({
@@ -127,5 +127,23 @@ export class ApiService {
 
   updateSetTasks(tasks: ITaskSet[]): Observable<ITask[]> {
     return this.http.patch<ITask[]>('tasksSet', tasks);
+  }
+
+  /* ********  POINTS ******** */
+
+  getPointsByUserId(userId: string): Observable<IPoint[]> {
+    return this.http.get<IPoint[]>(`points?userId=${userId}`);
+  }
+
+  createPoint(point: IPointCreateRequest): Observable<IPoint> {
+    return this.http.post<IPoint>('points', point);
+  }
+
+  updatePoint(pointId: string, point: IPointEditRequest): Observable<IPoint> {
+    return this.http.patch<IPoint>(`points/${pointId}`, point);
+  }
+
+  deletePoint(pointId: string): Observable<IPoint> {
+    return this.http.delete<IPoint>(`points/${pointId}`);
   }
 }

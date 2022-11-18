@@ -80,3 +80,25 @@ interface IFiles {
   filename: string,
   fileSize: number
 }
+
+/* ----------POINT---------- */
+
+export interface IPoint {
+  _id: string,
+  title: string,
+  taskId: string,
+  boardId: string,
+  done: boolean
+}
+
+export interface IPointCreateRequest {
+  title: string,
+  taskId: string,
+  boardId: string,
+  done: boolean
+}
+
+export interface IPointEditRequest {
+  title: string,
+  done: boolean
+}
