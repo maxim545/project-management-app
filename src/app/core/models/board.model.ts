@@ -1,65 +1,82 @@
-export interface IBoardForm {
-  title: string;
-  description: string;
-}
-
 export interface IBoard {
-  id: string;
+  _id: string;
   title: string;
-  description: string;
+  owner: string;
+  users: string[];
 }
 
-export interface IBoardBybId {
-  id: string;
+export interface IBoardRequest {
+  title: string;
+  owner: string;
+  users: string[];
+}
+
+/* export interface IBoardResponse {
+  _id: string;
   title: string;
   description: string;
   columns?: IColumn[]
-}
+} */
 
 export interface IColumnResponse {
-  id: string;
+  _id: string;
+  title: string;
+  order: number;
+  boardId: string;
+}
+
+export interface IColumnRequest {
   title: string;
   order: number;
 }
 
-export interface IColumnPostRequest {
-  title: string;
+export interface IColumnSet {
+  _id: string;
+  order: number;
 }
 
-export interface IColumnPutRequest {
-  title: string;
+export interface ITaskSet {
+  _id: string;
   order: number;
+  columnId: string;
 }
 
 export interface IColumn {
-  id: string;
+  _id: string;
   title: string;
   order: number;
-  tasks?: ITask[]
+  boardId: string;
+  tasks: ITask[]
 }
 
 export interface ITask {
-  id: string,
+  _id: string,
   title: string,
   order: number,
-  description: string,
-  userId: string,
   boardId: string,
   columnId: string,
-  files?: IFiles[]
+  description: string,
+  userId: string,
+  users: string[],
 }
 
 export interface ITaskRequest {
   title: string,
+  order: number,
   description: string,
   userId: string,
+  users: string[],
 }
 
 export interface ITaskResponse {
-  id: string,
+  _id: string,
   title: string,
+  order: number,
+  boardId: string,
+  columnId: string,
   description: string,
   userId: string,
+  users: string[],
 }
 
 export interface ITaskPutRequest {
@@ -67,18 +84,19 @@ export interface ITaskPutRequest {
   order: number,
   description: string,
   userId: string,
-  boardId: string,
   columnId: string,
+  users: string[]
 }
 
 export interface ITaskPutResponse {
-  id: string,
+  _id: string,
   title: string,
   order: string,
-  description: string,
-  userId: string,
   boardId: string,
   columnId: string,
+  description: string,
+  userId: string,
+  users: string[],
 }
 
 interface IFiles {

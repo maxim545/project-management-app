@@ -5,10 +5,10 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import {
-  IUser, IUserLogin, IUserRegister, IUserToken,
+  IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest, IColumnPutRequest, IColumnResponse, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, ITask, ITaskPutRequest, ITaskPutResponse, ITaskRequest, ITaskResponse, ITaskSet,
 } from '../../models/board.model';
 
 @Injectable({
@@ -19,17 +19,19 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
+  /* ********  AUTH ******** */
+
+  login(user: IUserLogin): Observable<IUserToken> {
+    return this.http.post<IUserToken>('auth/signin', user);
+  }
+
+  signUp(user: IUserRequest): Observable<IUser> {
+    return this.http.post<IUser>('auth/signup', user);
+  }
+
   /* ********  USERS ******** */
 
-  login(user: IUserLogin): Observable<HttpResponse<IUserToken>> {
-    return this.http.post<IUserToken>('signin', user, { observe: 'response' });
-  }
-
-  signUp(user: IUserRegister): Observable<HttpResponse<IUser>> {
-    return this.http.post<IUser>('signup', user, { observe: 'response' });
-  }
-
-  getUsers(): Observable<IUser[]> {
+  getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>('users');
   }
 
@@ -41,8 +43,8 @@ export class ApiService {
     return this.http.delete<IUser>(`users/${id}`);
   }
 
-  updateUser(id: string, user: IUserRegister): Observable<HttpResponse<IUser>> {
-    return this.http.put<IUser>(`users/${id}`, user, { observe: 'response' });
+  updateUser(id: string, user: IUserRequest): Observable<IUser> {
+    return this.http.put<IUser>(`users/${id}`, user);
   }
 
   /* ********  BOARDS ******** */
@@ -51,20 +53,20 @@ export class ApiService {
     return this.http.get<IBoard[]>('boards');
   }
 
-  createBoard(board: IBoardForm): Observable<HttpResponse<IBoard>> {
-    return this.http.post<IBoard>('boards', board, { observe: 'response' });
+  createBoard(board: IBoardRequest): Observable<IBoard> {
+    return this.http.post<IBoard>('boards', board);
   }
 
-  getBoardById(id: string): Observable<IBoardBybId> {
-    return this.http.get<IBoardBybId>(`boards/${id}`);
+  getBoardById(id: string): Observable<IBoard> {
+    return this.http.get<IBoard>(`boards/${id}`);
   }
 
   deleteBoard(id: string) {
     return this.http.delete<IBoard>(`boards/${id}`);
   }
 
-  editBoard(id: string, board: IBoardForm): Observable<HttpResponse<IBoard>> {
-    return this.http.put<IBoard>(`boards/${id}`, board, { observe: 'response' });
+  editBoard(id: string, board: IBoardRequest): Observable<IBoard> {
+    return this.http.put<IBoard>(`boards/${id}`, board);
   }
 
   /* ********  COLUMNS ******** */
@@ -73,7 +75,7 @@ export class ApiService {
     return this.http.get<IColumnResponse[]>(`boards/${boardId}/columns`);
   }
 
-  createColumn(boardId: string, column: IColumnPostRequest): Observable<IColumnResponse> {
+  createColumn(boardId: string, column: IColumnRequest): Observable<IColumnResponse> {
     return this.http.post<IColumnResponse>(`boards/${boardId}/columns`, column);
   }
 
@@ -85,14 +87,22 @@ export class ApiService {
     return this.http.delete<IColumn>(`boards/${boardId}/columns/${columnId}`);
   }
 
-  editColumn(boardId: string, columnId: string, column: IColumnPutRequest): Observable<IColumnResponse> {
+  editColumn(boardId: string, columnId: string, column: IColumnRequest): Observable<IColumnResponse> {
     return this.http.put<IColumnResponse>(`boards/${boardId}/columns/${columnId}`, column);
+  }
+
+  updateSetColumns(columns: IColumnSet[]): Observable<IColumnResponse[]> {
+    return this.http.patch<IColumnResponse[]>('columnsSet', columns);
   }
 
   /* ********  TASKS ******** */
 
   getAllTasks(boardId: string, columnId: string): Observable<ITask[]> {
     return this.http.get<ITask[]>(`boards/${boardId}/columns/${columnId}/tasks`);
+  }
+
+  getTasksSet(boardId: string): Observable<ITask[]> {
+    return this.http.get<ITask[]>(`tasksSet/${boardId}`);
   }
 
   createTask(boardId: string, columnId: string, task: ITaskRequest): Observable<ITaskResponse> {
@@ -109,5 +119,9 @@ export class ApiService {
 
   editTask(boardId: string, columnId: string, taskId: string, task: ITaskPutRequest): Observable<ITaskPutResponse> {
     return this.http.put<ITaskPutResponse>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, task);
+  }
+
+  updateSetTasks(tasks: ITaskSet[]): Observable<ITask[]> {
+    return this.http.patch<ITask[]>('tasksSet', tasks);
   }
 }

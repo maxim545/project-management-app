@@ -1,29 +1,51 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { IColumn, IColumnPostRequest, IColumnResponse } from 'src/app/core/models/board.model';
+import { map, Observable } from 'rxjs';
+import {
+  IColumn, IColumnRequest, IColumnResponse, IColumnSet,
+} from 'src/app/core/models/board.model';
 import { ApiService } from 'src/app/core/services/api/api.service';
-import { Store } from '@ngrx/store';
-import { addColumn, deleteColumn, editColumn } from 'src/app/core/store/actions/boards.actions';
+import { select, Store } from '@ngrx/store';
+import {
+  addColumn, deleteColumn, editColumn, updateColumnsSet,
+} from 'src/app/core/store/actions/columns.actions';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
+import { ColumnState, columnStateSelector } from 'src/app/core/store/reducers/columns.reducers';
+import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ColumnsService {
+  isLoadingColums$: Observable<boolean>;
+
   constructor(
     private apiService: ApiService,
     private store: Store,
-  ) { }
-
-  /* getCurrentColumns(boardId: string): Observable<IColumnResponse[]> {
-    return this.apiService.getAllColumns(boardId);
-  } */
-
-  addColumn(boardId: string, column: IColumnPostRequest) {
-    this.store.dispatch(addColumn({ boardId, column }));
+    private columnStore: Store<ColumnState>,
+  ) {
+    this.isLoadingColums$ = this.store.pipe(
+      select(columnStateSelector),
+      map((data) => data.loading),
+    );
   }
 
-  editColumn(boardId: string, columnId: string, column: IColumn) {
-    this.store.dispatch(editColumn({ boardId, columnId, column }));
+  addColumn(id: string, column: IColumnRequest) {
+    this.store.dispatch(addColumn({ id, column }));
+  }
+
+  editColumn(boardId: string, column: IColumn) {
+    this.store.dispatch(editColumn({ boardId, column }));
+  }
+
+  editSetColumns(columns: IColumn[]) {
+    const updatedColumns: IColumnSet[] = [];
+    columns.forEach((column, i) => {
+      updatedColumns.push({
+        _id: column._id,
+        order: i,
+      });
+    });
+    this.store.dispatch(updateColumnsSet({ columns: updatedColumns }));
   }
 
   deleteColumn(boardId: string, columnId: string) {

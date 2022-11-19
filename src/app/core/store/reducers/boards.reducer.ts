@@ -1,58 +1,52 @@
 import {
   createFeatureSelector, createReducer, createSelector, on,
 } from '@ngrx/store';
-import { IBoard, IBoardBybId } from '../../models/board.model';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { IBoard } from '../../models/board.model';
 import {
-  addBoard, addBoardSuccess, deleteBoard, deleteBoardSuccess, editBoardSuccess, getCurrentBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, boardFailed, clearBoards, deleteBoard, deleteBoardSuccess, editBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
-import { initialState } from '../boards.state';
+
+export interface BoardState extends EntityState<IBoard> {
+  error: string | null;
+  isLoading: boolean;
+  isLoggedIn: boolean;
+}
+
+export const adapter: EntityAdapter<IBoard> = createEntityAdapter<IBoard>({
+  selectId: (board) => board._id,
+  sortComparer: false,
+});
+
+export const initialState: BoardState = adapter.getInitialState({
+  error: null,
+  isLoading: false,
+  isLoggedIn: false,
+});
 
 export const boardReducer = createReducer(
   initialState,
-  on(loadBoards, (state) => ({ ...state })),
 
-  on(loadBoardsSuccess, (state, { boards }) => ({
-    ...state,
-    boards,
-  })),
+  on(loadBoards, (state) => ({ ...state, isLoading: true })),
 
-  on(addBoardSuccess, (state, { board }) => ({
-    ...state,
-    boards: [...state.boards, { ...board }],
-  })),
+  on(loadBoardsSuccess, (state, actions) => adapter.setAll(actions.boards, { ...state, isLoading: false, isLoggedIn: true })),
 
-  on(editBoardSuccess, (state, { board }) => {
-    const boardIndex = state.boards.findIndex((item) => item.id === board.id);
-    const updatedItems = [...state.boards];
-    updatedItems[boardIndex] = board;
-    return ({
-      ...state,
-      boards: updatedItems,
-    });
-  }),
+  on(addBoardSuccess, (state, action) => adapter.addOne(action.board, state)),
 
-  on(getCurrentBoardSuccess, (state, { board }) => {
-    const boardIndex = state.boards.findIndex((item) => item.id === board.id);
-    const updatedItems = [...state.boards];
-    updatedItems[boardIndex] = board;
-    return ({
-      ...state,
-      boards: updatedItems,
-    });
-  }),
+  on(deleteBoardSuccess, (state, action) => adapter.removeOne(action.id, state)),
 
-  on(deleteBoardSuccess, (state, { id }) => ({
-    ...state,
-    boards: state.boards.filter((boards) => boards.id !== id),
-  })),
+  on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.id, changes: action.board }, state)),
 
-  /*  on(deleteColumnSuccess, (state, { boardId, columnId }) => {
-    const board = state.boards.find((item) => item.id === boardId) as IBoardBybId;
-    const columns = board?.columns?.filter((boards) => boards.id !== columnId);
-    const updatedItems = [...state.boards];
-    return ({
-      ...state,
-      boards: updatedItems,
-    });
-  }), */
+  on(boardFailed, (state, action) => ({ ...state, error: action.error, isLoading: false })),
+
+  on(clearBoards, (state) => adapter.removeAll(state)),
+
 );
+
+export const boardStateSelector = createFeatureSelector<BoardState>('boards');
+export const {
+  selectIds,
+  selectEntities,
+  selectAll,
+  selectTotal,
+} = adapter.getSelectors();

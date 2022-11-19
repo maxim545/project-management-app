@@ -1,5 +1,8 @@
 .header {
   background-color: #fff;
+  font-size: 1rem;
+
+
   &__wrapper {
     display: flex;
     justify-content: space-between;
@@ -7,24 +10,122 @@
     padding: 20px 20px;
   }
 
-  &__user-menu {
-    display: flex;
-    gap: 30px;
+  &__title {
+    width: 80px;
+
+    img {
+      width: 100%;
+      object-fit: contain;
+    }
   }
 
-  &__nav {
+  &__lang {
     display: flex;
-    gap: 10px;
-  }
-
-  &__link {
-    background-color: rgb(151, 151, 255);
-    width: 65px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
     align-items: center;
-    border-radius: 5px;
+    gap: 8px;
   }
+
+  &__custom-menu {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__spinner {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    min-height:805px;
+  }
+
+  .menu {
+    &__nav {
+      display: flex;
+      gap: 10px;
+    }
+
+    &__link {
+      width: auto;
+      height: 32px;
+      padding: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0b0205;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &-login,
+      &-edit {
+        border: 2px solid #9356a0;
+
+        &:hover {
+          border: 2px solid transparent;
+          background-color: #9356a030;
+        }
+      }
+
+      &-signup,
+      &-create {
+        background-color: #9356a0;
+        color: #ffffff;
+
+        &:hover {
+          background-color: #ba74ca;
+        }
+      }
+
+      &-logout {
+        border: 2px solid #ed413e;
+
+        &:hover {
+          border: 2px solid transparent;
+          background-color: #ed413e30;
+        }
+      }
+
+      &-create {
+        margin-right: 10px;
+        padding: 0 15px;
+      }
+    }
+  }
+
+  &__lang {
+    display: flex;
+    gap: 2px;
+    align-items: center;
+
+    &-logo {
+      width: 22px;
+    }
+
+    &-select {
+      display: block;
+      padding: 3px;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+
+      &:hover,
+      &:focus {
+        background-color: #9356a030;
+      }
+
+      option {
+        background-color: #ffffff;
+      }
+    }
+  }
+}
+
+
+::ng-deep .mat-progress-bar-fill::after {
+  background-color: #6C5DD3;
+}
+
+::ng-deep .mat-progress-bar-buffer {
+  background: #E4E8EB;
 }
 

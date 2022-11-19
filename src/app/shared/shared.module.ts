@@ -2,6 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ConfirmModalComponent } from './components/modals/confirm-modal/confirm-modal.component';
@@ -23,6 +27,10 @@ import { TaskModalComponent } from './components/modals/task-modal/task-modal.co
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    MatProgressBarModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatSlideToggleModule,
   ],
   exports: [
     HeaderComponent,

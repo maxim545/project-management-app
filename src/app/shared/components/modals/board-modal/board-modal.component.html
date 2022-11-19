@@ -12,7 +12,7 @@
           <span *ngIf="f['title'].errors['maxlength']">title must be at least 18 characters</span>
         </div>
       </div>
-      <div class="form__item">
+      <!--  <div class="form__item">
         <label>description</label>
         <input type="text" formControlName="description" class=""
           [ngClass]="{'is-invalid': (f['description'].dirty || f['description'].touched) && f['description'].errors }" />
@@ -22,7 +22,7 @@
           <span *ngIf="f['description'].errors['minlength']">description must be at least 6 characters</span>
           <span *ngIf="f['description'].errors['maxlength']">description must be at least 18 characters</span>
         </div>
-      </div>
+      </div> -->
       <div class="">
         <button class="" [disabled]="!boardForm.valid">Accept</button>
         <button type="button" (click)="closeDiadlog()">Cancel</button>

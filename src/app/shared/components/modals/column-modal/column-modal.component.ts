@@ -7,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
+import { IBoardDialog, IColumnDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
 import { ColumnsService } from '../../../../main/services/columns/columns.service';
 
 @Component({
@@ -22,9 +22,11 @@ export class ColumnModalComponent implements OnInit {
 
   public boardId: string | null = null;
 
+  public columnsQuantity: number | null = null;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
-    private data: IBoardDialog,
+    private data: IColumnDialog,
     private dialogRef: MatDialogRef<ColumnModalComponent>,
     public dialog: MatDialog,
     private formBuilder: FormBuilder,
@@ -34,6 +36,7 @@ export class ColumnModalComponent implements OnInit {
     if (data) {
       this.dialogTitle = data.dialogTitle;
       this.boardId = data.boardId;
+      this.columnsQuantity = data.columnsQuantity;
     }
   }
 
@@ -54,8 +57,11 @@ export class ColumnModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.boardId) {
-      this.columnsService.addColumn(this.boardId, this.columnForm.value);
+    if (this.boardId && typeof this.columnsQuantity === 'number') {
+      this.columnsService.addColumn(this.boardId, {
+        title: this.columnForm.value.title,
+        order: this.columnsQuantity as number,
+      });
       this.dialog.closeAll();
     }
   }

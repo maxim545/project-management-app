@@ -1,30 +1,38 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { IBoardForm } from 'src/app/core/models/board.model';
+import { select, Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
+import { IBoardRequest } from 'src/app/core/models/board.model';
 import {
-  addBoard, deleteBoard, editBoard, getCurrentBoard,
+  addBoard, deleteBoard, editBoard,
 } from 'src/app/core/store/actions/boards.actions';
+import { boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BoardsService {
+  isLoadingBoards$: Observable<boolean>;
+
   constructor(
     private store: Store,
-  ) { }
+  ) {
+    this.isLoadingBoards$ = this.store.pipe(
+      select(boardStateSelector),
+      map((data) => data.isLoading),
+    );
+  }
 
-  addBoard(board: IBoardForm) {
+  addBoard(board: IBoardRequest) {
     this.store.dispatch(addBoard({ board }));
   }
 
-  editBoard(id: string, data: IBoardForm) {
-    const board = { id, ...data };
-    this.store.dispatch(editBoard({ board }));
+  editBoard(id: string, board: IBoardRequest) {
+    this.store.dispatch(editBoard({ id, board }));
   }
 
-  getCurrentBoard(id: string) {
+  /*   getCurrentBoard(id: string) {
     this.store.dispatch(getCurrentBoard({ id }));
-  }
+  } */
 
   deleteBoard(id: string) {
     this.store.dispatch(deleteBoard({ id }));

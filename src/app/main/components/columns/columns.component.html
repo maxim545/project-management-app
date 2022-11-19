@@ -1,7 +1,21 @@
-<div class="columns">
-  <div class="columns__item" *ngFor="let column of columns$ | async">
-    <app-single-column [column]="column"></app-single-column>
-    <app-tasks class="columns__tasks" [columns$]="columns$" [columnId]=column.id></app-tasks>
+<div class="columns" cdkDropList cdkDropListOrientation="horizontal" (cdkDropListDropped)="dropColumn($event, columns)"
+  *ngIf="columns">
+  <div class="columns__list" cdkDropListGroup>
+    <div class="column" *ngFor="let column of columns" cdkDrag>
+      <app-column-header class="columns__header" [column]="column"></app-column-header>
+      <div class="columns__inner" cdkDropList [cdkDropListData]="column.tasks"
+        (cdkDropListDropped)="dropTask($event, columns, column)">
+        <div *ngFor="let task of column.tasks" cdkDrag>
+          <app-tasks [task]="task" [column]="column"></app-tasks>
+        </div>
+        <p class="not-found__text not-found__text_small" *ngIf="!column.tasks?.length">Not created tasks for this board!
+        </p>
+      </div>
+      <button class="btn columns__btn" *ngIf="column.tasks" (click)="openTaskCreater(column)">+ New
+        task</button>
+    </div>
   </div>
-  <button (click)="openColumnCreater()">create column</button>
+  <div class="columns__not-found not-found" *ngIf="!columns.length">
+    <p class="not-found__text">Not created columns for this board!</p>
+  </div>
 </div>

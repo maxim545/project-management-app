@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleColumnComponent } from './single-column.component';
+import { NotFoundPageComponent } from './not-found-page.component';
 
-describe('SingleColumnComponent', () => {
-  let component: SingleColumnComponent;
-  let fixture: ComponentFixture<SingleColumnComponent>;
+describe('NotFoundPageComponent', () => {
+  let component: NotFoundPageComponent;
+  let fixture: ComponentFixture<NotFoundPageComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SingleColumnComponent ]
+      declarations: [ NotFoundPageComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SingleColumnComponent);
+    fixture = TestBed.createComponent(NotFoundPageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

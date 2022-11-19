@@ -7,7 +7,6 @@ import {
   filter, map, Observable, Subscription,
 } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { UserState } from 'src/app/core/store/user.state';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IUser } from 'src/app/core/models/user.model';
 import { AuthValidators } from 'src/app/core/validators/auth.validators';
@@ -19,17 +18,21 @@ import {
 } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { dialogProfileConfig } from 'src/app/core/configs/matDialog.configs';
-import { getUserStore } from '../../../core/store/selectors/user.selectors';
+import { getCurrentUser, getUserStore } from '../../../core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
 })
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, OnDestroy {
   public editProfileForm!: FormGroup;
 
-  user: IUser | null = null;
+  public user: IUser | null = null;
+
+  public user$: Subscription | null = null;
+
+  public deleteDialog$: Subscription | null = null;
 
   constructor(
     private store: Store,
@@ -38,20 +41,16 @@ export class EditProfileComponent implements OnInit {
     private snackBar: MatSnackBar,
     private apiService: ApiService,
     private dialog: MatDialog,
-
-  ) { }
+  ) {
+  }
 
   ngOnInit(): void {
-    this.store.select(getUserStore)
-      .pipe(map(({ user }) => user))
-      .subscribe((data) => { this.user = data; });
-
     this.editProfileForm = this.formBuilder.group({
-      name: [this.user?.name, [
+      name: ['', [
         Validators.required,
         Validators.minLength(6),
       ]],
-      login: [this.user?.login, [
+      login: ['', [
         Validators.required,
         Validators.minLength(6),
       ]],
@@ -66,6 +65,18 @@ export class EditProfileComponent implements OnInit {
     }, {
       validator: AuthValidators.checkPasswords('password', 'confirmPassword'),
     });
+    this.user$ = this.store
+      .select(getCurrentUser)
+      .subscribe((userData) => {
+        this.user = userData;
+        this.editProfileForm.controls['name'].setValue((userData?.name));
+        this.editProfileForm.controls['login'].setValue((userData?.name));
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.user$) { this.user$.unsubscribe(); }
+    if (this.deleteDialog$) { this.deleteDialog$.unsubscribe(); }
   }
 
   get f() { return this.editProfileForm.controls; }
@@ -74,21 +85,20 @@ export class EditProfileComponent implements OnInit {
     if (this.user) {
       delete this.editProfileForm.value.confirmPassword;
       this.store.dispatch(updateUser({
-        user: {
-          id: this.user.id,
-          ...this.editProfileForm.value,
-        },
+        userId: this.user._id,
+        user: this.editProfileForm.value,
       }));
     }
   }
 
   deleteProfile() {
-    this.dialog.open(ConfirmModalComponent, dialogProfileConfig)
+    this.deleteDialog$ = this.dialog
+      .open(ConfirmModalComponent, dialogProfileConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.user) {
           delete this.editProfileForm.value.confirmPassword;
-          this.store.dispatch(removeUser({ id: this.user.id }));
+          this.store.dispatch(removeUser({ id: this.user._id }));
         }
       });
   }

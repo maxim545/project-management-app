@@ -1,5 +1,13 @@
-<div class="task" *ngFor="let task of tasks$ | async">
-  <div (click)="openTaskEditor(task.title, task.description, task.id, task.order)">{{task.title}}</div>
-  <button (click)="deleteTask(task.id)">del task</button>
+<div class="task">
+  <div class="task__title" (click)="openTaskEditor(task)">
+    {{task.title}}
+  </div>
+  <mat-select class="column__edit_menu edit_menu">
+    <mat-option class="edit_menu__item" (click)="openTaskEditor(task)">
+      <mat-icon>edit</mat-icon>Rename
+    </mat-option>
+    <mat-option class="edit_menu__item" (click)="deleteTask(task)">
+      <mat-icon>delete</mat-icon>Delete
+    </mat-option>
+  </mat-select>
 </div>
-<button class="task__btn task__btn_add" (click)="openTaskCreater()">+ New task</button>

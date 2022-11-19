@@ -1,10 +1,11 @@
 import { createAction, props } from '@ngrx/store';
 import {
-  IBoard, IBoardBybId, IBoardForm, IColumn, IColumnPostRequest, ITaskPutRequest, ITaskRequest,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, ITaskPutRequest, ITaskRequest,
 } from '../../models/board.model';
 
 export const loadBoards = createAction(
   '[Board] Load Boards',
+  props<{ userId: string }>(),
 );
 
 export const loadBoardsSuccess = createAction(
@@ -14,7 +15,7 @@ export const loadBoardsSuccess = createAction(
 
 export const addBoard = createAction(
   '[Board] Add Board',
-  props<{ board: IBoardForm }>(),
+  props<{ board: IBoardRequest }>(),
 );
 
 export const addBoardSuccess = createAction(
@@ -34,22 +35,12 @@ export const deleteBoardSuccess = createAction(
 
 export const editBoard = createAction(
   '[Board] Edit Board',
-  props<{ board: IBoard }>(),
+  props<{ id: string, board: IBoardRequest }>(),
 );
 
 export const editBoardSuccess = createAction(
   '[Board] Edit Board Success',
-  props<{ board: IBoard }>(),
-);
-
-export const getCurrentBoard = createAction(
-  '[Board] Get Current Board',
-  props<{ id: string }>(),
-);
-
-export const getCurrentBoardSuccess = createAction(
-  '[Board] Get Current Board Success',
-  props<{ board: IBoardBybId }>(),
+  props<{ id: string, board: IBoard }>(),
 );
 
 export const boardFailed = createAction(
@@ -57,41 +48,16 @@ export const boardFailed = createAction(
   props<{ error: string }>(),
 );
 
-// COLUMNS
-
-export const addColumn = createAction(
-  '[Column] Add Column',
-  props<{ boardId: string, column: IColumnPostRequest }>(),
+export const clearBoards = createAction(
+  '[Columns] Boards Clear',
 );
 
-export const editColumn = createAction(
-  '[Column] Edit Column',
-  props<{ boardId: string, columnId: string, column: IColumn }>(),
+/* export const getCurrentBoard = createAction(
+  '[Board] Get Current Board',
+  props<{ id: string }>(),
 );
 
-export const deleteColumn = createAction(
-  '[Column] Delete Column',
-  props<{ boardId: string, columnId: string }>(),
-);
-
-/* export const deleteColumnSuccess = createAction(
-  '[Column] Delete Column Success',
-  props<{ boardId: string, columnId: string }>(),
+export const getCurrentBoardSuccess = createAction(
+  '[Board] Get Current Board Success',
+  props<{ board: IBoard }>(),
 ); */
-
-// TASKS
-
-export const addTask = createAction(
-  '[Task] Add Task',
-  props<{ boardId: string, columnId: string, task: ITaskRequest }>(),
-);
-
-export const editTask = createAction(
-  '[Task] Edit Task',
-  props<{ boardId: string, columnId: string, taskId: string, task: ITaskPutRequest }>(),
-);
-
-export const deleteTask = createAction(
-  '[Task] Delete Task',
-  props<{ boardId: string, columnId: string, taskId: string }>(),
-);
