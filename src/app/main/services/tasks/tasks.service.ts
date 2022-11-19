@@ -27,8 +27,8 @@ export class TasksService {
     this.store.dispatch(addTask({ column, task }));
   }
 
-  editTask(column: IColumn, task: ITask) {
-    this.store.dispatch(editTask({ column, task }));
+  editTask(task: ITask) {
+    this.store.dispatch(editTask({ task }));
   }
 
   editSetTasks(tasks: ITask[]) {

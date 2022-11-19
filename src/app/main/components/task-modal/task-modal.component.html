@@ -1,0 +1,47 @@
+<div class="task-modal">
+  <div class="task-modal__content">
+
+    <div class="column__header" *ngIf="task">
+      <div class="column__title-block" *ngIf="!isEditMode">
+        <h2 class="column__title" (click)="this.isEditMode = true">{{task.title}}</h2>
+      </div>
+
+      <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTaskTitle(task)"
+        *ngIf="isEditMode">
+        <div class="efit-form__field">
+          <mat-form-field>
+            <input class="efit-form__input" formControlName="title" matInput>
+            <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+              <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="edit-form__btns">
+          <button class="btn" [disabled]="!editTitleForm.valid" type="submit">
+            <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
+          </button>
+          <button class="btn" (click)="this.isEditMode = false">
+            <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
+          </button>
+        </div>
+      </form>
+
+    </div>
+    <div *ngIf="donePoints$ && points$">
+      <p-progressBar [value]="(donePoints$ | async)!.length * 100 / (points$ | async)!.length"></p-progressBar>
+    </div>
+    <div class="task-modal__description"></div>
+    <div *ngFor="let point of points$ | async">
+      <app-point [task]="task" [boardId]="task.boardId" [point]="point"></app-point>
+    </div>
+
+
+    <button class="task-modal__btn" (click)="closeTaskModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class="task-modal__menu">
+    menu
+  </div>
+</div>

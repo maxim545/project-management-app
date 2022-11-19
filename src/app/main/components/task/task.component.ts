@@ -8,7 +8,6 @@ import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
 import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuItem } from 'primeng/api';
 import { PointState } from 'src/app/core/store/reducers/points.reducers';
@@ -16,6 +15,8 @@ import { getAllPoints } from 'src/app/core/store/selectors/points.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
+import { PointComponent } from '../point/point.component';
+import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 @Component({
   selector: 'app-task',
@@ -35,6 +36,8 @@ export class TasksComponent implements OnInit {
 
   public points$: Observable<IPoint[]>;
 
+  public donePoints$: Observable<IPoint[]>;
+
   public panelOpenState = true;
 
   constructor(
@@ -48,6 +51,10 @@ export class TasksComponent implements OnInit {
     this.points$ = this.pointStore.pipe(
       select(getAllPoints),
       map((points) => points.filter((point) => point.taskId === this.task._id)),
+    );
+    this.donePoints$ = this.pointStore.pipe(
+      select(getAllPoints),
+      map((points) => points.filter((point) => point.taskId === this.task._id && point.done === true)),
     );
   }
 
@@ -74,13 +81,24 @@ export class TasksComponent implements OnInit {
   }
 
   openTaskEditor(task: ITask): void {
-    this.dialog.open(TaskModalComponent, {
+    /* this.dialog.open(TaskModalComponent, {
       data: {
         editorMode: 'editing',
         dialogTitle: `Edit ${task.title}`,
         task,
         column: this.column,
       },
+    }); */
+  }
+
+  openTaskDialog() {
+    this.dialog.open(TaskModalComponent, {
+      data: {
+        task: this.task,
+        points$: this.points$,
+        donePoints$: this.donePoints$,
+      },
+      panelClass: 'custom-modalbox',
     });
   }
 

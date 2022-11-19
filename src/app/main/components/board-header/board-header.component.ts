@@ -56,7 +56,7 @@ export class BoardHeaderComponent implements OnInit {
       map((board) => {
         if (board) {
           this.users = this.users?.filter((user) => user._id !== board.owner) || null;
-          this.selectedUsers = this.users?.filter((a) => board.users.includes(a._id)) || null;
+          this.selectedUsers = this.users?.filter((user) => board.users.includes(user._id)) || null;
         }
         return board;
       }),

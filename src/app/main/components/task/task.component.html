@@ -1,6 +1,6 @@
-<!-- <div class="task">
+<div class="task">
   <div class="task__header">
-    <div class="task__title" (click)="openTaskEditor(task)">
+    <div class="task__title" (click)="openTaskDialog()">
       {{task.title}}
     </div>
     <mat-select class="column__edit_menu edit_menu">
@@ -12,17 +12,20 @@
       </mat-option>
     </mat-select>
   </div>
-  <div *ngFor="let point of points$ | async">
-    <app-point [task]="task" [boardId]="boardId" [point]="point"></app-point>
+  <div class="task__points" *ngIf="(points$ | async) as points">
+    <div>
+      <mat-icon>playlist_add_check</mat-icon>
+    </div>
+    <div>{{(donePoints$ | async)?.length}}/{{points.length}}</div>
   </div>
-</div> -->
+</div>
 
 <!-- <p-accordionTab header="{{task.title}}">
   <p>data</p>
 </p-accordionTab> -->
 
 
-<mat-accordion>
+<!-- <mat-accordion>
   <mat-expansion-panel class="task" [expanded]="panelOpenState">
     <mat-expansion-panel-header class="task__header">
       <mat-panel-title>
@@ -66,4 +69,4 @@
 
 
   </mat-expansion-panel>
-</mat-accordion>
+</mat-accordion> -->

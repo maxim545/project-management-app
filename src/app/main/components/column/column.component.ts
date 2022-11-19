@@ -15,7 +15,7 @@ import {
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteColumnDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
+import { TaskCreaterModalComponent } from 'src/app/main/components/task-creater-modal/task-creater-modal.component';
 import { ColumnsService } from '../../services/columns/columns.service';
 import { TasksService } from '../../services/tasks/tasks.service';
 
@@ -92,7 +92,7 @@ export class ColumnComponent implements OnInit {
   }
 
   openTaskCreater(column: IColumn, tasksQuantity: number) {
-    this.dialog.open(TaskModalComponent, {
+    this.dialog.open(TaskCreaterModalComponent, {
       data: {
         editorMode: 'adding',
         dialogTitle: 'Create new task',

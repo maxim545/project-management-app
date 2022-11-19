@@ -1,4 +1,7 @@
-import { IBoard, IColumn, ITask } from './board.model';
+import { Observable } from 'rxjs';
+import {
+  IBoard, IColumn, IPoint, ITask,
+} from './board.model';
 
 export interface IConfirmDialog {
   dialogTitle: string,
@@ -19,10 +22,15 @@ export interface IColumnDialog {
   columnsQuantity: number
 }
 
-export interface ITaskDialogData {
-  editorMode: string,
+export interface ITaskCreaterDialogData {
   dialogTitle: string,
   tasksQuantity: string,
   column: IColumn,
   task: ITask
+}
+
+export interface ITaskDialogData {
+  task: ITask,
+  points$: Observable<IPoint[]>,
+  donePoints$: Observable<IPoint[]>
 }

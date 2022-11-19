@@ -50,7 +50,7 @@ export class TasksEffects {
   editTask$ = createEffect(
     () => this.actions$.pipe(
       ofType(editTask),
-      switchMap(({ column, task }) => this.apiService
+      switchMap(({ task }) => this.apiService
         .editTask(task.boardId, task.columnId, task._id, {
           title: task.title,
           order: task.order,

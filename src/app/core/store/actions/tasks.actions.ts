@@ -35,7 +35,7 @@ export const addTasksSuccess = createAction(
 
 export const editTask = createAction(
   '[Task] Edit Task',
-  props<{ column: IColumn, task: ITask }>(),
+  props<{ task: ITask }>(),
 );
 
 export const editTasksSuccess = createAction(
