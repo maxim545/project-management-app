@@ -1,5 +1,21 @@
-<div class="board__header" *ngIf="board">
-  <button routerLink="/main">Back to main</button>
-  <b>Board:</b>
-  <h1 class="board__title">{{board.title}}</h1>
+<div class="header-board" *ngIf="(board$ | async) as board">
+  <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
+    <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+  </button>
+  <h1 class="header-board__title">{{board.title}}</h1>
+  <div class="header-board__right" *ngIf="columns">
+    <div class="header-board__users">
+      <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="Select a User"
+        optionLabel="login" display="chip"></p-multiSelect>
+      <button class="btn header-board__btn header-board__btn_right" (click)="addUsers(board)">
+        <mat-icon class="icon icon_edit">person_add</mat-icon>
+      </button>
+    </div>
+    <button class="btn header-board__btn header-board__btn_right" (click)="openBoardEditor(board)">
+      <mat-icon class="icon icon_edit">edit</mat-icon>
+    </button>
+    <button class="btn header-board__btn header-board__btn_right" (click)="openColumnCreater(board, columns.length)">
+      <mat-icon class="icon icon_add">note_add</mat-icon>
+    </button>
+  </div>
 </div>

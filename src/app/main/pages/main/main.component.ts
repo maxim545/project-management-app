@@ -26,6 +26,7 @@ export class MainComponent implements OnInit {
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {
+    /* this.store.dispatch(loadBoards()); */
   }
 
   ngOnInit(): void {
@@ -37,7 +38,7 @@ export class MainComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed) {
-          this.boardService.deleteBoard(board.id);
+          this.boardService.deleteBoard(board._id);
         }
       });
   }
@@ -46,9 +47,7 @@ export class MainComponent implements OnInit {
     this.dialog.open(BoardModalComponent, {
       data: {
         dialogTitle: 'Edit new board',
-        boardId: board.id,
-        boardTitle: board.title,
-        boardDescr: board.description,
+        board,
       },
     });
   }

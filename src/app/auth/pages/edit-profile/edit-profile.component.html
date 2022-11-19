@@ -1,49 +1,138 @@
-<div class="form">
-  <div class="form__container">
-    <h1 class="form__title">Edit profile</h1>
-    <form [formGroup]="editProfileForm" (ngSubmit)="updateProfile()">
-      <div class="form__item">
-        <label>Name</label>
-        <input type="text" formControlName="name" class=""
-          [ngClass]="{ 'is-invalid': (f['name'].dirty || f['name'].touched) && f['name'].errors }" />
-        <div *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors" class="invalid-feedback">
-          <span *ngIf="f['name'].errors['required']">Name is required</span>
-          <span *ngIf="f['name'].errors['minlength']">Name must be at least 6 characters</span>
+<div class="container">
+  <div class="form">
+    <div class="form__container">
+      <h1 class="form__title">Edit profile</h1>
+      <form
+        [formGroup]="editProfileForm"
+        (ngSubmit)="updateProfile()"
+        class="form__edit"
+      >
+        <div class="form__item">
+          <input
+            type="text"
+            formControlName="name"
+            class=""
+            [ngClass]="{
+              'is-invalid':
+                (f['name'].dirty || f['name'].touched) && f['name'].errors,
+              'label-active': f['name'].value,
+              'red-border':
+                (f['name'].dirty || f['name'].touched) && f['name'].errors
+            }"
+          />
+          <label>Name <span>*</span></label>
+          <div
+            *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors"
+            class="invalid-feedback"
+          >
+            <span *ngIf="f['name'].errors['required']">Name is required</span>
+            <span *ngIf="f['name'].errors['minlength']"
+              >Name must be at least 6 characters</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="form__item">
-        <label>Login</label>
-        <input type="text" formControlName="login" class=""
-          [ngClass]="{ 'is-invalid': (f['login'].dirty || f['login'].touched) && f['login'].errors }" />
-        <div *ngIf="(f['login'].dirty || f['login'].touched) && f['login'].errors" class="invalid-feedback">
-          <span *ngIf="f['login'].errors['required']">Login is required</span>
-          <span *ngIf="f['login'].errors['minlength']">Name must be at least 6 characters</span>
+
+        <div class="form__item">
+          <input
+            type="text"
+            formControlName="login"
+            class=""
+            [ngClass]="{
+              'is-invalid':
+                (f['login'].dirty || f['login'].touched) && f['login'].errors,
+              'label-active': f['login'].value,
+              'red-border':
+                (f['login'].dirty || f['login'].touched) && f['login'].errors
+            }"
+          />
+          <label>Login <span>*</span></label>
+          <div
+            *ngIf="
+              (f['login'].dirty || f['login'].touched) && f['login'].errors
+            "
+            class="invalid-feedback"
+          >
+            <span *ngIf="f['login'].errors['required']">Login is required</span>
+            <span *ngIf="f['login'].errors['minlength']"
+              >Name must be at least 6 characters</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="form__item">
-        <label>New password</label>
-        <input type="password" formControlName="password" class=""
-          [ngClass]="{ 'is-invalid': (f['password'].dirty || f['password'].touched) && f['password'].errors }" />
-        <div *ngIf="(f['password'].dirty || f['password'].touched) && f['password'].errors" class="invalid-feedback">
-          <div *ngIf="f['password'].errors['required']">Password is required</div>
-          <span *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</span>
-          <span *ngIf="f['password'].errors['maxlength']">Password must be at least 18 characters</span>
+
+        <div class="form__item">
+          <input
+            type="password"
+            formControlName="password"
+            class=""
+            [ngClass]="{
+              'is-invalid':
+                (f['password'].dirty || f['password'].touched) &&
+                f['password'].errors,
+              'label-active': f['password'].value,
+              'red-border':
+                (f['password'].dirty || f['password'].touched) &&
+                f['password'].errors
+            }"
+          />
+          <label>New password <span>*</span></label>
+          <div
+            *ngIf="
+              (f['password'].dirty || f['password'].touched) &&
+              f['password'].errors
+            "
+            class="invalid-feedback"
+          >
+            <div *ngIf="f['password'].errors['required']">
+              Password is required
+            </div>
+            <span *ngIf="f['password'].errors['minlength']"
+              >Password must be at least 6 characters</span
+            >
+            <span *ngIf="f['password'].errors['maxlength']"
+              >Password must be at least 18 characters</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="form__item">
-        <label>Confirm new password</label>
-        <input type="password" formControlName="confirmPassword" class=""
-          [ngClass]="{ 'is-invalid': (f['confirmPassword'].dirty || f['confirmPassword'].touched) && f['confirmPassword'].errors }" />
-        <div *ngIf="(f['confirmPassword'].dirty || f['confirmPassword'].touched) && f['confirmPassword'].errors"
-          class="invalid-feedback">
-          <span *ngIf="f['confirmPassword'].errors['required']">Confirm Password is required</span>
-          <span *ngIf="f['confirmPassword'].errors['passIsMatch']">Passwords must match</span>
+
+        <div class="form__item">
+          <input
+            type="password"
+            formControlName="confirmPassword"
+            class=""
+            [ngClass]="{
+              'is-invalid':
+                (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
+                f['confirmPassword'].errors,
+              'label-active': f['confirmPassword'].value,
+              'red-border':
+                (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
+                f['confirmPassword'].errors
+            }"
+          />
+          <label>Confirm new password <span>*</span></label>
+          <div
+            *ngIf="
+              (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
+              f['confirmPassword'].errors
+            "
+            class="invalid-feedback"
+          >
+            <span *ngIf="f['confirmPassword'].errors['required']"
+              >Confirm Password is required</span
+            >
+            <span *ngIf="f['confirmPassword'].errors['passIsMatch']"
+              >Passwords must match</span
+            >
+          </div>
         </div>
-      </div>
-      <div class="">
-        <button class="" [disabled]="!editProfileForm.valid">Update profile</button>
-      </div>
-    </form>
-    <button (click)="deleteProfile()" class="">Delete Profile</button>
+
+        <button class="btn-submit" [disabled]="!editProfileForm.valid">
+          Update profile
+        </button>
+      </form>
+      <button (click)="deleteProfile()" class="btn-delete">
+        Delete Profile
+      </button>
+    </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 <div class="board">
   <div class="container" *ngIf="boardId">
-    <app-board-header [board]="board$ | async"></app-board-header>
-    <app-columns [columns]="columns$ | async" [boardId]="boardId"></app-columns>
+    <app-board-header [columns]="columns$ | async" [users]="users$ | async" [boardId]="boardId">
+    </app-board-header>
+    <app-columns [columns]="columns$ | async" [board]="board$ | async"></app-columns>
   </div>
 </div>

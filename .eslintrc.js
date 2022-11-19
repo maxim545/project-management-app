@@ -52,7 +52,8 @@ module.exports = {
         "no-console": "off",
         "no-alert": "off",
         "no-unneeded-ternary": "off",
-        /* 'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'], */
+        "no-underscore-dangle": "off",
+        'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
       }
     },
     {
