@@ -32,5 +32,6 @@ export interface ITaskCreaterDialogData {
 export interface ITaskDialogData {
   task: ITask,
   points$: Observable<IPoint[]>,
-  donePoints$: Observable<IPoint[]>
+  donePoints$: Observable<IPoint[]>,
+  board: IBoard
 }

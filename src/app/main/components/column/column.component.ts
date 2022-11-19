@@ -5,7 +5,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
-import { IColumn, ITask } from 'src/app/core/models/board.model';
+import { IBoard, IColumn, ITask } from 'src/app/core/models/board.model';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { TaskState } from 'src/app/core/store/reducers/tasks.reducers';
 import { getAllTasks } from 'src/app/core/store/selectors/tasks.selectors';
@@ -28,6 +28,8 @@ export class ColumnComponent implements OnInit {
   @Input() public column!: IColumn;
 
   @Input() public boardId: string = '';
+
+  @Input() public board: IBoard | null = null;
 
   public tasks$: Observable<ITask[]>;
 

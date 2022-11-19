@@ -16,12 +16,6 @@
         <label>description</label>
         <input type="text" formControlName="description" class=""
           [ngClass]="{'is-invalid': (f['description'].dirty || f['description'].touched) && f['description'].errors }" />
-        <div *ngIf="(f['description'].dirty || f['description'].touched) && f['description'].errors"
-          class="invalid-feedback">
-          <div *ngIf="f['description'].errors['required']">description is required</div>
-          <span *ngIf="f['description'].errors['minlength']">description must be at least 6 characters</span>
-          <span *ngIf="f['description'].errors['maxlength']">description must be at least 18 characters</span>
-        </div>
       </div>
       <div class="">
         <button class="" [disabled]="!taskForm.valid">Create</button>
