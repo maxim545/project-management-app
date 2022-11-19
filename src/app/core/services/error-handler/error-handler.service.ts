@@ -22,15 +22,16 @@ export class ErrorHandlerService {
 
   handler(err: HttpErrorResponse, url: string = '') {
     switch (err.status) {
-      case HttpStatusCode.Unauthorized:
+      case 403:
         this.authService.logoutUser();
         break;
 
-      case 409: case 500:
+      case 409:
+      case 500:
         this.snackBar.open('User with this login already exists', '', snackBarRedConfig);
         break;
 
-      case 403:
+      case 401:
         this.snackBar.open('Your login or password is incorrect', '', snackBarRedConfig);
         break;
 

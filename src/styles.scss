@@ -35,6 +35,11 @@ button, select {
   border: none;
   cursor: pointer;
 }
+input {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+}
 blockquote, q {
 	quotes: none;
 }
@@ -155,7 +160,7 @@ app-footer {
   }
 
   &__btn_right {
-    padding: 6px 17px 6px 10px;
+    padding: 6px
   }
 
   &__btn:hover {

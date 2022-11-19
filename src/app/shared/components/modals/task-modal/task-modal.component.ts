@@ -2,13 +2,14 @@ import { Component, OnInit, Inject } from '@angular/core';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
-import { IBoard } from 'src/app/core/models/board.model';
+import { IBoard, IColumn, ITask } from 'src/app/core/models/board.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IBoardDialog, IConfirmDialog, ITaskDialog } from 'src/app/core/models/modal.model';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
 
 @Component({
   selector: 'app-task-modal',
@@ -18,21 +19,13 @@ import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 export class TaskModalComponent implements OnInit {
   public taskForm!: FormGroup;
 
-  public currentUserId: string = localStorage.getItem('uniq_userId') || '';
+  public currentUserId: string = parseJwt(localStorage.getItem('uniq_token') as string);
 
   public dialogTitle: string = '';
 
-  public boardId: string = '';
+  public column: IColumn | null = null;
 
-  public columnId: string = '';
-
-  public taskId: string = '';
-
-  public order: number = 1;
-
-  public taskTitle: string = '';
-
-  public taskDescr: string = '';
+  public task: ITask | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -45,23 +38,19 @@ export class TaskModalComponent implements OnInit {
   ) {
     if (data) {
       this.dialogTitle = data.dialogTitle;
-      this.boardId = data.boardId;
-      this.columnId = data.columnId;
-      this.taskTitle = data.taskTitle;
-      this.taskDescr = data.taskDescr;
-      this.taskId = data.taskId;
-      this.order = data.order;
+      this.column = data.column;
+      this.task = data.task;
     }
   }
 
   ngOnInit(): void {
     this.taskForm = this.formBuilder.group({
-      title: [this.taskTitle, [
+      title: [this.task?.title, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(28),
       ]],
-      description: [this.taskDescr, [
+      description: [this.task?.description, [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(48),
@@ -76,18 +65,18 @@ export class TaskModalComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.taskId) {
-      this.taskService.addTask(this.boardId, this.columnId, {
+    if (!this.task?._id && this.column) {
+      this.taskService.addTask(this.column, {
         ...this.taskForm.value,
         userId: this.currentUserId,
+        order: this.column.tasks?.length,
+        users: [],
       });
-    } else {
-      this.taskService.editTask(this.boardId, this.columnId, this.taskId, {
-        ...this.taskForm.value,
-        order: this.order,
-        userId: this.currentUserId,
-        boardId: this.boardId,
-        columnId: this.columnId,
+    } else if (this.task && this.column) {
+      this.taskService.editTask(this.column, {
+        ...this.task,
+        title: this.taskForm.value.title,
+        description: this.taskForm.value.description,
       });
     }
     this.dialog.closeAll();

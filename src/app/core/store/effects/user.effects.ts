@@ -10,7 +10,9 @@ import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {
   cleanUserStore,
-  loadUser, loadUserSuccess, loginUser, removeUser, signUpUser, updateUser, userRequestFailed,
+  loadUsers,
+  loadUsersSuccess,
+  loginUser, removeUser, signUpUser, updateUser, updateUserSuccess, userRequestFailed,
 } from '../actions/user.actions';
 
 @Injectable()
@@ -22,7 +24,22 @@ export class UserEffects {
     private router: Router,
   ) { }
 
-  loadUser$ = createEffect(
+  loadUsers$ = createEffect(
+    () => this.actions$.pipe(
+      ofType(loadUsers),
+      switchMap(({ id }) => this.apiService
+        .getAllUsers()
+        .pipe(
+          map((users) => {
+            const currentUser = users.find((user) => user._id === id) as IUser;
+            return loadUsersSuccess({ users, user: currentUser });
+          }),
+          catchError((error) => of(userRequestFailed({ error }))),
+        )),
+    ),
+  );
+
+  /* loadUser$ = createEffect(
     () => this.actions$.pipe(
       ofType(loadUser),
       switchMap(({ userId }) => this.apiService
@@ -32,7 +49,7 @@ export class UserEffects {
           catchError((error) => of(userRequestFailed({ error }))),
         )),
     ),
-  );
+  ); */
 
   loginUser$ = createEffect(
     () => this.actions$.pipe(
@@ -41,11 +58,9 @@ export class UserEffects {
         .login(user)
         .pipe(
           map((response) => {
-            const userId = parseJwt(response.token);
             localStorage.setItem('uniq_token', response.token);
-            localStorage.setItem('uniq_userId', userId);
             this.authService.loginUser(user);
-            return loadUser({ userId });
+            return loadUsers({ id: parseJwt(response.token) });
           }),
           catchError((error) => of(userRequestFailed({ error }))),
         )),
@@ -72,15 +87,12 @@ export class UserEffects {
   updateUser$ = createEffect(
     () => this.actions$.pipe(
       ofType(updateUser),
-      switchMap(({ user }) => this.apiService
-        .updateUser(user.id, {
-          name: user.name,
-          login: user.login,
-          password: user.password,
-        }).pipe(
+      switchMap(({ userId, user }) => this.apiService
+        .updateUser(userId, user)
+        .pipe(
           map((resUser) => {
             this.authService.updateUser();
-            return loadUserSuccess({ user: resUser });
+            return updateUserSuccess({ user: resUser });
           }),
           catchError((error) => of(userRequestFailed({ error }))),
         )),
@@ -103,7 +115,6 @@ export class UserEffects {
     ofType(cleanUserStore),
     tap(() => {
       localStorage.removeItem('uniq_token');
-      localStorage.removeItem('uniq_userId');
       this.router.navigate(['welcome']);
     }),
   ), { dispatch: false });

@@ -1,26 +1,33 @@
 export interface IUser {
-  id: string;
+  _id: string;
   name: string;
   login: string;
 }
 
-export interface ILoginRequest {
+export interface ISelectUser {
+  _id: string;
+  name: string;
+  login: string;
+  checked: boolean;
+}
+
+export interface IUserLogin {
   login: string;
   password: string;
 }
 
-export interface ISignUpRequest {
+export interface IUserRequest {
   name: string;
   login: string;
   password: string;
 }
 
-export interface IUserData {
-  id: string;
+/* export interface IUserData {
+  _id: string;
   name: string;
   login: string;
   password: string;
-}
+} */
 
 export interface IUserToken {
   token: string;
