@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { authors } from 'src/app/core/data/authors';
 import { Author } from 'src/app/core/models/autor.model';
+import { TranslateService } from '@ngx-translate/core';
+import { currentLang } from '../../../core/configs/lang';
 
 @Component({
   selector: 'app-welcome',
@@ -12,27 +14,25 @@ export class WelcomeComponent implements OnInit {
 
   left: string = '0';
 
-  activeLi: string = 'Welcome';
+  length = currentLang;
 
-  liTitle: string[] = [
-    'Welcome',
-    'About RS School',
-    'Our team',
-  ];
+  liTitle: string[] = ['welcome.welcome', 'welcome.About', 'welcome.Our'];
+
+  activeLi: string = this.liTitle[0];
 
   constructor() {}
 
   ngOnInit(): void {}
 
   moveCarusel(id: string) {
-    if (id === 'Welcome') {
+    if (id === this.liTitle[0]) {
       this.left = '0';
-      this.activeLi = 'Welcome';
-    } else if (id === 'About RS School') {
-      this.activeLi = 'About RS School';
+      [this.activeLi,,] = this.liTitle;
+    } else if (id === this.liTitle[1]) {
+      [,this.activeLi] = this.liTitle;
       this.left = '-100%';
-    } else if (id === 'Our team') {
-      this.activeLi = 'Our team';
+    } else if (id === this.liTitle[2]) {
+      [,,this.activeLi] = this.liTitle;
       this.left = '-200%';
     }
   }

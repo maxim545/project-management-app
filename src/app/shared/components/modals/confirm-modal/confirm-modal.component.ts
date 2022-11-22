@@ -8,11 +8,11 @@ import { IConfirmDialog } from 'src/app/core/models/modal.model';
   styleUrls: ['./confirm-modal.component.scss'],
 })
 export class ConfirmModalComponent {
-  dialogTitle: string = 'Are you sure?';
+  dialogTitle: string = 'Bord.sure';
 
-  confirmButtonText = 'Yes';
+  confirmButtonText = 'Bord.Yes';
 
-  cancelButtonText = 'Cancel';
+  cancelButtonText = 'Bord.Cancel';
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
