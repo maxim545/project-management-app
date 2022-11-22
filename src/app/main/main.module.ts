@@ -17,6 +17,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
@@ -61,6 +62,7 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
     MatCheckboxModule,
     ProgressBarModule,
     OverlayPanelModule,
+    MatProgressBarModule,
   ],
 })
 export class MainModule { }

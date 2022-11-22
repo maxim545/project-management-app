@@ -1,11 +1,11 @@
-<div class="task">
+<div class="task" *ngIf="task">
   <div class="task__header">
     <div class="task__title" (click)="openTaskDialog()">
       {{task.title}}
     </div>
     <mat-select class="column__edit_menu edit_menu">
       <mat-option class="edit_menu__item" (click)="openTaskEditor(task)">
-        <mat-icon>edit</mat-icon>Rename
+        <mat-icon>subtitles</mat-icon>Open
       </mat-option>
       <mat-option class="edit_menu__item" (click)="deleteTask(task)">
         <mat-icon>delete</mat-icon>Delete

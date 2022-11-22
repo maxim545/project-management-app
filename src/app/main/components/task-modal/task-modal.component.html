@@ -1,98 +1,113 @@
+<div class="spinner" *ngIf="">
+  <mat-progress-bar mode="indeterminate">
+  </mat-progress-bar>
+</div>
 <div class="task-modal">
-  <div class="task-modal__content" *ngIf="task">
-
+  <div class="task-modal__content" *ngIf="(task$ | async) as task">
     <!-- --------TITLE-------- -->
-    <div class="task-modal__item item">
-      <div class="item__header" *ngIf="!isEditTitleMode">
-        <h2 class="item__title" (click)="this.isEditTitleMode = true">{{task.title}}</h2>
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>subtitles</mat-icon>
+        <h2 class="task-item__title" (click)="this.isEditTitleMode = true" *ngIf="!isEditTitleMode">{{task.title}}</h2>
+        <form class="title-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTaskTitle(task)"
+          *ngIf="isEditTitleMode">
+          <div class="title-form__field">
+            <mat-form-field>
+              <input class="title-form__input" formControlName="title" matInput>
+              <mat-error *ngIf="title.invalid">
+                <div *ngIf="title.errors?.['required']">Title is required</div>
+                <div *ngIf="title.errors?.['maxlength']">Max length must be 30</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="title-form__btns">
+            <button class="btn" [disabled]="!editTitleForm.valid" type="submit">
+              <mat-icon class="">check</mat-icon>
+            </button>
+            <button class="btn" (click)="this.isEditTitleMode = false">
+              <mat-icon class="">close</mat-icon>
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTaskTitle(task)"
-        *ngIf="isEditTitleMode">
-        <div class="efit-form__field">
-          <mat-form-field>
-            <input class="efit-form__input" formControlName="title" matInput>
-            <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
-              <div *ngIf="f['title'].errors?.['required']">Title is required</div>
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="edit-form__btns">
-          <button class="btn" [disabled]="!editTitleForm.valid" type="submit">
-            <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
-          </button>
-          <button class="btn" (click)="this.isEditTitleMode = false">
-            <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
-          </button>
-        </div>
-      </form>
     </div>
 
-    <!-- --------DESCRIPTION-------- -->
-    <div class="task-modal__item item">
-      <div class="item__header" *ngIf="!isEditDescrMode">
-        <h2 class="item__title" (click)="this.isEditDescrMode = true">{{task.description}}</h2>
+    <!-- --------DESCRIPTION---------->
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>notes</mat-icon>
+        <h2 class="task-item__title">Description</h2>
+        <button class="btn task-item__btn" (click)="this.isEditDescrMode = !this.isEditDescrMode">
+          <mat-icon class="task-item__icon">edit</mat-icon>
+        </button>
       </div>
-
-      <form class="edit-form" [formGroup]="editDescrForm" name="form" (ngSubmit)="editTaskDescr(task)"
-        *ngIf="isEditDescrMode">
-        <div class="efit-form__field">
-          <mat-form-field>
-            <input class="efit-form__input" formControlName="description" matInput>
-            <mat-error *ngIf="f['description'].invalid && (f['description'].dirty || f['description'].touched)">
-            </mat-error>
-          </mat-form-field>
+      <div class="task-item__content">
+        <div *ngIf="!isEditDescrMode">
+          <p>{{task.description}}</p>
         </div>
-        <div class="edit-form__btns">
-          <button class="btn" [disabled]="!editDescrForm.valid" type="submit">
-            <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
-          </button>
-          <button class="btn" (click)="this.isEditDescrMode = false">
-            <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
-          </button>
-        </div>
-      </form>
+        <form class="descr-form" [formGroup]="editDescrForm" name="form" (ngSubmit)="editTaskDescr(task)"
+          *ngIf="isEditDescrMode">
+          <div class="descr-form__field">
+            <mat-form-field>
+              <input class="descr-form__input" formControlName="description" matInput>
+              <mat-error *ngIf="description.invalid">
+                <div *ngIf="description.errors?.['required']">Description is required</div>
+                <div *ngIf="description.errors?.['maxlength']">Max length must be 320</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="descr-form__btns">
+            <button class="btn btn_primary" [disabled]="!editDescrForm.valid" type="submit">
+              Save
+            </button>
+            <button class="btn btn_light" (click)="this.isEditDescrMode = false">
+              Close
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
 
 
     <!-- --------POINTS-------- -->
-    <div class="task-modal__item item">
-      <div class="item__header">
-        <h2 class="item__title">Points</h2>
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>playlist_add_check</mat-icon>
+        <h2 class="task-item__title">Points</h2>
       </div>
-      <div class="item__content">
-        <div class="points" *ngIf="(points$ | async)?.length">
-          <div *ngIf="donePoints$ && points$">
-            <p-progressBar [value]=" (donePoints$ | async)!.length * 100 / (points$ | async)!.length">
+      <div class="task-item__content">
+        <div class="task-item__points-block" *ngIf="(points$ | async) as points">
+          <div class="pogress-bar" *ngIf="(donePoints$ | async) as donePoints">
+            <span class="pogress-bar__num">{{getDonePercent(donePoints, points)}}%</span>
+            <p-progressBar [value]="getDonePercent(donePoints, points)" [showValue]="false">
             </p-progressBar>
           </div>
-          <div *ngFor="let point of points$ | async">
+          <div *ngFor="let point of points">
             <app-point [task]="task" [boardId]="task.boardId" [point]="point"></app-point>
           </div>
+          <div class="task-item__message" *ngIf="!points.length">Not created points for this task</div>
         </div>
-        <div class="item__empty" *ngIf="!(points$ | async)?.length">Not created points for this task</div>
-
-
-        <form class="edit-form" [formGroup]="createPointForm" name="form" (ngSubmit)="addPoint(task)"
+        <form class="point-form" [formGroup]="createPointForm" name="form" (ngSubmit)="addPoint(task)"
           *ngIf="isCreateMode">
-          <div class="efit-form__field">
+          <div class="point-form__field">
             <mat-form-field>
-              <input class="efit-form__input" formControlName="title" matInput>
-              <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
-                <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+              <input class="point-form__input" formControlName="point" matInput>
+              <mat-error *ngIf="point.invalid">
+                <div *ngIf="point.errors?.['required']">Point name is required</div>
+                <div *ngIf="point.errors?.['maxlength']">Max length must be 30</div>
               </mat-error>
             </mat-form-field>
           </div>
-          <div class="edit-form__btns">
-            <button class="btn" [disabled]="!createPointForm.valid" type="submit">
-              <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
+          <div class="point-form__btns">
+            <button class="btn btn_primary" [disabled]="!createPointForm.valid" type="submit">
+              Create
             </button>
-            <button class="btn" (click)="this.isCreateMode = false">
-              <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
+            <button class="btn btn_light" (click)="this.isCreateMode = false">
+              Cancel
             </button>
           </div>
         </form>
-        <button class="btn btn_add btn_point" (click)="this.isCreateMode = !this.isCreateMode">Add new point</button>
+        <button class="btn btn_light" (click)="this.isCreateMode = true" *ngIf="!isCreateMode">Add new point</button>
       </div>
     </div>
 

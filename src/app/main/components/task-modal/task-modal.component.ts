@@ -10,8 +10,9 @@ import { IUser } from 'src/app/core/models/user.model';
 import { select, Store } from '@ngrx/store';
 import { getUsers } from 'src/app/core/store/selectors/user.selectors';
 import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
-import { getAllBoards, selectEntity } from 'src/app/core/store/selectors/boards.selectors';
 import { ApiService } from 'src/app/core/services/api/api.service';
+import { TaskState, taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
+import { selectEntity } from 'src/app/core/store/selectors/tasks.selectors';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -28,9 +29,7 @@ export class TaskModalComponent implements OnInit {
 
   public task!: ITask;
 
-  /* public board: IBoard | null = null; */
-
-  /* public board$: Observable<IBoard | null>; */
+  public task$: Observable<ITask | undefined>;
 
   public isEditTitleMode: boolean = false;
 
@@ -43,8 +42,6 @@ export class TaskModalComponent implements OnInit {
   public editDescrForm!: FormGroup;
 
   public createPointForm!: FormGroup;
-
-  /* public users$: Observable<IUser[] | null> = this.store.select(getUsers); */
 
   public selectedUsers$: Observable<IUser[]> = this.boardsService.selectedUsers$;
 
@@ -63,12 +60,18 @@ export class TaskModalComponent implements OnInit {
     private store: Store,
     private boardStore: Store<BoardState>,
     private apiService: ApiService,
+    private taskStore: Store<TaskState>,
   ) {
     if (data) {
       this.task = this.data.task;
       this.points$ = this.data.points$;
       this.donePoints$ = this.data.donePoints$;
     }
+    this.task$ = this.taskStore.pipe(
+      select(taskStateSelector),
+      select(selectEntity(this.task._id)),
+      map((task) => task),
+    );
   }
 
   ngOnInit(): void {
@@ -82,36 +85,57 @@ export class TaskModalComponent implements OnInit {
     this.editTitleForm = new FormGroup({
       title: new FormControl(this.task.title, [
         Validators.required,
+        Validators.maxLength(30),
       ]),
     });
     this.editDescrForm = new FormGroup({
       description: new FormControl(this.task.description, [
+        Validators.required,
         Validators.maxLength(320),
       ]),
     });
     this.createPointForm = new FormGroup({
-      title: new FormControl('', [
+      point: new FormControl('', [
         Validators.required,
+        Validators.maxLength(30),
       ]),
     });
   }
 
-  get f() {
-    return this.editTitleForm.controls;
+  get title() {
+    return this.editTitleForm.controls['title'];
+  }
+
+  get description() {
+    return this.editDescrForm.controls['description'];
+  }
+
+  get point() {
+    return this.createPointForm.controls['point'];
+  }
+
+  getDonePercent(donePoints: IPoint[], points: IPoint[]) {
+    return Math.floor((donePoints.length * 100) / points.length) || 0;
   }
 
   editTaskTitle(task: ITask) {
-    this.taskService.editTask({
-      ...task,
-      ...this.editDescrForm.value,
-    });
+    if (task.title !== this.editTitleForm.value.title) {
+      this.taskService.editTask({
+        ...task,
+        ...this.editTitleForm.value,
+      });
+      this.isEditTitleMode = false;
+    }
   }
 
   editTaskDescr(task: ITask) {
-    this.taskService.editTask({
-      ...task,
-      ...this.editTitleForm.value,
-    });
+    if (task.description !== this.editDescrForm.value.description) {
+      this.taskService.editTask({
+        ...task,
+        ...this.editDescrForm.value,
+      });
+      this.isEditDescrMode = false;
+    }
   }
 
   addUserForTask(task: ITask) {
@@ -127,14 +151,14 @@ export class TaskModalComponent implements OnInit {
 
   addPoint(task: ITask) {
     const point = {
-      title: this.createPointForm.value.title,
+      title: this.createPointForm.value.point,
       taskId: task._id,
       boardId: task.boardId,
       done: false,
     };
     this.pointsService.addPoint(point);
     this.isCreateMode = false;
-    this.createPointForm.controls['title'].setValue((''));
+    this.createPointForm.controls['point'].setValue((''));
   }
 
   closeTaskModal(): void {

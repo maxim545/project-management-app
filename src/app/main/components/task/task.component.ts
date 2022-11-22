@@ -16,6 +16,7 @@ import { PointState } from 'src/app/core/store/reducers/points.reducers';
 import { getAllPoints } from 'src/app/core/store/selectors/points.selectors';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
+
 import { selectEntity } from 'src/app/core/store/selectors/boards.selectors';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
