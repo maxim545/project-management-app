@@ -70,7 +70,7 @@
     "title": "title",
     "titleReq": "title is required",
     "titleLength": "title must be at least 6 characters",
-    "titleLengthMax": "title must be at least 18 characters",
+    "titleLengthMax": "title must be no more than 18 characters",
     "Accept": "Accept",
     "Cancel": "Cancel",
     "Create": "Create",
@@ -86,7 +86,7 @@
     "description": "description",
     "descriptionReq": "description is required",
     "descriptionLength": "description must be at least 6 characters",
-    "descriptionLengthMax": "description must be at least 18 characters"
+    "descriptionLengthMax": "description must be no more than 18 characters"
 
 
   },
