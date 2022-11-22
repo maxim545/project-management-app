@@ -80,7 +80,7 @@ export class BoardHeaderComponent implements OnInit {
   openColumnCreater(board: IBoard, columnsQuantity: number) {
     this.dialog.open(ColumnModalComponent, {
       data: {
-        dialogTitle: 'Create new column',
+        dialogTitle: 'headerBord.createCol',
         boardId: board._id,
         columnsQuantity,
       },
@@ -90,7 +90,7 @@ export class BoardHeaderComponent implements OnInit {
   openBoardEditor(board: IBoard) {
     this.dialog.open(BoardModalComponent, {
       data: {
-        dialogTitle: 'Edit new board',
+        dialogTitle: 'headerBord.EditDord',
         board,
       },
     });

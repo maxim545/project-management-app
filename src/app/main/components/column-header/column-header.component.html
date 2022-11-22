@@ -1,14 +1,14 @@
 <div class="column__header" *ngIf="column">
   <div class="column__title-block" *ngIf="!isEditMode">
-    <h2 class="column__title" (click)="this.isEditMode = true">{{column.title}}</h2>
+    <h2 class="column__title" (click)="this.isEditMode = true">{{column.title | translate}}</h2>
     <!--  <span class="column__quantity">{{column.tasks?.length}}</span> -->
   </div>
   <mat-select class="column__edit_menu edit_menu" *ngIf="!isEditMode">
     <mat-option class="edit_menu__item" (click)="this.isEditMode = true">
-      <mat-icon>edit</mat-icon>Rename
+      <mat-icon>edit</mat-icon>{{'columHeader.Rename' | translate}}
     </mat-option>
     <mat-option class="edit_menu__item" (click)="deleteColumn(column)">
-      <mat-icon>delete</mat-icon> Delete
+      <mat-icon>delete</mat-icon> {{'columHeader.Delete' | translate}}
     </mat-option>
   </mat-select>
   <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
@@ -16,7 +16,7 @@
       <mat-form-field>
         <input class="efit-form__input" formControlName="title" matInput>
         <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
-          <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+          <div *ngIf="f['title'].errors?.['required']">{{'Bord.titleReq' | translate}}</div>
         </mat-error>
       </mat-form-field>
     </div>
