@@ -20,7 +20,7 @@ export class BoardModalComponent implements OnInit {
 
   public userId = parseJwt(localStorage.getItem('uniq_token') as string);
 
-  public dialogTitle: string = 'Create new board';
+  public dialogTitle: string = 'Bord.form__title';
 
   public board: IBoard | null = null;
 

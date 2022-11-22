@@ -7,7 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
-import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
@@ -22,19 +26,27 @@ export class TasksComponent implements OnInit {
 
   @Input() public task!: ITask;
 
+  edit!: string;
+
   constructor(
     private store: Store,
     private router: ActivatedRoute,
     public dialog: MatDialog,
     private tasksService: TasksService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
+    const locLang: string | null = localStorage.getItem('uniq_lang');
+    if (locLang) {
+      this.edit = locLang === 'ru' ? 'Редактировать' : 'Edit';
+    } else {
+      this.edit = 'Edit';
+    }
   }
 
   deleteTask(task: ITask) {
-    this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
+    this.dialog
+      .open(ConfirmModalComponent, deleteTaskDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
@@ -46,7 +58,8 @@ export class TasksComponent implements OnInit {
   openTaskEditor(task: ITask): void {
     this.dialog.open(TaskModalComponent, {
       data: {
-        dialogTitle: `Edit ${task.title}`,
+        // dialogTitle: `headerBord.Edit ${task.title}`,
+        dialogTitle: `${this.edit} ${task.title}`,
         task,
         column: this.column,
       },

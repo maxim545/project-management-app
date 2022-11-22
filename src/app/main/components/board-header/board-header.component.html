@@ -1,11 +1,11 @@
 <div class="header-board" *ngIf="(board$ | async) as board">
   <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
-    <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+    <mat-icon class="icon icon_back">chevron_left</mat-icon>{{'headerBord.back' | translate}}
   </button>
   <h1 class="header-board__title">{{board.title}}</h1>
   <div class="header-board__right" *ngIf="columns">
     <div class="header-board__users">
-      <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="Select a User"
+      <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="{{'headerBord.select' | translate}}"
         optionLabel="login" display="chip"></p-multiSelect>
       <button class="btn header-board__btn header-board__btn_right" (click)="addUsers(board)">
         <mat-icon class="icon icon_edit">person_add</mat-icon>

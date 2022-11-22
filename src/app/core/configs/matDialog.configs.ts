@@ -4,55 +4,55 @@ import {
 
 export const dialogProfileConfig = new MatDialogConfig();
 dialogProfileConfig.data = {
-  dialogTitle: 'Are you sure want to delete your profile?',
+  dialogTitle: 'Bord.sureDelProfile',
   buttonText: {
-    confirm: 'Yes',
-    cancel: 'No',
+    confirm: 'Bord.Yes',
+    cancel: 'Bord.No',
   },
 };
 
 export const deleteBoardDialogConfig = new MatDialogConfig();
 deleteBoardDialogConfig.data = {
-  dialogTitle: 're you sure want to delete?',
+  dialogTitle: 'Bord.sureDel',
   buttonText: {
-    confirm: 'Delete',
-    cancel: 'No',
+    confirm: 'Bord.Delete',
+    cancel: 'Bord.No',
   },
 };
 
 export const createBoardDialogConfig = new MatDialogConfig();
 createBoardDialogConfig.data = {
-  dialogTitle: 'Create new board',
+  dialogTitle: 'Bord.form__title',
   buttonText: {
-    confirm: 'Create',
-    cancel: 'Close',
+    confirm: 'Bord.Create',
+    cancel: 'Bord.Close',
   },
 };
 
 export const createColumnDialogConfig = new MatDialogConfig();
 createColumnDialogConfig.data = {
-  dialogTitle: 'Create new column',
+  dialogTitle: 'Bord.CreateСolumn',
   buttonText: {
-    confirm: 'Create',
-    cancel: 'Close',
+    confirm: 'Bord.Create',
+    cancel: 'Bord.Close',
   },
 };
 
 export const deleteColumnDialogConfig = new MatDialogConfig();
 deleteColumnDialogConfig.data = {
-  dialogTitle: 'Are you sure want to delete column?',
+  dialogTitle: 'Bord.sureDelColum',
   buttonText: {
-    confirm: 'Delete',
-    cancel: 'No',
+    confirm: 'Bord.Delete',
+    cancel: 'Bord.No',
   },
 };
 
 export const deleteTaskDialogConfig = new MatDialogConfig();
 deleteTaskDialogConfig.data = {
-  dialogTitle: 'Are you sure want to delete this task?',
+  dialogTitle: 'Bord.sureDelTask',
   buttonText: {
-    confirm: 'Delete',
-    cancel: 'No',
+    confirm: 'Bord.Delete',
+    cancel: 'Bord.No',
   },
 };
 

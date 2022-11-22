@@ -74,7 +74,7 @@ export class ColumnsComponent implements OnInit, OnDestroy {
   openTaskCreater(column: IColumn) {
     this.dialog.open(TaskModalComponent, {
       data: {
-        dialogTitle: 'Create new task',
+        dialogTitle: 'columHeader.createNewTask',
         boardId: this.board?._id,
         column,
       },

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="form__container">
-      <h1 class="form__title">Log in</h1>
+      <h1 class="form__title">{{'login.title' | translate}}</h1>
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form__login">
         <div class="form__item">
           <input
@@ -16,7 +16,7 @@
                 (f['login'].dirty || f['login'].touched) && f['login'].errors
             }"
           />
-          <label>Login <span>*</span></label>
+          <label>{{'login.login' | translate}} <span>*</span></label>
           <div
             *ngIf="
               (f['login'].dirty || f['login'].touched) && f['login'].errors
@@ -24,10 +24,10 @@
             class="invalid-feedback"
           >
             <span *ngIf="f['login'].errors['required']" class="red-message"
-              >Login is required</span
+              >{{'login.loginReq' | translate}}</span
             >
             <span *ngIf="f['login'].errors['minlength']" class="red-message"
-              >Name must be at least 6 characters</span
+              >{{'login.loginLength' | translate}}</span
             >
           </div>
         </div>
@@ -47,7 +47,7 @@
                 f['password'].errors
             }"
           />
-          <label>Password <span>*</span></label>
+          <label>{{'login.password' | translate}} <span>*</span></label>
           <div
             *ngIf="
               (f['password'].dirty || f['password'].touched) &&
@@ -56,13 +56,13 @@
             class="invalid-feedback"
           >
             <div *ngIf="f['password'].errors['required']" class="red-message">
-              Password is required
+              {{'login.passwordReq' | translate}}
             </div>
             <span *ngIf="f['password'].errors['minlength']" class="red-message"
-              >Password must be at least 6 characters</span
+              >{{'login.passwordLength' | translate}}</span
             >
             <span *ngIf="f['password'].errors['maxlength']" class="red-message"
-              >Password must be at least 18 characters</span
+              >{{'login.passwordLengthMax' | translate}}</span
             >
           </div>
         </div>
@@ -71,12 +71,12 @@
           class="btn-submit"
           [disabled]="!loginForm.valid || (isLoadingUser$ | async) !== false"
         >
-          Log in
+        {{'login.loginBtn' | translate}}
         </button>
       </form>
       <div class="form__signup">
-        <p class="form__signup-question">Don`t have an account?</p>
-        <a routerLink="/auth/signup" class="form__signup-link">Sign up</a>
+        <p class="form__signup-question">{{'login.question' | translate}}</p>
+        <a routerLink="/auth/signup" class="form__signup-link">{{'SignUp.title' | translate}}</a>
       </div>
     </div>
   </div>
