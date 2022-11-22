@@ -8,7 +8,7 @@ import {
   IUser, IUserLogin, IUserRequest, IUserToken,
 } from '../../models/user.model';
 import {
-  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, IPoint, IPointEditRequest, IPointCreateRequest, ITask, ITaskPutRequest, ITaskRequest, ITaskSet,
+  IBoard, IBoardRequest, IColumn, IColumnRequest, IColumnResponse, IColumnSet, IPoint, IPointEditRequest, IPointCreateRequest, ITask, ITaskPutRequest, ITaskRequest, ITaskSet, IFile, IFileRequest,
 } from '../../models/board.model';
 
 @Injectable({
@@ -145,5 +145,18 @@ export class ApiService {
 
   deletePoint(pointId: string): Observable<IPoint> {
     return this.http.delete<IPoint>(`points/${pointId}`);
+  }
+
+  /* ********  FILES ******** */
+  getFilesByBoardId(boardId: string): Observable<IFile[]> {
+    return this.http.get<IFile[]>(`file/${boardId}`);
+  }
+
+  uploadFile(point: FormData): Observable<IFile> {
+    return this.http.post<IFile>('file', point);
+  }
+
+  deleteFile(fileId: string): Observable<IFile> {
+    return this.http.delete<IFile>(`file/${fileId}`);
   }
 }

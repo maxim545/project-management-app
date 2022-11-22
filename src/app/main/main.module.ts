@@ -16,6 +16,7 @@ import { ToastModule } from 'primeng/toast';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ProgressBarModule } from 'primeng/progressbar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { MainRoutingModule } from './main-routing.module';
 import { MainComponent } from './pages/main/main.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
@@ -59,6 +60,7 @@ import { TaskModalComponent } from './components/task-modal/task-modal.component
     MatExpansionModule,
     MatCheckboxModule,
     ProgressBarModule,
+    OverlayPanelModule,
   ],
 })
 export class MainModule { }

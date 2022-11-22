@@ -76,11 +76,6 @@ export interface ITaskPutRequest {
   users: string[]
 }
 
-interface IFiles {
-  filename: string,
-  fileSize: number
-}
-
 /* ----------POINT---------- */
 
 export interface IPoint {
@@ -101,4 +96,20 @@ export interface IPointCreateRequest {
 export interface IPointEditRequest {
   title: string,
   done: boolean
+}
+
+/* ----------FILES---------- */
+
+export interface IFile {
+  _id: string,
+  name: string,
+  taskId: string,
+  boardId: string,
+  path: string
+}
+
+export interface IFileRequest {
+  taskId: string,
+  boardId: string,
+  file: FormData,
 }

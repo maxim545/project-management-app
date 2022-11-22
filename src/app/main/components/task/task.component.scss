@@ -23,10 +23,21 @@
     letter-spacing: 1px
   }
 
-  &__points {
+  &__footer {
     display: flex;
     align-items: center;
     gap: 0 8px;
+
+  }
+
+  &__points {
+    font-size: 13px;
+    color: #8f8f8f;
+  }
+
+  &__points-icon {
+    transform: scale(0.8);
+    color: #6e5fd3e6;
   }
 
   &__btn_add {
@@ -56,7 +67,7 @@
   }
 
   &__item:hover {
-    background-color: rgba(110, 95, 211, 0.902);
+    background-color: #6e5fd3e6;
     color: #fff;
   }
 }

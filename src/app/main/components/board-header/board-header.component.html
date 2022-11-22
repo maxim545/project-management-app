@@ -1,16 +1,26 @@
 <div class="header-board" *ngIf="(board$ | async) as board">
-  <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
-    <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
-  </button>
-  <h1 class="header-board__title">{{board.title}}</h1>
-  <div class="header-board__right" *ngIf="columns">
-    <div class="header-board__users">
-      <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="Select a User"
-        optionLabel="login" display="chip"></p-multiSelect>
-      <button class="btn header-board__btn header-board__btn_right" (click)="addUsers(board)">
-        <mat-icon class="icon icon_edit">person_add</mat-icon>
+  <div class="header-board__btns">
+    <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
+      <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+    </button>
+    <button class="btn header-board__btn header-board__btn_right" (click)="op.toggle($event)">
+      <mat-icon class="icon icon_edit">person_add</mat-icon>
+    </button>
+  </div>
+  <p-overlayPanel #op [showCloseIcon]="true" [showCloseIcon]="false" [dismissable]="false">
+    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="Select a User"
+      optionLabel="login" display="chip"></p-multiSelect>
+    <div class="overlay-panel__btns">
+      <button class="btn btn_primary overlay-panel__btn" (click)="addUsers(board)">
+        <mat-icon class="overlay-panel__icon">person_add</mat-icon>Add user
+      </button>
+      <button class="btn btn_light overlay-panel__btn" (click)=" op.hide()">
+        <mat-icon class="overlay-panel__icon">close</mat-icon>Close
       </button>
     </div>
+  </p-overlayPanel>
+  <h1 class="header-board__title">{{board.title}}</h1>
+  <div class="header-board__btns" *ngIf="columns">
     <button class="btn header-board__btn header-board__btn_right" (click)="openBoardEditor(board)">
       <mat-icon class="icon icon_edit">edit</mat-icon>
     </button>

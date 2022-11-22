@@ -104,16 +104,57 @@ app-footer {
   height: 100%
 }
 
-.btn {
-  background: none;
-	padding: 0;
-  cursor: pointer;
-  border: none;
-}
+
 
 .mat-form-field.mat-focused .mat-form-field-ripple {
   background-color: #6C5DD3;
 }
+
+.btn {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: none;
+	padding: 0;
+  cursor: pointer;
+  border: none;
+  transition: all 0.7s;
+
+  &_primary {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 7px;
+    padding: 8px 15px;
+    border: 1px solid #dfdfdf;
+    background-color: #6C5DD3;
+    color: #fff;
+    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+  }
+
+  &_primary:hover {
+    background-color: #fff;
+    color: #6C5DD3;
+    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  }
+
+  &_light {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 7px;
+    border: 1px solid #dfdfdf;
+    background-color: #fff;
+    color: #6C5DD3;
+    padding: 8px 15px;
+    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+  }
+
+  &_light:hover {
+    background-color: #6C5DD3;
+    color: #fff;
+    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  }
+}
+
 
 
 .header-board {
@@ -164,6 +205,39 @@ app-footer {
     box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
   }
 }
+
+
+
+/* OVERLAY-PANEL */
+.overlay-panel {
+  &__btns {
+    display: flex;
+    justify-content: space-between;
+    max-width: 250px;
+    margin-top: 15px;
+  }
+
+  &__btn {
+    min-width: 185px;
+    padding: 4px 15px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    min-width: 45%;
+    padding: 5px 15px;
+
+  }
+
+  &__icon {
+    margin-right: 5px;
+    transform: scale(0.8)
+  }
+}
+
+
+
+
 
 
 @media (max-width: 640px) {

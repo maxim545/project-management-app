@@ -11,6 +11,7 @@ import { select, Store } from '@ngrx/store';
 import { getUsers } from 'src/app/core/store/selectors/user.selectors';
 import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 import { getAllBoards, selectEntity } from 'src/app/core/store/selectors/boards.selectors';
+import { ApiService } from 'src/app/core/services/api/api.service';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -49,6 +50,8 @@ export class TaskModalComponent implements OnInit {
 
   public selectedTaskUsers!: IUser[];
 
+  public users!: IUser[];
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: ITaskDialogData,
@@ -59,26 +62,20 @@ export class TaskModalComponent implements OnInit {
     private pointsService: PointsService,
     private store: Store,
     private boardStore: Store<BoardState>,
+    private apiService: ApiService,
   ) {
     if (data) {
       this.task = this.data.task;
       this.points$ = this.data.points$;
       this.donePoints$ = this.data.donePoints$;
-      /*  this.board = this.data.board; */
     }
-    /* this.board$ = this.boardStore.pipe(
-      select(getAllBoards),
-      map((boards) => boards.find((board) => board._id === this.board!._id) || null),
-    );
-    this.users$ = this.users$.pipe(
-      map((users) => users?.filter((user) => this.board?.users.includes(user._id)) || null),
-    ); */
   }
 
   ngOnInit(): void {
     this.selectedUsers$ = this.selectedUsers$.pipe(
       map((users) => {
-        this.selectedTaskUsers = users.filter((user) => this.task.users.includes(user._id)) || null;
+        this.users = users.filter((user) => this.task.users.includes(user._id)) || null;
+        this.selectedTaskUsers = [...this.users];
         return users;
       }),
     );
@@ -118,11 +115,14 @@ export class TaskModalComponent implements OnInit {
   }
 
   addUserForTask(task: ITask) {
-    const currentUserIds = this.selectedTaskUsers?.map((user) => user._id);
-    this.taskService.editTask({
-      ...task,
-      users: currentUserIds,
-    });
+    const currentUserIds = this.users?.map((user) => user._id);
+    if (this.selectedTaskUsers.length !== this.users.length) {
+      this.selectedTaskUsers = [...this.users];
+      this.taskService.editTask({
+        ...task,
+        users: currentUserIds,
+      });
+    }
   }
 
   addPoint(task: ITask) {
@@ -139,5 +139,19 @@ export class TaskModalComponent implements OnInit {
 
   closeTaskModal(): void {
     this.dialog.closeAll();
+  }
+
+  fileChange(files: FileList) {
+    const fileToUpload = files[0];
+    if (fileToUpload) {
+      const formData: FormData = new FormData();
+      formData.append('boardId', this.task.boardId);
+      formData.append('taskId', this.task._id);
+      formData.append('file', fileToUpload, fileToUpload.name);
+      console.log(formData);
+      this.apiService.uploadFile(formData).subscribe((data) => {
+        console.log(data);
+      });
+    }
   }
 }
