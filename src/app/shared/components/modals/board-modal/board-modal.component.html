@@ -1,18 +1,40 @@
 <div class="form">
   <div class="form__container">
-    <h1 class="form__title">{{dialogTitle}}</h1>
+    <h1 class="form__title">{{ dialogTitle | translate }}</h1>
     <form [formGroup]="boardForm" (ngSubmit)="onSubmit()">
       <div class="form__item">
-        <label>title</label>
-        <input type="text" formControlName="title" class=""
-          [ngClass]="{'is-invalid': (f['title'].dirty || f['title'].touched) && f['title'].errors }" />
-        <div *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors" class="invalid-feedback">
-          <span *ngIf="f['title'].errors['required']">title is required</span>
-          <span *ngIf="f['title'].errors['minlength']">title must be at least 6 characters</span>
-          <span *ngIf="f['title'].errors['maxlength']">title must be at least 18 characters</span>
+        <label>{{"Bord.title" | translate }}</label>
+        <input
+          type="text"
+          formControlName="title"
+          [ngStyle]="{'color': 'black'}"
+          class=""
+          [ngClass]="{
+            'is-invalid':
+              (f['title'].dirty || f['title'].touched) && f['title'].errors
+          }"
+        />
+        <div
+          *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors"
+          class="invalid-feedback"
+        >
+          <span *ngIf="f['title'].errors['required']">{{"Bord.titleReq" | translate }}</span>
+          <span *ngIf="f['title'].errors['minlength']"
+            >{{"Bord.titleLength" | translate }}</span
+          >
+          <span *ngIf="f['title'].errors['maxlength']"
+            >{{"Bord.titleLengthMax" | translate }}</span
+          >
         </div>
       </div>
-      <!--  <div class="form__item">
+      <div class="">
+        <button class="" [disabled]="!boardForm.valid">{{"Bord.Accept" | translate }}</button>
+        <button type="button" (click)="closeDiadlog()">{{"Bord.Cancel" | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>
+<!--  <div class="form__item">
         <label>description</label>
         <input type="text" formControlName="description" class=""
           [ngClass]="{'is-invalid': (f['description'].dirty || f['description'].touched) && f['description'].errors }" />
@@ -23,10 +45,3 @@
           <span *ngIf="f['description'].errors['maxlength']">description must be at least 18 characters</span>
         </div>
       </div> -->
-      <div class="">
-        <button class="" [disabled]="!boardForm.valid">Accept</button>
-        <button type="button" (click)="closeDiadlog()">Cancel</button>
-      </div>
-    </form>
-  </div>
-</div>

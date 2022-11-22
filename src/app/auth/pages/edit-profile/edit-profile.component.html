@@ -1,7 +1,7 @@
 <div class="container">
   <div class="form">
     <div class="form__container">
-      <h1 class="form__title">Edit profile</h1>
+      <h1 class="form__title">{{"Edit.title" | translate}}</h1>
       <form
         [formGroup]="editProfileForm"
         (ngSubmit)="updateProfile()"
@@ -20,14 +20,14 @@
                 (f['name'].dirty || f['name'].touched) && f['name'].errors
             }"
           />
-          <label>Name <span>*</span></label>
+          <label>{{"SignUp.name" | translate}} <span>*</span></label>
           <div
             *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors"
             class="invalid-feedback"
           >
-            <span *ngIf="f['name'].errors['required']">Name is required</span>
+            <span *ngIf="f['name'].errors['required']">{{"SignUp.nameReq" | translate}}</span>
             <span *ngIf="f['name'].errors['minlength']"
-              >Name must be at least 6 characters</span
+              >{{"SignUp.nameLength" | translate}}</span
             >
           </div>
         </div>
@@ -45,16 +45,16 @@
                 (f['login'].dirty || f['login'].touched) && f['login'].errors
             }"
           />
-          <label>Login <span>*</span></label>
+          <label>{{"login.login" | translate}} <span>*</span></label>
           <div
             *ngIf="
               (f['login'].dirty || f['login'].touched) && f['login'].errors
             "
             class="invalid-feedback"
           >
-            <span *ngIf="f['login'].errors['required']">Login is required</span>
+            <span *ngIf="f['login'].errors['required']">{{"login.loginReq" | translate}}</span>
             <span *ngIf="f['login'].errors['minlength']"
-              >Name must be at least 6 characters</span
+              >{{"login.loginLength" | translate}}</span
             >
           </div>
         </div>
@@ -74,7 +74,7 @@
                 f['password'].errors
             }"
           />
-          <label>New password <span>*</span></label>
+          <label>{{"login.NewPassword" | translate}} <span>*</span></label>
           <div
             *ngIf="
               (f['password'].dirty || f['password'].touched) &&
@@ -83,13 +83,13 @@
             class="invalid-feedback"
           >
             <div *ngIf="f['password'].errors['required']">
-              Password is required
+              {{"login.passwordReq" | translate}}
             </div>
             <span *ngIf="f['password'].errors['minlength']"
-              >Password must be at least 6 characters</span
+              >{{"login.passwordLength" | translate}}</span
             >
             <span *ngIf="f['password'].errors['maxlength']"
-              >Password must be at least 18 characters</span
+              >{{"login.passwordLengthMax" | translate}}</span
             >
           </div>
         </div>
@@ -109,7 +109,7 @@
                 f['confirmPassword'].errors
             }"
           />
-          <label>Confirm new password <span>*</span></label>
+          <label>{{"login.newPasswordConf" | translate}} <span>*</span></label>
           <div
             *ngIf="
               (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
@@ -118,20 +118,20 @@
             class="invalid-feedback"
           >
             <span *ngIf="f['confirmPassword'].errors['required']"
-              >Confirm Password is required</span
+              >{{"login.passwordConfReq" | translate}}</span
             >
             <span *ngIf="f['confirmPassword'].errors['passIsMatch']"
-              >Passwords must match</span
+              >{{"login.passwordConMatch" | translate}}</span
             >
           </div>
         </div>
 
         <button class="btn-submit" [disabled]="!editProfileForm.valid">
-          Update profile
+          {{"Edit.upProfile" | translate}}
         </button>
       </form>
       <button (click)="deleteProfile()" class="btn-delete">
-        Delete Profile
+        {{"Edit.delProfile" | translate}}
       </button>
     </div>
   </div>

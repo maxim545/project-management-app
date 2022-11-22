@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
@@ -41,6 +42,7 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
     MatIconModule,
     MatSelectModule,
     MultiSelectModule,
+    TranslateModule,
   ],
 })
 export class MainModule { }
