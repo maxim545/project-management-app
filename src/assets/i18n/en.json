@@ -61,7 +61,7 @@
     }
   },
   "header": {
-    "createBtn": "+ Create todo",
+    "createBtn": "+ Create board",
     "profile": "Profile",
     "logOut": "Log out"
   },
