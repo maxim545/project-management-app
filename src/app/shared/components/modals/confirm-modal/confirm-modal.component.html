@@ -1,7 +1,22 @@
-<div mat-dialog-content>
-  <p>{{dialogTitle | translate}}</p>
-</div>
-<div mat-dialog-actions align="center">
-  <button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText | translate}}</button>
-  <button mat-raised-button mat-dialog-close (click)="onConfirmClick1()" tabindex="-1">{{cancelButtonText | translate}}</button>
+<div class="confirm__container">
+  <div class="confirm__question">
+    <p>{{ dialogTitle | translate }}</p>
+  </div>
+  <div class="confirm__buttons">
+    <button
+      color="primary"
+      (click)="onConfirmClick()"
+      tabindex="1"
+      class="confirm__button confirm__button-accept"
+    >
+      {{ confirmButtonText | translate }}
+    </button>
+    <button
+      (click)="onConfirmClick1()"
+      tabindex="-1"
+      class="confirm__button confirm__button-cancel"
+    >
+      {{ cancelButtonText | translate }}
+    </button>
+  </div>
 </div>

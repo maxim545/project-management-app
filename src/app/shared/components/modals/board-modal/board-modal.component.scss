@@ -1,6 +1,7 @@
 .form {
   width: 252px;
   color: #fff;
+  font-size: 1rem;
 
   &__container {
     width: 100%;
@@ -99,6 +100,7 @@
 
     &:hover {
       background-color: #ba74ca;
+      text-shadow: 1px 1px 3px #9356a0;
     }
 
     &[disabled] {
