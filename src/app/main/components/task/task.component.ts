@@ -112,6 +112,7 @@ export class TasksComponent implements OnInit {
       maxHeight: '100vh',
       disableClose: false,
       hasBackdrop: true,
+      panelClass: 'task-dialog',
     });
   }
 

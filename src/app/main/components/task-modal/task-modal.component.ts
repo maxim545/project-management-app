@@ -1,4 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import {
+  Component, Inject, OnInit, ViewEncapsulation,
+} from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map } from 'rxjs';
 import { IBoard, IPoint, ITask } from 'src/app/core/models/board.model';
@@ -168,7 +170,7 @@ export class TaskModalComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  fileChange(files: FileList) {
+  /* fileChange(files: FileList) {
     const fileToUpload = files[0];
     if (fileToUpload) {
       const formData: FormData = new FormData();
@@ -180,5 +182,5 @@ export class TaskModalComponent implements OnInit {
         console.log(data);
       });
     }
-  }
+  } */
 }

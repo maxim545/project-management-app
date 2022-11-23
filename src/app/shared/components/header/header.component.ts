@@ -56,7 +56,7 @@ export class HeaderComponent implements OnInit {
 
   isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
-  public user$!: Observable<IUser | null>;
+  public user$: Observable<IUser | null> = this.store.select(getUserStore).pipe(map(({ user }) => user));
 
   constructor(
     private store: Store,
@@ -75,14 +75,12 @@ export class HeaderComponent implements OnInit {
     if (localStorage.getItem('uniq_token')) {
       this.store.dispatch(loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }));
     }
-    this.user$ = this.store.select(getUserStore).pipe(
-      skipWhile((flag) => !flag.isLoggedIn),
-      map(({ user }) => {
-        if (user) {
-          this.store.dispatch(loadBoards({ userId: user._id }));
-          return user;
+    this.isLoggedIn$ = this.isLoggedIn$.pipe(
+      map((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
         }
-        return null;
+        return isLoggedIn;
       }),
     );
   }

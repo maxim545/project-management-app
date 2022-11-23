@@ -1,4 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import {
+  Component, OnInit, Inject, ViewEncapsulation,
+} from '@angular/core';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
