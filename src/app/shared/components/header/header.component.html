@@ -7,18 +7,22 @@
       <div class="header__custom-menu">
         <div class="header__menu menu" *ngIf="(isLoggedIn$ | async) === false">
           <nav class="menu__nav">
-            <a routerLink="/auth/login" class="menu__link menu__link-login">Log in</a>
-            <a routerLink="/auth/signup" class="menu__link menu__link-signup">Sign up</a>
+            <a routerLink="/auth/login" class="menu__link menu__link-login">{{
+              "login.title" | translate
+              }}</a>
+            <a routerLink="/auth/signup" class="menu__link menu__link-signup">{{
+              "SignUp.title" | translate
+              }}</a>
           </nav>
         </div>
-        <div class="header__menu menu" *ngIf="(user$ | async)?.name">
+        <div class="header__menu menu" *ngIf="user$ | async">
           <nav class="menu__nav">
             <button (click)="openBoardCreater()" class="menu__link menu__link-create">
-              + Create todo
+              {{ "header.createBtn" | translate }}
             </button>
-            <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit">Profile</a>
+            <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit">{{ "header.profile" | translate }}</a>
             <button class="menu__link menu__link-logout" (click)="logout()">
-              Log out
+              {{ "header.logOut" | translate }}
             </button>
           </nav>
         </div>

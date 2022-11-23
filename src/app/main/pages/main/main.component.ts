@@ -44,7 +44,7 @@ export class MainComponent implements OnInit {
   editBoard(board: IBoard) {
     this.dialog.open(BoardModalComponent, {
       data: {
-        dialogTitle: 'Edit new board',
+        dialogTitle: 'headerBord.EditDord',
         board,
       },
     });

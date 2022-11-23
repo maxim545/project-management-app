@@ -1,7 +1,7 @@
 <div class="header-board" *ngIf="(board$ | async) as board">
   <div class="header-board__btns">
     <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
-      <mat-icon class="icon icon_back">chevron_left</mat-icon>Back to main
+      <mat-icon class="icon icon_back">chevron_left</mat-icon>{{'headerBord.back' | translate}}
     </button>
     <button class="btn header-board__btn header-board__btn_right" (click)="op.toggle($event)">
       <mat-icon class="icon icon_edit">person_add</mat-icon>

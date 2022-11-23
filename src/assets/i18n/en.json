@@ -1,6 +1,122 @@
 {
-  "user": {
+  "SignUp": {
+    "title": "Sign up",
+    "name": "Name",
+    "nameReq": "Name is required",
+    "nameLength": "Name must be at least 6 characters",
+    "signUpBtn": "Sign Up",
+    "question": "Already have an account?"
+  },
+  "login": {
+    "title": "Log in",
     "login": "Login",
-    "signUp": "Sign Up"
+    "password": "Password",
+    "NewPassword": "New password",
+    "passwordReq": "Password is required",
+    "passwordLength": "Password must be at least 6 characters",
+    "passwordLengthMax": "Password must be no more than 18 characters",
+    "passwordConf": "Confirm password",
+    "newPasswordConf": "Confirm new password",
+    "passwordConfReq": "Confirm password is required",
+    "passwordConMatch": "Passwords must match",
+    "loginBtn": "Log in",
+    "loginReq": "Login is required",
+    "loginLength": "Login must be at least 6 characters",
+    "question": "Don`t have an account?"
+  },
+  "welcome": {
+    "welcome": "Welcome",
+    "About": "About RS School",
+    "Our": "Our team",
+    "app": {
+      "title": "Get more down with",
+      "description": "Create, view, edit and manage tasks, break down your tasks to subtasks on the go, from any device.",
+      "btn": "Get down"
+    },
+    "school":{
+      "title": "What is RS School?",
+      "description": "RS School is free-of-charge and community-based education program conducted by The Rolling Scopes developer community since 2013. Everyone can study at RS School, regardless of age, professional employment, or place of residence. The mentors and trainers of school are front-end and javascript developers from different companies and countries.",
+      "subtitle": "RS School principles",
+      "fPrincipl-title": "Pay it forward",
+      "fPrincipl-description": "The RS School is working by the principle of 'Pay it forward'. Members of our community share their knowledge and check student's tasks for free. And we hope that our students will continue this work as our mentors in the future.",
+
+      "SPrincipl-title": "Open Source Philosophy",
+      "SPrincipl-description": "Everyone can study at RS School, regardless of age, professional employment, or place of residence. Our platform and education materials are publicly available on GitHub and YouTube.",
+      "btn": "Learn more"
+    },
+    "team": {
+      "title": "Our team",
+      "max": {
+        "name": "Maksim Karotkin",
+        "about": "I'm junior frontend developer and team leader NG Team. I worked with NgRx functional and created a user functional. Helped with the other questions."
+      },
+      "Ihar": {
+        "name": "Ihar Novikau",
+        "about": "A year ago, I didn't know about the existence of HTML and CSS, and now we have completed work on a project using the Angular framework. In this project, I was responsible for creating the page structure and localization of the application."
+      },
+      "vika": {
+        "name": "Viktoryia Novikava",
+        "about": "I like to improve my skills in front-end development and create beauty, so in our team I worked on the design of the application."
+      }
+    }
+  },
+  "header": {
+    "createBtn": "+ Create board",
+    "profile": "Profile",
+    "logOut": "Log out"
+  },
+  "Bord": {
+    "form__title": "Create new board",
+    "title": "title",
+    "titleReq": "title is required",
+    "titleLength": "title must be at least 6 characters",
+    "titleLengthMax": "title must be no more than 18 characters",
+    "Accept": "Accept",
+    "Cancel": "Cancel",
+    "Create": "Create",
+    "CreateСolumn": "Create new column",
+    "Yes": "Yes",
+    "No": "No",
+    "Delete": "Delete",
+    "sure": "Are you sure?",
+    "sureDel": "Are you sure want to delete board?",
+    "sureDelColum": "Are you sure want to delete column?",
+    "sureDelTask": "Are you sure want to delete this task?",
+    "sureDelProfile": "Are you sure want to delete your profile?",
+    "description": "description",
+    "descriptionReq": "description is required",
+    "descriptionLength": "description must be at least 6 characters",
+    "descriptionLengthMax": "description must be no more than 18 characters"
+
+
+  },
+  "Edit":{
+    "title": "Edit profile",
+    "upProfile": "Update profile",
+    "delProfile": "Delete Profile"
+  },
+  "headerBord": {
+    "createCol": "Create new column",
+    "EditDord": "Edit board",
+    "back": "Back to main",
+    "select":"Select a User",
+    "Edit": "Edit"
+  },
+  "columHeader": {
+    "Delete": "Delete",
+    "Rename": "Rename",
+    "notCreate":"Not created tasks for this board!",
+    "notCreateCol":"Not created columns for this board!",
+    "newTask": "+ New task",
+    "createNewTask": "Create new task"
+
+  },
+  "main": {
+    "title": "Boards",
+    "notCreatBord": "Not created boards!"
+  },
+  "error": {
+    "message": "Oops! Page not found :(",
+    "button": "Go back"
   }
 }
