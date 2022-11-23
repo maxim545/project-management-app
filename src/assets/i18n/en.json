@@ -116,7 +116,7 @@
     "notCreatBord": "Not created boards!"
   },
   "error": {
-    "title": "404",
-    "message": "Sorry, smth went wrong(("
+    "message": "Oops! Page not found :(",
+    "button": "Go back"
   }
 }

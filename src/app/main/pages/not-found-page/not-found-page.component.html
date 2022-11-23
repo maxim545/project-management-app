@@ -1,4 +1,15 @@
-<div class="not-found">
-  <h1 class="not-found__title">{{'error.title' | translate}}</h1>
-  <p class="not-found__text">{{'error.message' | translate}}</p>
+<div class="container">
+  <div class="not-found">
+    <div class="not-found__logo">
+      <img src="./assets/images/404.png" alt="not-found-logo" />
+    </div>
+    <div class="not-found__elements">
+      <p class="not-found__elements-text">
+        {{ "error.message" | translate | uppercase }}
+      </p>
+      <a routerLink="/main" class="not-found__elements-button">
+        {{ "error.button" | translate | uppercase }}
+      </a>
+    </div>
+  </div>
 </div>

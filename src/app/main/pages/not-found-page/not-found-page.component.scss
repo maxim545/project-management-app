@@ -1,27 +1,44 @@
 .not-found {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -60%);
-  text-align: center;
-  background: #fff;
-  padding: 50px 30px;
-  border-radius: 15px;
-  border: 5px solid #EFEFEF;
-  box-shadow: 3px 4px 5px 1px rgb(108, 93, 211, 0.2);
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  padding: 50px 20px;
+  color: #483948;
 
-  &__title {
-  color: #6C5DD3;
-  font-size: 72px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin-bottom: 30px;
+  &__logo {
+    width: 50%;
+    text-align: right;
+
+    img {
+      width: 70%;
+    }
   }
 
-  &__text {
-    color: #4e4e4e;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
+  &__elements {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+
+    &-text {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    &-button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background-color: #ec9d28;
+      color: #ffffff;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #fcc557;
+        text-shadow: 1px 1px 3px #ec9d28;
+      }
+    }
   }
 }
