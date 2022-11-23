@@ -8,8 +8,7 @@ export const getAllBoards = createSelector(
   selectAll,
 );
 
-/* export const selectEntity = (id: string) => createSelector(
+export const selectEntity = (id: string) => createSelector(
   selectEntities,
-  (entities) => prsnlsState.entities[id]
+  (entities) => entities[id],
 );
- */

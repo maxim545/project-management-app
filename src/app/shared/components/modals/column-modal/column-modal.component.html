@@ -1,20 +1,56 @@
 <div class="form">
   <div class="form__container">
-    <h1 class="form__title">{{dialogTitle}}</h1>
-    <form [formGroup]="columnForm" (ngSubmit)="onSubmit()">
+    <h1 class="form__title">
+      {{ dialogTitle | translate }}
+    </h1>
+    <form
+      [formGroup]="columnForm"
+      (ngSubmit)="onSubmit()"
+      class="form__create-column"
+    >
       <div class="form__item">
-        <label>title</label>
-        <input type="text" formControlName="title" class=""
-          [ngClass]="{'is-invalid': (f['title'].dirty || f['title'].touched) && f['title'].errors }" />
-        <div *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors" class="invalid-feedback">
-          <span *ngIf="f['title'].errors['required']">title is required</span>
-          <span *ngIf="f['title'].errors['minlength']">title must be at least 6 characters</span>
-          <span *ngIf="f['title'].errors['maxlength']">title must be at least 18 characters</span>
+        <input
+          type="text"
+          formControlName="title"
+          class=""
+          [ngClass]="{
+            'is-invalid':
+              (f['title'].dirty || f['title'].touched) && f['title'].errors,
+            'label-active': f['title'].value,
+            'red-border':
+              (f['title'].dirty || f['title'].touched) && f['title'].errors
+          }"
+        />
+        <label>{{ "Bord.title" | translate }} <span>*</span></label>
+        <div
+          *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors"
+          class="invalid-feedback"
+        >
+          <span *ngIf="f['title'].errors['required']" class="red-message">{{
+            "Bord.titleReq" | translate
+          }}</span>
+          <span *ngIf="f['title'].errors['minlength']" class="red-message">{{
+            "Bord.titleLength" | translate
+          }}</span>
+          <span *ngIf="f['title'].errors['maxlength']" class="red-message">{{
+            "Bord.titleLengthMax" | translate
+          }}</span>
         </div>
       </div>
-      <div class="">
-        <button class="" [disabled]="!columnForm.valid">Accept</button>
-        <button type="button" (click)="closeDiadlog()">Cancel</button>
+      <div class="form__buttons">
+        <button
+          class="form__button form__button-accept"
+          [disabled]="!columnForm.valid"
+        >
+          {{ "Bord.Accept" | translate }}
+        </button>
+        <button
+          type="button"
+          (click)="closeDiadlog()"
+          class="form__button form__button-cancel"
+        >
+          {{ "Bord.Cancel" | translate }}
+        </button>
       </div>
     </form>
   </div>

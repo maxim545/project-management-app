@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -31,6 +33,7 @@ import { TaskModalComponent } from './components/modals/task-modal/task-modal.co
     MatFormFieldModule,
     MatSelectModule,
     MatSlideToggleModule,
+    TranslateModule,
   ],
   exports: [
     HeaderComponent,

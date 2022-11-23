@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { authors } from 'src/app/core/data/authors';
 import { Author } from '../../../core/models/autor.model';
 
 @Component({
@@ -7,22 +8,7 @@ import { Author } from '../../../core/models/autor.model';
   styleUrls: ['./footer.component.scss'],
 })
 export class FooterComponent implements OnInit {
-  Maksim: Author = {
-    name: 'Maksim Karotkin',
-    gitHub: 'https://github.com/maxim545',
-  };
-
-  Ihar: Author = {
-    name: 'Ihar Novikau',
-    gitHub: 'https://github.com/IhorNovikow',
-  };
-
-  Viktoryia: Author = {
-    name: 'Viktoryia Novikava',
-    gitHub: 'https://github.com/vikuli',
-  };
-
-  team: Author[] = [this.Maksim, this.Ihar, this.Viktoryia];
+  team: Author[] = authors;
 
   constructor() {}
 

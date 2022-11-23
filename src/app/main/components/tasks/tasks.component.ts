@@ -7,7 +7,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
 import { TaskModalComponent } from 'src/app/shared/components/modals/task-modal/task-modal.component';
-import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  DragDropModule,
+} from '@angular/cdk/drag-drop';
 import { TasksService } from '../../services/tasks/tasks.service';
 
 @Component({
@@ -22,37 +26,42 @@ export class TasksComponent implements OnInit {
 
   @Input() public task!: ITask;
 
+  edit!: string;
+
   constructor(
     private store: Store,
     private router: ActivatedRoute,
     public dialog: MatDialog,
     private tasksService: TasksService,
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-
+    const locLang: string | null = localStorage.getItem('uniq_lang');
+    if (locLang) {
+      this.edit = locLang === 'ru' ? 'Редактировать' : 'Edit';
+    } else {
+      this.edit = 'Edit';
+    }
   }
 
-  deleteTask(taskId: string) {
-    this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
+  deleteTask(task: ITask) {
+    this.dialog
+      .open(ConfirmModalComponent, deleteTaskDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.tasksService.deleteTask(this.boardId, this.column.id, taskId);
+          this.tasksService.deleteTask(this.column, task);
         }
       });
   }
 
-  openTaskEditor(taskTitle: string, taskDescr: string, taskId: string, order: number): void {
+  openTaskEditor(task: ITask): void {
     this.dialog.open(TaskModalComponent, {
       data: {
-        dialogTitle: `Edit ${taskTitle}`,
-        boardId: this.boardId,
-        columnId: this.column.id,
-        taskTitle,
-        taskDescr,
-        taskId,
-        order,
+        // dialogTitle: `headerBord.Edit ${task.title}`,
+        dialogTitle: `${this.edit} ${task.title}`,
+        task,
+        column: this.column,
       },
     });
   }

@@ -10,11 +10,11 @@ import {
 import { ColumnsService } from '../../services/columns/columns.service';
 
 @Component({
-  selector: 'app-single-column',
-  templateUrl: './single-column.component.html',
-  styleUrls: ['./single-column.component.scss'],
+  selector: 'app-column-header',
+  templateUrl: './column-header.component.html',
+  styleUrls: ['./column-header.component.scss'],
 })
-export class SingleColumnComponent implements OnInit {
+export class ColumnHeaderComponent implements OnInit {
   @Input() public column: IColumn | null = null;
 
   public editTitleForm!: FormGroup;
@@ -44,7 +44,7 @@ export class SingleColumnComponent implements OnInit {
 
   editTitle(column: IColumn) {
     if (column.title !== this.editTitleForm.value.title) {
-      this.columnsService.editColumn(this.boardId!, column.id, {
+      this.columnsService.editColumn(this.boardId!, {
         ...column,
         title: this.editTitleForm.value.title,
       });
@@ -56,7 +56,7 @@ export class SingleColumnComponent implements OnInit {
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {
-          this.columnsService.deleteColumn(this.boardId, column.id);
+          this.columnsService.deleteColumn(this.boardId, column._id);
         }
       });
   }

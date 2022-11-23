@@ -1,1 +1,112 @@
-<p>welcome works!</p>
+<div class="container">
+  <div class="welcome__wrapper">
+    <div class="welcome__menu">
+      <nav class="menu__nav">
+        <ul class="menu__nav-list">
+          <li
+            class="menu__nav-item"
+            *ngFor="let item of liTitle"
+            id="{{ item }}"
+            #li
+            [ngClass]="{ active: activeLi === li.id }"
+            (click)="moveCarusel(li.id)"
+          >
+            {{ item | translate }}
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="wrapper__carusel">
+      <div class="carusel" [ngStyle]="{ left: left }">
+        <div class="info__app">
+          <div class="info__app-wrapper">
+            <h1 class="info__app-title">
+              <span>{{ "welcome.app.title" | translate }}</span
+              ><br />Project Management Application
+            </h1>
+            <p class="info__app-description">
+              {{ "welcome.app.description" | translate }}
+            </p>
+            <a routerLink="/auth/signup" class="info__app-button">
+              {{ "welcome.app.btn" | translate }}
+            </a>
+          </div>
+          <div class="info__app-logo">
+            <img src="./assets/images/welcom.png" alt="project-management" />
+          </div>
+        </div>
+
+        <div class="info__rsschool">
+          <h1 class="info__rsschool-title">
+            {{ "welcome.school.title" | translate }}
+          </h1>
+          <p class="info__rsschool-description">
+            {{ "welcome.school.description" | translate }}
+          </p>
+          <div class="info__rsschool-principles">
+            <h3 class="principles__title">
+              {{ "welcome.school.subtitle" | translate }}
+            </h3>
+            <ul class="principles__list">
+              <li class="principles__item">
+                <img
+                  src="./assets/icons/pay-principle.svg"
+                  alt="pay-it-forward"
+                  class="principles__item-logo"
+                />
+                <div class="principles__item-description-wrapper">
+                  <h5 class="principles__item-title">
+                    "{{ "welcome.school.fPrincipl-title" | translate }}"
+                  </h5>
+                  <p class="principles__item-description">
+                    {{ "welcome.school.fPrincipl-description" | translate }}
+                  </p>
+                </div>
+              </li>
+              <li class="principles__item">
+                <img
+                  src="./assets/icons/open-principle.svg"
+                  alt="open-source"
+                  class="principles__item-logo"
+                />
+                <div class="principles__item-description-wrapper">
+                  <h4 class="principles__item-title">
+                    {{ "welcome.school.SPrincipl-title" | translate }}
+                  </h4>
+                  <p class="principles__item-description">
+                    {{ "welcome.school.SPrincipl-description" | translate }}
+                  </p>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <a
+            class="info__rsschool-link"
+            href="https://rs.school/"
+            target="_blank"
+            >{{ "welcome.school.btn" | translate }}</a
+          >
+        </div>
+
+        <div class="info__team">
+          <h1 class="info__team-title">
+            {{ "welcome.team.title" | translate }}
+          </h1>
+          <div class="info__team-wrapper">
+            <ul class="info__team-list">
+              <li class="info__team-item" *ngFor="let author of authors">
+                <img
+                  src="{{ author.photo }}"
+                  alt="photo"
+                  class="info__team-photo"
+                />
+                <h5 class="info__team-name">{{ author.name | translate }}</h5>
+                <p class="info__team-about">{{ author.about | translate }}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,10 +3,11 @@ import {
 } from '@ngrx/store';
 import { IUser } from '../../models/user.model';
 import {
-  loadUser, loadUserSuccess, cleanUserStore, userRequestFailed, loginUser, updateUser,
+  cleanUserStore, userRequestFailed, loginUser, updateUser, loadUsersSuccess, loadUsers, updateUserSuccess,
 } from '../actions/user.actions';
 
 export interface UserState {
+  users: IUser[] | null;
   user: IUser | null,
   error: string | null;
   isLoading: boolean,
@@ -14,6 +15,7 @@ export interface UserState {
 }
 
 export const initialState: UserState = {
+  users: null,
   user: null,
   error: null,
   isLoading: false,
@@ -22,9 +24,27 @@ export const initialState: UserState = {
 
 export const userReducer = createReducer(
   initialState,
-  on(loadUser, (state) => ({
+  on(loadUsers, (state) => ({
     ...state,
     isLoading: true,
+  })),
+  on(loadUsersSuccess, (state, { users, user }) => ({
+    ...state,
+    users,
+    user,
+    error: null,
+    isLoading: false,
+    isLoggedIn: true,
+  })),
+  /* on(updateUser, (state) => ({
+    ...state,
+    isLoading: true,
+  })), */
+  on(updateUserSuccess, (state, { user }) => ({
+    ...state,
+    user,
+    error: null,
+    isLoading: false,
   })),
   on(loginUser, (state) => ({
     ...state,
@@ -33,13 +53,6 @@ export const userReducer = createReducer(
   on(updateUser, (state) => ({
     ...state,
     isLoading: true,
-  })),
-  on(loadUserSuccess, (state, { user }) => ({
-    ...state,
-    user,
-    error: null,
-    isLoading: false,
-    isLoggedIn: true,
   })),
   on(userRequestFailed, (state, { error }) => ({
     ...state,
