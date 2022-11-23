@@ -35,7 +35,7 @@ export const pointReducer = createReducer(
 
   on(addPoint, (state) => ({ ...state, isLoading: true })),
 
-  on(addPointSuccess, (state, action) => adapter.addOne(action.point, state)),
+  on(addPointSuccess, (state, action) => adapter.addOne(action.point, { ...state, isLoading: false })),
 
   on(editPoint, (state) => ({ ...state, isLoading: true })),
 
@@ -52,7 +52,7 @@ export const pointReducer = createReducer(
 
   on(deletePoint, (state) => ({ ...state, isLoading: true })),
 
-  on(deletePointSuccess, (state, action) => adapter.removeOne(action.pointId, state)),
+  on(deletePointSuccess, (state, action) => adapter.removeOne(action.pointId, { ...state, isLoading: false })),
   /*
     on(clearColumns, (state) => adapter.removeAll(state)),
 

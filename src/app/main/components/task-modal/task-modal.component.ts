@@ -27,6 +27,10 @@ export class TaskModalComponent implements OnInit {
 
   public donePoints$!: Observable<IPoint[]>;
 
+  public isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
+
+  public isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
+
   public task!: ITask;
 
   public task$: Observable<ITask | undefined>;
@@ -58,7 +62,6 @@ export class TaskModalComponent implements OnInit {
     private taskService: TasksService,
     private pointsService: PointsService,
     private store: Store,
-    private boardStore: Store<BoardState>,
     private apiService: ApiService,
     private taskStore: Store<TaskState>,
   ) {

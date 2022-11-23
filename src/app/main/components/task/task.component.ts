@@ -18,6 +18,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 
 import { selectEntity } from 'src/app/core/store/selectors/boards.selectors';
+import { Overlay } from '@angular/cdk/overlay';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { PointComponent } from '../point/point.component';
@@ -50,7 +51,8 @@ export class TasksComponent implements OnInit {
   constructor(
     private store: Store,
     private router: ActivatedRoute,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
+    private overlay: Overlay,
     private tasksService: TasksService,
     private pointStore: Store<PointState>,
     private pointsService: PointsService,
@@ -107,6 +109,7 @@ export class TasksComponent implements OnInit {
         donePoints$: this.donePoints$,
         board: this.board,
       },
+      maxHeight: '100vh',
       disableClose: false,
       hasBackdrop: true,
     });

@@ -1,29 +1,31 @@
 <div class="point">
-  <div class="point__info" *ngIf="!isEditMode">
+
+  <div class="point__info">
     <mat-checkbox [checked]="point.done" (click)="editPointDoneStatus(!point.done)">
     </mat-checkbox>
-    <div>{{point.title}}</div>
+    <div class="point__title" *ngIf="!isEditMode" (click)="this.isEditMode = true">{{point.title}}</div>
+    <form class="point-form" [formGroup]="editPointForm" name="form" (ngSubmit)="editPointTitle()" *ngIf="isEditMode">
+      <div class="point-form__field">
+        <mat-form-field>
+          <input class="point-form__input" formControlName="title" matInput>
+          <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+            <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="point-form__btns">
+        <button class="btn" [disabled]="!editPointForm.valid" type="submit">
+          <mat-icon class="">check</mat-icon>
+        </button>
+        <button class="btn" (click)="this.isEditMode = false">
+          <mat-icon class="">close</mat-icon>
+        </button>
+      </div>
+    </form>
   </div>
 
 
-  <form class="point-form" [formGroup]="editPointForm" name="form" (ngSubmit)="editPointTitle()" *ngIf="isEditMode">
-    <div class="point-form__field">
-      <mat-form-field>
-        <input class="point-form__input" formControlName="title" matInput>
-        <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
-          <div *ngIf="f['title'].errors?.['required']">Title is required</div>
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="point-form__btns">
-      <button class="btn" [disabled]="!editPointForm.valid" type="submit">
-        <mat-icon class="">check</mat-icon>
-      </button>
-      <button class="btn" (click)="this.isEditMode = false">
-        <mat-icon class="">close</mat-icon>
-      </button>
-    </div>
-  </form>
+
 
 
 

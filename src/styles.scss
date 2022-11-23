@@ -299,16 +299,14 @@ mat-form-field {
 
 .spinner {
   display: block;
-  background-color: rgba(0,0,0,0.4);
-  position: absolute;
-  top: 0;
-  left: 0;
+  background-color: rgba(151, 151, 151, 0.2);
   width: 100%;
-  min-height: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   z-index: 999;
 }
-
-
 
 
 

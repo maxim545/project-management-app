@@ -1,8 +1,9 @@
-<div class="spinner" *ngIf="">
-  <mat-progress-bar mode="indeterminate">
-  </mat-progress-bar>
-</div>
 <div class="task-modal">
+  <div class="spinner" *ngIf="
+  (isLoadingTasks$ | async) !== false || (isLoadingPoint$ | async) !== false">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
+  </div>
   <div class="task-modal__content" *ngIf="(task$ | async) as task">
     <!-- --------TITLE-------- -->
     <div class="task-item">
@@ -71,6 +72,7 @@
 
     <!-- --------POINTS-------- -->
     <div class="task-item">
+
       <div class="task-item__header">
         <mat-icon>playlist_add_check</mat-icon>
         <h2 class="task-item__title">Points</h2>
@@ -113,18 +115,36 @@
 
 
     <!-- --------USERS-------- -->
-    <div class="task-modal__item item">
-      <div class="item__header">
-        <h2 class="item__title">Users</h2>
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>people</mat-icon>
+        <h2 class="task-item__title">Users</h2>
       </div>
-      <div class="item__content">
-        <div *ngFor="let user of selectedTaskUsers">{{user.login}}</div>
+      <div class="task-item__content">
+        <!-- <div *ngFor="let user of selectedTaskUsers">{{user.login}}</div> -->
+        <div class="task-item__users-block" *ngIf="(selectedUsers$ | async) as selectedUsers">
+          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="Select a User" optionLabel="login"
+            display="chip">
+          </p-multiSelect>
+          <button class="btn btn_light" (click)=" addUserForTask(task)">
+            <!-- <mat-icon class="">person_add</mat-icon> -->Edit users
+          </button>
+        </div>
       </div>
     </div>
 
 
     <!-- --------FILES-------- -->
-    <input type="file" (change)="fileChange($any($event).target.files)" placeholder="Upload file">
+
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon> attach_file</mat-icon>
+        <h2 class="task-item__title">Files</h2>
+      </div>
+      <div class="task-item__content">
+        <input type="file" (change)="fileChange($any($event).target.files)" placeholder="Upload file">
+      </div>
+    </div>
 
 
     <button class="btn task-modal__btn" (click)="closeTaskModal()">
@@ -135,24 +155,14 @@
 
   <!-- --------SIDEBAR-------- -->
 
-  <div class="task-modal__menu task-menu">
-    <div class="task-menu__item task-menu__item_users" *ngIf="(selectedUsers$ | async) as selectedUsers">
-      <button class="btn btn_light task-menu__btn" (click)="op.toggle($event)">
-        <mat-icon class="icon">person</mat-icon>Users of task
+  <!-- <div class="task-modal__menu task-menu">
+    <div class="task-menu__item" *ngIf="(selectedUsers$ | async) as selectedUsers">
+      <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="Select a User" optionLabel="login"
+        display="chip">
+      </p-multiSelect>
+      <button class="btn btn_light task-menu__btn" (click)=" addUserForTask(task)">
+        <mat-icon class="task-menu__icon">person_add</mat-icon>Add user
       </button>
-      <p-overlayPanel #op [showCloseIcon]="true" [showCloseIcon]="false" [dismissable]="false">
-        <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="Select a User" optionLabel="login"
-          display="chip">
-        </p-multiSelect>
-        <div class="overlay-panel__btns">
-          <button class="btn btn_primary overlay-panel__btn" (click)=" addUserForTask(task)">
-            <mat-icon class="overlay-panel__icon">person_add</mat-icon>Add user
-          </button>
-          <button class="btn btn_light overlay-panel__btn" (click)=" op.hide()">
-            <mat-icon class="overlay-panel__icon">close</mat-icon>Close
-          </button>
-        </div>
-      </p-overlayPanel>
     </div>
-  </div>
+  </div> -->
 </div>

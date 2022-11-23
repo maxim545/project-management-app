@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { IPoint, ITask } from 'src/app/core/models/board.model';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { PointsService } from '../../services/points/points.service';
@@ -15,6 +16,8 @@ export class PointComponent implements OnInit {
   @Input() public point!: IPoint;
 
   @Input() public boardId: string = '';
+
+  public isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
 
   public isEditMode: boolean = false;
 
