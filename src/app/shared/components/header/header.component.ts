@@ -1,10 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import {
   catchError,
   EMPTY,
   finalize,
-  map, Observable, skipWhile, take, tap,
+  map,
+  Observable,
+  skipWhile,
+  take,
+  tap,
 } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUsers } from 'src/app/core/store/actions/user.actions';
@@ -18,12 +27,16 @@ import { LangService } from 'src/app/core/services/lang/lang.service';
 import { IUser } from 'src/app/core/models/user.model';
 import { UserState } from 'src/app/core/store/reducers/user.reducer';
 import { parseJwt } from 'src/app/core/configs/tokenParse';
-import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
+import {
+  BoardState,
+  boardStateSelector,
+} from 'src/app/core/store/reducers/boards.reducer';
 import { IBoard } from 'src/app/core/models/board.model';
 import { Dictionary } from '@ngrx/entity';
 import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
+import { StickyService } from '../../../core/services/sticky/sticky.service';
 
 @Component({
   selector: 'app-header',
@@ -53,23 +66,20 @@ export class HeaderComponent implements OnInit {
     public langService: LangService,
     private userStore: Store<UserState>,
     private boardStore: Store<BoardState>,
-  ) {
-  }
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('uniq_token')) {
       this.store.dispatch(loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }));
     }
-    this.user$ = this.store
-      .select(getUserStore)
-      .pipe(
-        skipWhile((flag) => !flag.isLoggedIn),
-        take(1),
-        map(({ user }) => {
-          this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
-          return user;
-        }),
-      );
+    this.user$ = this.store.select(getUserStore).pipe(
+      skipWhile((flag) => !flag.isLoggedIn),
+      take(1),
+      map(({ user }) => {
+        this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
+        return user;
+      }),
+    );
   }
 
   openBoardCreater() {
