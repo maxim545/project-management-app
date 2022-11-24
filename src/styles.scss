@@ -132,40 +132,36 @@ app-footer {
 	padding: 0;
   cursor: pointer;
   border: none;
-  transition: all 0.7s;
+  transition: all 0.5s;
 
   &_primary {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
     padding: 8px 15px;
-    border: 1px solid #dfdfdf;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+    box-shadow: 0 0 0 2px #48394815;
   }
 
   &_primary:hover {
-    background-color: #fff;
-    color: #6C5DD3;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    background-color: #9356a0;
+    box-shadow: 0 0 0 3px #48394815;
   }
 
   &_light {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
-    border: 1px solid #dfdfdf;
     background-color: #fff;
-    color: #6C5DD3;
     padding: 8px 15px;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+    color: #9356a0;
+    box-shadow: 0 0 0 2px #48394815;
   }
 
   &_light:hover {
-    background-color: #6C5DD3;
-    color: #fff;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    background-color: #d37be740;
+    box-shadow: 0 0 0 3px #48394815;
   }
 }
 
@@ -198,11 +194,10 @@ app-footer {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
-    border: 1px solid #dfdfdf;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
-    transition: all 0.7s;
+    box-shadow: 0 0 0 2px #48394815;
+    transition: all 0.8s;
   }
 
   &__btn_left {
@@ -215,8 +210,8 @@ app-footer {
 
   &__btn:hover {
     background-color: #fff;
-    color: #6C5DD3;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    color: #9356a0;
+    box-shadow: 0 0 0 3px #48394815;
   }
 }
 
