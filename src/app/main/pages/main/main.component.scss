@@ -25,15 +25,15 @@
     border-radius: 10px;
     padding: 20px;
     border-radius: 10px;
-    border: 4px solid #EFEFEF;
-    box-shadow: 0px 4px 5px 1px rgb(108, 93, 211, 0.2);
+    border: 4px solid #9356a020;
+    box-shadow: 0px 4px 5px 1px #48394815;
   }
 
   &__title {
     font-size: 18px;
     font-weight: 700;
     line-height: 22px;
-    color: #6C5DD3;
+    color: #9356a0;
     text-transform: uppercase;
     letter-spacing: 2.5px;
   }
@@ -52,7 +52,7 @@
   z-index: 9;
 
   &:hover {
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    box-shadow: 0 0 0 4px #9356a030;
     cursor: pointer;
   }
 
@@ -62,7 +62,7 @@
   }
 
   &__item:hover {
-    background-color: rgba(108, 93, 211, 0.9);
+    background-color: #c371d5dd;
     color: #fff;
   }
 }
@@ -71,14 +71,14 @@
   background: #FFFFFF;
   padding: 50px 15px;
   border-radius: 10px;
-  border: 4px solid #EFEFEF;
-  box-shadow: 0px 4px 5px 1px rgb(108, 93, 211, 0.2);
+  border: 4px solid #9356a020;
+  box-shadow: 0px 4px 5px 1px #48394815;
   text-align: center;
 
   &__text {
     font-size: 18px;
     letter-spacing: 2.5px;
-    color: #9e9e9e;
+    color: #483948b1;
   }
 
   &__text_small {
@@ -89,6 +89,79 @@
   }
 }
 
+
+/* SEARCH */
+
+.search {
+  width: 100%;
+  margin: 15px 0;
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+  }
+
+  &__field {
+    position: relative;
+    width: 100%;
+  }
+
+  /* &__settings-btn {
+    position: absolute;
+    top: 25%;
+    right: 0;
+  } */
+
+  &__btns {
+    display: flex;
+    gap: 0 10px;
+  }
+
+  &__input {
+    height: 36px;
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    color:rgb(80, 80, 80);
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid #6d5dd39a;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  }
+}
+
+.icon {
+  transform: scale(0.8);
+  &_search {
+    margin-right: 5px;
+  }
+}
+
+mat-form-field {
+  min-width: 100%;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+  margin-top: 0;
+  top: 48px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding: 0;
+}
+
+::ng-deep .mat-form-field-infix {
+  border: none;
+}
+
+
+/* SELECT */
 
 
 ::ng-deep.mat-select-arrow {
@@ -116,6 +189,3 @@
     }
   }
 }
-
-
-

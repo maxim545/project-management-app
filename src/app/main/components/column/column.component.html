@@ -19,7 +19,7 @@
     <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
       <div class="efit-form__field">
         <mat-form-field>
-          <input class="efit-form__input" formControlName="title" matInput>
+          <input class="efit-form__input" formControlName="title" matInput autofocus>
           <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
             <div *ngIf="f['title'].errors?.['required']">Title is required</div>
           </mat-error>
