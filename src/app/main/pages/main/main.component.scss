@@ -90,6 +90,79 @@
 }
 
 
+/* SEARCH */
+
+.search {
+  width: 100%;
+  margin: 15px 0;
+
+  &__form {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    align-items: center;
+  }
+
+  &__field {
+    position: relative;
+    width: 100%;
+  }
+
+  /* &__settings-btn {
+    position: absolute;
+    top: 25%;
+    right: 0;
+  } */
+
+  &__btns {
+    display: flex;
+    gap: 0 10px;
+  }
+
+  &__input {
+    height: 36px;
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    color:rgb(80, 80, 80);
+    font-weight: bold;
+    border-radius: 5px;
+    border: 2px solid #6d5dd39a;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  }
+}
+
+.icon {
+  transform: scale(0.8);
+  &_search {
+    margin-right: 5px;
+  }
+}
+
+mat-form-field {
+  min-width: 100%;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+  margin-top: 0;
+  top: 48px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding: 0;
+}
+
+::ng-deep .mat-form-field-infix {
+  border: none;
+}
+
+
+/* SELECT */
+
 
 ::ng-deep.mat-select-arrow {
   display: none;
@@ -116,6 +189,3 @@
     }
   }
 }
-
-
-

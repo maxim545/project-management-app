@@ -113,3 +113,11 @@ export interface IFileRequest {
   boardId: string,
   file: FormData,
 }
+
+/* ----------SEACRH---------- */
+
+export interface ISearchParam {
+  id: number,
+  value: string,
+  isSelected: boolean
+}
