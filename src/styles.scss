@@ -121,7 +121,7 @@ app-footer {
 
 
 .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: #6C5DD3;
+  background-color: #9356a0;
 }
 
 .btn {
@@ -132,40 +132,36 @@ app-footer {
 	padding: 0;
   cursor: pointer;
   border: none;
-  transition: all 0.7s;
+  transition: all 0.5s;
 
   &_primary {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
     padding: 8px 15px;
-    border: 1px solid #dfdfdf;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+    box-shadow: 0 0 0 2px #48394815;
   }
 
   &_primary:hover {
-    background-color: #fff;
-    color: #6C5DD3;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    background-color: #9356a0;
+    box-shadow: 0 0 0 3px #48394815;
   }
 
   &_light {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
-    border: 1px solid #dfdfdf;
     background-color: #fff;
-    color: #6C5DD3;
     padding: 8px 15px;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
+    color: #9356a0;
+    box-shadow: 0 0 0 2px #48394815;
   }
 
   &_light:hover {
-    background-color: #6C5DD3;
-    color: #fff;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    background-color: #d37be740;
+    box-shadow: 0 0 0 3px #48394815;
   }
 }
 
@@ -179,14 +175,14 @@ app-footer {
   padding: 15px;
   background: #FFFFFF;
   border-radius: 10px;
-  border: 4px solid #EFEFEF;
-  box-shadow: 0px 4px 5px 1px rgb(108, 93, 211, 0.2);
+  border: 4px solid #9356a020;
+  box-shadow: 0px 4px 5px 1px #48394815;
 
   &__title {
     font-size: 18px;
     font-weight: 700;
     line-height: 22px;
-    color: #6C5DD3;
+    color: #9356a0;
     text-transform: uppercase;
     letter-spacing: 2.5px;
   }
@@ -198,11 +194,10 @@ app-footer {
     font-weight: 600;
     font-size: 14px;
     border-radius: 7px;
-    border: 1px solid #dfdfdf;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.2);
-    transition: all 0.7s;
+    box-shadow: 0 0 0 2px #48394815;
+    transition: all 0.5s ease-in-out;
   }
 
   &__btn_left {
@@ -215,8 +210,8 @@ app-footer {
 
   &__btn:hover {
     background-color: #fff;
-    color: #6C5DD3;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    color: #9356a0;
+    box-shadow: 0 0 0 3px #48394815;
   }
 }
 
@@ -272,26 +267,27 @@ app-footer {
   }
 
   &__icon {
+    text-align: center;
+    vertical-align: middle;
     border-radius: 6px;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    padding: 2px;
-    transition: all 0.7s;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    box-shadow: 0 0 0 3px #48394815;
     transform: scale(0.8);
+    transition: all 0.5s ease-in-out;
   }
 
   &__icon:hover {
-    background-color: #e7e7e7;
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px #48394815;
    }
 
   &__icon_check:hover {
-    color: #5EAD56;
+    color: #B2AB2E;
   }
 
   &__icon_close:hover {
-    color: red;
+    color: #ED413E;
   }
 }
 
