@@ -46,7 +46,6 @@ export interface IColumn {
   title: string;
   order: number;
   boardId: string;
-  tasks: ITask[]
 }
 
 export interface ITask {
@@ -68,17 +67,6 @@ export interface ITaskRequest {
   users: string[],
 }
 
-export interface ITaskResponse {
-  _id: string,
-  title: string,
-  order: number,
-  boardId: string,
-  columnId: string,
-  description: string,
-  userId: string,
-  users: string[],
-}
-
 export interface ITaskPutRequest {
   title: string,
   order: number,
@@ -88,18 +76,40 @@ export interface ITaskPutRequest {
   users: string[]
 }
 
-export interface ITaskPutResponse {
+/* ----------POINT---------- */
+
+export interface IPoint {
   _id: string,
   title: string,
-  order: string,
+  taskId: string,
   boardId: string,
-  columnId: string,
-  description: string,
-  userId: string,
-  users: string[],
+  done: boolean
 }
 
-interface IFiles {
-  filename: string,
-  fileSize: number
+export interface IPointCreateRequest {
+  title: string,
+  taskId: string,
+  boardId: string,
+  done: boolean
+}
+
+export interface IPointEditRequest {
+  title: string,
+  done: boolean
+}
+
+/* ----------FILES---------- */
+
+export interface IFile {
+  _id: string,
+  name: string,
+  taskId: string,
+  boardId: string,
+  path: string
+}
+
+export interface IFileRequest {
+  taskId: string,
+  boardId: string,
+  file: FormData,
 }

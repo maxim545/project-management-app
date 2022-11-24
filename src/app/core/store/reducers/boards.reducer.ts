@@ -4,7 +4,7 @@ import {
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IBoard } from '../../models/board.model';
 import {
-  addBoard, addBoardSuccess, boardFailed, clearBoards, deleteBoard, deleteBoardSuccess, editBoardSuccess, loadBoards, loadBoardsSuccess,
+  addBoard, addBoardSuccess, boardFailed, clearBoards, deleteBoard, deleteBoardSuccess, editBoard, editBoardSuccess, loadBoards, loadBoardsSuccess,
 } from '../actions/boards.actions';
 
 export interface BoardState extends EntityState<IBoard> {
@@ -35,7 +35,9 @@ export const boardReducer = createReducer(
 
   on(deleteBoardSuccess, (state, action) => adapter.removeOne(action.id, state)),
 
-  on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.id, changes: action.board }, state)),
+  on(editBoard, (state) => ({ ...state, isLoading: true })),
+
+  on(editBoardSuccess, (state, action) => adapter.updateOne({ id: action.board._id, changes: action.board }, { ...state, isLoading: false })),
 
   on(boardFailed, (state, action) => ({ ...state, error: action.error, isLoading: false })),
 

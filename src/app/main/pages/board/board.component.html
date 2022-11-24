@@ -2,6 +2,23 @@
   <div class="container" *ngIf="boardId">
     <app-board-header [columns]="columns$ | async" [users]="users$ | async" [boardId]="boardId">
     </app-board-header>
-    <app-columns [columns]="columns$ | async" [board]="board$ | async"></app-columns>
+    <div *ngIf="(board$ | async) as board">
+      <div *ngIf="(columns$ | async) as columns" class="columns" cdkDropList cdkDropListOrientation="horizontal"
+        (cdkDropListDropped)="dropColumn($event, columns)">
+        <div class="columns__list" cdkDropListGroup>
+          <div class="column" *ngFor="let column of columns" cdkDrag>
+
+            <app-column [column]="column" [boardId]="boardId" [board]="board">
+
+
+            </app-column>
+
+          </div>
+        </div>
+        <div class="columns__not-found not-found" *ngIf="!columns.length">
+          <p class="not-found__text">Not created columns for this board!</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

@@ -30,7 +30,7 @@ export const editColumn = createAction(
 
 export const editColumnSuccess = createAction(
   '[Columns] Edit Column Success',
-  props<{ columnId: string, column: IColumn }>(),
+  props<{ column: IColumn }>(),
 );
 
 export const updateColumnsSet = createAction(
@@ -60,31 +60,4 @@ export const columnFailed = createAction(
 
 export const clearColumns = createAction(
   '[Columns] Columns Clear',
-);
-
-/* -----------TASKS----------- */
-
-export const addTask = createAction(
-  '[Task] Add Task',
-  props<{ column: IColumn, task: ITaskRequest }>(),
-);
-
-export const deleteTask = createAction(
-  '[Task] Delete Task',
-  props<{ column: IColumn, task: ITask }>(),
-);
-
-export const editTask = createAction(
-  '[Task] Edit Task',
-  props<{ column: IColumn, task: ITask }>(),
-);
-
-export const updateTasksSet = createAction(
-  '[Columns] Edit Set Tasks',
-  props<{ column: IColumn, tasks: ITaskSet[] }>(),
-);
-
-export const updTasksBetweenColumns = createAction(
-  '[Columns] Edit Tasks betwwen columns',
-  props<{ columns: IColumn[], tasks: ITaskSet[] }>(),
 );

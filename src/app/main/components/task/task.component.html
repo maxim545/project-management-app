@@ -1,0 +1,70 @@
+<div class="task" *ngIf="task">
+  <div class="task__header">
+    <div class="task__title" (click)="openTaskDialog()">
+      {{task.title}}
+    </div>
+    <mat-select class="column__edit_menu edit_menu">
+      <mat-option class="edit_menu__item" (click)="openTaskEditor(task)">
+        <mat-icon>subtitles</mat-icon>Open
+      </mat-option>
+      <mat-option class="edit_menu__item" (click)="deleteTask(task)">
+        <mat-icon>delete</mat-icon>Delete
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="task__footer" *ngIf="(points$ | async) as points">
+    <mat-icon class="task__points-icon">playlist_add_check</mat-icon>
+    <div class="task__points">{{(donePoints$ | async)?.length}}/{{points.length}}</div>
+  </div>
+</div>
+
+<!-- <p-accordionTab header="{{task.title}}">
+  <p>data</p>
+</p-accordionTab> -->
+
+
+<!-- <mat-accordion>
+  <mat-expansion-panel class="task" [expanded]="panelOpenState">
+    <mat-expansion-panel-header class="task__header">
+      <mat-panel-title>
+        {{task.title}}
+      </mat-panel-title>
+      <mat-select class="column__edit_menu edit_menu">
+        <mat-option class="edit_menu__item" (click)="openTaskEditor(task)">
+          <mat-icon>edit</mat-icon>Rename
+        </mat-option>
+        <mat-option class="edit_menu__item" (click)="deleteTask(task)">
+          <mat-icon>delete</mat-icon>Delete
+        </mat-option>
+      </mat-select>
+    </mat-expansion-panel-header>
+    <p class="not-found__text not-found__text_small" *ngIf="!(points$ | async)?.length">Not created points for this
+      column!
+    </p>
+    <div *ngFor="let point of points$ | async">
+      <app-point [task]="task" [boardId]="boardId" [point]="point"></app-point>
+    </div>
+    <button class="btn btn_add btn_point" (click)="this.isCreateMode = !this.isCreateMode">Add new point</button>
+
+    <form class="edit-form" [formGroup]="createPointForm" name="form" (ngSubmit)="addPoint(task)" *ngIf="isCreateMode">
+      <div class="efit-form__field">
+        <mat-form-field>
+          <input class="efit-form__input" formControlName="title" matInput>
+          <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+            <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="edit-form__btns">
+        <button class="btn" [disabled]="!createPointForm.valid" type="submit">
+          <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
+        </button>
+        <button class="btn" (click)="this.isCreateMode = false">
+          <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
+        </button>
+      </div>
+    </form>
+
+
+  </mat-expansion-panel>
+</mat-accordion> -->
