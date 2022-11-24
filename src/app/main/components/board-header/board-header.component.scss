@@ -98,3 +98,8 @@
 ::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:hover {
   background: #48394815;
 }
+
+::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:active {
+  border: none;
+  box-shadow: none;
+}
