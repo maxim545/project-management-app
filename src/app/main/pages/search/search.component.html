@@ -1,0 +1,15 @@
+<div class="block">
+  <div class="container">
+    <div class="block__header">
+      <h1 class="block__title">Search results</h1>
+    </div>
+    <div class="search" *ngIf="(tasks$ | async) as tasks">
+      <div class="search__content" *ngFor="let task of tasks">
+        <app-task [task]="task"></app-task>
+      </div>
+      <div class="message" *ngIf="!tasks.length">
+        <p class="message__text">Sorry, but there are no results for your search.</p>
+      </div>
+    </div>
+  </div>
+</div>

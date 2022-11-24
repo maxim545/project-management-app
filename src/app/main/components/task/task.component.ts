@@ -30,13 +30,7 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
   styleUrls: ['./task.component.scss'],
 })
 export class TasksComponent implements OnInit {
-  @Input() public column!: IColumn;
-
   @Input() public task!: ITask;
-
-  @Input() public board: IBoard | null = null;
-
-  @Input() public boardId: string = '';
 
   /*  public isCreateMode: boolean = false;
 
@@ -84,13 +78,13 @@ export class TasksComponent implements OnInit {
     this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
-        if (isConfirmed && this.boardId) {
+        if (isConfirmed) {
           this.tasksService.deleteTask(task);
         }
       });
   }
 
-  openTaskEditor(task: ITask): void {
+  /* openTaskEditor(task: ITask): void {
     this.dialog.open(TaskModalComponent, {
       data: {
         editorMode: 'editing',
@@ -99,7 +93,7 @@ export class TasksComponent implements OnInit {
         column: this.column,
       },
     });
-  }
+  } */
 
   openTaskDialog() {
     this.dialog.open(TaskModalComponent, {
@@ -107,7 +101,6 @@ export class TasksComponent implements OnInit {
         task: this.task,
         points$: this.points$,
         donePoints$: this.donePoints$,
-        board: this.board,
       },
       maxHeight: '100vh',
       disableClose: false,

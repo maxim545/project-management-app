@@ -67,7 +67,6 @@ export class BoardComponent implements OnInit, OnDestroy {
         if (board) {
           const userId = parseJwt(localStorage.getItem('uniq_token'));
           this.store.dispatch(loadColumns({ id: this.boardId }));
-          this.store.dispatch(loadTasks({ id: userId }));
           this.store.dispatch(loadPoints({ userId }));
           return board;
         }

@@ -36,6 +36,7 @@ import { Dictionary } from '@ngrx/entity';
 import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
+import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -78,7 +79,9 @@ export class HeaderComponent implements OnInit {
     this.isLoggedIn$ = this.isLoggedIn$.pipe(
       map((isLoggedIn) => {
         if (isLoggedIn) {
-          this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
+          const userId = parseJwt(localStorage.getItem('uniq_token'));
+          this.store.dispatch(loadBoards({ userId }));
+          this.store.dispatch(loadTasks({ id: userId }));
         }
         return isLoggedIn;
       }),

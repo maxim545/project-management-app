@@ -14,3 +14,8 @@ export const getUsers = createSelector(
   getUserStore,
   (state: UserState) => state.users,
 );
+
+export const getUserByLogin = (login: string) => createSelector(
+  getUserStore,
+  (state: UserState) => state.users?.find((user) => user.login === login),
+);
