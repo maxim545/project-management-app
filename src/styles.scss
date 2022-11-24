@@ -121,7 +121,7 @@ app-footer {
 
 
 .mat-form-field.mat-focused .mat-form-field-ripple {
-  background-color: #6C5DD3;
+  background-color: #9356a0;
 }
 
 .btn {
@@ -197,7 +197,7 @@ app-footer {
     background-color: #c371d5;
     color: #fff;
     box-shadow: 0 0 0 2px #48394815;
-    transition: all 0.8s;
+    transition: all 0.5s ease-in-out;
   }
 
   &__btn_left {
@@ -267,26 +267,27 @@ app-footer {
   }
 
   &__icon {
+    text-align: center;
+    vertical-align: middle;
     border-radius: 6px;
-    background-color: #6C5DD3;
+    background-color: #c371d5;
     color: #fff;
-    padding: 2px;
-    transition: all 0.7s;
-    box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+    box-shadow: 0 0 0 3px #48394815;
     transform: scale(0.8);
+    transition: all 0.5s ease-in-out;
   }
 
   &__icon:hover {
-    background-color: #e7e7e7;
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    background-color: #fff;
+    box-shadow: 0 0 0 4px #48394815;
    }
 
   &__icon_check:hover {
-    color: #5EAD56;
+    color: #B2AB2E;
   }
 
   &__icon_close:hover {
-    color: red;
+    color: #ED413E;
   }
 }
 

@@ -5,9 +5,8 @@
   padding: 15px 10px;
   margin-bottom: 15px;
   background-color: rgb(251, 251, 251);
-  border: 1px solid rgba(108, 93, 211, 0.2);
   border-radius: 4px;
-  box-shadow: 0px 1px 3px 1px rgb(108, 93, 211, 0.2);
+  box-shadow: 0px 1px 3px 1px #48394845;
 
   &__header {
     display: flex;
@@ -19,7 +18,7 @@
     max-width: 210px;
     font-size: 14px;
     overflow: hidden;
-    color: #5f5f5f;
+    color: #483948;
     letter-spacing: 1px
   }
 
@@ -37,7 +36,7 @@
 
   &__points-icon {
     transform: scale(0.8);
-    color: #6e5fd3e6;
+    color: #9356a0;
   }
 
   &__btn_add {
@@ -57,7 +56,7 @@
   z-index: 9;
 
   &:hover {
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    box-shadow: 0 0 0 4px #48394815;
     cursor: pointer;
   }
 
@@ -67,7 +66,7 @@
   }
 
   &__item:hover {
-    background-color: #9356a0e6;
+    background-color: #c371d5dd;
     color: #fff;
   }
 }

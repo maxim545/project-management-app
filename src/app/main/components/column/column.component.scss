@@ -22,14 +22,20 @@
 
   &__btn {
     display: block;
+    width: 100%;
+    text-align: start;
     flex: none;
     position: relative;
     font-weight: 600;
     padding: 15px 10px 5px 10px;
     font-size: 14px;
-    color: #6C5DD3;
-    border-top: 2px solid #EFEFEF;
-    transition: all 0.7s;
+    color: #9356a0;
+    border-top: 2px solid #9356a020;
+    transition: all 0.3s ease-in-out;
+
+    &:hover {
+      color: #784384;
+    }
   }
 
   &__task {
@@ -127,7 +133,7 @@
     justify-content: space-between;
     width: 300px;
     padding-bottom: 10px;
-    border-bottom: 2px solid #EFEFEF;
+    border-bottom: 2px solid #9356a020;
   }
 
   &__title-block {
@@ -137,7 +143,7 @@
     font-size: 15px;
     font-weight: 700;
     line-height: 22px;
-    color: #6C5DD3;
+    color: #9356a0;
     text-transform: uppercase;
     letter-spacing: 2.5px;
   }
@@ -160,9 +166,9 @@
     line-height: 14px;
     border-radius: 50%;
     overflow: hidden;
-    color: #6C5DD3;
+    color: #9356a0;
     transition: .6s ease;
-    background-color: #e7e7e7;
+    background-color: #48394815;
     margin-left: 10px;
   }
 }
@@ -173,16 +179,16 @@
   height: 30px;
   background: url(../../../../assets/images/icons/edit.svg) no-repeat center center;
   border-radius: 6px;
-  background-color: #6C5DD3;
+  background-color: #c371d5;
   color: #333;
   transition: all 0.7s;
-  box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  box-shadow: 0 0 0 2px #48394815;
   z-index: 9;
 
 
   &:hover {
-    background-color: rgb(108, 93, 211, 0.8);
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    background-color: #9356a0;
+    box-shadow: 0 0 0 4px #48394815;
     cursor: pointer;
   }
 
@@ -192,7 +198,7 @@
   }
 
   &__item:hover {
-    background-color: rgb(108, 93, 211, 0.9);
+    background-color: #c371d5dd;
     color: #fff;
   }
 }
@@ -206,5 +212,6 @@
   height: 100%;
 }
 
-
-
+.mat-input-element {
+  color: #483948;
+}
