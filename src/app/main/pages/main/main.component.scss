@@ -25,15 +25,15 @@
     border-radius: 10px;
     padding: 20px;
     border-radius: 10px;
-    border: 4px solid #EFEFEF;
-    box-shadow: 0px 4px 5px 1px rgb(108, 93, 211, 0.2);
+    border: 4px solid #9356a020;
+    box-shadow: 0px 4px 5px 1px #48394815;
   }
 
   &__title {
     font-size: 18px;
     font-weight: 700;
     line-height: 22px;
-    color: #6C5DD3;
+    color: #9356a0;
     text-transform: uppercase;
     letter-spacing: 2.5px;
   }
@@ -52,7 +52,7 @@
   z-index: 9;
 
   &:hover {
-    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    box-shadow: 0 0 0 4px #9356a030;
     cursor: pointer;
   }
 
@@ -62,7 +62,7 @@
   }
 
   &__item:hover {
-    background-color: rgba(108, 93, 211, 0.9);
+    background-color: #c371d5c4;
     color: #fff;
   }
 }
@@ -78,7 +78,7 @@
   &__text {
     font-size: 18px;
     letter-spacing: 2.5px;
-    color: #9e9e9e;
+    color: #483948b1;
   }
 
   &__text_small {
