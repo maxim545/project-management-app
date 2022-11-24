@@ -1,25 +1,5 @@
-.header-board {
-  &__btns {
-    display: flex;
-    gap: 10px;
-  }
-  &__users {
-    display: flex;
-    gap: 10px;
-  }
-}
-.icon_back {
-  padding-right: 4px;
-  transform: scale(0.8);
-}
+@import "../../../../assets/scss/variables.scss";
 
-.icon_add {
-  transform: scale(0.9);
-}
-
-.icon_edit {
-  transform: scale(0.8);
-}
 
 ::ng-deep .p-multiselect {
   width: 250px;
@@ -102,4 +82,33 @@
 ::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:active {
   border: none;
   box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .block {
+    &__header {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    &__title {
+      text-align: center;
+      width: 100%;
+      order: 1;
+    }
+
+    &__btns_left {
+      order: 2;
+    }
+
+    &__btns_right {
+      order: 3;
+    }
+
+    &__btns {
+      display: flex;
+      gap: 15px;
+    }
+  }
 }
