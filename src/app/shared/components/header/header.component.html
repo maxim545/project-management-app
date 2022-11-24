@@ -2,34 +2,25 @@
   <div class="container">
     <div class="header__wrapper">
       <div class="header__title">
-        <a routerLink="/main"
-          ><img src="./assets/icons/logo.svg" alt="app-logo"
-        /></a>
+        <a routerLink="/main"><img src="./assets/icons/logo.svg" alt="app-logo" /></a>
       </div>
       <div class="header__custom-menu">
         <div class="header__menu menu" *ngIf="(isLoggedIn$ | async) === false">
           <nav class="menu__nav">
             <a routerLink="/auth/login" class="menu__link menu__link-login">{{
               "login.title" | translate
-            }}</a>
+              }}</a>
             <a routerLink="/auth/signup" class="menu__link menu__link-signup">{{
               "SignUp.title" | translate
-            }}</a>
+              }}</a>
           </nav>
         </div>
-        <div class="header__menu menu" *ngIf="(user$ | async)?.name">
+        <div class="header__menu menu" *ngIf="user$ | async">
           <nav class="menu__nav">
-            <button
-              (click)="openBoardCreater()"
-              class="menu__link menu__link-create"
-            >
+            <button (click)="openBoardCreater()" class="menu__link menu__link-create">
               {{ "header.createBtn" | translate }}
             </button>
-            <a
-              routerLink="/auth/edit-profile"
-              class="menu__link menu__link-edit"
-              >{{ "header.profile" | translate }}</a
-            >
+            <a routerLink="/auth/edit-profile" class="menu__link menu__link-edit">{{ "header.profile" | translate }}</a>
             <button class="menu__link menu__link-logout" (click)="logout()">
               {{ "header.logOut" | translate }}
             </button>
@@ -37,11 +28,7 @@
         </div>
 
         <div class="header__lang">
-          <img
-            src="./assets/icons/translate.svg"
-            alt="translate-logo"
-            class="header__lang-logo"
-          />
+          <img src="./assets/icons/translate.svg" alt="translate-logo" class="header__lang-logo" />
           <select class="header__lang-select" (change)="changeLang()">
             <option value="EN" [selected]="isChecked">En</option>
             <option value="RU" [selected]="isChecked">Ru</option>
@@ -50,14 +37,10 @@
       </div>
     </div>
   </div>
-  <div
-    class="header__spinner"
-    *ngIf="
-      (isLoadingUser$ | async) !== false ||
-      (isLoadingColumns$ | async) !== false ||
-      (isLoadingBoards$ | async) !== false
-    "
-  >
-    <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
+  <div class="header__spinner" *ngIf="
+  (isLoadingUser$ | async) !== false || (isLoadingColumns$ | async) !== false || (isLoadingBoards$ | async) !== false || (isLoadingTasks$ | async) !== false
+">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
   </div>
 </header>

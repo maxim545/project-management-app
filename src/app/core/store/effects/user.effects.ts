@@ -90,10 +90,7 @@ export class UserEffects {
       switchMap(({ userId, user }) => this.apiService
         .updateUser(userId, user)
         .pipe(
-          map((resUser) => {
-            this.authService.updateUser();
-            return updateUserSuccess({ user: resUser });
-          }),
+          map((resUser) => updateUserSuccess({ user: resUser })),
           catchError((error) => of(userRequestFailed({ error }))),
         )),
     ),

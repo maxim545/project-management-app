@@ -12,6 +12,7 @@
 
   &__inner {
     min-height: 10px;
+    margin: 10px 0;
     flex: 1;
   }
 
@@ -29,6 +30,10 @@
     color: #6C5DD3;
     border-top: 2px solid #EFEFEF;
     transition: all 0.7s;
+  }
+
+  &__task {
+    margin: 10px 0;
   }
 
   &::-webkit-scrollbar {
@@ -53,17 +58,17 @@
 }
 
 
-.column {
+/* .column {
   display: flex;
   flex-direction: column;
   padding: 15px;
-  background: #fff;
+  background-color: #111;
   border-radius: 10px;
   border: 4px solid #EFEFEF;
   box-shadow: 3px 4px 5px 1px rgba(108, 93, 211, 0.2);
   margin-bottom: 20px;
 }
-
+ */
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
@@ -113,6 +118,93 @@
 }
 
 
+
+
+.column {
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #EFEFEF;
+  }
+
+  &__title-block {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #6C5DD3;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+  }
+
+  &__title {
+    max-width: 210px;
+    overflow: hidden;
+  }
+
+  &__quantity {
+    min-width: 20px;
+    max-width: 28px;
+    height: 24px;
+    padding: 1px 6px 1px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 14px;
+    border-radius: 50%;
+    overflow: hidden;
+    color: #6C5DD3;
+    transition: .6s ease;
+    background-color: #e7e7e7;
+    margin-left: 10px;
+  }
+}
+
+.edit_menu {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background: url(../../../../assets/images/icons/edit.svg) no-repeat center center;
+  border-radius: 6px;
+  background-color: #6C5DD3;
+  color: #333;
+  transition: all 0.7s;
+  box-shadow: 0 0 0 3px rgb(108, 93, 211, 0.2);
+  z-index: 9;
+
+
+  &:hover {
+    background-color: rgb(108, 93, 211, 0.8);
+    box-shadow: 0 0 0 4px rgb(108, 93, 211, 0.3);
+    cursor: pointer;
+  }
+
+  &__item {
+    background-color: #fff;
+    color: #5f5f5f;
+  }
+
+  &__item:hover {
+    background-color: rgb(108, 93, 211, 0.9);
+    color: #fff;
+  }
+}
+
+
+::ng-deep.mat-select-arrow {
+  display: none;
+}
+
+::ng-deep.mat-select-trigger {
+  height: 100%;
+}
 
 
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import {
+  map, Observable, skipWhile, take,
+} from 'rxjs';
 import { IBoard } from 'src/app/core/models/board.model';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
@@ -10,6 +12,8 @@ import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
 import { loadBoards } from 'src/app/core/store/actions/boards.actions';
 import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { IUser } from 'src/app/core/models/user.model';
+import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -18,7 +22,9 @@ import { BoardsService } from '../../services/boards/boards.service';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-  boards$!: Observable<IBoard[]>;
+  boards$: Observable<IBoard[]> = this.boardStore.pipe(select(getAllBoards));
+
+  /* public user$: Observable<IUser | null>; */
 
   constructor(
     private store: Store,
@@ -26,11 +32,21 @@ export class MainComponent implements OnInit {
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {
-    /* this.store.dispatch(loadBoards()); */
+    /* this.user$ = this.store.select(getUserStore).pipe(
+      skipWhile((flag) => !flag.isLoggedIn),
+      take(1),
+      map(({ user }) => {
+        if (user) {
+          this.store.dispatch(loadBoards({ userId: user._id }));
+          return user;
+        }
+        return null;
+      }),
+    ); */
   }
 
   ngOnInit(): void {
-    this.boards$ = this.boardStore.pipe(select(getAllBoards));
+
   }
 
   deleteBoard(board: IBoard) {

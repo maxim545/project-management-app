@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ColumnsComponent } from './columns.component';
+import { PointComponent } from './point.component';
 
-describe('ColumnsComponent', () => {
-  let component: ColumnsComponent;
-  let fixture: ComponentFixture<ColumnsComponent>;
+describe('PointComponent', () => {
+  let component: PointComponent;
+  let fixture: ComponentFixture<PointComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ColumnsComponent ]
+      declarations: [ PointComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ColumnsComponent);
+    fixture = TestBed.createComponent(PointComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

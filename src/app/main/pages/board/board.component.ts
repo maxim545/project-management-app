@@ -1,12 +1,12 @@
 import {
-  Component, OnInit, OnDestroy, AfterViewInit,
+  Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import {
   catchError, map, skipWhile, take,
 } from 'rxjs/operators';
-import { IBoard, IColumn } from 'src/app/core/models/board.model';
+import { IBoard, IColumn, ITask } from 'src/app/core/models/board.model';
 import { Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
@@ -20,6 +20,13 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
 import { getUsers } from 'src/app/core/store/selectors/user.selectors';
 import { IUser } from 'src/app/core/models/user.model';
+import {
+  CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule,
+} from '@angular/cdk/drag-drop';
+import { ApiService } from 'src/app/core/services/api/api.service';
+import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
+import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { loadPoints } from 'src/app/core/store/actions/points.actions';
 import { ConfirmModalComponent } from '../../../shared/components/modals/confirm-modal/confirm-modal.component';
 import { clearColumns, loadColumns } from '../../../core/store/actions/columns.actions';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -31,13 +38,13 @@ import { ColumnsService } from '../../services/columns/columns.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit, OnDestroy {
-  public boardId: string = this.actRouter.snapshot.paramMap.get('id') as string;
+  public boardId: string = this.actRouter.snapshot.paramMap.get('id') || '';
 
-  public board$!: Observable<IBoard>;
+  public users$: Observable<IUser[] | null> = this.store.select(getUsers);
 
-  public columns$!: Observable<IColumn[]>;
+  public board$: Observable<IBoard>;
 
-  public users$!: Observable<IUser[] | null>;
+  public columns$: Observable<IColumn[]>;
 
   constructor(
     private actRouter: ActivatedRoute,
@@ -49,12 +56,8 @@ export class BoardComponent implements OnInit, OnDestroy {
     private boardStore: Store<BoardState>,
     private router: Router,
     private snackBar: MatSnackBar,
+    private apiService: ApiService,
   ) {
-    /* this.store.dispatch(loadBoards()); */
-  }
-
-  ngOnInit(): void {
-    this.users$ = this.store.select(getUsers);
     this.board$ = this.boardStore.pipe(
       select(boardStateSelector),
       skipWhile((flag) => !flag.isLoggedIn),
@@ -62,7 +65,10 @@ export class BoardComponent implements OnInit, OnDestroy {
       select(selectEntity(this.boardId)),
       map((board) => {
         if (board) {
+          const userId = parseJwt(localStorage.getItem('uniq_token'));
           this.store.dispatch(loadColumns({ id: this.boardId }));
+          this.store.dispatch(loadTasks({ id: userId }));
+          this.store.dispatch(loadPoints({ userId }));
           return board;
         }
         this.router.navigate(['**']);
@@ -73,6 +79,17 @@ export class BoardComponent implements OnInit, OnDestroy {
       select(getAllColumns),
       map((columns) => JSON.parse(JSON.stringify(columns))),
     );
+  }
+
+  ngOnInit(): void {
+  }
+
+  dropColumn(event: CdkDragDrop<IColumn[]>, columns: IColumn[]): void {
+    if (event.previousIndex !== event.currentIndex) {
+      moveItemInArray(columns, event.previousIndex, event.currentIndex);
+      columns.forEach((column, i) => column.order = i);
+      this.columnsService.editSetColumns(columns);
+    }
   }
 
   ngOnDestroy() {

@@ -4,12 +4,12 @@ import {
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { IColumn } from '../../models/board.model';
 import {
-  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess, updateColumnsSetSuccess, updateTasksSet, updTasksBetweenColumns,
+  addColumnSuccess, clearColumns, columnFailed, deleteColumnSuccess, editColumnSuccess, loadColumns, loadColumnsSuccess, updateColumnsSetSuccess,
 } from '../actions/columns.actions';
 
 export interface ColumnState extends EntityState<IColumn> {
   error: string | null;
-  loading: boolean,
+  isLoading: boolean,
 }
 
 export const adapter: EntityAdapter<IColumn> = createEntityAdapter<IColumn>({
@@ -19,7 +19,7 @@ export const adapter: EntityAdapter<IColumn> = createEntityAdapter<IColumn>({
 
 export const initialState: ColumnState = adapter.getInitialState({
   error: null,
-  loading: false,
+  isLoading: false,
 });
 
 export const columnReducer = createReducer(
@@ -27,40 +27,30 @@ export const columnReducer = createReducer(
 
   on(loadColumns, (state) => ({
     ...state,
-    loading: true,
+    isLoading: true,
   })),
 
   on(loadColumnsSuccess, (state, actions) => adapter.setAll(actions.columns, {
     ...state,
-    loading: false,
+    isLoading: false,
   })),
 
   on(addColumnSuccess, (state, action) => adapter.addOne(action.column, state)),
 
-  on(updateTasksSet, (state) => ({
-    ...state,
-    loading: true,
-  })),
-
-  on(updTasksBetweenColumns, (state) => ({
-    ...state,
-    loading: true,
-  })),
-
   on(editColumnSuccess, (state, action) => adapter.updateOne(
     {
-      id: action.columnId,
+      id: action.column._id,
       changes: action.column,
     },
     {
       ...state,
-      loading: false,
+      isLoading: false,
     },
   )),
 
   on(updateColumnsSetSuccess, (state, action) => adapter.updateMany(action.columns.map((column) => ({ id: column._id, changes: column })), {
     ...state,
-    loading: false,
+    isLoading: false,
   })),
 
   on(deleteColumnSuccess, (state, action) => adapter.removeOne(action.columnId, state)),

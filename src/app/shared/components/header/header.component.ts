@@ -35,8 +35,8 @@ import { IBoard } from 'src/app/core/models/board.model';
 import { Dictionary } from '@ngrx/entity';
 import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
+import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
-import { StickyService } from '../../../core/services/sticky/sticky.service';
 
 @Component({
   selector: 'app-header',
@@ -52,32 +52,35 @@ export class HeaderComponent implements OnInit {
 
   isLoadingColumns$: Observable<boolean> = this.columnsService.isLoadingColums$;
 
+  isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
+
   isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
-  public user$!: Observable<IUser | null>;
+  public user$: Observable<IUser | null> = this.store.select(getUserStore).pipe(map(({ user }) => user));
 
   constructor(
     private store: Store,
     private authService: AuthService,
     private boardService: BoardsService,
     private columnsService: ColumnsService,
+    private taskService: TasksService,
     public dialog: MatDialog,
     public translate: TranslateService,
     public langService: LangService,
     private userStore: Store<UserState>,
     private boardStore: Store<BoardState>,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('uniq_token')) {
       this.store.dispatch(loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }));
     }
-    this.user$ = this.store.select(getUserStore).pipe(
-      skipWhile((flag) => !flag.isLoggedIn),
-      take(1),
-      map(({ user }) => {
-        this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
-        return user;
+    this.isLoggedIn$ = this.isLoggedIn$.pipe(
+      map((isLoggedIn) => {
+        if (isLoggedIn) {
+          this.store.dispatch(loadBoards({ userId: parseJwt(localStorage.getItem('uniq_token')) }));
+        }
+        return isLoggedIn;
       }),
     );
   }

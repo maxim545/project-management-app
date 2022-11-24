@@ -70,13 +70,17 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       .subscribe((userData) => {
         this.user = userData;
         this.editProfileForm.controls['name'].setValue((userData?.name));
-        this.editProfileForm.controls['login'].setValue((userData?.name));
+        this.editProfileForm.controls['login'].setValue((userData?.login));
       });
   }
 
   ngOnDestroy() {
-    if (this.user$) { this.user$.unsubscribe(); }
-    if (this.deleteDialog$) { this.deleteDialog$.unsubscribe(); }
+    if (this.user$) {
+      this.user$.unsubscribe();
+    }
+    if (this.deleteDialog$) {
+      this.deleteDialog$.unsubscribe();
+    }
   }
 
   get f() { return this.editProfileForm.controls; }
@@ -84,10 +88,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   updateProfile() {
     if (this.user) {
       delete this.editProfileForm.value.confirmPassword;
-      this.store.dispatch(updateUser({
-        userId: this.user._id,
-        user: this.editProfileForm.value,
-      }));
+      this.authService.updateUser(this.user?._id, this.editProfileForm.value);
     }
   }
 
