@@ -26,7 +26,7 @@
   position: relative;
   display: flex;
   justify-content: space-between;
-  width: 630px;
+  width: 620px;
   padding: 26px;
   max-height: 100%;
 
@@ -35,6 +35,7 @@
     flex-direction: column;
     gap: 30px 0;
     width: 100%;
+    margin-top: 20px;
   }
 
 
@@ -71,6 +72,11 @@
     font-size: 16px;
     letter-spacing: 1.9px;
     color:rgb(80, 80, 80);
+  }
+
+  &__text {
+    max-width: 100%;
+    overflow: hidden;
   }
 
   &__content {
@@ -110,7 +116,11 @@
   &__users-block {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+  }
+
+  &__users-btn {
+    padding: 11px 15px;
+    margin-left: 15px;
   }
 }
 
@@ -119,7 +129,7 @@
 }
 
 ::ng-deep .p-multiselect {
-  min-width: 480px;
+  max-width: 100%;
 }
 
 .input {
@@ -181,13 +191,13 @@
 }
 
 .descr-form {
-  width: 100%;
+  width: 80%;
   height: 105px;
   background-color: transparent;
   margin: 0;
 
   &__field {
-    min-width: 100%;
+    max-width: 100%;
   }
 
   &__btns {
@@ -197,6 +207,7 @@
   }
 
   &__input {
+    max-width: 100%;
     font-size: 16px;
     font-weight: normal;
     padding: 5px;
@@ -205,13 +216,13 @@
 }
 
 .point-form {
-  width: 100%;
+  width: 80%;
   height: 105px;
   background-color: transparent;
   margin: 0;
 
   &__field {
-    min-width: 100%;
+    width: 100%;
   }
 
   &__btns {
@@ -221,6 +232,7 @@
   }
 
   &__input {
+    max-width: 100%;
     font-size: 16px;
     font-weight: normal;
     padding: 5px;
@@ -240,7 +252,7 @@
 
 ::ng-deep .mat-checkbox-checked .mat-checkbox-background,
 .mat-checkbox-indeterminate .mat-checkbox-background {
-  background-color: #6c5dd3 !important;
+  background-color: $primarydark !important;
 }
 
 ::ng-deep mat-checkbox .mat-checkbox-checkmark-path {
@@ -251,11 +263,13 @@
 
 .pogress-bar {
   display: grid;
-  grid-template-columns: 1fr 9fr;
+  grid-template-columns: 1fr 12fr;
   margin-bottom: 15px;
-  padding: 0 10px;
 
   &__num {
+    display: block;
+    font-size: 12px;
+    font-style: italic;
     color: #555;
   }
 
@@ -298,7 +312,79 @@ mat-form-field {
   border: none;
 }
 
+.mat-icon {
+  overflow: visible;
+}
+
+
+
+@media (max-width: 640px) {
+  .task-modal {
+    width: 460px;
+  }
+
+
+}
 
 
 
 
+@media (max-width: 480px) {
+  .task-modal {
+    width: 295px;
+  }
+
+  mat-form-field {
+    width: 80px;
+  }
+
+  .title-form {
+    height: 30px;
+
+    &__field {
+      margin-top: 4px;
+    }
+
+    &__btns {
+      display: flex;
+      margin-left: 16px;
+    }
+
+    &__input {
+      font-weight: normal;
+      padding: 5px;
+    }
+
+    &__icon {
+      transform: scale(0.7)
+    }
+  }
+  .pogress-bar {
+    grid-template-columns: 1.5fr 8fr;
+  }
+
+  ::ng-deep .p-multiselect {
+    max-width: 240px;
+  }
+
+  .task-item {
+    &__users-block {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__users-btn {
+      display: inline-block;
+      width: 100%;
+      margin-left: 0;
+      margin-top: 15px;
+    }
+
+    &__point-btn {
+      display: inline-block;
+      width: 100%;
+    }
+  }
+
+}
