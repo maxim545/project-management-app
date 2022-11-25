@@ -5,10 +5,10 @@
     </div>
     <mat-select class="column__edit_menu edit_menu">
       <mat-option class="edit_menu__item" (click)="openTaskDialog()">
-        <mat-icon>subtitles</mat-icon>Open
+        <mat-icon>subtitles</mat-icon>{{'columHeader.Open' | translate}}
       </mat-option>
       <mat-option class="edit_menu__item" (click)="deleteTask(task)">
-        <mat-icon>delete</mat-icon>Delete
+        <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
       </mat-option>
     </mat-select>
   </div>

@@ -71,6 +71,7 @@
     "titleReq": "title is required",
     "titleLength": "title must be at least 6 characters",
     "titleLengthMax": "title must be no more than 18 characters",
+    "titleLengthMax30": "Max length must be 30",
     "Accept": "Accept",
     "Cancel": "Cancel",
     "Create": "Create",
@@ -86,7 +87,7 @@
     "description": "description",
     "descriptionReq": "description is required",
     "descriptionLength": "description must be at least 6 characters",
-    "descriptionLengthMax": "description must be no more than 18 characters"
+    "descriptionLengthMax": "Max length must be 320"
 
 
   },
@@ -100,20 +101,39 @@
     "EditDord": "Edit board",
     "back": "Back to main",
     "select":"Select a User",
-    "Edit": "Edit"
+    "Edit": "Edit",
+    "add": "Add user",
+    "close": "Close",
+    "Save": "Save",
+    "Points": "Points",
+    "notPoints": "Not created points for this task",
+    "PointsReq": "Point name is required",
+    "notPointsLengthMax": "Max length must be 30",
+    "selectUser": "Select a User",
+    "addPoint": "Add new point"
   },
   "columHeader": {
+    "Open": "Open",
     "Delete": "Delete",
     "Rename": "Rename",
     "notCreate":"Not created tasks for this board!",
     "notCreateCol":"Not created columns for this board!",
     "newTask": "+ New task",
-    "createNewTask": "Create new task"
+    "createNewTask": "Create new task",
+    "message__text": "Not created tasks for this column!",
+    "adding": "adding"
 
+  },
+  "Users": {
+    "title": "Users",
+    "Edit": "Edit users!"
   },
   "main": {
     "title": "Boards",
-    "notCreatBord": "Not created boards!"
+    "notCreatBord": "Not created boards!",
+    "Search": "Search",
+    "sorry": "Sorry, but there are no results for your search.",
+    "searchResults": "Search results"
   },
   "error": {
     "message": "Oops! Page not found :(",

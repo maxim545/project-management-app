@@ -9,7 +9,7 @@
         <mat-form-field>
           <input class="point-form__input" formControlName="title" matInput>
           <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
-            <div *ngIf="f['title'].errors?.['required']">Title is required</div>
+            <div *ngIf="f['title'].errors?.['required']">{{'Bord.titleReq' | translate}}</div>
           </mat-error>
         </mat-form-field>
       </div>
@@ -31,10 +31,10 @@
 
   <mat-select class="point__edit-menu" *ngIf="!isEditMode">
     <mat-option class="point__edit-menu-item" (click)="this.isEditMode = true" *ngIf="!isEditMode">
-      <mat-icon>edit</mat-icon>Edit
+      <mat-icon>edit</mat-icon>{{'headerBord.Edit' | translate}}
     </mat-option>
     <mat-option class="point__edit-menu-item" (click)="deletePoint(point._id)" *ngIf="!isEditMode">
-      <mat-icon>delete</mat-icon>Delete
+      <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
     </mat-option>
   </mat-select>
 

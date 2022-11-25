@@ -96,8 +96,8 @@ export class ColumnComponent implements OnInit {
   openTaskCreater(column: IColumn, tasksQuantity: number) {
     this.dialog.open(TaskCreaterModalComponent, {
       data: {
-        editorMode: 'adding',
-        dialogTitle: 'Create new task',
+        editorMode: 'columHeader.vadding',
+        dialogTitle: 'columHeader.createNewTask',
         boardId: this.boardId,
         tasksQuantity,
         column,
