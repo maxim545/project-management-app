@@ -41,12 +41,12 @@ export class TaskCreaterModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskForm = this.formBuilder.group({
-      title: [this.dialogTaskData?.task.title, [
+      title: ['', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(28),
       ]],
-      description: [this.dialogTaskData?.task.description, [
+      description: ['', [
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(48),
