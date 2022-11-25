@@ -1,0 +1,49 @@
+@import "./../../../../../assets/scss/variables.scss";
+
+.confirm {
+  &__container {
+    width: 252px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  &__question {
+    width: 100%;
+    text-align: center;
+    font-size: 1.1rem;
+  }
+
+  &__buttons {
+    display: flex;
+    width: 100%;
+    gap: 20px;
+  }
+
+  &__button {
+    width: 50%;
+    padding: 8px;
+    font-weight: 500;
+    background-color: #ed413e;
+    color: #ffffff;
+    border-radius: 4px;
+    transition: 0.3s ease-in-out;
+
+    &:hover {
+      background-color: #f1615e;
+      text-shadow: 1px 1px 3px #ed413e;
+    }
+
+    &-cancel {
+      background-color: #9356a0;
+
+      &:hover {
+        background-color: #ba74ca;
+        text-shadow: 1px 1px 3px #9356a0;
+      }
+    }
+  }
+}

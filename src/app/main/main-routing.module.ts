@@ -4,6 +4,7 @@ import { LoginGuard } from '../core/guards/login/login.guard';
 import { NotLoginGuard } from '../core/guards/not-login/not-login.guard';
 import { BoardComponent } from './pages/board/board.component';
 import { MainComponent } from './pages/main/main.component';
+import { SearchComponent } from './pages/search/search.component';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 
 const routes: Routes = [
@@ -26,6 +27,11 @@ const routes: Routes = [
     path: 'welcome',
     component: WelcomeComponent,
     canActivate: [NotLoginGuard],
+  },
+  {
+    path: 'search',
+    component: SearchComponent,
+    canActivate: [LoginGuard],
   },
 ];
 

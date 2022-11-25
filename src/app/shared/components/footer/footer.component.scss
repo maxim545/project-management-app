@@ -1,3 +1,6 @@
+@import "./../../../../assets/scss/variables.scss";
+
+
 .footer {
   background-color: #f3f1f1;
   font-size: 1rem;
@@ -26,12 +29,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      width: 480px;
+      width: 530px;
       gap: 10px;
     }
 
     &-item {
-      width: 160px;
+      width: 170px;
       text-align: center;
     }
 

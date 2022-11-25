@@ -13,6 +13,7 @@ import { tap, map } from 'rxjs/operators';
 import {
   cleanUserStore,
   removeUser,
+  updateUser,
 } from 'src/app/core/store/actions/user.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { Observable } from 'rxjs';
@@ -55,7 +56,10 @@ export class AuthService {
     this.store.dispatch(cleanUserStore());
   }
 
-  updateUser() {
-    this.snackBar.open('Your data has been updated', '', snackBarGreenConfig);
+  updateUser(userId: string, user: IUserRequest) {
+    this.store.dispatch(updateUser({
+      userId,
+      user,
+    }));
   }
 }

@@ -14,10 +14,10 @@
     "NewPassword": "New password",
     "passwordReq": "Password is required",
     "passwordLength": "Password must be at least 6 characters",
-    "passwordLengthMax": "Password must be at least 18 characters",
-    "passwordConf": "Confirm Password",
+    "passwordLengthMax": "Password must be no more than 18 characters",
+    "passwordConf": "Confirm password",
     "newPasswordConf": "Confirm new password",
-    "passwordConfReq": "Confirm Password is required",
+    "passwordConfReq": "Confirm password is required",
     "passwordConMatch": "Passwords must match",
     "loginBtn": "Log in",
     "loginReq": "Login is required",
@@ -61,7 +61,7 @@
     }
   },
   "header": {
-    "createBtn": "+ Create todo",
+    "createBtn": "+ Create board",
     "profile": "Profile",
     "logOut": "Log out"
   },
@@ -70,7 +70,7 @@
     "title": "title",
     "titleReq": "title is required",
     "titleLength": "title must be at least 6 characters",
-    "titleLengthMax": "title must be at least 18 characters",
+    "titleLengthMax": "title must be no more than 18 characters",
     "Accept": "Accept",
     "Cancel": "Cancel",
     "Create": "Create",
@@ -79,25 +79,25 @@
     "No": "No",
     "Delete": "Delete",
     "sure": "Are you sure?",
-    "sureDel": "Are you sure want to delete?",
+    "sureDel": "Are you sure want to delete board?",
     "sureDelColum": "Are you sure want to delete column?",
     "sureDelTask": "Are you sure want to delete this task?",
     "sureDelProfile": "Are you sure want to delete your profile?",
     "description": "description",
     "descriptionReq": "description is required",
     "descriptionLength": "description must be at least 6 characters",
-    "descriptionLengthMax": "description must be at least 18 characters"
+    "descriptionLengthMax": "description must be no more than 18 characters"
 
 
   },
   "Edit":{
     "title": "Edit profile",
     "upProfile": "Update profile",
-    "delProfile": "Delete Profileь"
+    "delProfile": "Delete Profile"
   },
   "headerBord": {
     "createCol": "Create new column",
-    "EditDord": "Edit new board",
+    "EditDord": "Edit board",
     "back": "Back to main",
     "select":"Select a User",
     "Edit": "Edit"
@@ -116,7 +116,7 @@
     "notCreatBord": "Not created boards!"
   },
   "error": {
-    "title": "404",
-    "message": "Sorry, smth went wrong(("
+    "message": "Oops! Page not found :(",
+    "button": "Go back"
   }
 }

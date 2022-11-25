@@ -40,7 +40,7 @@ export const editBoard = createAction(
 
 export const editBoardSuccess = createAction(
   '[Board] Edit Board Success',
-  props<{ id: string, board: IBoard }>(),
+  props<{ board: IBoard }>(),
 );
 
 export const boardFailed = createAction(
