@@ -8,14 +8,14 @@
     </button>
   </div>
   <p-overlayPanel #op [showCloseIcon]="true" [showCloseIcon]="false" [dismissable]="false">
-    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="Select a User"
+    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="{{'headerBord.selectUser' | translate}}"
       optionLabel="login" display="chip"></p-multiSelect>
     <div class="overlay-panel__btns">
       <button class="btn btn_primary overlay-panel__btn" (click)="addUsers(board)">
-        <mat-icon class="overlay-panel__icon">person_add</mat-icon>Add user
+        <mat-icon class="overlay-panel__icon">person_add</mat-icon>{{'headerBord.add' | translate}}
       </button>
       <button class="btn btn_light overlay-panel__btn" (click)=" op.hide()">
-        <mat-icon class="overlay-panel__icon">close</mat-icon>Close
+        <mat-icon class="overlay-panel__icon">close</mat-icon>{{'headerBord.close' | translate}}
       </button>
     </div>
   </p-overlayPanel>

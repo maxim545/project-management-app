@@ -16,8 +16,8 @@
             <mat-form-field>
               <input class="title-form__input" formControlName="title" matInput>
               <mat-error *ngIf="title.invalid">
-                <div *ngIf="title.errors?.['required']">Title is required</div>
-                <div *ngIf="title.errors?.['maxlength']">Max length must be 30</div>
+                <div *ngIf="title.errors?.['required']">{{'Bord.titleReq' | translate}}</div>
+                <div *ngIf="title.errors?.['maxlength']">{{'Bord.titleLengthMax30' | translate}}</div>
               </mat-error>
             </mat-form-field>
           </div>
@@ -37,7 +37,7 @@
     <div class="task-item">
       <div class="task-item__header">
         <mat-icon>notes</mat-icon>
-        <h2 class="task-item__title">Description</h2>
+        <h2 class="task-item__title">{{'Bord.description' | translate}}</h2>
         <button class="btn task-item__btn" (click)="this.isEditDescrMode = !this.isEditDescrMode">
           <mat-icon class="task-item__icon">edit</mat-icon>
         </button>
@@ -52,17 +52,17 @@
             <mat-form-field>
               <input class="descr-form__input" formControlName="description" matInput>
               <mat-error *ngIf="description.invalid">
-                <div *ngIf="description.errors?.['required']">Description is required</div>
-                <div *ngIf="description.errors?.['maxlength']">Max length must be 320</div>
+                <div *ngIf="description.errors?.['required']">{{'Bord.descriptionReq' | translate}}</div>
+                <div *ngIf="description.errors?.['maxlength']">{{'Bord.descriptionLengthMax' | translate}}</div>
               </mat-error>
             </mat-form-field>
           </div>
           <div class="descr-form__btns">
             <button class="btn btn_primary" [disabled]="!editDescrForm.valid" type="submit">
-              Save
+              {{'headerBord.Save' | translate}}
             </button>
             <button class="btn btn_light" (click)="this.isEditDescrMode = false">
-              Close
+              {{'headerBord.close' | translate}}
             </button>
           </div>
         </form>
@@ -75,7 +75,7 @@
 
       <div class="task-item__header">
         <mat-icon>playlist_add_check</mat-icon>
-        <h2 class="task-item__title">Points</h2>
+        <h2 class="task-item__title">{{'headerBord.Points' | translate}}</h2>
       </div>
       <div class="task-item__content">
         <div class="task-item__points-block" *ngIf="(points$ | async) as points">
@@ -87,7 +87,7 @@
           <div *ngFor="let point of points">
             <app-point [task]="task" [boardId]="task.boardId" [point]="point"></app-point>
           </div>
-          <div class="task-item__message" *ngIf="!points.length">Not created points for this task</div>
+          <div class="task-item__message" *ngIf="!points.length">{{'headerBord.notPoints' | translate}}</div>
         </div>
         <form class="point-form" [formGroup]="createPointForm" name="form" (ngSubmit)="addPoint(task)"
           *ngIf="isCreateMode">
@@ -95,21 +95,21 @@
             <mat-form-field>
               <input class="point-form__input" formControlName="point" matInput>
               <mat-error *ngIf="point.invalid">
-                <div *ngIf="point.errors?.['required']">Point name is required</div>
-                <div *ngIf="point.errors?.['maxlength']">Max length must be 30</div>
+                <div *ngIf="point.errors?.['required']">{{'headerBord.PointsReq' | translate}}</div>
+                <div *ngIf="point.errors?.['maxlength']">{{'headerBord.notPointsLengthMax' | translate}}</div>
               </mat-error>
             </mat-form-field>
           </div>
           <div class="point-form__btns">
             <button class="btn btn_primary" [disabled]="!createPointForm.valid" type="submit">
-              Create
+              {{'Bord.Create' | translate}}
             </button>
             <button class="btn btn_light" (click)="this.isCreateMode = false">
-              Cancel
+              {{'Bord.Cancel' | translate}}
             </button>
           </div>
         </form>
-        <button class="btn btn_light" (click)="this.isCreateMode = true" *ngIf="!isCreateMode">Add new point</button>
+        <button class="btn btn_light" (click)="this.isCreateMode = true" *ngIf="!isCreateMode">{{'headerBord.addPoint' | translate}}</button>
       </div>
     </div>
 
@@ -118,16 +118,16 @@
     <div class="task-item">
       <div class="task-item__header">
         <mat-icon>people</mat-icon>
-        <h2 class="task-item__title">Users</h2>
+        <h2 class="task-item__title">{{'Users.title' | translate}}</h2>
       </div>
       <div class="task-item__content">
         <!-- <div *ngFor="let user of selectedTaskUsers">{{user.login}}</div> -->
         <div class="task-item__users-block" *ngIf="(selectedUsers$ | async) as selectedUsers">
-          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="Select a User" optionLabel="login"
+          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login"
             display="chip">
           </p-multiSelect>
           <button class="btn btn_light" (click)=" addUserForTask(task)">
-            <!-- <mat-icon class="">person_add</mat-icon> -->Edit users
+            <!-- <mat-icon class="">person_add</mat-icon> -->{{'Users.Edit' | translate}}
           </button>
         </div>
       </div>
