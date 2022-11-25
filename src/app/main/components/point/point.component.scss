@@ -15,6 +15,11 @@
     gap: 18px;
   }
 
+  &__title {
+    max-width: 470px;
+    overflow: hidden;
+  }
+
 
   &__edit-menu {
     display: none;
@@ -47,9 +52,6 @@
 }
 
 
-
-
-
 .point-form {
   width: 100%;
   display: flex;
@@ -58,13 +60,22 @@
   background-color: transparent;
   margin: 0;
 
-  &__field {
-    min-width: 100%;
-  }
-
   &__btns {
     display: flex;
     gap: 10px;
+    margin-left: 25px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border-radius: 45%;
+    transition: all 0.5s;
+  }
+
+  &__btn:hover {
+    background-color: $primarydark;
+    color: $white;
+    border-radius: 50%;
   }
 
   &__input {
@@ -90,5 +101,42 @@
 
 
 
+@media (max-width: 640px) {
+  .point {
+    &__title {
+      max-width: 310px;
+    }
+  }
+}
 
+
+
+
+@media (max-width: 480px) {
+  .point {
+    &__title {
+      max-width: 150px;
+    }
+  }
+
+  .point-form {
+
+    &__btns {
+      display: flex;
+      gap: 5px;
+      margin-left: 20px;
+    }
+
+    &__btn {
+      background-color: transparent;
+      border-radius: 45%;
+      transition: all 0.5s;
+    }
+
+  }
+
+  mat-form-field {
+    width: 120px;
+  }
+}
 

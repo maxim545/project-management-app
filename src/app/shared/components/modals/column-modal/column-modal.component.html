@@ -3,52 +3,33 @@
     <h1 class="form__title">
       {{ dialogTitle | translate }}
     </h1>
-    <form
-      [formGroup]="columnForm"
-      (ngSubmit)="onSubmit()"
-      class="form__create-column"
-    >
+    <form [formGroup]="columnForm" (ngSubmit)="onSubmit()" class="form__create-column">
       <div class="form__item">
-        <input
-          type="text"
-          formControlName="title"
-          class=""
-          [ngClass]="{
+        <input type="text" formControlName="title" class="" [ngClass]="{
             'is-invalid':
               (f['title'].dirty || f['title'].touched) && f['title'].errors,
             'label-active': f['title'].value,
             'red-border':
               (f['title'].dirty || f['title'].touched) && f['title'].errors
-          }"
-        />
+          }" />
         <label>{{ "Bord.title" | translate }} <span>*</span></label>
-        <div
-          *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors"
-          class="invalid-feedback"
-        >
+        <div *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors" class="invalid-feedback">
           <span *ngIf="f['title'].errors['required']" class="red-message">{{
             "Bord.titleReq" | translate
-          }}</span>
+            }}</span>
           <span *ngIf="f['title'].errors['minlength']" class="red-message">{{
             "Bord.titleLength" | translate
-          }}</span>
+            }}</span>
           <span *ngIf="f['title'].errors['maxlength']" class="red-message">{{
             "Bord.titleLengthMax" | translate
-          }}</span>
+            }}</span>
         </div>
       </div>
       <div class="form__buttons">
-        <button
-          class="form__button form__button-accept"
-          [disabled]="!columnForm.valid"
-        >
+        <button class="btn btn_primary" [disabled]="!columnForm.valid">
           {{ "Bord.Accept" | translate }}
         </button>
-        <button
-          type="button"
-          (click)="closeDiadlog()"
-          class="form__button form__button-cancel"
-        >
+        <button class="btn btn_red" type="button" (click)="closeDiadlog()">
           {{ "Bord.Cancel" | translate }}
         </button>
       </div>

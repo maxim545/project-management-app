@@ -71,6 +71,7 @@
     "titleLength": "title must be at least 6 characters",
     "titleLengthMax": "title must be no more than 18 characters",
     "titleLengthMax30": "Max length must be 30",
+    "taskTitle": "Create new task",
     "Accept": "Accept",
     "Cancel": "Cancel",
     "Create": "Create",
@@ -129,7 +130,7 @@
     "notCreatBord": "Not created boards!",
     "Search": "Search",
     "sorry": "Sorry, but there are no results for your search.",
-    "searchResults": "Search results"
+    "searchResults": "Search results."
   },
   "error": {
     "message": "Oops! Page not found :(",

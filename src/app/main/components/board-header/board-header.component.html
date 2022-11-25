@@ -8,8 +8,8 @@
     </button>
   </div>
   <p-overlayPanel #op [showCloseIcon]="true" [showCloseIcon]="false" [dismissable]="false">
-    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="{{'headerBord.selectUser' | translate}}"
-      optionLabel="login" display="chip"></p-multiSelect>
+    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers"
+      defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login" display="chip"></p-multiSelect>
     <div class="overlay-panel__btns">
       <button class="btn btn_primary overlay-panel__btn" (click)="addUsers(board)">
         <mat-icon class="overlay-panel__icon">person_add</mat-icon>{{'headerBord.add' | translate}}
@@ -19,7 +19,7 @@
       </button>
     </div>
   </p-overlayPanel>
-  <h1 class="block__title">{{board.title}}</h1>
+  <h1 class="block__title block__title_underline">{{board.title}}</h1>
   <div class="block__btns block__btns_right" *ngIf="columns">
     <button class="btn btn_primary" (click)="openBoardEditor(board)">
       <mat-icon class="icon">edit</mat-icon>

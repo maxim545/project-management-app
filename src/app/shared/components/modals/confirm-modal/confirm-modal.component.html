@@ -3,19 +3,10 @@
     <p>{{ dialogTitle | translate }}</p>
   </div>
   <div class="confirm__buttons">
-    <button
-      color="primary"
-      (click)="onConfirmClick()"
-      tabindex="1"
-      class="confirm__button confirm__button-accept"
-    >
+    <button color="primary" (click)="onConfirmClick()" tabindex="1" class="btn btn_red">
       {{ confirmButtonText | translate }}
     </button>
-    <button
-      (click)="onConfirmClick1()"
-      tabindex="-1"
-      class="confirm__button confirm__button-cancel"
-    >
+    <button (click)="onConfirmClick1()" tabindex="-1" class="btn btn_primary">
       {{ cancelButtonText | translate }}
     </button>
   </div>

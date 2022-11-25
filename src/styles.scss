@@ -90,7 +90,6 @@ table {
 }
 
 /* CONTAINER */
-
 html, body { height: 100%; }
 body {
   margin: 0;
@@ -116,7 +115,6 @@ app-footer {
 }
 
 /* ALERTS */
-
 .alert {
 
   &_green {
@@ -132,8 +130,6 @@ app-footer {
 }
 
 
-
-
 .mat-form-field.mat-focused .mat-form-field-ripple {
   background-color: #9356a0;
 }
@@ -145,6 +141,7 @@ app-footer {
   align-items: center;
   position: relative;
   background: none;
+  letter-spacing: 1.1px;
 	padding: 0;
   cursor: pointer;
   border: none;
@@ -153,17 +150,20 @@ app-footer {
   &_primary {
     font-weight: 600;
     font-size: 14px;
-    border-radius: 7px;
+    border-radius: 5px;
     padding: 8px 15px;
     background-color: $primary;
     color: #fff;
     box-shadow: 0 0 0 2px $shadow;
-  }
-
-  &_primary:hover {
-    color: $primary;
-    background-color: $white;
-    box-shadow: 0 0 0 3px $shadow;
+    &:hover:enabled {
+      color: $primary;
+      background-color: $white;
+      box-shadow: 0 0 0 3px $shadow;
+    }
+    &[disabled] {
+      background-color: $violetdark;
+      cursor: default;
+    }
   }
 
   &_light {
@@ -174,11 +174,25 @@ app-footer {
     padding: 8px 15px;
     color: #9356a0;
     box-shadow: 0 0 0 2px #48394815;
+    &::hover {
+      background-color: #d37be740;
+      box-shadow: 0 0 0 3px #48394815;
+    }
   }
 
-  &_light:hover {
-    background-color: #d37be740;
-    box-shadow: 0 0 0 3px #48394815;
+  &_red {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: $white;
+    box-shadow: 0 0 0 2px $shadow;
+    background-color: $red;
+
+    &:hover {
+      background-color: $white;
+      color: $red;
+    }
   }
 }
 
@@ -225,7 +239,12 @@ app-footer {
     color: $primary;
     text-transform: uppercase;
     letter-spacing: 2.5px;
+
+    &_underline {
+      border-bottom: 2px dashed $primarydark;
+    }
   }
+
 
   &__btns {
     display: flex;

@@ -1,5 +1,16 @@
 @import "./../../../../../assets/scss/variables.scss";
 
+::ng-deep .mat-dialog-container {
+  position: relative;
+  color: $dark;
+  background-color: $lightbg;
+  border-radius: 4px;
+  padding: 0;
+  border: 4px solid $borderlight;
+  box-shadow: 3px 4px 5px 1px $shadow;
+}
+
+
 .confirm {
   &__container {
     width: 252px;
@@ -7,7 +18,7 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    color: #fff;
+    padding: 26px;
     font-size: 1rem;
   }
 
@@ -19,6 +30,7 @@
 
   &__buttons {
     display: flex;
+    justify-content: center;
     width: 100%;
     gap: 20px;
   }
