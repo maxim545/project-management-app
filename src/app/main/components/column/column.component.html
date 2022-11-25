@@ -22,6 +22,7 @@
           <input class="efit-form__input" formControlName="title" matInput autofocus>
           <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
             <div *ngIf="f['title'].errors?.['required']">{{'Bord.titleReq' | translate}}</div>
+            <div *ngIf="f['title'].errors?.['maxlength']">{{'Bord.titleLengthMax' | translate}}</div>
           </mat-error>
         </mat-form-field>
       </div>
@@ -36,13 +37,14 @@
     </form>
   </div>
 
-  <div class="columns__inner" cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="dropTask($event, column)">
-    <div class="columns__task" *ngFor="let task of tasks" cdkDrag>
+  <div class="column__inner" cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="dropTask($event, column)">
+    <div class="column__task" *ngFor="let task of tasks" cdkDrag>
       <app-task [task]="task"></app-task>
     </div>
     <div class="message" *ngIf="!tasks.length">
       <p class="message__text">{{'columHeader.message__text' | translate}}</p>
     </div>
   </div>
-  <button class="btn columns__btn" *ngIf="tasks" (click)="openTaskCreater(column, tasks.length)">{{'columHeader.newTask' | translate}}</button>
+  <button class="btn column__btn" *ngIf="tasks" (click)="openTaskCreater(column, tasks.length)">{{'columHeader.newTask'
+    | translate}}</button>
 </div>
