@@ -1,7 +1,7 @@
 <div class="container">
   <div class="welcome__wrapper">
     <div class="welcome__menu">
-      <nav class="menu__nav">
+      <nav class="menu__nav" #nav>
         <ul class="menu__nav-list">
           <li
             class="menu__nav-item"
@@ -10,6 +10,9 @@
             #li
             [ngClass]="{ active: activeLi === li.id }"
             (click)="moveCarusel(li.id)"
+            (click)="
+              li.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+            "
           >
             {{ item | translate }}
           </li>
@@ -100,8 +103,10 @@
                   alt="photo"
                   class="info__team-photo"
                 />
-                <h5 class="info__team-name">{{ author.name | translate }}</h5>
-                <p class="info__team-about">{{ author.about | translate }}</p>
+                <div>
+                  <h5 class="info__team-name">{{ author.name | translate }}</h5>
+                  <p class="info__team-about">{{ author.about | translate }}</p>
+                </div>
               </li>
             </ul>
           </div>
