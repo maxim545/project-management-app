@@ -1,6 +1,7 @@
 @import "./../../../../assets/scss/variables.scss";
 
 .not-found {
+  height: 100%;
   display: flex;
   gap: 60px;
   align-items: center;
@@ -47,7 +48,6 @@
 
 @media (max-width: 900px) {
   .not-found {
-    height: 100%;
     flex-direction: column;
     gap: 50px;
     padding: 30px 20px;
@@ -89,6 +89,16 @@
 
 @media (max-width: 520px) {
   .not-found {
+    &__logo {
+      width: 100%;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
     &__elements {
       &-text {
         line-height: 2.5rem;
@@ -100,16 +110,6 @@
 
 @media (max-width: 440px) {
   .not-found {
-    &__logo {
-      width: 100%;
-      height: auto;
-
-      img {
-        width: 100%;
-        height: auto;
-      }
-    }
-
     &__elements {
       &-text {
         width: 75%;
