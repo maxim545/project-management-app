@@ -3,7 +3,9 @@ import {
 } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable, map } from 'rxjs';
-import { IBoard, IPoint, ITask } from 'src/app/core/models/board.model';
+import {
+  IBoard, IFile, IPoint, ITask,
+} from 'src/app/core/models/board.model';
 import { ITaskDialogData } from 'src/app/core/models/modal.model';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
@@ -32,6 +34,8 @@ export class TaskModalComponent implements OnInit {
 
   public donePoints$!: Observable<IPoint[]>;
 
+  public files$!: Observable<IFile[]>;
+
   public isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
 
   public isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
@@ -58,6 +62,8 @@ export class TaskModalComponent implements OnInit {
 
   public users!: IUser[];
 
+  public fileName: string | null = null;
+
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: ITaskDialogData,
@@ -76,6 +82,7 @@ export class TaskModalComponent implements OnInit {
       this.task = this.data.task;
       this.points$ = this.data.points$;
       this.donePoints$ = this.data.donePoints$;
+      this.files$ = this.data.files$;
     }
     this.task$ = this.taskStore.pipe(
       select(taskStateSelector),
@@ -175,15 +182,10 @@ export class TaskModalComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  getFiles(task: ITask) {
-    this.apiService.getFilesByUserId(task.boardId).subscribe((data) => {
-      console.log(data);
-    });
-  }
-
   addNewFile(event: Event): void {
     const eventTarget = event.target as HTMLInputElement;
     const fileToUpload = eventTarget.files![0];
+    this.fileName = fileToUpload.name;
     if (fileToUpload) {
       this.filesService.uploadFile(fileToUpload, this.task);
     }
