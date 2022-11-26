@@ -33,13 +33,12 @@
       "description": "Create, view, edit and manage tasks, break down your tasks to subtasks on the go, from any device.",
       "btn": "Get down"
     },
-    "school":{
+    "school": {
       "title": "What is RS School?",
       "description": "RS School is free-of-charge and community-based education program conducted by The Rolling Scopes developer community since 2013. Everyone can study at RS School, regardless of age, professional employment, or place of residence. The mentors and trainers of school are front-end and javascript developers from different companies and countries.",
       "subtitle": "RS School principles",
       "fPrincipl-title": "Pay it forward",
       "fPrincipl-description": "The RS School is working by the principle of 'Pay it forward'. Members of our community share their knowledge and check student's tasks for free. And we hope that our students will continue this work as our mentors in the future.",
-
       "SPrincipl-title": "Open Source Philosophy",
       "SPrincipl-description": "Everyone can study at RS School, regardless of age, professional employment, or place of residence. Our platform and education materials are publicly available on GitHub and YouTube.",
       "btn": "Learn more"
@@ -72,6 +71,7 @@
     "titleLength": "title must be at least 6 characters",
     "titleLengthMax": "title must be no more than 18 characters",
     "titleLengthMax30": "Max length must be 30",
+    "taskTitle": "Create new task",
     "Accept": "Accept",
     "Cancel": "Cancel",
     "Create": "Create",
@@ -88,10 +88,8 @@
     "descriptionReq": "description is required",
     "descriptionLength": "description must be at least 6 characters",
     "descriptionLengthMax": "Max length must be 320"
-
-
   },
-  "Edit":{
+  "Edit": {
     "title": "Edit profile",
     "upProfile": "Update profile",
     "delProfile": "Delete Profile"
@@ -100,7 +98,7 @@
     "createCol": "Create new column",
     "EditDord": "Edit board",
     "back": "Back to main",
-    "select":"Select a User",
+    "select": "Select a User",
     "Edit": "Edit",
     "add": "Add user",
     "close": "Close",
@@ -116,24 +114,23 @@
     "Open": "Open",
     "Delete": "Delete",
     "Rename": "Rename",
-    "notCreate":"Not created tasks for this board!",
-    "notCreateCol":"Not created columns for this board!",
+    "notCreate": "Not created tasks for this board!",
+    "notCreateCol": "Not created columns for this board!",
     "newTask": "+ New task",
     "createNewTask": "Create new task",
     "message__text": "Not created tasks for this column!",
     "adding": "adding"
-
   },
   "Users": {
     "title": "Users",
-    "Edit": "Edit users!"
+    "Edit": "Edit"
   },
   "main": {
     "title": "Boards",
     "notCreatBord": "Not created boards!",
     "Search": "Search",
     "sorry": "Sorry, but there are no results for your search.",
-    "searchResults": "Search results"
+    "searchResults": "Search results."
   },
   "error": {
     "message": "Oops! Page not found :(",

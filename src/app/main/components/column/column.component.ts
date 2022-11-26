@@ -56,6 +56,7 @@ export class ColumnComponent implements OnInit {
     this.editTitleForm = new FormGroup({
       title: new FormControl(this.column?.title, [
         Validators.required,
+        Validators.maxLength(18),
       ]),
     });
     /* const dataForUpdate = localStorage.getItem('iniq_tasks');

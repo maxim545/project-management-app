@@ -32,10 +32,6 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
 export class TasksComponent implements OnInit {
   @Input() public task!: ITask;
 
-  /*  public isCreateMode: boolean = false;
-
-  public createPointForm!: FormGroup; */
-
   public points$: Observable<IPoint[]>;
 
   public donePoints$: Observable<IPoint[]>;
@@ -63,16 +59,7 @@ export class TasksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /* this.createPointForm = new FormGroup({
-      title: new FormControl('', [
-        Validators.required,
-      ]),
-    }); */
   }
-
-  /*  get f() {
-    return this.createPointForm.controls;
-  } */
 
   deleteTask(task: ITask) {
     this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
@@ -83,17 +70,6 @@ export class TasksComponent implements OnInit {
         }
       });
   }
-
-  /* openTaskEditor(task: ITask): void {
-    this.dialog.open(TaskModalComponent, {
-      data: {
-        editorMode: 'editing',
-        dialogTitle: `Edit ${task.title}`,
-        task,
-        column: this.column,
-      },
-    });
-  } */
 
   openTaskDialog() {
     this.dialog.open(TaskModalComponent, {
@@ -108,16 +84,4 @@ export class TasksComponent implements OnInit {
       panelClass: 'task-dialog',
     });
   }
-
-  /* addPoint(task: ITask) {
-    const point = {
-      title: this.createPointForm.value.title,
-      taskId: task._id,
-      boardId: task.boardId,
-      done: false,
-    };
-    this.pointsService.addPoint(point);
-    this.isCreateMode = false;
-    this.createPointForm.controls['title'].setValue((''));
-  } */
 }

@@ -5,6 +5,7 @@
     </mat-progress-bar>
   </div>
   <div class="task-modal__content" *ngIf="(task$ | async) as task">
+
     <!-- --------TITLE-------- -->
     <div class="task-item">
       <div class="task-item__header">
@@ -14,7 +15,7 @@
           *ngIf="isEditTitleMode">
           <div class="title-form__field">
             <mat-form-field>
-              <input class="title-form__input" formControlName="title" matInput>
+              <input class="input title-form__input" formControlName="title" matInput>
               <mat-error *ngIf="title.invalid">
                 <div *ngIf="title.errors?.['required']">{{'Bord.titleReq' | translate}}</div>
                 <div *ngIf="title.errors?.['maxlength']">{{'Bord.titleLengthMax30' | translate}}</div>
@@ -22,11 +23,11 @@
             </mat-form-field>
           </div>
           <div class="title-form__btns">
-            <button class="btn" [disabled]="!editTitleForm.valid" type="submit">
-              <mat-icon class="">check</mat-icon>
+            <button class="btn title-form__btn" [disabled]="!editTitleForm.valid" type="submit">
+              <mat-icon class="icon title-form__icon">check</mat-icon>
             </button>
-            <button class="btn" (click)="this.isEditTitleMode = false">
-              <mat-icon class="">close</mat-icon>
+            <button class="btn title-form__btn" (click)="this.isEditTitleMode = false">
+              <mat-icon class="icon title-form__icon">close</mat-icon>
             </button>
           </div>
         </form>
@@ -44,13 +45,13 @@
       </div>
       <div class="task-item__content">
         <div *ngIf="!isEditDescrMode">
-          <p>{{task.description}}</p>
+          <p class="task-item__text">{{task.description}}</p>
         </div>
         <form class="descr-form" [formGroup]="editDescrForm" name="form" (ngSubmit)="editTaskDescr(task)"
           *ngIf="isEditDescrMode">
           <div class="descr-form__field">
             <mat-form-field>
-              <input class="descr-form__input" formControlName="description" matInput>
+              <input class="input descr-form__input" formControlName="description" matInput>
               <mat-error *ngIf="description.invalid">
                 <div *ngIf="description.errors?.['required']">{{'Bord.descriptionReq' | translate}}</div>
                 <div *ngIf="description.errors?.['maxlength']">{{'Bord.descriptionLengthMax' | translate}}</div>
@@ -72,7 +73,6 @@
 
     <!-- --------POINTS-------- -->
     <div class="task-item">
-
       <div class="task-item__header">
         <mat-icon>playlist_add_check</mat-icon>
         <h2 class="task-item__title">{{'headerBord.Points' | translate}}</h2>
@@ -93,7 +93,7 @@
           *ngIf="isCreateMode">
           <div class="point-form__field">
             <mat-form-field>
-              <input class="point-form__input" formControlName="point" matInput>
+              <input class="input point-form__input" formControlName="point" matInput>
               <mat-error *ngIf="point.invalid">
                 <div *ngIf="point.errors?.['required']">{{'headerBord.PointsReq' | translate}}</div>
                 <div *ngIf="point.errors?.['maxlength']">{{'headerBord.notPointsLengthMax' | translate}}</div>
@@ -109,7 +109,9 @@
             </button>
           </div>
         </form>
-        <button class="btn btn_light" (click)="this.isCreateMode = true" *ngIf="!isCreateMode">{{'headerBord.addPoint' | translate}}</button>
+        <button class="btn btn_light task-item__point-btn" (click)="this.isCreateMode = true"
+          *ngIf="!isCreateMode">{{'headerBord.addPoint' |
+          translate}}</button>
       </div>
     </div>
 
@@ -121,13 +123,12 @@
         <h2 class="task-item__title">{{'Users.title' | translate}}</h2>
       </div>
       <div class="task-item__content">
-        <!-- <div *ngFor="let user of selectedTaskUsers">{{user.login}}</div> -->
         <div class="task-item__users-block" *ngIf="(selectedUsers$ | async) as selectedUsers">
-          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login"
-            display="chip">
+          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users"
+            defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login" display="chip">
           </p-multiSelect>
-          <button class="btn btn_light" (click)=" addUserForTask(task)">
-            <!-- <mat-icon class="">person_add</mat-icon> -->{{'Users.Edit' | translate}}
+          <button class="btn btn_light task-item__users-btn" (click)=" addUserForTask(task)">
+            {{'Users.Edit' | translate}}
           </button>
         </div>
       </div>
@@ -151,18 +152,4 @@
       <mat-icon>close</mat-icon>
     </button>
   </div>
-
-
-  <!-- --------SIDEBAR-------- -->
-
-  <!-- <div class="task-modal__menu task-menu">
-    <div class="task-menu__item" *ngIf="(selectedUsers$ | async) as selectedUsers">
-      <p-multiSelect [options]="selectedUsers" [(ngModel)]="users" defaultLabel="Select a User" optionLabel="login"
-        display="chip">
-      </p-multiSelect>
-      <button class="btn btn_light task-menu__btn" (click)=" addUserForTask(task)">
-        <mat-icon class="task-menu__icon">person_add</mat-icon>Add user
-      </button>
-    </div>
-  </div> -->
 </div>

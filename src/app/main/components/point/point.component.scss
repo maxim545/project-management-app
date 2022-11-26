@@ -15,6 +15,11 @@
     gap: 18px;
   }
 
+  &__title {
+    max-width: 470px;
+    overflow: hidden;
+  }
+
 
   &__edit-menu {
     display: none;
@@ -28,26 +33,23 @@
     z-index: 9;
 
     &:hover {
-      background-color: #fff;
+      background-color: $white;
       box-shadow: 0 0 0 2px rgb(108, 93, 211, 0.3);
       cursor: pointer;
     }
   }
 
   &__edit-menu-item {
-    background-color: #fff;
+    background-color: $white;
     color: #5f5f5f;
   }
 
   &__edit-menu-item:hover {
-    background-color: #6e5fd3e6;
-      color: #fff;
+    background-color: $primary;
+    color: $white;
   }
 
 }
-
-
-
 
 
 .point-form {
@@ -58,24 +60,34 @@
   background-color: transparent;
   margin: 0;
 
-  &__field {
-    min-width: 100%;
-  }
-
   &__btns {
     display: flex;
     gap: 10px;
+    margin-left: 25px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border-radius: 45%;
+    transition: all 0.5s;
+  }
+
+  &__btn:hover {
+    background-color: $primarydark;
+    color: $white;
+    border-radius: 50%;
   }
 
   &__input {
     font-size: 14px;
-    color:rgb(80, 80, 80);
     font-weight: normal;
     padding: 5px;
     border-radius: 5px;
-    border: 2px solid rgb(108, 93, 211, 0.6);
-    background: rgb(255, 255, 255);
-    box-shadow: 0 0 0 1px rgb(108, 93, 211, 0.9);
+    border: 2px solid $lightbg;
+    color: $darkgrey;
+    background-color: $white;
+    box-shadow: 0 0 0 1px $shadowlight;
+    transition: all 0.5s;
   }
 }
 
@@ -89,5 +101,42 @@
 
 
 
+@media (max-width: 640px) {
+  .point {
+    &__title {
+      max-width: 310px;
+    }
+  }
+}
 
+
+
+
+@media (max-width: 480px) {
+  .point {
+    &__title {
+      max-width: 150px;
+    }
+  }
+
+  .point-form {
+
+    &__btns {
+      display: flex;
+      gap: 5px;
+      margin-left: 20px;
+    }
+
+    &__btn {
+      background-color: transparent;
+      border-radius: 45%;
+      transition: all 0.5s;
+    }
+
+  }
+
+  mat-form-field {
+    width: 120px;
+  }
+}
 
