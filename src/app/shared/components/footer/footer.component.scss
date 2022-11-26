@@ -1,5 +1,7 @@
+@import "./../../../../assets/scss/variables.scss";
+
 .footer {
-  background-color: #f3f1f1;
+  background-color: $lightbg;
   font-size: 1rem;
 
   &__wrapper {
@@ -14,7 +16,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    color: #0b0205;
+    color: $font;
 
     &-copyright {
       font-size: 1.2rem;
@@ -32,16 +34,18 @@
 
     &-item {
       width: 170px;
+      height: 1.05rem;
       text-align: center;
+      vertical-align: middle;
     }
 
     &-link {
-      color: #0b0205;
+      color: $font;
       font-size: 1rem;
       transition: 0.3s ease-in-out;
 
       &:hover {
-        color: #9356a0;
+        color: $primarydark;
         font-size: 1.05rem;
       }
     }
@@ -60,7 +64,36 @@
       transition: 0.3s ease-in-out;
 
       &:hover {
-        filter: drop-shadow(2px 2px 5px #9356a0);
+        filter: drop-shadow(2px 2px 5px $primarydark);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    &__author {
+      &-list {
+        flex-direction: column;
+        width: 170px;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .footer {
+    &__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    &__author {
+      &-list {
+        position: absolute;
+        top: 20px;
+        right: 0;
       }
     }
   }

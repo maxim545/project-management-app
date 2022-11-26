@@ -1,27 +1,125 @@
-.not-found {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -60%);
-  text-align: center;
-  background: #fff;
-  padding: 50px 30px;
-  border-radius: 15px;
-  border: 5px solid #EFEFEF;
-  box-shadow: 3px 4px 5px 1px rgb(108, 93, 211, 0.2);
+@import "./../../../../assets/scss/variables.scss";
 
-  &__title {
-  color: #6C5DD3;
-  font-size: 72px;
-  font-weight: bold;
-  letter-spacing: 3px;
-  margin-bottom: 30px;
+.not-found {
+  height: 100%;
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  padding: 50px 20px;
+  color: $darkviolet2;
+
+  &__logo {
+    width: 50%;
+    text-align: right;
+
+    img {
+      width: 70%;
+    }
   }
 
-  &__text {
-    color: #4e4e4e;
-    font-size: 24px;
-    font-weight: bold;
-    letter-spacing: 2px;
+  &__elements {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 40px;
+
+    &-text {
+      font-size: 2rem;
+      font-weight: 500;
+    }
+
+    &-button {
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      font-weight: 500;
+      background-color: $yellow;
+      color: $white;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $yellowlight;
+        text-shadow: 1px 1px 3px $yellow;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .not-found {
+    flex-direction: column;
+    gap: 50px;
+    padding: 30px 20px;
+
+    &__logo {
+      width: auto;
+      height: 50%;
+      text-align: center;
+
+      img {
+        width: auto;
+        height: 100%;
+      }
+    }
+
+    &__elements {
+      width: 100%;
+      align-items: center;
+      gap: 30px;
+
+      &-text {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  }
+}
+
+@media (max-width: 570px) {
+  .not-found {
+    &__elements {
+      &-text {
+        line-height: 2.5rem;
+        width: 90%;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .not-found {
+    &__logo {
+      width: 100%;
+      height: auto;
+
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    &__elements {
+      &-text {
+        line-height: 2.5rem;
+        width: 80%;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .not-found {
+    &__elements {
+      &-text {
+        width: 75%;
+        font-size: 1.6rem;
+        line-height: 2rem;
+      }
+
+      &-button {
+        font-size: 1rem;
+      }
+    }
   }
 }

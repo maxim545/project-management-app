@@ -1,13 +1,27 @@
+<div
+  class="curtain"
+  [ngClass]="{ active: isActive }"
+  (click)="isActive = !isActive"
+></div>
 <header class="header" id="header">
   <div class="container">
     <div class="header__wrapper">
-      <div class="header__title">
-        <a routerLink="/main"
-          ><img src="./assets/icons/logo.svg" alt="app-logo"
-        /></a>
-      </div>
-      <div class="header__custom-menu">
-        <div class="header__menu menu" *ngIf="(isLoggedIn$ | async) === false">
+      <button class="header__title" (click)="openMain()">
+        <img src="./assets/icons/logo.svg" alt="app-logo" />
+      </button>
+      <button class="header__burger" (click)="isActive = !isActive">
+        <img
+          src="./assets/icons/user.svg"
+          alt="user-icon"
+          class="header__burger-icon"
+        />
+      </button>
+      <div class="header__custom-menu" [ngClass]="{ active: isActive }">
+        <div
+          class="header__menu menu"
+          *ngIf="(isLoggedIn$ | async) === false"
+          (click)="isActive = !isActive"
+        >
           <nav class="menu__nav">
             <a routerLink="/auth/login" class="menu__link menu__link-login">{{
               "login.title" | translate
@@ -17,7 +31,7 @@
             }}</a>
           </nav>
         </div>
-        <div class="header__menu menu" *ngIf="(user$ | async)?.name">
+        <div class="header__menu menu" *ngIf="user$ | async">
           <nav class="menu__nav">
             <button
               (click)="openBoardCreater()"
@@ -26,6 +40,7 @@
               {{ "header.createBtn" | translate }}
             </button>
             <a
+              (click)="isActive = !isActive"
               routerLink="/auth/edit-profile"
               class="menu__link menu__link-edit"
               >{{ "header.profile" | translate }}</a
@@ -55,7 +70,8 @@
     *ngIf="
       (isLoadingUser$ | async) !== false ||
       (isLoadingColumns$ | async) !== false ||
-      (isLoadingBoards$ | async) !== false
+      (isLoadingBoards$ | async) !== false ||
+      (isLoadingTasks$ | async) !== false
     "
   >
     <mat-progress-bar mode="indeterminate"> </mat-progress-bar>

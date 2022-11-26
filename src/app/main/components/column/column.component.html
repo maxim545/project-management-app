@@ -1,0 +1,50 @@
+<div class="column" *ngIf="(tasks$ | async) as tasks">
+  <!--  ---------<COLUMN HEADER>------------------ -->
+  <div class="column__header" *ngIf="column">
+    <div class="column__title-block" *ngIf="!isEditMode">
+      <h2 class="column__title" (click)="this.isEditMode = true">{{column.title}}</h2>
+      <span class="column__quantity">{{tasks.length}}</span>
+    </div>
+
+
+    <mat-select class="column__edit_menu edit_menu" *ngIf="!isEditMode">
+      <mat-option class="edit_menu__item" (click)="this.isEditMode = true">
+        <mat-icon>edit</mat-icon>{{'columHeader.Rename' | translate}}
+      </mat-option>
+      <mat-option class="edit_menu__item" (click)="deleteColumn(column)">
+        <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
+      </mat-option>
+    </mat-select>
+
+    <form class="edit-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTitle(column)" *ngIf="isEditMode">
+      <div class="efit-form__field">
+        <mat-form-field>
+          <input class="efit-form__input" formControlName="title" matInput autofocus>
+          <mat-error *ngIf="f['title'].invalid && (f['title'].dirty || f['title'].touched)">
+            <div *ngIf="f['title'].errors?.['required']">{{'Bord.titleReq' | translate}}</div>
+            <div *ngIf="f['title'].errors?.['maxlength']">{{'Bord.titleLengthMax' | translate}}</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="edit-form__btns">
+        <button class="btn" [disabled]="!editTitleForm.valid" type="submit">
+          <mat-icon class="edit-form__icon edit-form__icon_check">check</mat-icon>
+        </button>
+        <button class="btn" (click)="this.isEditMode = false">
+          <mat-icon class="edit-form__icon edit-form__icon_close">close</mat-icon>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="column__inner" cdkDropList [cdkDropListData]="tasks" (cdkDropListDropped)="dropTask($event, column)">
+    <div class="column__task" *ngFor="let task of tasks" cdkDrag>
+      <app-task [task]="task"></app-task>
+    </div>
+    <div class="message" *ngIf="!tasks.length">
+      <p class="message__text">{{'columHeader.message__text' | translate}}</p>
+    </div>
+  </div>
+  <button class="btn column__btn" *ngIf="tasks" (click)="openTaskCreater(column, tasks.length)">{{'columHeader.newTask'
+    | translate}}</button>
+</div>

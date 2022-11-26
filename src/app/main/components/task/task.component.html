@@ -1,0 +1,19 @@
+<div class="task" *ngIf="task">
+  <div class="task__header">
+    <div class="task__title" (click)="openTaskDialog()">
+      {{task.title}}
+    </div>
+    <mat-select class="column__edit_menu edit_menu">
+      <mat-option class="edit_menu__item" (click)="openTaskDialog()">
+        <mat-icon>subtitles</mat-icon>{{'columHeader.Open' | translate}}
+      </mat-option>
+      <mat-option class="edit_menu__item" (click)="deleteTask(task)">
+        <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="task__footer" *ngIf="(points$ | async) as points">
+    <mat-icon class="task__points-icon">playlist_add_check</mat-icon>
+    <div class="task__points">{{(donePoints$ | async)?.length}}/{{points.length}}</div>
+  </div>
+</div>

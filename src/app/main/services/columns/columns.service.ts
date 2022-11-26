@@ -10,7 +10,7 @@ import {
 } from 'src/app/core/store/actions/columns.actions';
 import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 import { ColumnState, columnStateSelector } from 'src/app/core/store/reducers/columns.reducers';
-import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
+import { getAllColumns, getColumnLoadingStatus } from 'src/app/core/store/selectors/columns.selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -23,10 +23,7 @@ export class ColumnsService {
     private store: Store,
     private columnStore: Store<ColumnState>,
   ) {
-    this.isLoadingColums$ = this.store.pipe(
-      select(columnStateSelector),
-      map((data) => data.loading),
-    );
+    this.isLoadingColums$ = this.store.pipe(select(getColumnLoadingStatus));
   }
 
   addColumn(id: string, column: IColumnRequest) {

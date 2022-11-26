@@ -1,21 +1,31 @@
-<div class="header-board" *ngIf="(board$ | async) as board">
-  <button class="btn header-board__btn header-board__btn_left" routerLink="/main">
-    <mat-icon class="icon icon_back">chevron_left</mat-icon>{{'headerBord.back' | translate}}
-  </button>
-  <h1 class="header-board__title">{{board.title}}</h1>
-  <div class="header-board__right" *ngIf="columns">
-    <div class="header-board__users">
-      <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers" defaultLabel="{{'headerBord.select' | translate}}"
-        optionLabel="login" display="chip"></p-multiSelect>
-      <button class="btn header-board__btn header-board__btn_right" (click)="addUsers(board)">
-        <mat-icon class="icon icon_edit">person_add</mat-icon>
+<div class="block__header" *ngIf="(board$ | async) as board">
+  <div class="block__btns block__btns_left">
+    <button class="btn btn_primary" routerLink="/main">
+      <mat-icon class="icon icon_back">chevron_left</mat-icon>{{'headerBord.back' | translate}}
+    </button>
+    <button class="btn btn_primary" (click)="op.toggle($event)">
+      <mat-icon class="icon">person_add</mat-icon>
+    </button>
+  </div>
+  <p-overlayPanel #op [showCloseIcon]="true" [showCloseIcon]="false" [dismissable]="false">
+    <p-multiSelect *ngIf="users" [options]="users" [(ngModel)]="selectedUsers"
+      defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login" display="chip"></p-multiSelect>
+    <div class="overlay-panel__btns">
+      <button class="btn btn_primary overlay-panel__btn" (click)="addUsers(board)">
+        <mat-icon class="overlay-panel__icon">person_add</mat-icon>{{'headerBord.add' | translate}}
+      </button>
+      <button class="btn btn_light overlay-panel__btn" (click)=" op.hide()">
+        <mat-icon class="overlay-panel__icon">close</mat-icon>{{'headerBord.close' | translate}}
       </button>
     </div>
-    <button class="btn header-board__btn header-board__btn_right" (click)="openBoardEditor(board)">
-      <mat-icon class="icon icon_edit">edit</mat-icon>
+  </p-overlayPanel>
+  <h1 class="block__title block__title_underline">{{board.title}}</h1>
+  <div class="block__btns block__btns_right" *ngIf="columns">
+    <button class="btn btn_primary" (click)="openBoardEditor(board)">
+      <mat-icon class="icon">edit</mat-icon>
     </button>
-    <button class="btn header-board__btn header-board__btn_right" (click)="openColumnCreater(board, columns.length)">
-      <mat-icon class="icon icon_add">note_add</mat-icon>
+    <button class="btn btn_primary" (click)="openColumnCreater(board, columns.length)">
+      <mat-icon class="icon">note_add</mat-icon>
     </button>
   </div>
 </div>

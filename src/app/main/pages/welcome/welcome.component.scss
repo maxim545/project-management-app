@@ -1,3 +1,5 @@
+@import "./../../../../assets/scss/variables.scss";
+
 .welcome {
   &__wrapper {
     display: flex;
@@ -62,6 +64,7 @@
     display: flex;
     justify-content: center;
     padding: 0 60px;
+    margin-top: 30px;
 
     &-wrapper {
       width: 60%;

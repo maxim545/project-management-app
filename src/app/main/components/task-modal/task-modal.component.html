@@ -1,0 +1,155 @@
+<div class="task-modal">
+  <div class="spinner" *ngIf="
+  (isLoadingTasks$ | async) !== false || (isLoadingPoint$ | async) !== false">
+    <mat-progress-bar mode="indeterminate">
+    </mat-progress-bar>
+  </div>
+  <div class="task-modal__content" *ngIf="(task$ | async) as task">
+
+    <!-- --------TITLE-------- -->
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>subtitles</mat-icon>
+        <h2 class="task-item__title" (click)="this.isEditTitleMode = true" *ngIf="!isEditTitleMode">{{task.title}}</h2>
+        <form class="title-form" [formGroup]="editTitleForm" name="form" (ngSubmit)="editTaskTitle(task)"
+          *ngIf="isEditTitleMode">
+          <div class="title-form__field">
+            <mat-form-field>
+              <input class="input title-form__input" formControlName="title" matInput>
+              <mat-error *ngIf="title.invalid">
+                <div *ngIf="title.errors?.['required']">{{'Bord.titleReq' | translate}}</div>
+                <div *ngIf="title.errors?.['maxlength']">{{'Bord.titleLengthMax30' | translate}}</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="title-form__btns">
+            <button class="btn title-form__btn" [disabled]="!editTitleForm.valid" type="submit">
+              <mat-icon class="icon title-form__icon">check</mat-icon>
+            </button>
+            <button class="btn title-form__btn" (click)="this.isEditTitleMode = false">
+              <mat-icon class="icon title-form__icon">close</mat-icon>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- --------DESCRIPTION---------->
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>notes</mat-icon>
+        <h2 class="task-item__title">{{'Bord.description' | translate}}</h2>
+        <button class="btn task-item__btn" (click)="this.isEditDescrMode = !this.isEditDescrMode">
+          <mat-icon class="task-item__icon">edit</mat-icon>
+        </button>
+      </div>
+      <div class="task-item__content">
+        <div *ngIf="!isEditDescrMode">
+          <p class="task-item__text">{{task.description}}</p>
+        </div>
+        <form class="descr-form" [formGroup]="editDescrForm" name="form" (ngSubmit)="editTaskDescr(task)"
+          *ngIf="isEditDescrMode">
+          <div class="descr-form__field">
+            <mat-form-field>
+              <input class="input descr-form__input" formControlName="description" matInput>
+              <mat-error *ngIf="description.invalid">
+                <div *ngIf="description.errors?.['required']">{{'Bord.descriptionReq' | translate}}</div>
+                <div *ngIf="description.errors?.['maxlength']">{{'Bord.descriptionLengthMax' | translate}}</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="descr-form__btns">
+            <button class="btn btn_primary" [disabled]="!editDescrForm.valid" type="submit">
+              {{'headerBord.Save' | translate}}
+            </button>
+            <button class="btn btn_light" (click)="this.isEditDescrMode = false">
+              {{'headerBord.close' | translate}}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+    <!-- --------POINTS-------- -->
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>playlist_add_check</mat-icon>
+        <h2 class="task-item__title">{{'headerBord.Points' | translate}}</h2>
+      </div>
+      <div class="task-item__content">
+        <div class="task-item__points-block" *ngIf="(points$ | async) as points">
+          <div class="pogress-bar" *ngIf="(donePoints$ | async) as donePoints">
+            <span class="pogress-bar__num">{{getDonePercent(donePoints, points)}}%</span>
+            <p-progressBar [value]="getDonePercent(donePoints, points)" [showValue]="false">
+            </p-progressBar>
+          </div>
+          <div *ngFor="let point of points">
+            <app-point [task]="task" [boardId]="task.boardId" [point]="point"></app-point>
+          </div>
+          <div class="task-item__message" *ngIf="!points.length">{{'headerBord.notPoints' | translate}}</div>
+        </div>
+        <form class="point-form" [formGroup]="createPointForm" name="form" (ngSubmit)="addPoint(task)"
+          *ngIf="isCreateMode">
+          <div class="point-form__field">
+            <mat-form-field>
+              <input class="input point-form__input" formControlName="point" matInput>
+              <mat-error *ngIf="point.invalid">
+                <div *ngIf="point.errors?.['required']">{{'headerBord.PointsReq' | translate}}</div>
+                <div *ngIf="point.errors?.['maxlength']">{{'headerBord.notPointsLengthMax' | translate}}</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="point-form__btns">
+            <button class="btn btn_primary" [disabled]="!createPointForm.valid" type="submit">
+              {{'Bord.Create' | translate}}
+            </button>
+            <button class="btn btn_light" (click)="this.isCreateMode = false">
+              {{'Bord.Cancel' | translate}}
+            </button>
+          </div>
+        </form>
+        <button class="btn btn_light task-item__point-btn" (click)="this.isCreateMode = true"
+          *ngIf="!isCreateMode">{{'headerBord.addPoint' |
+          translate}}</button>
+      </div>
+    </div>
+
+
+    <!-- --------USERS-------- -->
+    <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon>people</mat-icon>
+        <h2 class="task-item__title">{{'Users.title' | translate}}</h2>
+      </div>
+      <div class="task-item__content">
+        <div class="task-item__users-block" *ngIf="(selectedUsers$ | async) as selectedUsers">
+          <p-multiSelect [options]="selectedUsers" [(ngModel)]="users"
+            defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login" display="chip">
+          </p-multiSelect>
+          <button class="btn btn_light task-item__users-btn" (click)=" addUserForTask(task)">
+            {{'Users.Edit' | translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- --------FILES-------- -->
+
+    <!-- <div class="task-item">
+      <div class="task-item__header">
+        <mat-icon> attach_file</mat-icon>
+        <h2 class="task-item__title">Files</h2>
+      </div>
+      <div class="task-item__content">
+        <input type="file" (change)="fileChange($any($event).target.files)" placeholder="Upload file">
+      </div>
+    </div>-->
+
+
+    <button class="btn task-modal__btn" (click)="closeTaskModal()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+</div>

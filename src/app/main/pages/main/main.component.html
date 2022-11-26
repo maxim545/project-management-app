@@ -1,22 +1,48 @@
-<div class="container">
-  <div class="boards">
-    <div class="boards__header header-board">
-      <h1 class="header-board__title">{{'main.title' | translate}}</h1>
+<div class="block">
+  <div class="container">
+    <div class="block__header">
+      <h1 class="block__title">{{'main.title' | translate}}</h1>
     </div>
-    <div class="columns__not-found not-found" *ngIf="!(boards$ | async)?.length">
-      <p class="not-found__text">{{'main.notCreatBord' | translate}}</p>
-    </div>
-    <div class="boards__list" *ngIf="(boards$ | async)?.length">
-      <div class="boards__item" *ngFor="let board of boards$ | async">
-        <a class="boards__title" routerLink="/board/{{board._id}}">{{board.title}}</a>
-        <mat-select class="edit_menu edit_menu_boards">
-          <mat-option class="edit_menu__item" (click)="editBoard(board)">
-            <mat-icon>edit</mat-icon>{{'columHeader.Rename' | translate}}
-          </mat-option>
-          <mat-option class="edit_menu__item" (click)="deleteBoard(board)">
-            <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
-          </mat-option>
-        </mat-select>
+    <div class="boards">
+      <div class="boards__search search">
+        <form class="search__form" [formGroup]="searchForm" name="form" (ngSubmit)="searchTasks()">
+          <div class="search__field">
+            <input class="search__input" placeholder="Enter seatch value..." formControlName="title" matInput>
+          </div>
+          <button class="btn btn_primary search__btn search__btn_settings" type="button" (click)="op.toggle($event)">
+            <mat-icon class="icon">settings</mat-icon>
+          </button>
+          <button class="btn btn_primary search__btn search__btn_search" [disabled]="!searchForm.valid" type="submit">
+            <mat-icon class="icon icon_search">search</mat-icon>{{'main.Search' | translate}}
+          </button>
+          <p-overlayPanel #op>
+            <div>
+              <ul>
+                <li *ngFor="let item of searchFields">
+                  <input type="checkbox" value="{{item.id}}" [checked]="item.isSelected"
+                    (change)="isAllSelected(item)" />
+                  {{item.value}}
+                </li>
+              </ul>
+            </div>
+          </p-overlayPanel>
+        </form>
+      </div>
+      <div class="message" *ngIf="!(boards$ | async)?.length">
+        <p class="message__text">{{'main.notCreatBord' | translate}}</p>
+      </div>
+      <div class="boards__list" *ngIf="(boards$ | async)?.length">
+        <div class="boards__item" *ngFor="let board of boards$ | async">
+          <a class="boards__title" routerLink="/board/{{board._id}}">{{board.title}}</a>
+          <mat-select class="edit-menu">
+            <mat-option class="edit-menu__item" (click)="editBoard(board)">
+              <mat-icon>edit</mat-icon>{{'columHeader.Rename' | translate}}
+            </mat-option>
+            <mat-option class="edit-menu__item" (click)="deleteBoard(board)">
+              <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
+            </mat-option>
+          </mat-select>
+        </div>
       </div>
     </div>
   </div>
