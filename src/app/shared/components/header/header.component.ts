@@ -37,6 +37,7 @@ import { loadColumns } from 'src/app/core/store/actions/columns.actions';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
+import { loadFiles } from 'src/app/core/store/actions/files.actions';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
@@ -82,6 +83,7 @@ export class HeaderComponent implements OnInit {
           const userId = parseJwt(localStorage.getItem('uniq_token'));
           this.store.dispatch(loadBoards({ userId }));
           this.store.dispatch(loadTasks({ id: userId }));
+          this.store.dispatch(loadFiles({ userId }));
         }
         return isLoggedIn;
       }),
