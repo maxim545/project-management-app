@@ -15,9 +15,12 @@ import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 import { ApiService } from 'src/app/core/services/api/api.service';
 import { TaskState, taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
 import { selectEntity } from 'src/app/core/store/selectors/tasks.selectors';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { BoardsService } from '../../services/boards/boards.service';
+import { FilesService } from '../../services/files/files.service';
 
 @Component({
   selector: 'app-task-modal',
@@ -63,9 +66,11 @@ export class TaskModalComponent implements OnInit {
     private boardsService: BoardsService,
     private taskService: TasksService,
     private pointsService: PointsService,
+    private filesService: FilesService,
     private store: Store,
     private apiService: ApiService,
     private taskStore: Store<TaskState>,
+    private snackBar: MatSnackBar,
   ) {
     if (data) {
       this.task = this.data.task;
@@ -170,17 +175,17 @@ export class TaskModalComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  /* fileChange(files: FileList) {
-    const fileToUpload = files[0];
+  getFiles(task: ITask) {
+    this.apiService.getFilesByUserId(task.boardId).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  addNewFile(event: Event): void {
+    const eventTarget = event.target as HTMLInputElement;
+    const fileToUpload = eventTarget.files![0];
     if (fileToUpload) {
-      const formData: FormData = new FormData();
-      formData.append('boardId', this.task.boardId);
-      formData.append('taskId', this.task._id);
-      formData.append('file', fileToUpload, fileToUpload.name);
-      console.log(formData);
-      this.apiService.uploadFile(formData).subscribe((data) => {
-        console.log(data);
-      });
+      this.filesService.uploadFile(fileToUpload, this.task);
     }
-  } */
+  }
 }

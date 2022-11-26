@@ -137,15 +137,18 @@
 
     <!-- --------FILES-------- -->
 
-    <!-- <div class="task-item">
+    <div class="task-item">
       <div class="task-item__header">
         <mat-icon> attach_file</mat-icon>
         <h2 class="task-item__title">Files</h2>
       </div>
       <div class="task-item__content">
-        <input type="file" (change)="fileChange($any($event).target.files)" placeholder="Upload file">
+        <input type="file" (change)="addNewFile($event)" placeholder="Upload file">
       </div>
-    </div>-->
+    </div>
+
+    <button (click)="getFiles(task)">111</button>
+    <!-- <img src="https://backend-pma-production.up.railway.app/files/6371149bdbf736ec97671987-cat.jpg" alt=""> -->
 
 
     <button class="btn task-modal__btn" (click)="closeTaskModal()">
