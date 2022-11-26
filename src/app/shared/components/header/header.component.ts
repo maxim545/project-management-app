@@ -1,20 +1,6 @@
-import {
-  Component,
-  OnInit,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import {
-  catchError,
-  EMPTY,
-  finalize,
-  map,
-  Observable,
-  skipWhile,
-  take,
-  tap,
-} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { map, Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import { loadUsers } from 'src/app/core/store/actions/user.actions';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,19 +11,12 @@ import { ColumnsService } from 'src/app/main/services/columns/columns.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'src/app/core/services/lang/lang.service';
 import { IUser } from 'src/app/core/models/user.model';
-import { UserState } from 'src/app/core/store/reducers/user.reducer';
 import { parseJwt } from 'src/app/core/configs/tokenParse';
-import {
-  BoardState,
-  boardStateSelector,
-} from 'src/app/core/store/reducers/boards.reducer';
-import { IBoard } from 'src/app/core/models/board.model';
-import { Dictionary } from '@ngrx/entity';
-import { loadColumns } from 'src/app/core/store/actions/columns.actions';
-import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
 import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
+import { Router } from '@angular/router';
+import { BoardsService } from 'src/app/main/services/boards/boards.service';
 
 @Component({
   selector: 'app-header',
@@ -55,9 +34,14 @@ export class HeaderComponent implements OnInit {
 
   isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
 
-  isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
+  isChecked: boolean =
+    localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
-  public user$: Observable<IUser | null> = this.store.select(getUserStore).pipe(map(({ user }) => user));
+  isActive: boolean = false;
+
+  public user$: Observable<IUser | null> = this.store
+    .select(getUserStore)
+    .pipe(map(({ user }) => user));
 
   constructor(
     private store: Store,
@@ -68,13 +52,14 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     public translate: TranslateService,
     public langService: LangService,
-    private userStore: Store<UserState>,
-    private boardStore: Store<BoardState>,
-  ) { }
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('uniq_token')) {
-      this.store.dispatch(loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }));
+      this.store.dispatch(
+        loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) })
+      );
     }
     this.isLoggedIn$ = this.isLoggedIn$.pipe(
       map((isLoggedIn) => {
@@ -84,20 +69,28 @@ export class HeaderComponent implements OnInit {
           this.store.dispatch(loadTasks({ id: userId }));
         }
         return isLoggedIn;
-      }),
+      })
     );
   }
 
   openBoardCreater() {
+    this.isActive = !this.isActive;
     this.dialog.open(BoardModalComponent, createBoardDialogConfig);
   }
 
   logout() {
+    this.isActive = !this.isActive;
     this.authService.logoutUser();
   }
 
   changeLang() {
     this.langService.changeLanguage(this.isChecked);
     this.isChecked = !this.isChecked;
+  }
+
+  openMain() {
+    if (!this.isActive || window.innerWidth > 768) {
+      this.router.navigate(['/main']);
+    }
   }
 }
