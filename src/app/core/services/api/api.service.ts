@@ -148,8 +148,8 @@ export class ApiService {
   }
 
   /* ********  FILES ******** */
-  getFilesByBoardId(boardId: string): Observable<IFile[]> {
-    return this.http.get<IFile[]>(`file/${boardId}`);
+  getFilesByUserId(userId: string): Observable<IFile[]> {
+    return this.http.get<IFile[]>(`file?userId=${userId}`);
   }
 
   uploadFile(point: FormData): Observable<IFile> {

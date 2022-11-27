@@ -109,9 +109,11 @@
             </button>
           </div>
         </form>
-        <button class="btn btn_light task-item__point-btn" (click)="this.isCreateMode = true"
-          *ngIf="!isCreateMode">{{'headerBord.addPoint' |
-          translate}}</button>
+        <button class="btn btn_primary task-item__point-btn" (click)="this.isCreateMode = true" *ngIf="!isCreateMode">
+          <mat-icon class="icon">playlist_add</mat-icon>
+          {{'headerBord.addPoint' |
+          translate}}
+        </button>
       </div>
     </div>
 
@@ -127,7 +129,8 @@
           <p-multiSelect [options]="selectedUsers" [(ngModel)]="users"
             defaultLabel="{{'headerBord.selectUser' | translate}}" optionLabel="login" display="chip">
           </p-multiSelect>
-          <button class="btn btn_light task-item__users-btn" (click)=" addUserForTask(task)">
+          <button class="btn btn_primary task-item__users-btn" (click)=" addUserForTask(task)">
+            <mat-icon class="icon">person_add</mat-icon>
             {{'Users.Edit' | translate}}
           </button>
         </div>
@@ -137,17 +140,28 @@
 
     <!-- --------FILES-------- -->
 
-    <!-- <div class="task-item">
+    <div class="task-item">
       <div class="task-item__header">
         <mat-icon> attach_file</mat-icon>
         <h2 class="task-item__title">Files</h2>
       </div>
-      <div class="task-item__content">
-        <input type="file" (change)="fileChange($any($event).target.files)" placeholder="Upload file">
+      <div class="task-item__content file" *ngIf="(files$ | async) as files">
+        <div class="task-item__message" *ngIf="!files.length">
+          {{'columHeader.message__text' | translate}}
+        </div>
+        <div class="file__container">
+          <app-file class="file__item" *ngFor="let file of files" [file]="file"></app-file>
+        </div>
+        <div class="file__field">
+          <button class="btn btn_primary file__upload-btn" type="button" (click)="fileInput.click()">
+            <mat-icon class="icon">cloud_upload</mat-icon> Upload
+            <input #fileInput type="file" (change)="addNewFile($event)" style="display:none;" />
+          </button>
+          <span class="file__message" *ngIf="!fileName">Chose File</span>
+          <span class="file__message" *ngIf="fileName">{{fileName}}</span>
+        </div>
       </div>
-    </div>-->
-
-
+    </div>
     <button class="btn task-modal__btn" (click)="closeTaskModal()">
       <mat-icon>close</mat-icon>
     </button>

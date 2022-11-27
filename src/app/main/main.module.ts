@@ -32,6 +32,7 @@ import { PointComponent } from './components/point/point.component';
 import { TaskCreaterModalComponent } from './components/task-creater-modal/task-creater-modal.component';
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { SearchComponent } from './pages/search/search.component';
+import { FileComponent } from './components/file/file.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { SearchComponent } from './pages/search/search.component';
     TaskCreaterModalComponent,
     TaskModalComponent,
     SearchComponent,
+    FileComponent,
   ],
   imports: [
     CommonModule,

@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import {
-  IBoard, IColumn, IPoint, ITask,
+  IBoard, IColumn, IFile, IPoint, ITask,
 } from './board.model';
 
 export interface IConfirmDialog {
@@ -33,4 +33,5 @@ export interface ITaskDialogData {
   task: ITask,
   points$: Observable<IPoint[]>,
   donePoints$: Observable<IPoint[]>,
+  files$: Observable<IFile[]>,
 }

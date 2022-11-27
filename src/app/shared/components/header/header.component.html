@@ -16,7 +16,10 @@
           class="header__burger-icon"
         />
       </button>
-      <div class="header__custom-menu" [ngClass]="{ active: isActive }">
+      <div
+        class="header__custom-menu"
+        [ngClass]="{ active: isActive, none: !isActive }"
+      >
         <div
           class="header__menu menu"
           *ngIf="(isLoggedIn$ | async) === false"
