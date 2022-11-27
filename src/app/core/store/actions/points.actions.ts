@@ -12,12 +12,12 @@ export const loadPointsSuccess = createAction(
 );
 
 export const addPoint = createAction(
-  '[Points] Add Columns',
+  '[Points] Add Point',
   props<{ point: IPointCreateRequest }>(),
 );
 
 export const addPointSuccess = createAction(
-  '[Points] Add Columns Success',
+  '[Points] Add Points Success',
   props<{ point: IPoint }>(),
 );
 
@@ -32,12 +32,12 @@ export const editPointSuccess = createAction(
 );
 
 export const deletePoint = createAction(
-  '[Points] Delete Column',
+  '[Points] Delete Point',
   props<{ pointId: string, }>(),
 );
 
 export const deletePointSuccess = createAction(
-  '[Points] Delete Column Success',
+  '[Points] Delete Point Success',
   props<{ pointId: string }>(),
 );
 

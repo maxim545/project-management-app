@@ -2,73 +2,55 @@
   <div class="form">
     <div class="form__container">
       <h1 class="form__title">{{ "Edit.title" | translate }}</h1>
-      <form
-        [formGroup]="editProfileForm"
-        (ngSubmit)="updateProfile()"
-        class="form__edit"
-      >
+      <form [formGroup]="editProfileForm" (ngSubmit)="updateProfile()" class="form__edit">
         <div class="form__item">
-          <input
-            type="text"
-            formControlName="name"
-            class=""
-            [ngClass]="{
+          <input type="text" formControlName="name" class="" [ngClass]="{
               'is-invalid':
                 (f['name'].dirty || f['name'].touched) && f['name'].errors,
               'label-active': f['name'].value,
               'red-border':
                 (f['name'].dirty || f['name'].touched) && f['name'].errors
-            }"
-          />
+            }" />
           <label>{{ "SignUp.name" | translate }} <span>*</span></label>
-          <div
-            *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors"
-            class="invalid-feedback"
-          >
+          <div *ngIf="(f['name'].dirty || f['name'].touched) && f['name'].errors" class="invalid-feedback">
             <span class="red-message" *ngIf="f['name'].errors['required']">{{
               "SignUp.nameReq" | translate
-            }}</span>
+              }}</span>
             <span class="red-message" *ngIf="f['name'].errors['minlength']">{{
               "SignUp.nameLength" | translate
-            }}</span>
+              }}</span>
+            <span class="red-message" *ngIf="f['name'].errors['maxlength']">
+              {{ "login.passwordLengthMax" | translate }}
+            </span>
           </div>
         </div>
 
         <div class="form__item">
-          <input
-            type="text"
-            formControlName="login"
-            class=""
-            [ngClass]="{
+          <input type="text" formControlName="login" class="" [ngClass]="{
               'is-invalid':
                 (f['login'].dirty || f['login'].touched) && f['login'].errors,
               'label-active': f['login'].value,
               'red-border':
                 (f['login'].dirty || f['login'].touched) && f['login'].errors
-            }"
-          />
+            }" />
           <label>{{ "login.login" | translate }} <span>*</span></label>
-          <div
-            *ngIf="
+          <div *ngIf="
               (f['login'].dirty || f['login'].touched) && f['login'].errors
-            "
-            class="invalid-feedback"
-          >
+            " class="invalid-feedback">
             <span class="red-message" *ngIf="f['login'].errors['required']">{{
               "login.loginReq" | translate
-            }}</span>
-            <span class="red-message" *ngIf="f['login'].errors['minlength']">{{
-              "login.loginLength" | translate
-            }}</span>
+              }}</span>
+            <span class="red-message" *ngIf="f['login'].errors['minlength']">
+              {{ "login.loginLength" | translate }}
+            </span>
+            <span class="red-message" *ngIf="f['login'].errors['maxlength']">
+              {{ "login.passwordLengthMax" | translate }}
+            </span>
           </div>
         </div>
 
         <div class="form__item">
-          <input
-            type="password"
-            formControlName="password"
-            class=""
-            [ngClass]="{
+          <input type="password" formControlName="password" class="" [ngClass]="{
               'is-invalid':
                 (f['password'].dirty || f['password'].touched) &&
                 f['password'].errors,
@@ -76,38 +58,24 @@
               'red-border':
                 (f['password'].dirty || f['password'].touched) &&
                 f['password'].errors
-            }"
-          />
+            }" />
           <label>{{ "login.NewPassword" | translate }} <span>*</span></label>
-          <div
-            *ngIf="
+          <div *ngIf="
               (f['password'].dirty || f['password'].touched) &&
               f['password'].errors
-            "
-            class="invalid-feedback"
-          >
+            " class="invalid-feedback">
             <span class="red-message" *ngIf="f['password'].errors['required']">
               {{ "login.passwordReq" | translate }}
             </span>
-            <span
-              class="red-message"
-              *ngIf="f['password'].errors['minlength']"
-              >{{ "login.passwordLength" | translate }}</span
-            >
-            <span
-              class="red-message"
-              *ngIf="f['password'].errors['maxlength']"
-              >{{ "login.passwordLengthMax" | translate }}</span
-            >
+            <span class="red-message" *ngIf="f['password'].errors['minlength']">{{ "login.passwordLength" | translate
+              }}</span>
+            <span class="red-message" *ngIf="f['password'].errors['maxlength']">{{ "login.passwordLengthMax" | translate
+              }}</span>
           </div>
         </div>
 
         <div class="form__item">
-          <input
-            type="password"
-            formControlName="confirmPassword"
-            class=""
-            [ngClass]="{
+          <input type="password" formControlName="confirmPassword" class="" [ngClass]="{
               'is-invalid':
                 (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
                 f['confirmPassword'].errors,
@@ -115,32 +83,20 @@
               'red-border':
                 (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
                 f['confirmPassword'].errors
-            }"
-          />
-          <label
-            >{{ "login.newPasswordConf" | translate }} <span>*</span></label
-          >
-          <div
-            *ngIf="
+            }" />
+          <label>{{ "login.newPasswordConf" | translate }} <span>*</span></label>
+          <div *ngIf="
               (f['confirmPassword'].dirty || f['confirmPassword'].touched) &&
               f['confirmPassword'].errors
-            "
-            class="invalid-feedback"
-          >
-            <span
-              class="red-message"
-              *ngIf="f['confirmPassword'].errors['required']"
-              >{{ "login.passwordConfReq" | translate }}</span
-            >
-            <span
-              class="red-message"
-              *ngIf="f['confirmPassword'].errors['passIsMatch']"
-              >{{ "login.passwordConMatch" | translate }}</span
-            >
+            " class="invalid-feedback">
+            <span class="red-message" *ngIf="f['confirmPassword'].errors['required']">{{ "login.passwordConfReq" |
+              translate }}</span>
+            <span class="red-message" *ngIf="f['confirmPassword'].errors['passIsMatch']">{{ "login.passwordConMatch" |
+              translate }}</span>
           </div>
         </div>
 
-        <button class="btn-submit" [disabled]="!editProfileForm.valid">
+        <button class="btn btn_primary" [disabled]="!editProfileForm.valid">
           {{ "Edit.upProfile" | translate }}
         </button>
       </form>

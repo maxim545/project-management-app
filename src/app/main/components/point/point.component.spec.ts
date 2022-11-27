@@ -8,9 +8,9 @@ describe('PointComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PointComponent ]
+      declarations: [PointComponent],
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PointComponent);
     component = fixture.componentInstance;

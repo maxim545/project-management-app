@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { map, Observable, Subscription } from 'rxjs';
-import { IBoard, IColumn, ITask } from 'src/app/core/models/board.model';
+import { trnsttValues } from 'src/app/core/configs/lang';
+import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
+import { ITask } from 'src/app/core/models/board.model';
 import { IUser } from 'src/app/core/models/user.model';
-import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
-import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
+import { LangService } from 'src/app/core/services/lang/lang.service';
 import { TaskState, taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
-import { getAllBoards } from 'src/app/core/store/selectors/boards.selectors';
-import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
 import { getAllTasks } from 'src/app/core/store/selectors/tasks.selectors';
-import { getCurrentUser, getUserByLogin } from 'src/app/core/store/selectors/user.selectors';
+import { getUserByLogin } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-search',
@@ -25,22 +25,18 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   tasks$: Observable<ITask[]> | null = null;
 
-  public user: IUser | null = null;
+  user: IUser | null = null;
 
-  public user$: Subscription | null = null;
+  user$: Subscription | null = null;
 
-  public searchForm!: FormGroup;
-  /*
-  public column$: Observable<IColumn[]> = this.columnStore.pipe(select(getAllColumns));
-
-  board$: Observable<IBoard[]> = this.boardStore.pipe(select(getAllBoards)); */
+  searchForm!: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
     private store: Store,
     private taskStore: Store<TaskState>,
-    private columnStore: Store<ColumnState>,
-    private boardStore: Store<BoardState>,
+    private snackBar: MatSnackBar,
+    private langService: LangService,
   ) {
     this.searchQuery = this.route.snapshot.queryParamMap.get('search_query');
     this.searchType = this.route.snapshot.queryParamMap.get('type');
@@ -55,7 +51,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     if (this.searchQuery && this.searchType) {
       this.searchTasks();
     } else {
-      console.error('Bad search request');
+      const curLng = this.langService.getCurrentLanguage();
+      this.snackBar.open(trnsttValues[curLng as keyof typeof trnsttValues].search.request, '', snackBarRedConfig);
+      throw new Error('Bad search request');
     }
   }
 
@@ -82,8 +80,10 @@ export class SearchComponent implements OnInit, OnDestroy {
       map((tasks) => {
         if (this.searchType === 'users' && this.user) {
           return tasks.filter((task) => task.users.includes(this.user!._id));
+        } if (this.searchType === 'title') {
+          return tasks.filter((task) => task.title.toLowerCase().indexOf(this.searchQuery!) > -1);
         }
-        return tasks.filter((task: ITask) => task[this.searchType as keyof ITask] === this.searchQuery);
+        return tasks.filter((task) => task.description.toLowerCase().indexOf(this.searchQuery!.toLowerCase()) > -1);
       }),
     );
   }

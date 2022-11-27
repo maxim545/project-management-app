@@ -3,13 +3,10 @@ import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthValidators } from 'src/app/core/validators/auth.validators';
 import { Store } from '@ngrx/store';
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { signUpUser } from 'src/app/core/store/actions/user.actions';
 import { map, Observable } from 'rxjs';
-import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
 
 @Component({
   selector: 'app-sign-up',
@@ -22,11 +19,9 @@ export class SignUpComponent implements OnInit {
   isLoadingUser$: Observable<boolean> = this.authService.isLoadingUser$;
 
   constructor(
-    public authService: AuthService,
-    private http: HttpClient,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store,
-    private apiService: ApiService,
   ) {
   }
 

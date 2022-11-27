@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class LangService {
   constructor(
-    public translate: TranslateService,
+    private translate: TranslateService,
   ) { }
 
   changeLanguage(isChecked: boolean) {

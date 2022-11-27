@@ -11,7 +11,7 @@ import { ColumnsService } from 'src/app/main/services/columns/columns.service';
 import { TranslateService } from '@ngx-translate/core';
 import { LangService } from 'src/app/core/services/lang/lang.service';
 import { IUser } from 'src/app/core/models/user.model';
-import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { parseJwt } from 'src/app/core/utils/tokenParse';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
 import { loadFiles } from 'src/app/core/store/actions/files.actions';
@@ -39,9 +39,7 @@ export class HeaderComponent implements OnInit {
 
   isActive: boolean = false;
 
-  public user$: Observable<IUser | null> = this.store
-    .select(getUserStore)
-    .pipe(map(({ user }) => user));
+  user$: Observable<IUser | null> = this.store.select(getUserStore).pipe(map(({ user }) => user));
 
   constructor(
     private store: Store,
@@ -49,11 +47,11 @@ export class HeaderComponent implements OnInit {
     private boardService: BoardsService,
     private columnsService: ColumnsService,
     private taskService: TasksService,
-    public dialog: MatDialog,
-    public translate: TranslateService,
-    public langService: LangService,
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    private langService: LangService,
     private router: Router,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (localStorage.getItem('uniq_token')) {

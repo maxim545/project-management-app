@@ -8,7 +8,7 @@ import { FilesService } from '../../services/files/files.service';
   styleUrls: ['./file.component.scss'],
 })
 export class FileComponent implements OnInit {
-  @Input() public file!: IFile;
+  @Input() file!: IFile;
 
   constructor(
     private fileService: FilesService,

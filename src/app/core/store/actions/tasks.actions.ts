@@ -4,22 +4,22 @@ import {
 } from '../../models/board.model';
 
 export const loadTasks = createAction(
-  '[Columns] Load Tasks',
+  '[Task] Load Tasks',
   props<{ id: string }>(),
 );
 
 export const loadTasksSuccess = createAction(
-  '[Columns] Load Tasks Success',
+  '[Task] Load Tasks Success',
   props<{ tasks: ITask[] }>(),
 );
 
 export const updateTasksOrder = createAction(
-  '[Columns] Edit Tasks order',
+  '[Task] Edit Tasks order',
   props<{ tasks: ITaskSet[] }>(),
 );
 
 export const updateTasksOrderSuccess = createAction(
-  '[Columns] Edit Set Tasks order Success',
+  '[Task] Edit Set Tasks order Success',
   props<{ tasks: ITask[] }>(),
 );
 
@@ -29,7 +29,7 @@ export const addTask = createAction(
 );
 
 export const addTasksSuccess = createAction(
-  '[Columns] add Tasks Success',
+  '[Task] Add Tasks Success',
   props<{ task: ITask }>(),
 );
 
@@ -39,7 +39,7 @@ export const editTask = createAction(
 );
 
 export const editTasksSuccess = createAction(
-  '[Columns] edit Tasks Success',
+  '[Task] edit Tasks Success',
   props<{ task: ITask }>(),
 );
 
@@ -49,6 +49,6 @@ export const deleteTask = createAction(
 );
 
 export const deleteTasksSuccess = createAction(
-  '[Columns] delete Tasks Success',
+  '[Columns] Delete Tasks Success',
   props<{ taskId: string }>(),
 );

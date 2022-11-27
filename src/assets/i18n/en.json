@@ -14,7 +14,7 @@
     "NewPassword": "New password",
     "passwordReq": "Password is required",
     "passwordLength": "Password must be at least 6 characters",
-    "passwordLengthMax": "Password must be no more than 18 characters",
+    "passwordLengthMax": "Field must be no more than 18 characters",
     "passwordConf": "Confirm password",
     "newPasswordConf": "Confirm new password",
     "passwordConfReq": "Confirm password is required",
@@ -120,6 +120,11 @@
     "createNewTask": "Create new task",
     "message__text": "Not created tasks for this column!",
     "adding": "adding"
+  },
+  "point": {
+    "message": "No uploaded files for this task",
+    "button": "Upload",
+    "btn-text": "Chose file"
   },
   "Users": {
     "title": "Users",

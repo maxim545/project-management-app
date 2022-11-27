@@ -7,9 +7,6 @@ import {
 import {
   addTask, deleteTask, editTask, updateTasksOrder,
 } from 'src/app/core/store/actions/tasks.actions';
-import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
-
-import { TaskState, taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
 import { getTaskLoadingStatus, selectEntity } from 'src/app/core/store/selectors/tasks.selectors';
 
 @Injectable({
@@ -20,15 +17,8 @@ export class TasksService {
 
   constructor(
     private store: Store,
-    private boardStore: Store<BoardState>,
-    private taskStore: Store<TaskState>,
   ) {
     this.isLoadingTasks$ = this.store.pipe(select(getTaskLoadingStatus));
-    /* this.taskStore.pipe(
-      select(taskStateSelector),
-      select(selectEntity('63710526dbf736ec97671951')),
-      map((board) => board),
-    ).subscribe((data) => console.log(data)); */
   }
 
   addTask(column: IColumn, task: ITaskRequest) {

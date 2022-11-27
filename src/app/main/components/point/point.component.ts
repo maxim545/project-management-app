@@ -11,17 +11,17 @@ import { PointsService } from '../../services/points/points.service';
   styleUrls: ['./point.component.scss'],
 })
 export class PointComponent implements OnInit {
-  @Input() public task!: ITask;
+  @Input() task!: ITask;
 
-  @Input() public point!: IPoint;
+  @Input() point!: IPoint;
 
-  @Input() public boardId: string = '';
+  @Input() boardId: string = '';
 
-  public isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
+  isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
 
-  public isEditMode: boolean = false;
+  isEditMode: boolean = false;
 
-  public editPointForm!: FormGroup;
+  editPointForm!: FormGroup;
 
   constructor(
     private apiService: ApiService,

@@ -85,7 +85,13 @@ export function httpTranslateLoader(httpBackend: HttpBackend) {
       useClass: TokenInterceptor,
       multi: true,
     },
-    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: false } },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        disableClose: false,
+        hasBackdrop: true,
+      },
+    },
   ],
   bootstrap: [AppComponent],
 })

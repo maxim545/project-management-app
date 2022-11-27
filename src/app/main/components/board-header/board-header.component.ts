@@ -1,25 +1,18 @@
 import {
   AfterViewInit, Component, Input, NgModuleFactory, OnDestroy, OnInit,
 } from '@angular/core';
-import {
-  FormArray, FormBuilder, FormControl, FormGroup,
-} from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { select, Store } from '@ngrx/store';
 import {
   Observable, map, skipWhile, take, Subscription,
 } from 'rxjs';
-import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { parseJwt } from 'src/app/core/utils/tokenParse';
 import { IBoard, IColumn } from 'src/app/core/models/board.model';
 import { IUser } from 'src/app/core/models/user.model';
 import { BoardState, boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
-import { ColumnState } from 'src/app/core/store/reducers/columns.reducers';
 import { selectEntity } from 'src/app/core/store/selectors/boards.selectors';
-import { getAllColumns } from 'src/app/core/store/selectors/columns.selectors';
-import { getUsers } from 'src/app/core/store/selectors/user.selectors';
 import { BoardModalComponent } from 'src/app/shared/components/modals/board-modal/board-modal.component';
 import { ColumnModalComponent } from 'src/app/shared/components/modals/column-modal/column-modal.component';
-import { SelectItem, PrimeNGConfig } from 'primeng/api';
 import { BoardsService } from '../../services/boards/boards.service';
 
 @Component({
@@ -28,21 +21,18 @@ import { BoardsService } from '../../services/boards/boards.service';
   styleUrls: ['./board-header.component.scss'],
 })
 export class BoardHeaderComponent implements OnInit {
-  @Input() public columns: IColumn[] | null = null;
+  @Input() columns: IColumn[] | null = null;
 
-  @Input() public boardId: string = '';
+  @Input() boardId: string = '';
 
-  @Input() public users!: IUser[] | null;
+  @Input() users!: IUser[] | null;
 
-  public board$: Observable<IBoard | undefined> | null = null;
+  board$: Observable<IBoard | undefined> | null = null;
 
-  public selectedUsers: IUser[] | null = null;
+  selectedUsers: IUser[] | null = null;
 
   constructor(
-    private store: Store,
-    public dialog: MatDialog,
-    private columnStore: Store<ColumnState>,
-    private formBuilder: FormBuilder,
+    private dialog: MatDialog,
     private boardService: BoardsService,
     private boardStore: Store<BoardState>,
   ) {

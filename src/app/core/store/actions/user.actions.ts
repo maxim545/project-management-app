@@ -13,16 +13,6 @@ export const loadUsersSuccess = createAction(
   props<{ users: IUser[], user: IUser }>(),
 );
 
-/* export const loadAllUsers = createAction(
-  '[User] Load All User',
-  props<{ currentUserId: string }>(),
-);
-
-export const loadAllUsersSuccess = createAction(
-  '[User] Load All User Success',
-  props<{ users: IUser[] }>(),
-); */
-
 export const loginUser = createAction(
   '[User] Login User',
   props<{ user: IUserLogin }>(),
@@ -49,7 +39,7 @@ export const removeUser = createAction(
 );
 
 export const cleanUserStore = createAction(
-  '[User] Clear Data',
+  '[User] Clear User Data',
 );
 export const userRequestFailed = createAction(
   '[User] User Filed',
