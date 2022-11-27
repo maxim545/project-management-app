@@ -1,0 +1,26 @@
+<div class="block">
+  <div class="container">
+    <div class="block__header">
+      <h1 class="block__title">{{'main.title' | translate}}</h1>
+    </div>
+    <div class="boards">
+      <app-search-field class="search-field"></app-search-field>
+      <div class="message" *ngIf="!(boards$ | async)?.length">
+        <p class="message__text">{{'main.notCreatBord' | translate}}</p>
+      </div>
+      <div class="boards__list" *ngIf="(boards$ | async)?.length">
+        <div class="boards__item" *ngFor="let board of boards$ | async">
+          <a class="boards__title" routerLink="/board/{{board._id}}">{{board.title}}</a>
+          <mat-select class="edit-menu">
+            <mat-option class="edit-menu__item" (click)="editBoard(board)">
+              <mat-icon>edit</mat-icon>{{'columHeader.Rename' | translate}}
+            </mat-option>
+            <mat-option class="edit-menu__item" (click)="deleteBoard(board)">
+              <mat-icon>delete</mat-icon>{{'columHeader.Delete' | translate}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

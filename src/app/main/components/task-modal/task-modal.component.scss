@@ -1,0 +1,444 @@
+@import "../../../../assets/scss/variables.scss";
+
+::ng-deep .mat-dialog-container {
+  position: relative;
+  color: $dark;
+  background-color: $lightbg;
+  border-radius: 4px;
+  padding: 0;
+  border: 4px solid $borderlight;
+  box-shadow: 3px 4px 5px 1px $shadow;
+}
+
+
+/* ::ng-deep .cdk-global-overlay-wrapper {
+  display: flex;
+  position: absolute;
+  padding: 30px;
+  z-index: 1000;
+  overflow: auto;
+  pointer-events: auto;
+}
+ */
+
+
+.task-modal {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  width: 620px;
+  padding: 26px;
+  max-height: 100%;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px 0;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+
+  &__btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 5px;
+    border-radius: 45%;
+    transition: all 0.7s;
+  }
+
+  &__btn:hover {
+    border-radius: 50%;
+    background-color: $shadow;
+    color: $red;
+  }
+}
+
+.task-item {
+  position: relative;
+  width: 100%;
+  padding-bottom: 25px;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  &__title {
+    display: block;
+    line-height: 30px;
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    color:rgb(80, 80, 80);
+  }
+
+  &__text {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &__content {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  &__btn {
+    border-radius: 45%;
+    transition: all 0.7s;
+    padding: 4px;
+    background-color: $border;
+  }
+
+  &__btn:hover {
+    border-radius: 50%;
+    background-color: #fff;
+    color: $primarydark;
+    box-shadow: 0 0 0 3px $shadow;
+  }
+
+  &__icon {
+    transform: scale(0.65)
+  }
+
+  &__points-block {
+    margin: 0 0 20px;
+  }
+
+  &__message {
+    margin-top: 15px;
+    letter-spacing: 1.5px;
+    font-size: 13px;
+    font-style: italic;
+  }
+
+  &__users-block {
+    display: flex;
+    align-items: center;
+  }
+
+  &__users-btn {
+    display: flex;
+    align-items: center;
+    gap: 0 8px;
+    margin-left: 15px;
+  }
+
+  &__point-btn {
+    display: flex;
+    align-items: center;
+    gap: 0 6px;
+  }
+}
+
+.task-item:not(:last-child) {
+  border-bottom: 1px solid rgb(218, 218, 218);
+}
+
+::ng-deep .p-multiselect {
+  max-width: 100%;
+}
+
+.input {
+  border: 2px solid $lightbg;
+  color: $darkgrey;
+  background-color: $white;
+  box-shadow: 0 0 0 1px $shadowlight;
+  transition: all 0.5s;
+
+  &:hover {
+    box-shadow: 0 0 0 3px $shadowlight;
+  }
+}
+
+
+/* FORMS */
+.title-form {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 30px;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+
+  &__field {
+    min-width: 80%;
+    margin-left: -5px;
+    margin-top: 4px;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 5px;
+    margin-left: 23px;
+  }
+
+  &__btn {
+    background-color: transparent;
+    border-radius: 45%;
+    transition: all 0.5s;
+  }
+
+  &__btn:hover {
+    background-color: $primarydark;
+    color: $white;
+    border-radius: 50%;
+  }
+
+  &__input {
+    font-size: 16px;
+    letter-spacing: 1.9px;
+    font-weight: bold;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 6px;
+  }
+}
+
+.descr-form {
+  width: 80%;
+  height: 105px;
+  background-color: transparent;
+  margin: 0;
+
+  &__field {
+    max-width: 100%;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  &__input {
+    max-width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 5px;
+    border-radius: 5px;
+  }
+}
+
+.point-form {
+  width: 80%;
+  height: 105px;
+  background-color: transparent;
+  margin: 0;
+
+  &__field {
+    width: 100%;
+  }
+
+  &__btns {
+    display: flex;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  &__input {
+    max-width: 100%;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 5px;
+    border-radius: 5px;
+  }
+}
+
+
+
+/* POINTS */
+
+  /* CHECKBOX */
+
+::ng-deep .mat-checkbox-frame {
+  border-color: #d1d1d1
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: $primarydark !important;
+}
+
+::ng-deep mat-checkbox .mat-checkbox-checkmark-path {
+  stroke: #fff !important;
+}
+
+/* PROGRESS BAR */
+
+.pogress-bar {
+  display: grid;
+  grid-template-columns: 1fr 12fr;
+  margin-bottom: 15px;
+
+  &__num {
+    display: block;
+    font-size: 12px;
+    font-style: italic;
+    color: #555;
+  }
+
+}
+
+::ng-deep .p-progressbar {
+  height: 10px;
+}
+
+::ng-deep .p-progressbar .p-progressbar-value {
+  background: rgb(72, 184, 87);
+}
+
+
+::ng-deep input.mat-input-element {
+  margin: 3px 0 0 0;
+  padding: 0;
+  color: #484a4c;
+  letter-spacing: 1.5px;
+}
+
+mat-form-field {
+  min-width: 100%;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-subscript-wrapper {
+  margin-top: 0;
+  top: 48px;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding: 0;
+}
+
+::ng-deep .mat-form-field-infix {
+  border: none;
+}
+
+.mat-icon {
+  overflow: visible;
+}
+
+
+
+
+.file {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__item {
+    grid-column: 2 span;
+    position: relative;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+    margin-top: 20px;
+  }
+
+  &__upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 0 12px;
+  }
+
+  &__message {
+    color: $grey;
+    font-style: italic;
+  }
+}
+
+
+
+@media (max-width: 640px) {
+  .task-modal {
+    width: 460px;
+  }
+
+  .file {
+    &__item {
+      grid-column: 3 span;
+    }
+  }
+}
+
+
+
+
+@media (max-width: 480px) {
+  .task-modal {
+    width: 295px;
+  }
+
+  mat-form-field {
+    width: 80px;
+  }
+
+  .title-form {
+    height: 30px;
+
+    &__field {
+      margin-top: 4px;
+    }
+
+    &__btns {
+      display: flex;
+      margin-left: 16px;
+    }
+
+    &__input {
+      font-weight: normal;
+      padding: 5px;
+    }
+
+    &__icon {
+      transform: scale(0.7)
+    }
+  }
+  .pogress-bar {
+    grid-template-columns: 1.5fr 8fr;
+  }
+
+  ::ng-deep .p-multiselect {
+    max-width: 240px;
+  }
+
+  .task-item {
+    &__users-block {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    &__users-btn {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 15px;
+    }
+
+    &__point-btn {
+      width: 100%;
+    }
+  }
+
+  .file {
+    &__item {
+      grid-column: 4 span;
+    }
+  }
+}

@@ -1,0 +1,113 @@
+@import "./../../../../assets/scss/variables.scss";
+
+.boards {
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: space-between;
+    gap: 25px;
+  }
+
+  &__item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 240px;
+    min-height: 240px;
+    grid-column: 4 span;
+    background-color: $white;
+    border-radius: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 4px solid $border;
+    box-shadow: 0px 4px 5px 1px $shadow;
+  }
+
+  &__title {
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    color: $primarydark;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+  }
+
+  &__search {
+    width: 100%;
+    margin: 15px 0;
+  }
+}
+
+
+/* EDIT MENU */
+.edit-menu {
+  position: absolute;
+  top: 7%;
+  right: 5%;
+  width: 40px;
+  height: 20px;
+  background: url(../../../../assets/images/icons/dots.svg) no-repeat center center;
+  border-radius: 6px;
+  color: $dark;
+  transition: all 0.7s;
+  z-index: 9;
+
+  &:hover {
+    box-shadow: 0 0 0 4px $shadow;
+    cursor: pointer;
+  }
+
+  &__item {
+    background-color: $white;
+    color: $darkgrey;
+  }
+
+  &__item:hover {
+    background-color: $primarylight;
+    color: $white;
+  }
+}
+
+::ng-deep.mat-select-arrow {
+  display: none;
+}
+
+::ng-deep.mat-select-trigger {
+  height: 100%;
+}
+
+
+/* ----------------MEDIA---------------- */
+
+@media (max-width: 1024px) {
+  .boards {
+    &__item {
+      min-width: 240px;
+      grid-column: 6 span;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .boards {
+    &__item {
+      min-width: 240px;
+      grid-column: 12 span;
+    }
+  }
+
+  .search {
+    &__form {
+      flex-wrap: wrap;
+    }
+
+
+    &__btn {
+      &_search {
+        width: 100%;
+        margin: 20px 0 10px;
+      }
+    }
+  }
+}

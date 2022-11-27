@@ -1,0 +1,372 @@
+@import "./assets/scss/variables.scss";
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	outline: 0;
+	font-size: 100%;
+	vertical-align: baseline;
+	background: transparent;
+}
+* {
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    background-color: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #9356a060;
+    border-radius: 5px;
+    transition: 0.3s;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #9356a0;
+  }
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+a{
+  text-decoration: none;
+}
+button, select {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+input {
+  color: inherit;
+  font-size: inherit;
+  font-family: inherit;
+  outline: none;
+  border:none;
+  background-image:none;
+  background-color:transparent;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+	text-decoration: none;
+}
+del {
+	text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* CONTAINER */
+html, body { height: 100%; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: $lightbg;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+  max-width: 1280px;
+  /*height: 100%*/
+}
+
+/* ALERTS */
+.alert {
+
+  &_green {
+    background-color: $green;
+    color: $white;
+  }
+
+  &_red {
+    background-color: $red;
+    color: $white;
+  }
+
+}
+
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #9356a0;
+}
+
+
+/* BUTTONS */
+.btn {
+  display: flex;
+  align-items: center;
+  position: relative;
+  background: none;
+  letter-spacing: 1.1px;
+	padding: 0;
+  cursor: pointer;
+  border: none;
+  transition: all 0.5s;
+
+  &_primary {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: $primary;
+    color: #fff;
+    box-shadow: 0 0 0 2px $shadow;
+    &:hover {
+      color: $primary;
+      background-color: $white;
+      box-shadow: 0 0 0 3px $shadow;
+    }
+    &[disabled] {
+      background-color: $violetdark;
+      cursor: default;
+    }
+  }
+
+  &_light {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 7px;
+    background-color: $white;
+    padding: 8px 15px;
+    color: #9356a0;
+    box-shadow: 0 0 0 2px #48394815;
+    &:hover {
+      background-color: #d37be740;
+      box-shadow: 0 0 0 3px #48394815;
+    }
+  }
+
+  &_red {
+    font-weight: 600;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: $white;
+    box-shadow: 0 0 0 2px $shadow;
+    background-color: $red;
+
+    &:hover {
+      background-color: $white;
+      color: $red;
+    }
+  }
+}
+
+/* ICONS */
+
+.icon {
+  transform: scale(0.8);
+
+  &_search {
+    margin-right: 5px;
+  }
+
+  &__back {
+    padding-right: 4px;
+    transform: scale(0.8);
+  }
+}
+
+
+
+/* GLOBAL BLOCK STYLES */
+.overflowHidden{
+  overflow: hidden;
+}
+.block {
+  margin: 25px 0;
+  /*height: 100%;*/
+
+  &__header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    padding: 17px 15px;
+    background: $white;
+    border-radius: 10px;
+    border: 4px solid $light;
+    box-shadow: 0px 4px 5px 1px $shadow;
+  }
+
+  &__title {
+    margin: 0 auto;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+    color: $primary;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+
+    &_underline {
+      border-bottom: 2px dashed $primarydark;
+    }
+  }
+
+
+  &__btns {
+    display: flex;
+    gap: 10px;
+  }
+}
+
+/* GLOBAL MESSAGE STYLES */
+.message {
+  padding: 50px 15px;
+  text-align: center;
+  border-radius: 10px;
+  background: $white;
+  border: 4px solid $light;
+  font-style: italic;
+  box-shadow: 0px 4px 5px 1px $shadow;
+
+  &__text {
+    font-size: 18px;
+    letter-spacing: 2.5px;
+    color: $grey;
+
+    &_small {
+      height: 100px;
+      line-height: 100px;
+      font-size: 14px;
+      text-align: center;
+    }
+  }
+}
+
+/* DRAG AND DROP */
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+              0 8px 10px 1px rgba(0, 0, 0, 0.14),
+              0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.columns.cdk-drop-list-dragging .columns__tasks:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
+/* OVERLAY-PANEL */
+.overlay-panel {
+  &__btns {
+    display: flex;
+    justify-content: space-between;
+    max-width: 250px;
+    margin-top: 15px;
+  }
+
+  &__btn {
+    min-width: 185px;
+    padding: 4px 15px;
+    border-radius: 4px;
+    text-align: left;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    min-width: 45%;
+    padding: 5px 15px;
+
+  }
+
+  &__icon {
+    margin-right: 5px;
+    transform: scale(0.8)
+  }
+}
+
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  margin-top: 10px;
+  width: 300px;
+}
+
+::ng-deep input.mat-input-element {
+  margin-top: 7px;
+  color: #484a4c;
+  letter-spacing: 1.5px;
+}
+
+mat-form-field {
+  width: 220px;
+}
+
+
+.spinner {
+  display: block;
+  background-color: rgba(151, 151, 151, 0.2);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+}
+
+
+
+/* MEDIA */
+@media (max-width: 480px) {
+  * {
+    &::-webkit-scrollbar {
+      width: 5px;
+    }
+  }
+
+  .container {
+    margin: 0 auto;
+    padding: 0 8px;
+    max-width: 1280px;
+    height: 100%
+
+  }
+}
+
+
+
+
+
+

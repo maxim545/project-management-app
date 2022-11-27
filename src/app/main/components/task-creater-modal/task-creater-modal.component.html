@@ -1,0 +1,62 @@
+<div class="form">
+  <div class="form__container">
+    <h1 class="form__title">{{"Bord.taskTitle" | translate }}</h1>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form__create-task">
+      <div class="form__item">
+        <input type="text" formControlName="title" class="" [ngClass]="{
+            'is-invalid':
+              (f['title'].dirty || f['title'].touched) && f['title'].errors,
+            'label-active': f['title'].value,
+            'red-border':
+              (f['title'].dirty || f['title'].touched) && f['title'].errors
+          }" />
+        <label>{{ "Bord.title" | translate }} <span>*</span></label>
+        <div *ngIf="(f['title'].dirty || f['title'].touched) && f['title'].errors" class="invalid-feedback">
+          <span *ngIf="f['title'].errors['required']" class="red-message">{{
+            "Bord.titleReq" | translate
+            }}</span>
+          <span *ngIf="f['title'].errors['minlength']" class="red-message">{{
+            "Bord.titleLength" | translate
+            }}</span>
+          <span *ngIf="f['title'].errors['maxlength']" class="red-message">{{
+            "Bord.titleLengthMax" | translate
+            }}</span>
+        </div>
+      </div>
+
+      <div class="form__item">
+        <input type="text" formControlName="description" class="" [ngClass]="{
+            'is-invalid':
+              (f['description'].dirty || f['description'].touched) &&
+              f['description'].errors,
+            'label-active': f['description'].value,
+            'red-border':
+              (f['description'].dirty || f['description'].touched) &&
+              f['description'].errors
+          }" />
+        <label>{{ "Bord.description" | translate }} <span>*</span></label>
+        <div *ngIf="
+            (f['description'].dirty || f['description'].touched) &&
+            f['description'].errors
+          " class="invalid-feedback">
+          <span *ngIf="f['description'].errors['required']" class="red-message">
+            {{ "Bord.descriptionReq" | translate }}
+          </span>
+          <span *ngIf="f['description'].errors['minlength']" class="red-message">{{ "Bord.descriptionLength" | translate
+            }}</span>
+          <span *ngIf="f['description'].errors['maxlength']" class="red-message">{{ "Bord.descriptionLengthMax" |
+            translate }}</span>
+        </div>
+      </div>
+
+      <div class="form__buttons">
+        <button class="btn btn_primary" [disabled]="!taskForm.valid">
+          {{ "Bord.Create" | translate }}
+        </button>
+        <button class="btn btn_red" type="button" (click)="closeDiadlog()">
+          {{ "Bord.Cancel" | translate }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

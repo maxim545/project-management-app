@@ -1,0 +1,690 @@
+@import "./../../../../assets/scss/variables.scss";
+
+.welcome {
+  &__wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    padding: 40px 20px;
+    font-size: 1rem;
+    color: $darkviolet2;
+  }
+
+  &__menu {
+    width: 100%;
+
+    .menu {
+      &__nav {
+        width: 100%;
+
+        &-list {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 20px;
+          width: 420px;
+          margin: 0 auto;
+
+          .active {
+            border-bottom: 2px solid $primarydark;
+          }
+        }
+
+        &-item {
+          width: 140px;
+          text-align: center;
+          line-height: 1.5rem;
+          border: 2px solid transparent;
+          cursor: pointer;
+          transition: 0.3s ease-in-out;
+
+          &:hover {
+            border-bottom: 2px solid #9356a030;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wrapper__carusel {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carusel {
+  display: flex;
+  width: 300%;
+  padding: 20px 0;
+  position: relative;
+  left: 0;
+  transition: 0.5s;
+}
+
+.info {
+  &__app {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 0 70px;
+    margin-top: 30px;
+
+    &-wrapper {
+      width: 60%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 30px;
+    }
+
+    &-title {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      color: $violetdark2;
+
+      span {
+        font-weight: 300;
+      }
+    }
+
+    &-description {
+      width: 70%;
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+    }
+
+    &-button {
+      width: auto;
+      padding: 8px 20px;
+      font-size: 1.1rem;
+      background-color: $yellow;
+      color: $white;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $yellowlight;
+        text-shadow: 1px 1px 3px $yellow;
+      }
+    }
+
+    &-logo {
+      width: 40%;
+
+      img {
+        width: 100%;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__rsschool {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 30px;
+    padding: 0 70px;
+
+    &-title {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      color: $violetdark2;
+    }
+
+    &-description {
+      width: 90%;
+      font-size: 1.1rem;
+      line-height: 1.6rem;
+      text-align: center;
+    }
+
+    &-principles {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+
+      .principles {
+        &__title {
+          font-size: 1.8rem;
+          line-height: 2.3rem;
+        }
+
+        &__list {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 20px;
+        }
+
+        &__item {
+          width: calc(50% - 10px);
+          height: 200px;
+          padding: 20px;
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          box-shadow: 0 0 10px $darkviolet2;
+          border-radius: 10px;
+
+          &-logo {
+            height: 30px;
+          }
+
+          &-description-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+          }
+
+          &-title {
+            font-size: 1.2rem;
+            line-height: 1.6rem;
+          }
+
+          &-description {
+            line-height: 1.3rem;
+          }
+        }
+      }
+    }
+
+    &-link {
+      width: auto;
+      padding: 10px 20px;
+      font-size: 1.1rem;
+      background-color: $yellow;
+      color: $white;
+      border-radius: 8px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: $yellowlight;
+        text-shadow: 1px 1px 3px $yellow;
+      }
+    }
+  }
+
+  &__team {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 50px;
+    padding: 0 70px;
+
+    &-title {
+      font-size: 2.5rem;
+      line-height: 3rem;
+      color: $violetdark2;
+    }
+
+    &-list {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    &-item {
+      width: calc(30% - 15px);
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 15px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px $violetdark2;
+
+      div {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+      }
+    }
+
+    &-photo {
+      width: 150px;
+      border-radius: 50%;
+    }
+
+    &-name {
+      font-size: 1.2rem;
+      line-height: 1.6rem;
+    }
+
+    &-about {
+      height: 150px;
+      overflow: auto;
+      line-height: 1.3rem;
+      text-align: center;
+
+      &::-webkit-scrollbar {
+        width: 3px;
+      }
+    }
+  }
+}
+
+@media (max-width: 1115px) {
+  .info {
+    &__app {
+      &-title {
+        font-size: 2rem;
+        line-height: 2.5rem;
+      }
+
+      &-description {
+        width: 85%;
+      }
+    }
+
+    &__rsschool {
+      &-title {
+        font-size: 2rem;
+        line-height: 2.5rem;
+      }
+
+      &-principles {
+        .principles {
+          &__title {
+            font-size: 1.6rem;
+            line-height: 2.1rem;
+          }
+
+          &__item {
+            &-logo {
+              height: 25px;
+            }
+
+            &-title {
+              font-size: 1.1rem;
+              line-height: 1.4rem;
+            }
+
+            &-description {
+              line-height: 1.1rem;
+            }
+          }
+        }
+      }
+    }
+
+    &__team {
+      &-title {
+        font-size: 2rem;
+        line-height: 2.5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 990px) {
+  .info {
+    &__app {
+      flex-direction: column-reverse;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 40px;
+      margin-top: 0;
+
+      &-wrapper {
+        width: 100%;
+        align-items: center;
+        gap: 20px;
+      }
+
+      &-title {
+        width: 100%;
+        text-align: center;
+      }
+
+      &-description {
+        text-align: center;
+      }
+
+      &-logo {
+        width: 50%;
+      }
+    }
+
+    &__rsschool {
+      &-description {
+        font-size: 1rem;
+        line-height: 1.4rem;
+      }
+
+      &-principles {
+        .principles {
+          &__list {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+          }
+
+          &__item {
+            width: 100%;
+            height: auto;
+          }
+        }
+      }
+    }
+
+    &__team {
+      gap: 35px;
+
+      &-list {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+      }
+
+      &-item {
+        width: 100%;
+        height: 200px;
+        padding: 25px;
+        flex-direction: row;
+        align-items: center;
+
+        div {
+          width: 100%;
+          align-items: flex-start;
+        }
+      }
+
+      &-photo {
+        height: 100%;
+        width: auto;
+      }
+
+      &-about {
+        height: 110px;
+        text-align: left;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome {
+    &__wrapper {
+      padding: 40px 0;
+    }
+  }
+
+  .info {
+    &__app {
+      padding: 0 30px;
+
+      &-logo {
+        width: 55%;
+      }
+    }
+
+    &__rsschool {
+      padding: 0 30px;
+    }
+
+    &__team {
+      padding: 0 30px;
+    }
+  }
+}
+
+@media (max-width: 580px) {
+  .info {
+    &__app {
+      &-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
+      &-description {
+        width: 100%;
+        font-size: 1rem;
+        line-height: 1.4rem;
+      }
+
+      &-logo {
+        width: 80%;
+      }
+    }
+
+    &__rsschool {
+      gap: 20px;
+
+      &-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
+      &-description {
+        width: 100%;
+        font-size: 1rem;
+        line-height: 1.4rem;
+      }
+
+      &-principles {
+        .principles {
+          &__title {
+            font-size: 1.3rem;
+            line-height: 1.6rem;
+          }
+
+          &__list {
+            gap: 15px;
+          }
+
+          &__item {
+            &-title {
+              font-size: 1rem;
+              line-height: 1.3rem;
+            }
+
+            &-description {
+              height: 80px;
+              overflow: auto;
+
+              &::-webkit-scrollbar {
+                width: 3px;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    &__team {
+      gap: 30px;
+
+      &-title {
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+
+      &-item {
+        div {
+          gap: 10px;
+        }
+      }
+
+      &-photo {
+        height: 80%;
+      }
+
+      &-name {
+        font-size: 1rem;
+        line-height: 1.3rem;
+      }
+
+      &-about {
+        line-height: 1.1rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .welcome {
+    &__wrapper {
+      gap: 15px;
+    }
+  }
+
+  .menu {
+    &__nav {
+      width: 100%;
+      overflow-x: auto;
+      padding-bottom: 10px;
+
+      &::-webkit-scrollbar {
+        height: 3px;
+        background-color: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #9356a030;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: $darkviolet;
+      }
+    }
+  }
+
+  .info {
+    &__app {
+      padding: 0 16px;
+
+      &-logo {
+        width: 90%;
+      }
+
+      &-title {
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+      }
+    }
+
+    &__rsschool {
+      padding: 0 16px;
+
+      &-title {
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+      }
+
+      &-description {
+        text-align: justify;
+      }
+
+      &-principles {
+        .principles {
+          &__title {
+            font-size: 1.1rem;
+            line-height: 1.3rem;
+          }
+        }
+      }
+    }
+
+    &__team {
+      padding: 0 16px;
+
+      &-title {
+        font-size: 1.3rem;
+        line-height: 1.5rem;
+      }
+
+      &-photo {
+        height: 60%;
+      }
+    }
+  }
+}
+
+@media (max-width: 350px) {
+  .welcome {
+    &__wrapper {
+      gap: 10px;
+    }
+  }
+
+  .info {
+    &__app {
+      &-title {
+        font-size: 1.1rem;
+        line-height: 1.4rem;
+      }
+
+      &-description {
+        line-height: 1.2rem;
+      }
+
+      &-button {
+        font-size: 1rem;
+      }
+    }
+
+    &__rsschool {
+      &-description {
+        line-height: 1.2rem;
+      }
+
+      &-principles {
+        .principles {
+          &__title {
+            font-size: 1.1rem;
+            line-height: 1.3rem;
+          }
+
+          &__item {
+            padding: 10px;
+
+            &-description-wrapper {
+              gap: 5px;
+            }
+
+            &-description {
+              font-size: 0.9rem;
+              line-height: 1.3rem;
+            }
+          }
+        }
+      }
+
+      &-link {
+        font-size: 1rem;
+      }
+    }
+
+    &__team {
+      &-item {
+        div {
+          gap: 5px;
+        }
+      }
+
+      &-photo {
+        align-self: flex-start;
+        height: 30%;
+      }
+
+      &-about {
+        font-size: 0.9rem;
+        line-height: 1.05rem;
+      }
+    }
+  }
+}

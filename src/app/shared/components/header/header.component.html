@@ -1,0 +1,53 @@
+<div class="header__spinner" *ngIf="
+  (isLoadingUser$ | async) !== false ||
+  (isLoadingColumns$ | async) !== false ||
+  (isLoadingBoards$ | async) !== false ||
+  (isLoadingTasks$ | async) !== false
+">
+  <mat-progress-bar mode="indeterminate"> </mat-progress-bar>
+</div>
+<div class="curtain" [ngClass]="{ active: isActive }" (click)="isActive = !isActive" (click)="bodyHidden()"></div>
+<header class="header" id="header">
+  <div class="container">
+    <div class="header__wrapper">
+      <a routerLink="/main">
+        <img class="header__logo" src="./assets/icons/logo.svg" alt="app-logo" />
+      </a>
+      <button class="header__burger" (click)="isActive = !isActive" (click)="bodyHidden()">
+        <img src="./assets/icons/user.svg" alt="user-icon" class="header__burger-icon" />
+      </button>
+      <div class="header__custom-menu" [ngClass]="{ active: isActive, none: !isActive }">
+        <div class="header__menu menu" *ngIf="(isLoggedIn$ | async) === false" (click)="isActive = !isActive">
+          <nav class="menu__nav">
+            <a routerLink="/auth/login" class="btn btn_primary" (click)="bodyHidden()">{{
+              "login.title" | translate
+              }}</a>
+            <a routerLink="/auth/signup" class="btn btn_light" (click)="bodyHidden()">{{
+              "SignUp.title" | translate
+              }}</a>
+          </nav>
+        </div>
+        <div class="header__menu menu" *ngIf="user$ | async">
+          <nav class="menu__nav">
+            <button (click)="openBoardCreater()" (click)="bodyHidden()" class="btn btn_primary">
+              {{ "header.createBtn" | translate }}
+            </button>
+            <a (click)="isActive = !isActive" (click)="bodyHidden()" routerLink="/auth/edit-profile"
+              class="btn btn_light">{{ "header.profile" | translate }}</a>
+            <button class="btn btn_light" (click)="logout()" (click)="bodyHidden()">
+              {{ "header.logOut" | translate }}
+            </button>
+          </nav>
+        </div>
+
+        <div class="header__lang">
+          <img src="./assets/icons/translate.svg" alt="translate-logo" class="header__lang-logo" />
+          <select class="header__lang-select" (change)="changeLang()">
+            <option value="EN" [selected]="isChecked">En</option>
+            <option value="RU" [selected]="isChecked">Ru</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

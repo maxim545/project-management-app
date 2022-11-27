@@ -1,0 +1,102 @@
+@import "./../../../../assets/scss/variables.scss";
+
+.footer {
+  background-color: $white;
+  font-size: 1rem;
+  border-top: 4px solid $light;
+  box-shadow: 0px -4px 5px 1px $shadow;
+
+  &__wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 20px;
+    gap: 20px;
+  }
+
+  &__year {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: $font;
+
+    &-copyright {
+      font-size: 1.2rem;
+    }
+  }
+
+  &__author {
+    &-list {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 530px;
+      gap: 10px;
+    }
+
+    &-item {
+      width: 170px;
+      height: 1.05rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    &-link {
+      color: $font;
+      font-size: 1rem;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        color: $primarydark;
+        font-size: 1.05rem;
+      }
+    }
+  }
+
+  &__logo {
+    width: 80px;
+
+    &-link {
+      width: 100%;
+    }
+
+    &-img {
+      width: 100%;
+      object-fit: contain;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        filter: drop-shadow(2px 2px 5px $primarydark);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    &__author {
+      &-list {
+        flex-direction: column;
+        width: 170px;
+      }
+    }
+  }
+}
+
+@media (max-width: 440px) {
+  .footer {
+    &__wrapper {
+      flex-direction: column;
+      align-items: flex-start;
+      position: relative;
+    }
+
+    &__author {
+      &-list {
+        position: absolute;
+        top: 20px;
+        right: 0;
+      }
+    }
+  }
+}

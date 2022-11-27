@@ -1,0 +1,30 @@
+<footer class="footer">
+  <div class="container">
+    <div class="footer__wrapper">
+      <div class="footer__year">
+        <span class="footer__year-copyright">©</span>2022
+      </div>
+      <ul class="footer__author-list">
+        <li *ngFor="let author of team" class="footer__author-item">
+          <a
+            href="{{ author.gitHub }}"
+            target="_blank"
+            class="footer__author-link"
+            >{{ author.name | translate }}</a
+          >
+        </li>
+      </ul>
+      <div class="footer__logo">
+        <a
+          href="https://rs.school/angular/"
+          target="_blank"
+          class="footer__logo-link"
+          ><img
+            src="https://rs.school/images/rs_school_js.svg"
+            alt="Rss"
+            class="footer__logo-img"
+        /></a>
+      </div>
+    </div>
+  </div>
+</footer>

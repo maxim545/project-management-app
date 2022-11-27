@@ -1,0 +1,25 @@
+<div class="boards__search search">
+  <form class="search__form" [formGroup]="searchForm" name="form" (ngSubmit)="searchTasks()">
+    <div class="search__field">
+      <input class="search__input" placeholder="Enter seatch value..." formControlName="title" matInput>
+      <div>
+        <button class="btn btn_primary search__btn search__btn_settings" type="button" (click)="op.toggle($event)">
+          <mat-icon class="icon">settings</mat-icon>
+        </button>
+        <p-overlayPanel #op>
+          <div>
+            <ul>
+              <li *ngFor="let item of searchFields">
+                <input type="checkbox" value="{{item.id}}" [checked]="item.isSelected" (change)="isAllSelected(item)" />
+                {{item.value}}
+              </li>
+            </ul>
+          </div>
+        </p-overlayPanel>
+      </div>
+    </div>
+    <button class="btn btn_primary search__btn search__btn_search" [disabled]="!searchForm.valid" type="submit">
+      <mat-icon class="icon icon_search">search</mat-icon>{{'main.Search' | translate}}
+    </button>
+  </form>
+</div>

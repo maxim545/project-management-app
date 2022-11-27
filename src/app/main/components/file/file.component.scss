@@ -1,0 +1,32 @@
+@import './../../../../assets/scss/variables.scss';
+
+.file {
+  &__img {
+    display: block;
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+
+  &__btns {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__btn {
+    color: $dark;
+    &:hover {
+      color: $violetdark;
+    }
+  }
+
+
+  &__icon {
+    transform: scale(0.7)
+  }
+}

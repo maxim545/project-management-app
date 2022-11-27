@@ -1,0 +1,114 @@
+@import "../../../../assets/scss/variables.scss";
+
+
+::ng-deep .p-multiselect {
+  width: 250px;
+  box-shadow: 0 0 0 2px #48394815;
+  border: none;
+  transition: all 0.3s ease-in-out;
+}
+
+::ng-deep .p-multiselect:not(.p-disabled).p-focus {
+  box-shadow: 0 0 0 2px #48394815;
+  border-color: transparent;
+}
+
+::ng-deep .p-multiselect:hover {
+  box-shadow: 0 0 0 4px #48394825;
+  border: none;
+}
+
+::ng-deep .p-multiselect:not(.p-disabled):hover {
+  box-shadow: 0 0 0 4px #48394825;
+  border-color: transparent;
+}
+
+::ng-deep .p-inputtext {
+  border: none;
+  box-shadow: 0 0 0 2px #48394825;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+}
+
+::ng-deep .p-inputtext:enabled:focus {
+  box-shadow: 0 0 0 3px #48394825;
+}
+
+::ng-deep .p-multiselect.p-multiselect-chip .p-multiselect-token {
+  background-color: #48394810;
+  color: #9356a0;
+  border-radius: 6px;
+}
+
+::ng-deep .p-multiselect-items-wrapper {
+  &::-webkit-scrollbar {
+    width: 3px;
+  }
+}
+
+::ng-deep .p-checkbox:not(.p-checkbox-disabled) .p-checkbox-box:hover {
+  border-color: #9356a0;
+}
+
+::ng-deep .p-checkbox .p-checkbox-box.p-highlight {
+  border-color: #9356a0;
+  background: #9356a0;
+  transition: all 0.3s ease-in-out;
+}
+
+::ng-deep
+  .p-checkbox:not(.p-checkbox-disabled)
+  .p-checkbox-box.p-highlight:hover {
+  border-color: #c371d5;
+  background: #c371d5;
+}
+
+::ng-deep
+  .p-multiselect-panel
+  .p-multiselect-items
+  .p-multiselect-item.p-highlight {
+  color: #9356a0;
+  background: #48394810;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-items .p-multiselect-item:focus {
+  box-shadow: inset 0 0 0 0.15rem #48394825;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:hover {
+  background: #48394815;
+}
+
+::ng-deep .p-multiselect-panel .p-multiselect-header .p-multiselect-close:enabled:active {
+  border: none;
+  box-shadow: none;
+}
+
+@media (max-width: 768px) {
+  .block {
+    &__header {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    &__title {
+      text-align: center;
+      width: 100%;
+      order: 1;
+    }
+
+    &__btns_left {
+      order: 2;
+    }
+
+    &__btns_right {
+      order: 3;
+    }
+
+    &__btns {
+      display: flex;
+      gap: 15px;
+    }
+  }
+}
