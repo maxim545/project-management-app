@@ -12,7 +12,7 @@
 }
 
 .header {
-  background-color: #fff;
+  background-color: $white;
   font-size: 1rem;
   position: sticky;
   top: -15px;
@@ -25,7 +25,7 @@
     padding: 20px 20px;
     position: sticky;
     top: 0px;
-    background-color: #fff;
+    background-color: $white;
   }
 
   &__title {
@@ -87,13 +87,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      color: #0b0205;
+      color: $font;
       border-radius: 8px;
       transition: 0.3s ease-in-out;
 
       &-login,
       &-edit {
-        border: 2px solid #9356a0;
+        border: 2px solid $primarydark;
 
         &:hover {
           border: 2px solid transparent;
@@ -103,16 +103,16 @@
 
       &-signup,
       &-create {
-        background-color: #9356a0;
-        color: #ffffff;
+        background-color: $primarydark;
+        color: $whitefff;
 
         &:hover {
-          background-color: #ba74ca;
+          background-color: $primarylight2;
         }
       }
 
       &-logout {
-        border: 2px solid #ed413e;
+        border: 2px solid $red;
 
         &:hover {
           border: 2px solid transparent;
@@ -148,14 +148,14 @@
       }
 
       option {
-        background-color: #ffffff;
+        background-color: $white;
       }
     }
   }
 }
 
 ::ng-deep .mat-progress-bar-fill::after {
-  background-color: #9356a0;
+  background-color: $primarydark;
 }
 
 ::ng-deep .mat-progress-bar-buffer {
@@ -180,7 +180,7 @@
       width: 320px;
       padding: 10px 30px 25px;
       flex-direction: column;
-      background-color: #fff;
+      background-color: $white;
       box-shadow: -4px 7px 7px #33333398;
       border-radius: 0 0 0 7px;
       transition: all linear 0.3s;
