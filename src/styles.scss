@@ -204,6 +204,9 @@ body {
 
 
 /* GLOBAL BLOCK STYLES */
+.overflowHidden{
+  overflow: hidden;
+}
 .block {
   margin: 25px 0;
   /*height: 100%;*/
@@ -405,6 +408,7 @@ mat-form-field {
     padding: 0 8px;
     max-width: 1280px;
     height: 100%
+
   }
 }
 

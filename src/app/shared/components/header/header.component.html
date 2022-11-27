@@ -2,6 +2,7 @@
   class="curtain"
   [ngClass]="{ active: isActive }"
   (click)="isActive = !isActive"
+  (click)="bodyHidden()"
 ></div>
 <header class="header" id="header">
   <div class="container">
@@ -9,7 +10,7 @@
       <button class="header__title" (click)="openMain()">
         <img src="./assets/icons/logo.svg" alt="app-logo" />
       </button>
-      <button class="header__burger" (click)="isActive = !isActive">
+      <button class="header__burger" (click)="isActive = !isActive" (click)="bodyHidden()">
         <img
           src="./assets/icons/user.svg"
           alt="user-icon"
@@ -24,12 +25,13 @@
           class="header__menu menu"
           *ngIf="(isLoggedIn$ | async) === false"
           (click)="isActive = !isActive"
+
         >
           <nav class="menu__nav">
-            <a routerLink="/auth/login" class="menu__link menu__link-login">{{
+            <a routerLink="/auth/login" class="menu__link menu__link-login" (click)="bodyHidden()">{{
               "login.title" | translate
             }}</a>
-            <a routerLink="/auth/signup" class="menu__link menu__link-signup">{{
+            <a routerLink="/auth/signup" class="menu__link menu__link-signup" (click)="bodyHidden()">{{
               "SignUp.title" | translate
             }}</a>
           </nav>
@@ -38,17 +40,19 @@
           <nav class="menu__nav">
             <button
               (click)="openBoardCreater()"
+              (click)="bodyHidden()"
               class="menu__link menu__link-create"
             >
               {{ "header.createBtn" | translate }}
             </button>
             <a
               (click)="isActive = !isActive"
+              (click)="bodyHidden()"
               routerLink="/auth/edit-profile"
               class="menu__link menu__link-edit"
               >{{ "header.profile" | translate }}</a
             >
-            <button class="menu__link menu__link-logout" (click)="logout()">
+            <button class="menu__link menu__link-logout" (click)="logout()" (click)="bodyHidden()">
               {{ "header.logOut" | translate }}
             </button>
           </nav>
