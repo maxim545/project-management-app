@@ -26,20 +26,18 @@ import { getCurrentUser, getUserStore } from '../../../core/store/selectors/user
   styleUrls: ['./edit-profile.component.scss'],
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
-  public editProfileForm!: FormGroup;
+  editProfileForm!: FormGroup;
 
-  public user: IUser | null = null;
+  user: IUser | null = null;
 
-  public user$: Subscription | null = null;
+  user$: Subscription | null = null;
 
-  public deleteDialog$: Subscription | null = null;
+  deleteDialog$: Subscription | null = null;
 
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private snackBar: MatSnackBar,
-    private apiService: ApiService,
     private dialog: MatDialog,
   ) {
   }
@@ -49,10 +47,12 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       name: ['', [
         Validators.required,
         Validators.minLength(6),
+        Validators.maxLength(18),
       ]],
       login: ['', [
         Validators.required,
         Validators.minLength(6),
+        Validators.maxLength(18),
       ]],
       password: ['', [
         Validators.required,

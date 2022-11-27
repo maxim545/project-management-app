@@ -33,6 +33,7 @@ import { TaskCreaterModalComponent } from './components/task-creater-modal/task-
 import { TaskModalComponent } from './components/task-modal/task-modal.component';
 import { SearchComponent } from './pages/search/search.component';
 import { FileComponent } from './components/file/file.component';
+import { SearchFieldComponent } from './components/search-field/search-field.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { FileComponent } from './components/file/file.component';
     TaskModalComponent,
     SearchComponent,
     FileComponent,
+    SearchFieldComponent,
   ],
   imports: [
     CommonModule,

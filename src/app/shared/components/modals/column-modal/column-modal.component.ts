@@ -1,13 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {
-  FormBuilder, FormGroup, Validators, FormControl,
+  FormBuilder, FormGroup, Validators,
 } from '@angular/forms';
-import { IBoard } from 'src/app/core/models/board.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
-import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IBoardDialog, IColumnDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
+import { IColumnDialog } from 'src/app/core/models/modal.model';
 import { ColumnsService } from '../../../../main/services/columns/columns.service';
 
 @Component({
@@ -16,21 +12,20 @@ import { ColumnsService } from '../../../../main/services/columns/columns.servic
   styleUrls: ['./column-modal.component.scss'],
 })
 export class ColumnModalComponent implements OnInit {
-  public columnForm!: FormGroup;
+  columnForm!: FormGroup;
 
-  public dialogTitle: string = '';
+  dialogTitle: string = '';
 
-  public boardId: string | null = null;
+  boardId: string | null = null;
 
-  public columnsQuantity: number | null = null;
+  columnsQuantity: number | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: IColumnDialog,
     private dialogRef: MatDialogRef<ColumnModalComponent>,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
     private columnsService: ColumnsService,
   ) {
     if (data) {

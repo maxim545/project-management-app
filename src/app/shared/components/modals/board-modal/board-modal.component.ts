@@ -8,7 +8,7 @@ import { snackBarGreenConfig } from 'src/app/core/configs/snackBar.configs';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IBoardDialog, IConfirmDialog } from 'src/app/core/models/modal.model';
-import { parseJwt } from 'src/app/core/configs/tokenParse';
+import { parseJwt } from 'src/app/core/utils/tokenParse';
 
 @Component({
   selector: 'app-board-modal',
@@ -16,21 +16,20 @@ import { parseJwt } from 'src/app/core/configs/tokenParse';
   styleUrls: ['./board-modal.component.scss'],
 })
 export class BoardModalComponent implements OnInit {
-  public boardForm!: FormGroup;
+  boardForm!: FormGroup;
 
-  public userId = parseJwt(localStorage.getItem('uniq_token') as string);
+  userId = parseJwt(localStorage.getItem('uniq_token') as string);
 
-  public dialogTitle: string = 'Bord.form__title';
+  dialogTitle: string = 'Bord.form__title';
 
-  public board: IBoard | null = null;
+  board: IBoard | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: IBoardDialog,
     private dialogRef: MatDialogRef<BoardModalComponent>,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private formBuilder: FormBuilder,
-    private snackBar: MatSnackBar,
     private boardService: BoardsService,
   ) {
     if (data) {
@@ -57,7 +56,6 @@ export class BoardModalComponent implements OnInit {
 
   onSubmit() {
     if (!this.board?._id) {
-      console.log(42);
       this.boardService.addBoard({
         ...this.boardForm.value,
         owner: this.userId,

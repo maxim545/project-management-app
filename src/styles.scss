@@ -145,7 +145,7 @@ body {
     background-color: $primary;
     color: #fff;
     box-shadow: 0 0 0 2px $shadow;
-    &:hover:enabled {
+    &:hover {
       color: $primary;
       background-color: $white;
       box-shadow: 0 0 0 3px $shadow;
@@ -319,51 +319,6 @@ body {
 }
 
 
-// EDIT-FORM
-/* .edit-form {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 30px;
-  background-color: transparent;
-  padding: 0;
-  margin: 0;
-
-  &__field {
-    width: 300px;
-  }
-
-  &__btns {
-    display: flex;
-    gap: 10px;
-  }
-
-  &__icon {
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 6px;
-    background-color: #c371d5;
-    color: #fff;
-    box-shadow: 0 0 0 3px #48394815;
-    transform: scale(0.8);
-    transition: all 0.5s ease-in-out;
-  }
-
-  &__icon:hover {
-    background-color: #fff;
-    box-shadow: 0 0 0 4px #48394815;
-   }
-
-  &__icon_check:hover {
-    color: #B2AB2E;
-  }
-
-  &__icon_close:hover {
-    color: #ED413E;
-  }
-} */
-
 ::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
   margin-top: 10px;
   width: 300px;
@@ -394,8 +349,6 @@ mat-form-field {
 
 
 /* MEDIA */
-
-
 @media (max-width: 480px) {
   * {
     &::-webkit-scrollbar {

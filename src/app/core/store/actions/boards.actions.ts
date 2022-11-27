@@ -49,15 +49,5 @@ export const boardFailed = createAction(
 );
 
 export const clearBoards = createAction(
-  '[Columns] Boards Clear',
+  '[Board] Boards Data Clear',
 );
-
-/* export const getCurrentBoard = createAction(
-  '[Board] Get Current Board',
-  props<{ id: string }>(),
-);
-
-export const getCurrentBoardSuccess = createAction(
-  '[Board] Get Current Board Success',
-  props<{ board: IBoard }>(),
-); */

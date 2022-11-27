@@ -1,29 +1,19 @@
 import {
-  Component, Input, OnInit, ViewEncapsulation,
+  Component, Input, OnDestroy, OnInit, ViewEncapsulation,
 } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import {
   IBoard, IColumn, IFile, IPoint, ITask,
 } from 'src/app/core/models/board.model';
-import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmModalComponent } from 'src/app/shared/components/modals/confirm-modal/confirm-modal.component';
 import { deleteTaskDialogConfig } from 'src/app/core/configs/matDialog.configs';
-import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
-import { MenuItem } from 'primeng/api';
 import { PointState } from 'src/app/core/store/reducers/points.reducers';
 import { getAllPoints } from 'src/app/core/store/selectors/points.selectors';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
-
-import { selectEntity } from 'src/app/core/store/selectors/boards.selectors';
-import { Overlay } from '@angular/cdk/overlay';
 import { FileState } from 'src/app/core/store/reducers/files.reducers';
 import { getAllFiles } from 'src/app/core/store/selectors/files.selectors';
 import { TasksService } from '../../services/tasks/tasks.service';
-import { PointsService } from '../../services/points/points.service';
-import { PointComponent } from '../point/point.component';
 import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 @Component({
@@ -31,27 +21,24 @@ import { TaskModalComponent } from '../task-modal/task-modal.component';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
 })
-export class TasksComponent implements OnInit {
-  @Input() public task!: ITask;
+export class TasksComponent implements OnInit, OnDestroy {
+  @Input() task!: ITask;
 
-  public points$: Observable<IPoint[]>;
+  points$: Observable<IPoint[]>;
 
-  public files$: Observable<IFile[]>;
+  files$: Observable<IFile[]>;
 
-  public donePoints$: Observable<IPoint[]>;
+  donePoints$: Observable<IPoint[]>;
 
-  public panelOpenState = true;
+  panelOpenState = true;
+
+  dialog$: Subscription | null = null;
 
   constructor(
-    private store: Store,
-    private router: ActivatedRoute,
     private dialog: MatDialog,
-    private overlay: Overlay,
     private tasksService: TasksService,
     private pointStore: Store<PointState>,
     private fileStore: Store<FileState>,
-    private pointsService: PointsService,
-    private boardStore: Store<BoardState>,
   ) {
     this.points$ = this.pointStore.pipe(
       select(getAllPoints),
@@ -70,8 +57,15 @@ export class TasksComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    if (this.dialog$) {
+      this.dialog$.unsubscribe();
+    }
+  }
+
   deleteTask(task: ITask) {
-    this.dialog.open(ConfirmModalComponent, deleteTaskDialogConfig)
+    this.dialog$ = this.dialog
+      .open(ConfirmModalComponent, deleteTaskDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed) {
@@ -89,8 +83,6 @@ export class TasksComponent implements OnInit {
         files$: this.files$,
       },
       maxHeight: '100vh',
-      disableClose: false,
-      hasBackdrop: true,
       panelClass: 'task-dialog',
     });
   }

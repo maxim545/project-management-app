@@ -1,12 +1,12 @@
 import {
   CdkDragDrop, moveItemInArray, transferArrayItem, DragDropModule,
 } from '@angular/cdk/drag-drop';
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {
+  Component, Input, OnDestroy, OnInit,
+} from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { IBoard, IColumn, ITask } from 'src/app/core/models/board.model';
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { TaskState } from 'src/app/core/store/reducers/tasks.reducers';
 import { getAllTasks } from 'src/app/core/store/selectors/tasks.selectors';
 import {
@@ -24,26 +24,26 @@ import { TasksService } from '../../services/tasks/tasks.service';
   templateUrl: './column.component.html',
   styleUrls: ['./column.component.scss'],
 })
-export class ColumnComponent implements OnInit {
-  @Input() public column!: IColumn;
+export class ColumnComponent implements OnInit, OnDestroy {
+  @Input() column!: IColumn;
 
-  @Input() public boardId: string = '';
+  @Input() boardId: string = '';
 
-  @Input() public board: IBoard | null = null;
+  @Input() board: IBoard | null = null;
 
-  public tasks$: Observable<ITask[]>;
+  tasks$: Observable<ITask[]>;
 
-  public isEditMode: boolean = false;
+  isEditMode: boolean = false;
 
-  public editTitleForm!: FormGroup;
+  editTitleForm!: FormGroup;
+
+  dialog$: Subscription | null = null;
 
   constructor(
-    private apiService: ApiService,
-    private router: ActivatedRoute,
     private taskStore: Store<TaskState>,
     private tasksService: TasksService,
     private columnsService: ColumnsService,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
 
   ) {
     this.tasks$ = this.taskStore.pipe(
@@ -65,6 +65,12 @@ export class ColumnComponent implements OnInit {
       this.tasksService.editSetTasks(column, tasksForUpdate);
       localStorage.removeItem('iniq_tasks');
     } */
+  }
+
+  ngOnDestroy() {
+    if (this.dialog$) {
+      this.dialog$.unsubscribe();
+    }
   }
 
   dropTask(event: CdkDragDrop<ITask[]>, column: IColumn) {
@@ -120,7 +126,8 @@ export class ColumnComponent implements OnInit {
   }
 
   deleteColumn(column: IColumn) {
-    this.dialog.open(ConfirmModalComponent, deleteColumnDialogConfig)
+    this.dialog$ = this.dialog
+      .open(ConfirmModalComponent, deleteColumnDialogConfig)
       .afterClosed()
       .subscribe((isConfirmed: boolean) => {
         if (isConfirmed && this.boardId) {

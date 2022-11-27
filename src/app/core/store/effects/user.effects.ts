@@ -5,7 +5,7 @@ import {
   catchError, map, of, switchMap, tap, from, EMPTY, debounceTime, finalize,
 } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth/auth.service';
-import { parseJwt } from '../../configs/tokenParse';
+import { parseJwt } from '../../utils/tokenParse';
 import { IUser, IUserToken } from '../../models/user.model';
 import { ApiService } from '../../services/api/api.service';
 import {

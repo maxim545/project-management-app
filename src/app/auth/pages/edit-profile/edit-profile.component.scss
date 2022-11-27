@@ -98,13 +98,13 @@
       border-bottom: 2px solid $violetdark2;
       z-index: 1;
 
-      &:focus ~ label {
+      &:focus~label {
         top: 0;
         font-size: 0.8rem;
         opacity: 0.8;
       }
 
-      &.label-active ~ label {
+      &.label-active~label {
         top: 0;
         font-size: 0.8rem;
         opacity: 0.8;
@@ -114,7 +114,7 @@
         border-bottom: 2px solid $red;
       }
 
-      &:-internal-autofill-selected ~ label {
+      &:-internal-autofill-selected~label {
         z-index: 2;
         top: 0;
         font-size: 0.8rem;
@@ -152,9 +152,9 @@
       gap: 30px;
     }
 
-    .btn-submit {
+    .btn_primary {
+      display: inline-block;
       width: 100%;
-      padding: 10px;
     }
 
     .btn-delete {

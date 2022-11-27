@@ -30,11 +30,10 @@ export class AuthService {
   isLoadingUser$: Observable<boolean>;
 
   constructor(
-    private apiService: ApiService,
     private snackBar: MatSnackBar,
     private router: Router,
     private store: Store,
-    public langService: LangService,
+    private langService: LangService,
   ) {
     this.isLoggedIn$ = this.store
       .select(getUserStore)

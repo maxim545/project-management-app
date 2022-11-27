@@ -7,7 +7,6 @@ import { IBoardRequest } from 'src/app/core/models/board.model';
 import {
   addBoard, deleteBoard, editBoard,
 } from 'src/app/core/store/actions/boards.actions';
-import { boardStateSelector } from 'src/app/core/store/reducers/boards.reducer';
 import { getBoardLoadingStatus } from 'src/app/core/store/selectors/boards.selectors';
 import { IUser } from '../../../core/models/user.model';
 
@@ -15,7 +14,7 @@ import { IUser } from '../../../core/models/user.model';
   providedIn: 'root',
 })
 export class BoardsService {
-  isLoadingBoards$: Observable<boolean>;
+  isLoadingBoards$: Observable<boolean> = this.store.pipe(select(getBoardLoadingStatus));
 
   users$ = new BehaviorSubject<IUser[]>([]);
 
@@ -24,7 +23,6 @@ export class BoardsService {
   constructor(
     private store: Store,
   ) {
-    this.isLoadingBoards$ = this.store.pipe(select(getBoardLoadingStatus));
   }
 
   setSelectedUsers(data: IUser[] | null) {

@@ -1,8 +1,10 @@
 @import "./../../../../assets/scss/variables.scss";
 
 .footer {
-  background-color: $lightbg;
+  background-color: $white;
   font-size: 1rem;
+  border-top: 4px solid $light;
+  box-shadow: 0px -4px 5px 1px $shadow;
 
   &__wrapper {
     display: flex;

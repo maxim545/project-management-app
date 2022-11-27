@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BoardModalComponent } from './board-modal.component';
+import { SearchFieldComponent } from './search-field.component';
 
-describe('BoardModalComponent', () => {
-  let component: BoardModalComponent;
-  let fixture: ComponentFixture<BoardModalComponent>;
+describe('SearchFieldComponent', () => {
+  let component: SearchFieldComponent;
+  let fixture: ComponentFixture<SearchFieldComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [BoardModalComponent],
+      declarations: [SearchFieldComponent],
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(BoardModalComponent);
+    fixture = TestBed.createComponent(SearchFieldComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

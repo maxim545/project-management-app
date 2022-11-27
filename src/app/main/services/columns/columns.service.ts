@@ -19,9 +19,7 @@ export class ColumnsService {
   isLoadingColums$: Observable<boolean>;
 
   constructor(
-    private apiService: ApiService,
     private store: Store,
-    private columnStore: Store<ColumnState>,
   ) {
     this.isLoadingColums$ = this.store.pipe(select(getColumnLoadingStatus));
   }

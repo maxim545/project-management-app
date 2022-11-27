@@ -12,13 +12,8 @@ import {
 } from '@angular/forms';
 import { IUser } from 'src/app/core/models/user.model';
 import { select, Store } from '@ngrx/store';
-import { getUsers } from 'src/app/core/store/selectors/user.selectors';
-import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
-import { ApiService } from 'src/app/core/services/api/api.service';
 import { TaskState, taskStateSelector } from 'src/app/core/store/reducers/tasks.reducers';
 import { selectEntity } from 'src/app/core/store/selectors/tasks.selectors';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { snackBarRedConfig } from 'src/app/core/configs/snackBar.configs';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { BoardsService } from '../../services/boards/boards.service';
@@ -30,53 +25,52 @@ import { FilesService } from '../../services/files/files.service';
   styleUrls: ['./task-modal.component.scss'],
 })
 export class TaskModalComponent implements OnInit {
-  public points$!: Observable<IPoint[]>;
+  points$!: Observable<IPoint[]>;
 
-  public donePoints$!: Observable<IPoint[]>;
+  donePoints$!: Observable<IPoint[]>;
 
-  public files$!: Observable<IFile[]>;
+  files$!: Observable<IFile[]>;
 
-  public isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
+  isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
 
-  public isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
+  isLoadingPoint$: Observable<boolean> = this.pointsService.isLoadingPoint$;
 
-  public task!: ITask;
+  isLoadingFile$: Observable<boolean> = this.filesService.isLoadingFile$;
 
-  public task$: Observable<ITask | undefined>;
+  task!: ITask;
 
-  public isEditTitleMode: boolean = false;
+  task$: Observable<ITask | undefined>;
 
-  public isEditDescrMode: boolean = false;
+  isEditTitleMode: boolean = false;
 
-  public isCreateMode: boolean = false;
+  isEditDescrMode: boolean = false;
 
-  public editTitleForm!: FormGroup;
+  isCreateMode: boolean = false;
 
-  public editDescrForm!: FormGroup;
+  editTitleForm!: FormGroup;
 
-  public createPointForm!: FormGroup;
+  editDescrForm!: FormGroup;
 
-  public selectedUsers$: Observable<IUser[]> = this.boardsService.selectedUsers$;
+  createPointForm!: FormGroup;
 
-  public selectedTaskUsers!: IUser[];
+  selectedUsers$: Observable<IUser[]> = this.boardsService.selectedUsers$;
 
-  public users!: IUser[];
+  selectedTaskUsers!: IUser[];
 
-  public fileName: string | null = null;
+  users!: IUser[];
+
+  fileName: string | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
     private data: ITaskDialogData,
     private dialogRef: MatDialogRef<TaskModalComponent>,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private boardsService: BoardsService,
     private taskService: TasksService,
     private pointsService: PointsService,
     private filesService: FilesService,
-    private store: Store,
-    private apiService: ApiService,
     private taskStore: Store<TaskState>,
-    private snackBar: MatSnackBar,
   ) {
     if (data) {
       this.task = this.data.task;

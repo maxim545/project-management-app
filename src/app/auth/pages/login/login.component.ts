@@ -3,14 +3,11 @@ import { AuthService } from 'src/app/auth/services/auth/auth.service';
 import {
   FormBuilder, FormGroup, Validators, FormControl,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 import {
-  Observable, BehaviorSubject, map, Subject, filter,
+  Observable,
 } from 'rxjs';
 import { loginUser } from 'src/app/core/store/actions/user.actions';
 import { Store } from '@ngrx/store';
-import { getUserStore } from 'src/app/core/store/selectors/user.selectors';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-login',
@@ -18,12 +15,12 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  public loginForm!: FormGroup;
+  loginForm!: FormGroup;
 
   isLoadingUser$: Observable<boolean> = this.authService.isLoadingUser$;
 
   constructor(
-    public authService: AuthService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private store: Store,
   ) {
