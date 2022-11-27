@@ -3,10 +3,14 @@
 .curtain {
   display: none;
   position: absolute;
+  width: 100vw;
+  height: 100vh;
+  /*
   top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+  */
   background-color: #00000090;
   z-index: 999;
 }
@@ -14,8 +18,8 @@
 .header {
   background-color: #fff;
   font-size: 1rem;
-  position: sticky;
-  top: -15px;
+  position: relative;
+  //top: -15px;
   z-index: 1000;
 
   &__wrapper {
@@ -23,8 +27,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 20px 20px;
-    position: sticky;
-    top: 0px;
+    //position: sticky;
+    //top: 0px;
     background-color: #fff;
   }
 

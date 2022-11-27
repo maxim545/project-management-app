@@ -15,9 +15,9 @@ import { parseJwt } from 'src/app/core/configs/tokenParse';
 import { TasksService } from 'src/app/main/services/tasks/tasks.service';
 import { loadTasks } from 'src/app/core/store/actions/tasks.actions';
 import { loadFiles } from 'src/app/core/store/actions/files.actions';
-import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 import { Router } from '@angular/router';
 import { BoardsService } from 'src/app/main/services/boards/boards.service';
+import { BoardModalComponent } from '../modals/board-modal/board-modal.component';
 
 @Component({
   selector: 'app-header',
@@ -35,8 +35,7 @@ export class HeaderComponent implements OnInit {
 
   isLoadingTasks$: Observable<boolean> = this.taskService.isLoadingTasks$;
 
-  isChecked: boolean =
-    localStorage.getItem('uniq_lang') === 'ru' ? true : false;
+  isChecked: boolean = localStorage.getItem('uniq_lang') === 'ru' ? true : false;
 
   isActive: boolean = false;
 
@@ -53,13 +52,13 @@ export class HeaderComponent implements OnInit {
     public dialog: MatDialog,
     public translate: TranslateService,
     public langService: LangService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
     if (localStorage.getItem('uniq_token')) {
       this.store.dispatch(
-        loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) })
+        loadUsers({ id: parseJwt(localStorage.getItem('uniq_token')) }),
       );
     }
     this.isLoggedIn$ = this.isLoggedIn$.pipe(
@@ -71,7 +70,7 @@ export class HeaderComponent implements OnInit {
           this.store.dispatch(loadFiles({ userId }));
         }
         return isLoggedIn;
-      })
+      }),
     );
   }
 
@@ -94,5 +93,10 @@ export class HeaderComponent implements OnInit {
     if (!this.isActive || window.innerWidth > 768) {
       this.router.navigate(['/main']);
     }
+  }
+
+  bodyHidden() {
+    const body = <HTMLElement>document.querySelector('body');
+    body.classList.toggle('overflowHidden');
   }
 }
