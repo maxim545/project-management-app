@@ -119,8 +119,16 @@
   }
 
   &__users-btn {
-    padding: 11px 15px;
+    display: flex;
+    align-items: center;
+    gap: 0 8px;
     margin-left: 15px;
+  }
+
+  &__point-btn {
+    display: flex;
+    align-items: center;
+    gap: 0 6px;
   }
 }
 
@@ -318,12 +326,55 @@ mat-form-field {
 
 
 
+
+.file {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  &__item {
+    grid-column: 2 span;
+    position: relative;
+  }
+
+  &__input {
+    display: none;
+  }
+
+  &__field {
+    display: flex;
+    align-items: center;
+    gap: 0 15px;
+    margin-top: 20px;
+  }
+
+  &__upload-btn {
+    display: flex;
+    align-items: center;
+    gap: 0 12px;
+  }
+
+  &__message {
+    color: $grey;
+    font-style: italic;
+  }
+}
+
+
+
 @media (max-width: 640px) {
   .task-modal {
     width: 460px;
   }
 
-
+  .file {
+    &__item {
+      grid-column: 3 span;
+    }
+  }
 }
 
 
@@ -375,16 +426,19 @@ mat-form-field {
     }
 
     &__users-btn {
-      display: inline-block;
       width: 100%;
       margin-left: 0;
       margin-top: 15px;
     }
 
     &__point-btn {
-      display: inline-block;
       width: 100%;
     }
   }
 
+  .file {
+    &__item {
+      grid-column: 4 span;
+    }
+  }
 }

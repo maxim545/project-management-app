@@ -4,7 +4,7 @@ import {
 import { select, Store } from '@ngrx/store';
 import { map, Observable } from 'rxjs';
 import {
-  IBoard, IColumn, IPoint, ITask,
+  IBoard, IColumn, IFile, IPoint, ITask,
 } from 'src/app/core/models/board.model';
 import { ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
@@ -19,6 +19,8 @@ import { BoardState } from 'src/app/core/store/reducers/boards.reducer';
 
 import { selectEntity } from 'src/app/core/store/selectors/boards.selectors';
 import { Overlay } from '@angular/cdk/overlay';
+import { FileState } from 'src/app/core/store/reducers/files.reducers';
+import { getAllFiles } from 'src/app/core/store/selectors/files.selectors';
 import { TasksService } from '../../services/tasks/tasks.service';
 import { PointsService } from '../../services/points/points.service';
 import { PointComponent } from '../point/point.component';
@@ -34,6 +36,8 @@ export class TasksComponent implements OnInit {
 
   public points$: Observable<IPoint[]>;
 
+  public files$: Observable<IFile[]>;
+
   public donePoints$: Observable<IPoint[]>;
 
   public panelOpenState = true;
@@ -45,6 +49,7 @@ export class TasksComponent implements OnInit {
     private overlay: Overlay,
     private tasksService: TasksService,
     private pointStore: Store<PointState>,
+    private fileStore: Store<FileState>,
     private pointsService: PointsService,
     private boardStore: Store<BoardState>,
   ) {
@@ -55,6 +60,10 @@ export class TasksComponent implements OnInit {
     this.donePoints$ = this.pointStore.pipe(
       select(getAllPoints),
       map((points) => points.filter((point) => point.taskId === this.task._id && point.done === true)),
+    );
+    this.files$ = this.fileStore.pipe(
+      select(getAllFiles),
+      map((files) => files.filter((file) => file.taskId === this.task._id)),
     );
   }
 
@@ -77,6 +86,7 @@ export class TasksComponent implements OnInit {
         task: this.task,
         points$: this.points$,
         donePoints$: this.donePoints$,
+        files$: this.files$,
       },
       maxHeight: '100vh',
       disableClose: false,

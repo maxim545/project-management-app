@@ -1,0 +1,9 @@
+<img class="file__img" src="https://backend-pma-production.up.railway.app/{{file.path}}" alt="">
+<div class="file__btns">
+  <a class="btn file__btn" target="_blank" href="https://backend-pma-production.up.railway.app/{{file.path}}">
+    <mat-icon class="file__icon">cloud_download</mat-icon>
+  </a>
+  <button class="btn file__btn" (click)="deleteFile(file)">
+    <mat-icon class="file__icon">delete</mat-icon>
+  </button>
+</div>
